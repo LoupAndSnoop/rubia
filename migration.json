@@ -1,0 +1,16 @@
+{
+    "technology":
+    [
+      ["blue-rocket-production","blue-rocket"]
+    ],
+    "recipe":
+    [
+      ["platinum-thruster-production", "platinum-thruster"],
+      ["platinum-plate-production", "platinum-plate"],
+      ["hydrogen-sulfide-production", "hydrogen-sulfide"],
+      ["sulfonated-plastic-production", "sulfonated-plastic"],
+      ["calcium-sulfate-production", "calcium-sulfate"]
+    ]
+
+    
+}

@@ -1,0 +1,27 @@
+_G.rubia = require("__rubia__.lib.constants") -- Global var to query for global constants
+require("__rubia__.lib.lib")
+
+require("__rubia__.prototypes.particles")
+require("__rubia__.prototypes.entities")
+require("__rubia__.prototypes.factoriopedia-simulations")
+require("__rubia__.prototypes.fluid")
+require("__rubia__.prototypes.item")
+
+require("__rubia__.prototypes.recipe-category")
+require("__rubia__.prototypes.recipe")
+require("__rubia__.prototypes.remnants")
+require("__rubia__.prototypes.technology")
+
+require("__rubia__.prototypes.entity.resources")
+require("__rubia__.prototypes.entity.wind_turbine")
+require("__rubia__.prototypes.entity.asteroid_spawner")
+require("__rubia__.prototypes.planet.rubia-decoratives")
+require("__rubia__.prototypes.planet.rubia-map-gen")
+require("__rubia__.prototypes.planet.planet")
+require("__rubia__.prototypes.planet.procession-catalogue-rubia")
+require("__rubia__.prototypes.tile.tiles-rubia")
+require("__rubia__.prototypes.autoplace-controls")
+require("__rubia__.prototypes.planet.rubia-expressions")
+require("__rubia__.prototypes.rubia-decoratives")
+require("__rubia__.prototypes.ambient-sounds")
+require("__rubia__.prototypes.achievements")
