@@ -101,8 +101,33 @@ script.on_event(defines.events.script_raised_revive, function(event)
     do_on_built_changes(event)
 end)
 
------------------
+--------------------
+--------------------
+--------------------
+
 --- Asteroid Management
+local max_trashsteroids = 200 --Max # of managed trashsteroids active at once
+local trashsteroid_cooldown_min = 60 --Min cooldown time between trashsteroids in one chunk
+local trashsteroid_cooldown_max = 300 --Max cooldown time between trashsteroids in one chunk
+local trashsteroid_lifetime = 300 --Number of ticks that a trashsteroid can live
+local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
+local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
+
+--Trashteroid data
+--storage.active_trashsteroids = {} --{{unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}}
+storage.active_trashsteroids = storage.active_trashsteroids or {}
+--Trashsteroid queue for chunks that currently don't have an active trashsteroid
+--storage.pending_trashsteroid_data = {}--[chunk_data=chunk] = (next_spawn_tick=tick) --has the next tick where we expect a trashsteroid spawn
+storage.pending_trashsteroid_data = storage.pending_trashsteroid_data or {}
+
+--Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
+local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
+local chunk_key_scale = 2^24
+--Take in the x and Y coord of a chunk, and output a key for tables
+local function chunk_position_to_key(x, y) return x * chunk_key_scale + y end
+
+
+
 
 
 -- Add entity to the working cache of that item to manage.
@@ -147,13 +172,133 @@ local function clear_all_trashsteroids()
   end
 end
 
+storage.rubia_chunk_iterator = storage.rubia_chunk_iterator or {}
+script.on_event(defines.events.on_chunk_generated, function(event)
+  --game.print(serpent.block(event))
+  if event.surface and (event.surface.name == "rubia") then 
+    storage.rubia_surface = event.surface
+    storage.rubia_chunk_iterator = event.surface.get_chunks()
+    --local chunk = {x = position.x, y = position.y, area = area}
+    --active_chunks[chunk] = chunk
+    --Queue up this chunk's next trashsteroid.
+    try_initialize_RNG()
+    --game.print(chunk_position_to_key(event.position.x,event.position.y))
+    storage.pending_trashsteroid_data[chunk_position_to_key(event.position.x,event.position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
+    --local chunk = {x = event.position.x, y = event.position.y, area = event.area}
+    --storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
+    --game.print("wrote: key = " .. serpent.block(chunk_position_to_key(event.position.x,event.position.y)) .. ", value = " .. tostring(game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)) .. ", table = " .. serpent.block(storage.pending_trashsteroid_data))
+    --game.print("chunk=>" .. serpent.block(chunk) .. "<=chunk. table=>" .. serpent.block(storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)]))
+  end
+end)
+
+--Make trashsteroid in that chunk. Assume everything is initialized.
+local function generate_trashsteroid(trashsteroid_name, chunk)
+  if #storage.active_trashsteroids > max_trashsteroids then return end --We are above the limit of trashsteroids
+
+  --First get a random coord in the chunk
+  local x = storage.rubia_asteroid_rng(chunk.area.left_top.x, chunk.area.right_bottom.x)
+  local y = storage.rubia_asteroid_rng(chunk.area.left_top.y, chunk.area.right_bottom.y)
+
+  --log(tostring(x .. " " .. y .. "- Chunk: " .. serpent.block(chunk)))
+  --game.print({x = x, y = y})
+  --Make it
+  local resulting_entity = storage.rubia_surface.create_entity({
+    name = trashsteroid_name,
+    position = {x = x, y = y},
+    direction = defines.direction.east,
+    snap_to_grid = false
+  })
+
+  --Log its status
+  --Next tick where this chunk is going to expect a trashsteroid.
+  local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)--+ trashsteroid_lifetime?
+  --game.print("making trashteroid at " .. serpent.block(chunk) .. ", and tick " .. tostring(next_trashsteroid_tick))
+  storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
+  storage.active_trashsteroids.insert({unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk})
+  
+  return resulting_entity
+end
+
+--Go through one round of going through all chunks and trying to spawn trashsteroids
+local function try_spawn_trashsteroids()
+    --game.print("Chunk iterator: " + serpent.block(storage.rubia_chunk_iterator))
+    try_initialize_RNG()
+    if not storage.rubia_chunk_iterator then return end --No chunks to worry about
+    for chunk in storage.rubia_chunk_iterator do
+      --Check chunk exists and its cooldown time is done.
+      if (storage.rubia_surface.is_chunk_generated(chunk)
+        and (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)) then
+  
+        generate_trashsteroid("medium-trashsteroid", chunk)
+      end
+    end
+end
+
+--Spawn trashsteroids
+script.on_nth_tick(45, try_spawn_trashsteroids)
+
+
+
+--[[function()
+  --game.print("Chunk iterator: " + serpent.block(storage.rubia_chunk_iterator))
+  try_initialize_RNG()
+  if not storage.rubia_chunk_iterator then return end --No chunks to worry about
+  for chunk in storage.rubia_chunk_iterator do
+    --Check chunk exists and its cooldown time is done.
+    if (storage.rubia_surface.is_chunk_generated(chunk)
+      and (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)) then
+
+      generate_trashsteroid("medium-trashsteroid", chunk)
+    end
+  end
+end)]]
+
+--Trashsteroid Impact checks
+--{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
+script.on_nth_tick(46, function()
+  if not storage.active_trashsteroids then return end
+  for unit_number, death_tick in pairs(storage.active_trashsteroids) do
+    if (death_tick < game.tick) then
+      local entity = game.get_entity_by_unit_number(unit_number)
+      --TODO Create explosion
+      --TODO create damage
+      --TODO SFX
+      --[[storage.rubia_surface.create_entity({
+        name = trashsteroid_name,
+        position = {x = x, y = y},
+        direction = defines.direction.east,
+        snap_to_grid = false
+      })]]
+
+      entity.destroy()
+    end
+  end
+end)
+
+
+
+--[[
+  local local_chunk_iterator
+  if rubia_surface == nil then rubia_surface = game.get_surface("rubia") end
+  if rubia_surface then local_chunk_iterator = rubia_surface.get_chunks()
+  else do return end
+  end]]
+
+
+
+  --[[for chunk in local_chunk_iterator do
+    --log(serpent.block(chunk))
+    if (rubia_surface.is_chunk_generated(chunk)) then
+      generate_trashsteroid("medium-trashsteroid", chunk)
+    end
+  end
 
 --Initialize variables
 local rubia_surface
 local asteroid_rng
 local active_chunks = {}
-local initialized = false
 
+local initialized = false
 --Initialize variables on game start
 local function initialize() 
   --Very important random seed. Do NOT change!
@@ -178,70 +323,8 @@ local function initialize()
   --if (asteroid_rng and active_chunks and rubia_surface) then initialized = true end
 end
 
-storage.rubia_chunk_iterator = {}
---script.on_event(defines.events.on_chunk_generated, function(area, position, surface, name, tick)
-script.on_event(defines.events.on_chunk_generated, function(event)
-  game.print(serpent.block(event.surface))
-  if event.surface and (event.surface.name == "rubia") then 
-    storage.rubia_surface = event.surface
-    storage.rubia_chunk_iterator = event.surface.get_chunks()
-    --local chunk = {x = position.x, y = position.y, area = area}
-    --active_chunks[chunk] = chunk
-  end
-end)
-
---Make trashsteroid in that chunk
-local function generate_trashsteroid(trashsteroid_name, chunk)
-  --First get a random coord in the chunk
-  local x = storage.rubia_asteroid_rng(chunk.area.left_top.x, chunk.area.right_bottom.x)
-  local y = storage.rubia_asteroid_rng(chunk.area.left_top.y, chunk.area.right_bottom.y)
-
-  --log(tostring(x .. " " .. y .. "- Chunk: " .. serpent.block(chunk)))
-  --game.print({x = x, y = y})
-  --Make it
-  local resulting_entity = storage.rubia_surface.create_entity({
-    name = trashsteroid_name,
-    position = {x = x, y = y},
-    direction = defines.direction.east,
-    snap_to_grid = false
-  })
-
-  --TODO cache it
-  return resulting_entity
-end
 
 
---Temporary test function
-script.on_nth_tick(45, function()
-  --Very important random seed. Do NOT change!
-  if storage.rubia_asteroid_rng == nil then storage.rubia_asteroid_rng = game.create_random_generator(42069) end
-
-  --[[
-  local local_chunk_iterator
-  if rubia_surface == nil then rubia_surface = game.get_surface("rubia") end
-  if rubia_surface then local_chunk_iterator = rubia_surface.get_chunks()
-  else do return end
-  end]]
-
-  if not storage.rubia_chunk_iterator then return end --No chunks to worry about
-  for chunk in storage.rubia_chunk_iterator do
-    --log(serpent.block(chunk))
-    if (storage.rubia_surface.is_chunk_generated(chunk)) then
-      generate_trashsteroid("medium-trashsteroid", chunk)
-    end
-  end
-
-  --[[for chunk in local_chunk_iterator do
-    --log(serpent.block(chunk))
-    if (rubia_surface.is_chunk_generated(chunk)) then
-      generate_trashsteroid("medium-trashsteroid", chunk)
-    end
-  end]]
-end)
-
-
-
---[[
 --Get a list of active chunks. Generate the cache if it is empty. 
 local function get_active_chunks(surface)
   if active_chunks then return active_chunks
@@ -256,8 +339,6 @@ script.on_event(defines.events.on_chunk_generated, function(area, position, surf
     active_chunks[chunk] = chunk
   end
 end)]]
-
-
 
 
 
