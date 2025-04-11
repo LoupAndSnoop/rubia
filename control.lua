@@ -1,5 +1,6 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
+require("__rubia__.prototypes.trashsteroid_spawning")
 
 -------
 
@@ -199,12 +200,18 @@ end
     end
 end)]]
 
-script.on_event(defines.events.on_chunk_charted, function(event)
+--[[script.on_event(defines.events.on_chunk_charted, function(event)
   --game.print(serpent.block(event))
   local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
   --game.print(serpent.block(surface) .. " - " .. serpent.block(event.position) .. "area" .. serpent.block(event.area))
   log_chunk_for_trashsteroids(surface, event.position, event.area)
+end)]]
+
+script.on_event(defines.events.on_chunk_charted, function(event)
+  local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
+  trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
+
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
 local function generate_trashsteroid(trashsteroid_name, chunk)
@@ -249,11 +256,15 @@ local function try_spawn_trashsteroids()
 end
 
 --Spawn trashsteroids
-script.on_nth_tick(45, try_spawn_trashsteroids)
+script.on_nth_tick(45, function()
+  trashsteroid_lib.try_spawn_trashsteroids()
+end)
 
 --Trashsteroid Impact checks
 --{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
 script.on_nth_tick(100, function()
+  trashsteroid_lib.trashsteroid_impact_update()
+  --[[
   if not storage.active_trashsteroids then return end
   --game.print(serpent.block(storage.active_trashsteroids))
 
@@ -270,13 +281,14 @@ script.on_nth_tick(100, function()
           position = {x = x, y = y},
           direction = defines.direction.east,
           snap_to_grid = false
-        })]]
+        })
         --game.print("Killing " .. serpent.block(entity))
         entity.destroy()
 
       end
     end
   end
+  ]]
 end)
 
 
