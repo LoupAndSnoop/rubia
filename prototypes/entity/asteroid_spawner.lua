@@ -35,7 +35,7 @@ local make_unit_melee_ammo_type = function(damage_value)
 data:extend({
     {
     type = "unit",
-    name = "medium-trashsteroid",
+    name = "medium-trashsteroid2",
     icon = "__base__/graphics/icons/small-biter.png",
     flags = {"placeable-player", "placeable-enemy", "placeable-off-grid", "not-repairable", "breaths-air", "get-by-unit-number"}, -- Get by unit number is critical flag
     max_health = 15,

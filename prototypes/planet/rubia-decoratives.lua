@@ -5,6 +5,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local tile_sounds = require("__base__/prototypes/tile/tile-sounds")
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
 local util = require("util")
+require("__rubia__.lib.lib")
 
 --Give resistances to items on rubia so they don't get destroyed by asteroids.
 local rubia_entity_resistances = {
@@ -17,8 +18,6 @@ local rubia_entity_resistances = {
     percent = 100
   }
 }
-
-
 
 local render_layer = {
   "zero",
@@ -43,33 +42,9 @@ local minable_item_tint = {r=1, g=0.88, b=0.75, a=1}--{r=0.79, g=0.75, b=0.96, a
 local base_placement_density = 1
 --local base_decorative_order = 10
 
--- Get multiple sprites from a spritesheet.
-local function spritesheet_variations(count, line_length, base)
-  local variations = {}
-  for i = 1, count do
-    local new = table.deepcopy(base)
-    new.x = ((i-1) % line_length) * base.width
-    new.y = math.floor((i-1) / line_length) * base.height
-    table.insert(variations, new)
-  end
-  return variations
-end
+local function spritesheet_variations(count, line_length, base) return rubia_lib.spritesheet_variations(count, line_length, base) end
+local function table_concat(big_table) return rubia_lib.table_concat(big_table) end
 
---Concatenate all the subtables in a table
-local function table_concat(big_table)
-  local function table_concat_pair(t1,t2)
-    for i=1,#t2 do
-        t1[#t1+1] = t2[i]
-    end
-    return t1
-  end
-
-  local result = {}
-  for i=1,#big_table do
-    result = table_concat_pair(result, big_table[i])
-  end
-  return result
-end
 
 --Make rotated variants from a sprite sheet
 function make_rotated_animation_variations_from_sheet(variation_count, sheet) --makes remnants work with more than 1 variation
@@ -731,7 +706,7 @@ data:extend
     order="d[remnants]-a[generic]-a[small]",
     final_render_layer = "remnants",
     remove_on_tile_placement = false,
-    pictures = table_concat({spritesheet_variations(3, 1, {
+    pictures = rubia_lib.table_concat({rubia_lib.spritesheet_variations(3, 1, {
       filename = "__base__/graphics/entity/construction-robot/remnants/construction-robot-remnants.png",
       --line_length = 1,
       width = 120,
@@ -740,7 +715,7 @@ data:extend
       shift = util.by_pixel(2, 1),
       scale = 0.5
     }),
-    spritesheet_variations(3, 1, {
+    rubia_lib.spritesheet_variations(3, 1, {
       filename = "__base__/graphics/entity/logistic-robot/remnants/logistic-robot-remnants.png",
       --line_length = 1,
       width = 116,
@@ -749,7 +724,7 @@ data:extend
       shift = util.by_pixel(1, 1),
       scale = 0.5
     }),
-    spritesheet_variations(3, 1, {
+    rubia_lib.spritesheet_variations(3, 1, {
       filename = "__base__/graphics/entity/distractor-robot/remnants/distractor-robot-remnants.png",
       --line_length = 1,
       width = 112,

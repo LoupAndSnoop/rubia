@@ -50,7 +50,6 @@ local function find_all_entity_of_name(input_name)
       else  out_entity_table[current_surface.name] = entity_array
       end
   end
-  --log(serpent.block(out_entity_table))
   return out_entity_table
 end
 
@@ -80,24 +79,6 @@ trashsteroid_lib.log_chunk_for_trashsteroids = function(surface, position, area)
     storage.pending_trashsteroid_data[chunk_position_to_key(position.x,position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
   end
 end
-
---[[script.on_event(defines.events.on_chunk_generated, function(event)
-  --log_chunk_for_trashsteroids(event.surface, event.position, event.area)
-  if event.surface and (event.surface.name == "rubia") then 
-    storage.rubia_surface = event.surface
-    table.insert(storage.rubia_chunks,{x = event.position.x, y = event.position.y, area = event.area})
-
-    --Queue up this chunk's next trashsteroid.
-    try_initialize_RNG()
-    storage.pending_trashsteroid_data[chunk_position_to_key(event.position.x,event.position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
-    end
-end)]]
-
---[[
-script.on_event(defines.events.on_chunk_charted, function(event)
-  local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
-  log_chunk_for_trashsteroids(surface, event.position, event.area)
-end)]]
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
 local function generate_trashsteroid(trashsteroid_name, chunk)
