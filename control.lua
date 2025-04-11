@@ -174,7 +174,21 @@ end
 
 --Log and update chunk data
 storage.rubia_chunks = storage.rubia_chunks or {}
-script.on_event(defines.events.on_chunk_generated, function(event)
+--When a new chunk has to be added, log everything we need to start spawning entities there.
+local function log_chunk_for_trashsteroids(surface, position, area)
+  if surface and (surface.name == "rubia") then 
+    storage.rubia_surface = surface
+    table.insert(storage.rubia_chunks,{x = position.x, y = position.y, area = area})
+
+    --Queue up this chunk's next trashsteroid.
+    try_initialize_RNG()
+    storage.pending_trashsteroid_data[chunk_position_to_key(position.x,position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
+  end
+end
+
+
+--[[script.on_event(defines.events.on_chunk_generated, function(event)
+  --log_chunk_for_trashsteroids(event.surface, event.position, event.area)
   if event.surface and (event.surface.name == "rubia") then 
     storage.rubia_surface = event.surface
     table.insert(storage.rubia_chunks,{x = event.position.x, y = event.position.y, area = event.area})
@@ -183,6 +197,13 @@ script.on_event(defines.events.on_chunk_generated, function(event)
     try_initialize_RNG()
     storage.pending_trashsteroid_data[chunk_position_to_key(event.position.x,event.position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
     end
+end)]]
+
+script.on_event(defines.events.on_chunk_charted, function(event)
+  --game.print(serpent.block(event))
+  local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
+  --game.print(serpent.block(surface) .. " - " .. serpent.block(event.position) .. "area" .. serpent.block(event.area))
+  log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
@@ -207,7 +228,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --game.print("making trashteroid at " .. serpent.block(chunk) .. ", and tick " .. tostring(next_trashsteroid_tick))
   storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
   table.insert(storage.active_trashsteroids,{unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk})
-  
+  --game.print(serpent.block(storage.active_trashsteroids))
   return resulting_entity
 end
 
@@ -219,7 +240,7 @@ local function try_spawn_trashsteroids()
     for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
       --game.print("Made it here. Chunks: " .. serpent.block(storage.rubia_chunks))
       --Check chunk exists and its cooldown time is done.
-      if (storage.rubia_surface.is_chunk_generated(chunk)
+      if (storage.rubia_surface.is_chunk_generated(chunk) --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
         and (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)) then
   
         generate_trashsteroid("medium-trashsteroid", chunk)
@@ -230,30 +251,16 @@ end
 --Spawn trashsteroids
 script.on_nth_tick(45, try_spawn_trashsteroids)
 
-
-
---[[function()
-  --game.print("Chunk iterator: " + serpent.block(storage.rubia_chunk_iterator))
-  try_initialize_RNG()
-  if not storage.rubia_chunk_iterator then return end --No chunks to worry about
-  for chunk in storage.rubia_chunk_iterator do
-    --Check chunk exists and its cooldown time is done.
-    if (storage.rubia_surface.is_chunk_generated(chunk)
-      and (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)) then
-
-      generate_trashsteroid("medium-trashsteroid", chunk)
-    end
-  end
-end)]]
-
 --Trashsteroid Impact checks
 --{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
-script.on_nth_tick(50, function()
+script.on_nth_tick(100, function()
   if not storage.active_trashsteroids then return end
-  game.print(serpent.block(storage.active_trashsteroids))
+  --game.print(serpent.block(storage.active_trashsteroids))
+
   for i, trashsteroid in pairs(storage.active_trashsteroids) do
     if (trashsteroid.death_tick < game.tick) then
       local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
+      --game.print("About to work on: " .. serpent.block(entity) .. ", from trashteroid: " .. serpent.block(trashsteroid))
       if entity and entity.valid then --Only continue if it exists
         --TODO Create explosion
         --TODO create damage
@@ -264,8 +271,9 @@ script.on_nth_tick(50, function()
           direction = defines.direction.east,
           snap_to_grid = false
         })]]
-
+        --game.print("Killing " .. serpent.block(entity))
         entity.destroy()
+
       end
     end
   end

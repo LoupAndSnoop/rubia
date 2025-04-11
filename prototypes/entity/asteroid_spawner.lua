@@ -37,7 +37,7 @@ data:extend({
     type = "unit",
     name = "medium-trashsteroid",
     icon = "__base__/graphics/icons/small-biter.png",
-    flags = {"placeable-player", "placeable-enemy", "placeable-off-grid", "not-repairable", "breaths-air"},
+    flags = {"placeable-player", "placeable-enemy", "placeable-off-grid", "not-repairable", "breaths-air", "get-by-unit-number"}, -- Get by unit number is critical flag
     max_health = 15,
     order = "b-a-a",
     subgroup = "enemies",
