@@ -31,10 +31,43 @@ local function trashsteroid_resistances()
       }
 end
 
+---
+-----Rendering
+---
 --Give a color that tints something just to transparency.
 local function transparency(value) return {r = value, g = value, b = value, a = value} end
+--Get ready an array of animations so they can be rendered
+local med_trash_anim_solid = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
+    filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid.png",
+    line_length = 1,
+    width = 230,
+    height = 230,
+    direction_count = 1,
+    shift = util.by_pixel(0, 3.5),
+    scale = 0.25,
+    tint = transparency(0.8)
+})
+local med_trash_anim_shadow = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
+    filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
+    line_length = 1,
+    width = 230,
+    height = 230,
+    direction_count = 1,
+    shift = util.by_pixel(0+20, 3.5+20),
+    scale = 0.25,
+    tint = transparency(0.7),
+    draw_as_shadow = true
+})
+local med_trash_animations = {}
+for i = 1,6 do
+    data:extend({{
+        type = "animation",
+        name = "medium-trashsteroid-animation" .. tostring(i),
+        layers = {med_trash_anim_solid[i], med_trash_anim_shadow[i]}
+    }})
+end
 
---This file defines trashsteroids.
+--------Defining the trashsteroid prototype(s)
 data:extend({
 {
     type = "car",
@@ -69,7 +102,11 @@ data:extend({
     friction = 1e-4,--2e-3,
     render_layer = "air-object",
 
-    animation = {layers = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
+    --Blank animation
+    animation = {layers = {{filename = "__base__/graphics/decorative/brown-asterisk/brown-asterisk-00.png",
+        width = 119, height = 74, scale = 0, tint = {r=0,g=0,b=0,a=0}}}},--shift = util.by_pixel(9.75, -6.5),
+    --This contains an array of animation objects to be used for rendering.
+    luarender_animation = med_trash_animations,--[[{layers = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
         filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid.png",
         line_length = 6,
         width = 230,
@@ -87,8 +124,7 @@ data:extend({
         shift = util.by_pixel(0+50, 3.5+50),
         scale = 0.25,
         tint = transparency(0.5)
-    })
-    },
+})}]]
     stop_trigger_speed = 0.15,
     --[[stop_trigger =
     {
@@ -164,8 +200,6 @@ for i,explosion in pairs(explosions_medium) do
     --table.insert(trashsteroid_lib.trashsteroid_explosions, explosion.name)
 end
 data:extend(explosions_medium)
-
-
 
   --[[  {
     type = "fluid-wagon",

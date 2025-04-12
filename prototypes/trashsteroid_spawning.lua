@@ -65,7 +65,16 @@ local function find_impact_targets(position, radius)
 end
 
 
-------------
+------------Trashsteroid rendering
+--[[--Attach a trashsteroid rendering to the entity, and return the rendering
+local function add_trashsteroid_rendering(entity) 
+  return rendering.draw_animation({
+    animation=…,
+    orientation?=…,
+    x_scale?=…, y_scale?=…, 
+    tint?=…, render_layer?=…, animation_speed?=…, animation_offset?=…, orientation_target?=…, use_target_orientation?=…, oriented_offset?=…, target=…, surface=…, time_to_live?=…, forces?=…, players?=…, visible?=…, only_in_alt_mode?=…})
+end]]
+----------
 
 -- Add entity to the working cache of that item to manage.
 ---@param entity LuaEntity
@@ -137,11 +146,22 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     snap_to_grid = false
   })
 
+  --Add a rendering to be able to see it, as it moves somewhat independently
+  rendering.draw_animation({
+    animation = "medium-trashsteroid-animation1",
+    orientation=storage.rubia_asteroid_rng(1,100) / 100,
+    render_layer="air-object",
+    --tint?=…, animation_speed?=…, animation_offset?=…, orientation_target?=…, use_target_orientation?=…, oriented_offset?=…,
+    target=resulting_entity, surface=storage.rubia_surface,
+    --time_to_live?=…, forces?=…, players?=…, visible?=…, only_in_alt_mode?=…
+  })
+
   --Set it up
   resulting_entity.force = game.forces["enemy"]
   --resulting_entity.color = trashsteroid_color
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(0,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(15,35) / 100
+
   --resulting_entity.variation = storage.rubia_asteroid_rng(1,6)
 
 
