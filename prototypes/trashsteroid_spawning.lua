@@ -13,7 +13,12 @@ local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
 --Trashsteroid movement data
 local trashsteroid_speed = 0.01 --Speed given to trashsteroids upon spawning. 1 is too fast
+local trashsteroid_speed_var = 40 --Speed is randomly up to this % faster
 local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
+
+local trashsteroid_impact_damage = 200 --Raw damage done
+local trashsteroid_impact_radius = 3
+
 
 
 --Trashteroid data
@@ -30,6 +35,37 @@ local chunk_key_scale = 2^24
 --Take in the x and Y coord of a chunk, and output a key for tables
 local function chunk_position_to_key(x, y) return x * chunk_key_scale + y end
 
+------ Impact Logic
+
+--Return true if the given entity is immune to impacts
+local function entity_is_immune_to_impact(entity)
+  --First, blacklist anything with either immunity to damage or impact damage
+  if (not entity.is_entity_with_health) then return true end 
+  if (entity.prototype.resistances and entity.prototype.resistances.impact and entity.prototype.resistances.impact.percent and entity.prototype.resistances.impact.percent >= 99) then return true end
+
+  --TODO Blacklist
+
+  --Passed all checks
+  return false
+end
+
+--Return an array of all entities that are in the impact range, which are relevant to impact.
+local function find_impact_targets(position, radius)
+  local impacted_raw = storage.rubia_surface.find_entities_filtered({
+    position = position,
+    radius = radius,
+    force = game.forces["player"]
+  })
+  local impacted = {} --Actual list of entities that should be impacted
+  for i,entity in pairs(impacted_raw) do
+    if not entity_is_immune_to_impact(entity) then table.insert(impacted, entity) end
+  end
+
+  return impacted
+end
+
+
+------------
 
 -- Add entity to the working cache of that item to manage.
 ---@param entity LuaEntity
@@ -105,7 +141,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --Set it up
   resulting_entity.force = game.forces["enemy"]
   resulting_entity.color = trashsteroid_color
-  resulting_entity.speed = trashsteroid_speed
+  resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(0,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(15,35) / 100
   --resulting_entity.variation = storage.rubia_asteroid_rng(1,6)
 
@@ -119,11 +155,6 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --table.insert(storage.active_trashsteroids,{unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk})
   return resulting_entity
 end
-
---[[When a specific trashsteroid is about to be decomissioned, log it as such from any relevant caches.
-local function delist_trashsteroid(entity)
-  storage.active_trashsteroids[entity.unit_number] = {}
-end]]
 
 --Go through one round of going through all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
@@ -161,16 +192,20 @@ trashsteroid_lib.trashsteroid_impact_update = function()
 
   --Now we go through and actually DO the impacts
     for i,entity in pairs(trashsteroids_impacting) do
-        --TODO Create explosion
-        --TODO create damage
-        --TODO SFX
+        --Deal damage
+        local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
+        for i,hit_entity in pairs(impacted_entities) do
+          hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
+        end
+
+                --TODO Create explosion, SFX
         --[[storage.rubia_surface.create_entity({
           name = trashsteroid_name,
           position = {x = x, y = y},
           direction = defines.direction.east,
           snap_to_grid = false
         })]]
-        
+
         --Delist before destruction.
         table.remove(storage.active_trashsteroids, tostring(entity.unit_number))
         storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
@@ -179,27 +214,37 @@ trashsteroid_lib.trashsteroid_impact_update = function()
 end
 
 
---[[
-  for i, trashsteroid in pairs(storage.active_trashsteroids) do
-    if (trashsteroid.death_tick < game.tick) then
-      local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
-      --game.print("About to work on: " .. serpent.block(entity) .. ", from trashteroid: " .. serpent.block(trashsteroid))
-      if entity and entity.valid then 
-        
-        --Only continue if it exists
-        --TODO Create explosion
-        --TODO create damage
-        --TODO SFX
-        --storage.rubia_surface.create_entity({
-          name = trashsteroid_name,
-          position = {x = x, y = y},
-          direction = defines.direction.east,
-          snap_to_grid = false
-        })
-        --game.print("Killing " .. serpent.block(entity))
-        entity.destroy()
 
-      end
-    end
-  end
+
+
+--[[find_entities_filtered(filter)
+
+area 	:: BoundingBox?	
+position 	:: MapPosition?	
+
+Has precedence over area field.
+radius 	:: double?	
+
+If given with position, will return all entities within the radius of the position.
+name 	:: EntityID or array[EntityID]?	
+
+An empty array means nothing matches the name filter.
+type 	:: string or array[string]?	
+
+An empty array means nothing matches the type filter.
+ghost_name 	:: EntityID or array[EntityID]?	
+
+An empty array means nothing matches the ghost_name filter.
+ghost_type 	:: string or array[string]?	
+
+An empty array means nothing matches the ghost_type filter.
+direction 	:: defines.direction or array[defines.direction]?	
+collision_mask 	:: CollisionLayerID or array[CollisionLayerID] or dictionary[CollisionLayerID → true]?	
+force 	:: ForceSet?	
+to_be_deconstructed 	:: boolean?	
+to_be_upgraded 	:: boolean?	
+limit 	:: uint?	
+is_military_target 	:: boolean?	
+has_item_inside 
+
 ]]
