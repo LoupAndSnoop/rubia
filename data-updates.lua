@@ -1,12 +1,9 @@
 --table.insert(data.raw.lab["lab"].inputs, "biorecycling-science-pack")
-data.raw["fluid"]["petroleum-gas"].fuel_value = "0.6MJ"
+--data.raw["fluid"]["petroleum-gas"].fuel_value = "0.6MJ"
 
-
+--[[
 local all_lab_types = data.raw['lab']
-
 local handle_science_populate = true
-
-
 if (settings.startup["automatically-populate-labs-with-biorecycling-science"].value == false) then handle_science_populate = false end
 
 if(handle_science_populate == true) then
@@ -17,10 +14,10 @@ end
 
 if not handle_science_populate then
   table.insert(data.raw["lab"]["pressure-lab"].inputs,"biorecycling-science-pack") --I don't add biorecycling-science-pack to my own prototype. This ensures that I still add it somewhere.
-end
+end]]
 
 
-
+--[[
 data.raw["assembling-machine"]["catalytic-chemical-plant"].graphics_set.frozen_patch =
 {
   north =
@@ -62,8 +59,10 @@ data.raw["assembling-machine"]["catalytic-chemical-plant"].graphics_set.frozen_p
     shift = util.by_pixel(0.5, -9),
     scale = 0.5
   }
-}
+}]]
 
+--Recipe prod
+--[[
 local recipe_patch = 
 {
   type = "change-recipe-productivity",
@@ -87,10 +86,9 @@ local recipe_patch_3 =
 
 table.insert(data.raw.technology["plastic-bar-productivity"].effects,recipe_patch)
 table.insert(data.raw.technology["plastic-bar-productivity"].effects,recipe_patch_2)
+]]
 
-
-
-
+--[[
 local brute_force = settings.startup["ignore-everything-brute-force-science-into-pressure-lab"].value
 local all_packs = data.raw['tool']
 if(brute_force == true) then
@@ -104,10 +102,10 @@ if(brute_force == true) then
       table.insert(data.raw["lab"]["pressure-lab"].inputs,v.name .. ",")
     end
   end
-end
+end]]
 
+--[[
 local update_discovery = settings.startup["require-vulcanus-before-rubia"].value --TODO
-
 if(update_discovery == true) then
   data.raw["technology"]["planet-discovery-rubia"].unit = 
   {
@@ -122,8 +120,10 @@ if(update_discovery == true) then
       time = 60
   }
   data.raw["technology"]["planet-discovery-rubia"].prerequisites = { "space-platform-thruster","metallurgic-science-pack"}
-end
+end]]
 
+
+--[[
 local update_reduction_recipes = settings.startup["force-reduction-requires-plates"].value
 if(update_reduction_recipes == true) then
   data.raw["recipe"]["force-reduction-iron"].ingredients = 
@@ -140,7 +140,7 @@ if(update_reduction_recipes == true) then
     {type ="fluid", name ="water", amount = 100},
   }
 
-end
+end]]
 
 --[[
 ---Other mod compatibility

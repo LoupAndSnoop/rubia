@@ -1,4 +1,5 @@
-data:extend({
+--data:extend({
+    --[[
     {
         type = "bool-setting",
         name = "automatically-populate-pressure-lab",
@@ -28,5 +29,5 @@ data:extend({
         name = "force-reduction-requires-plates",
         setting_type = "startup",
         default_value = false
-    },
-})
+    },]]
+--})

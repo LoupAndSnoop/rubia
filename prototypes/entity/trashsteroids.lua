@@ -31,15 +31,16 @@ local function trashsteroid_resistances()
       }
 end
 
+--Give a color that tints something just to transparency.
+local function transparency(value) return {r = value, g = value, b = value, a = value} end
 
 --This file defines trashsteroids.
--- __rubia__/graphics/entity/
 data:extend({
 {
     type = "car",
     name = "medium-trashsteroid",
     icon = "__rubia__/graphics/icons/trashsteroid-chunk-icon.png",--"__base__/graphics/icons/car.png",
-    flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},
+    flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
     max_health = 450,
@@ -75,25 +76,27 @@ data:extend({
         height = 230,
         direction_count = 1,
         shift = util.by_pixel(0, 3.5),
-        scale = 0.3
+        scale = 0.25,
+        tint = transparency(0.5)
     }), rubia_lib.make_rotated_animation_variations_from_sheet(6,{
         filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
         line_length = 6,
         width = 230,
         height = 230,
         direction_count = 1,
-        shift = util.by_pixel(0+10, 3.5+10),
-        scale = 0.3
+        shift = util.by_pixel(0+50, 3.5+50),
+        scale = 0.25,
+        tint = transparency(0.5)
     })
     },
     stop_trigger_speed = 0.15,
-    stop_trigger =
+    --[[stop_trigger =
     {
       {
         type = "play-sound",
-        sound = {filename = "__base__/sound/car-breaks.ogg", volume = 0.2 }
+        sound = {filename = "__base__/sound/car-breaks.ogg", volume = 0.1 }
       }
-    },
+    },]]
     impact_category = "metal",
     impact_speed_to_volume_ratio = 4.0,
     --[[
@@ -142,15 +145,22 @@ data:extend({
 ----- Explosions
 --_G.trashsteroid_lib = _G.trashsteroid_lib or {}
 local explosions_medium = {
-    table.deepcopy(data.raw["explosion"]["fluid-wagon-explosion"]),
-    table.deepcopy(data.raw["explosion"]["fluid-wagon-explosion"])
+    table.deepcopy(data.raw["explosion"]["steel-chest-explosion"]),
+    table.deepcopy(data.raw["explosion"]["pipe-explosion"]),
+    table.deepcopy(data.raw["explosion"]["turbo-transport-belt-explosion"]),
+    table.deepcopy(data.raw["explosion"]["pipe-to-ground-explosion"]),
+    table.deepcopy(data.raw["explosion"]["fast-transport-belt-explosion"]),
+    table.deepcopy(data.raw["explosion"]["transport-belt-explosion"]),
+    table.deepcopy(data.raw["explosion"]["solar-panel-explosion"]),
+    table.deepcopy(data.raw["explosion"]["space-platform-foundation-explosion"]),
+    table.deepcopy(data.raw["explosion"]["iron-chest-explosion"])
 }
 --Names of all trashsteroid explosion prototypes
 --trashsteroid_lib.trashsteroid_explosions = {}
 for i,explosion in pairs(explosions_medium) do
     --explosions_medium[i]
     explosion.name = "medium-trashsteroid-explosion" .. tostring(i)
-    explosion.sound = sounds.large_explosion(0.3,0.5) --Min/max volume edit here
+    explosion.sound = sounds.large_explosion(0.1,0.2) --Min/max volume edit here
     --table.insert(trashsteroid_lib.trashsteroid_explosions, explosion.name)
 end
 data:extend(explosions_medium)

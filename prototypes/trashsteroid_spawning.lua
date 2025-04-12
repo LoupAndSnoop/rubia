@@ -139,7 +139,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Set it up
   resulting_entity.force = game.forces["enemy"]
-  resulting_entity.color = trashsteroid_color
+  --resulting_entity.color = trashsteroid_color
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(0,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(15,35) / 100
   --resulting_entity.variation = storage.rubia_asteroid_rng(1,6)
@@ -197,19 +197,12 @@ trashsteroid_lib.trashsteroid_impact_update = function()
           hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
         end
 
-        local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,2))
+        local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,9)) --Number of unique explosions go here
         --trashsteroid_lib.trashsteroid_explosions[storage.rubia_asteroid_rng(1,#trashsteroid_lib.trashsteroid_explosions)]
         storage.rubia_surface.create_entity({
           name = explosion_name,
-          position = entity.position
+          position = {x = entity.position.x + 0.5,y = entity.position.y} --Shift explosion a little bit to lead it.
         })
-
-        --[[storage.rubia_surface.create_entity({
-          name = trashsteroid_name,
-          position = {x = x, y = y},
-          direction = defines.direction.east,
-          snap_to_grid = false
-        })]]
 
         --Delist before destruction.
         table.remove(storage.active_trashsteroids, tostring(entity.unit_number))
