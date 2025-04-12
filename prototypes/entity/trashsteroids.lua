@@ -6,7 +6,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 local simulations = require("__base__.prototypes.factoriopedia-simulations")
 local util = require("util")
---local explosion_animations = require("__space-age__/prototypes/entity/explosion-animations")
+--require("__base__.prototypes.entity.explosions")
 
 --Standard resistances
 local function trashsteroid_resistances() 
@@ -35,7 +35,6 @@ end
 --This file defines trashsteroids.
 -- __rubia__/graphics/entity/
 data:extend({
-
 {
     type = "car",
     name = "medium-trashsteroid",
@@ -87,128 +86,6 @@ data:extend({
         scale = 0.3
     })
     },
-
-    --[[
-    {
-      layers =
-      {
-        {
-          priority = "low",
-          width = 201,
-          height = 172,
-          frame_count = 2,
-          scale = 0.5,
-          direction_count = 64,
-          shift = util.by_pixel(0+2, -11.5+8.5),
-          animation_speed = 8,
-          max_advance = 0.2,
-          stripes =
-          {
-          {
-          filename = "__base__/graphics/entity/car/car-1.png",
-          width_in_frames = 2,
-          height_in_frames = 11
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-2.png",
-          width_in_frames = 2,
-          height_in_frames = 11
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-3.png",
-          width_in_frames = 2,
-          height_in_frames = 11
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-4.png",
-          width_in_frames = 2,
-          height_in_frames = 11
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-5.png",
-          width_in_frames = 2,
-          height_in_frames = 11
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-6.png",
-          width_in_frames = 2,
-          height_in_frames = 9
-          }
-          }
-        },
-        {
-          priority = "low",
-          width = 199,
-          height = 147,
-          frame_count = 2,
-          apply_runtime_tint = true,
-          scale = 0.5,
-          direction_count = 64,
-          max_advance = 0.2,
-          shift = util.by_pixel(0+2, -11+8.5),
-          line_length = 1,
-          stripes = util.multiplystripes(2,
-          {
-          {
-          filename = "__base__/graphics/entity/car/car-mask-1.png",
-          width_in_frames = 1,
-          height_in_frames = 13
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-mask-2.png",
-          width_in_frames = 1,
-          height_in_frames = 13
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-mask-3.png",
-          width_in_frames = 1,
-          height_in_frames = 13
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-mask-4.png",
-          width_in_frames = 1,
-          height_in_frames = 13
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-mask-5.png",
-          width_in_frames = 1,
-          height_in_frames = 12
-          }
-          })
-        },
-        {
-          priority = "low",
-          width = 114,
-          height = 76,
-          frame_count = 2,
-          draw_as_shadow = true,
-          direction_count = 64,
-          shift = {0.28125, 0.25},
-          max_advance = 0.2,
-          stripes = util.multiplystripes(2,
-          {
-            {
-              filename = "__base__/graphics/entity/car/car-shadow-1.png",
-              width_in_frames = 1,
-              height_in_frames = 22
-            },
-            {
-              filename = "__base__/graphics/entity/car/car-shadow-2.png",
-              width_in_frames = 1,
-              height_in_frames = 22
-            },
-            {
-              filename = "__base__/graphics/entity/car/car-shadow-3.png",
-              width_in_frames = 1,
-              height_in_frames = 20
-            }
-          })
-        }
-      }
-    },]]
-
-    --turret_rotation_speed = 0.35 / 60,
-    --sound_no_fuel = { filename = "__base__/sound/fight/car-no-fuel-1.ogg", volume = 0.6 },
     stop_trigger_speed = 0.15,
     stop_trigger =
     {
@@ -261,6 +138,24 @@ data:extend({
     inventory_size = 0,
   }
 })
+
+----- Explosions
+--_G.trashsteroid_lib = _G.trashsteroid_lib or {}
+local explosions_medium = {
+    table.deepcopy(data.raw["explosion"]["fluid-wagon-explosion"]),
+    table.deepcopy(data.raw["explosion"]["fluid-wagon-explosion"])
+}
+--Names of all trashsteroid explosion prototypes
+--trashsteroid_lib.trashsteroid_explosions = {}
+for i,explosion in pairs(explosions_medium) do
+    --explosions_medium[i]
+    explosion.name = "medium-trashsteroid-explosion" .. tostring(i)
+    explosion.sound = sounds.large_explosion(0.3,0.5) --Min/max volume edit here
+    --table.insert(trashsteroid_lib.trashsteroid_explosions, explosion.name)
+end
+data:extend(explosions_medium)
+
+
 
   --[[  {
     type = "fluid-wagon",

@@ -1,7 +1,7 @@
 --This file has the base functions and parameters for spawning and maintaining trashsteroids.
 
 --Functions will be stored onto this global variable:
-_G.trashsteroid_lib = {}
+_G.trashsteroid_lib = _G.trashsteroid_lib or {}
 
 --- Asteroid Management
 local max_trashsteroids = 200 --Max # of managed trashsteroids active at once
@@ -11,6 +11,8 @@ local trashsteroid_lifetime = 300 --Number of ticks that a trashsteroid can live
 local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
 local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
+local trashsteroid_names = {"medium-trashsteroid"}
+
 --Trashsteroid movement data
 local trashsteroid_speed = 0.01 --Speed given to trashsteroids upon spawning. 1 is too fast
 local trashsteroid_speed_var = 40 --Speed is randomly up to this % faster
@@ -18,8 +20,6 @@ local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
 
 local trashsteroid_impact_damage = 200 --Raw damage done
 local trashsteroid_impact_radius = 3
-
-
 
 --Trashteroid data
 --storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
@@ -95,7 +95,6 @@ local function find_all_entity_of_name(input_name)
   return out_entity_table
 end
 
-local trashsteroid_names = {"medium-trashsteroid"}
 
 --On game startup, clear anything already existing.
 local function clear_all_trashsteroids()
@@ -198,7 +197,13 @@ trashsteroid_lib.trashsteroid_impact_update = function()
           hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
         end
 
-                --TODO Create explosion, SFX
+        local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,2))
+        --trashsteroid_lib.trashsteroid_explosions[storage.rubia_asteroid_rng(1,#trashsteroid_lib.trashsteroid_explosions)]
+        storage.rubia_surface.create_entity({
+          name = explosion_name,
+          position = entity.position
+        })
+
         --[[storage.rubia_surface.create_entity({
           name = trashsteroid_name,
           position = {x = x, y = y},
