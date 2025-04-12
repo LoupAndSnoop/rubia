@@ -11,6 +11,11 @@ local trashsteroid_lifetime = 300 --Number of ticks that a trashsteroid can live
 local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
 local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
+--Trashsteroid movement data
+local trashsteroid_speed = 0.01 --Speed given to trashsteroids upon spawning. 1 is too fast
+local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
+
+
 --Trashteroid data
 --storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
 storage.active_trashsteroids = storage.active_trashsteroids or {}
@@ -99,7 +104,10 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Set it up
   resulting_entity.force = game.forces["enemy"]
-
+  resulting_entity.color = trashsteroid_color
+  resulting_entity.speed = trashsteroid_speed
+  resulting_entity.orientation = storage.rubia_asteroid_rng(15,35) / 100
+  --resulting_entity.variation = storage.rubia_asteroid_rng(1,6)
 
 
   --Log its status

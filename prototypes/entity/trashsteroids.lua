@@ -6,6 +6,31 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 local simulations = require("__base__.prototypes.factoriopedia-simulations")
 local util = require("util")
+--local explosion_animations = require("__space-age__/prototypes/entity/explosion-animations")
+
+--Standard resistances
+local function trashsteroid_resistances() 
+    return     {
+        {
+          type = "fire",
+          percent = 80
+        },
+        {
+          type = "impact",
+          percent = 100,
+          --decrease = 50
+        },
+        {
+          type = "laser",
+          percent = 60
+        },
+        {
+            type = "electric",
+            percent = 100
+        }
+      }
+end
+
 
 --This file defines trashsteroids.
 -- __rubia__/graphics/entity/
@@ -14,118 +39,56 @@ data:extend({
 {
     type = "car",
     name = "medium-trashsteroid",
-    icon = "__base__/graphics/icons/car.png",
+    icon = "__rubia__/graphics/icons/trashsteroid-chunk-icon.png",--"__base__/graphics/icons/car.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
     max_health = 450,
     is_military_target = true,
     deliver_category = "vehicle",
-    corpse = "car-remnants",
-    dying_explosion = "car-explosion",
+    --corpse = "car-remnants",
+    dying_explosion = "carbonic-asteroid-explosion-3",--"car-explosion",
     alert_icon_shift = util.by_pixel(0, -13),
     energy_per_hit_point = 1,
     minimap_representation =     {
-        filename = "__rubia__/graphics/entity/trashsteroid-minimap-representation.png",
+        filename = "__rubia__/graphics/icons/trashsteroid-minimap-representation.png",
         flags = {"icon"},
         size = {20, 20},
         scale = 0.5
     },
     --crash_trigger = crash_trigger(),
-    resistances =
-    {
-      {
-        type = "fire",
-        percent = 50
-      },
-      {
-        type = "impact",
-        percent = 30,
-        decrease = 50
-      },
-      {
-        type = "acid",
-        percent = 20
-      }
-    },
-    collision_box = {{-0.7, -1}, {0.7, 1}},
-    selection_box = {{-0.7, -1}, {0.7, 1}},
+    resistances = trashsteroid_resistances(),
+    collision_box = {{-0.75, -0.75}, {0.75, 0.75}},
+    selection_box = {{-0.75, -0.75}, {0.75, 0.75}},
+    collision_mask= {layers={}},
     damaged_trigger_effect = hit_effects.entity(),
     effectivity = 0,--0.6,
     braking_power = "200kW",
     energy_source = {type = "void"},
-    --[[{
-      type = "burner",
-      fuel_categories = {"chemical"},
-      effectivity = 1,
-      fuel_inventory_size = 1,
-      smoke =
-      {
-        {
-          name = "car-smoke",
-          deviation = {0.25, 0.25},
-          frequency = 200,
-          position = {0, 1.5},
-          starting_frame = 0,
-          starting_frame_deviation = 60
-        }
-      }
-    },]]
     consumption = "150kW",
-    friction = 1e-6,--2e-3,
-    --[[light =
-    {
-      {
-        type = "oriented",
-        minimum_darkness = 0.3,
-        picture =
-        {
-          filename = "__core__/graphics/light-cone.png",
-          priority = "extra-high",
-          flags = { "light" },
-          scale = 2,
-          width = 200,
-          height = 200
-        },
-        shift = {-0.6, -14},
-        size = 2,
-        intensity = 0.6,
-        color = {0.92, 0.77, 0.3}
-      },
-      {
-        type = "oriented",
-        minimum_darkness = 0.3,
-        picture =
-        {
-          filename = "__core__/graphics/light-cone.png",
-          priority = "extra-high",
-          flags = { "light" },
-          scale = 2,
-          width = 200,
-          height = 200
-        },
-        shift = {0.6, -14},
-        size = 2,
-        intensity = 0.6,
-        color = {0.92, 0.77, 0.3}
-      }
-    },]]
-    render_layer = "object",
-    --[[light_animation =
-    {
-      filename = "__base__/graphics/entity/car/car-light.png",
-      priority = "low",
-      blend_mode = "additive",
-      draw_as_glow = true,
-      width = 206,
-      height = 162,
-      line_length = 8,
-      direction_count = 64,
-      scale = 0.5,
-      shift = util.by_pixel(-1 + 2, -6 + 3),
-      repeat_count = 2,
-    },]]
-    animation =
+    friction = 1e-4,--2e-3,
+    render_layer = "air-object",
+
+    animation = {layers = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
+        filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid.png",
+        line_length = 6,
+        width = 230,
+        height = 230,
+        direction_count = 1,
+        shift = util.by_pixel(0, 3.5),
+        scale = 0.3
+    }), rubia_lib.make_rotated_animation_variations_from_sheet(6,{
+        filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
+        line_length = 6,
+        width = 230,
+        height = 230,
+        direction_count = 1,
+        shift = util.by_pixel(0+10, 3.5+10),
+        scale = 0.3
+    })
+    },
+
+    --[[
     {
       layers =
       {
@@ -242,47 +205,10 @@ data:extend({
           })
         }
       }
-    },
-    turret_animation =
-    {
-      layers =
-      {
-        {
-          priority = "low",
-          width = 71,
-          height = 57,
-          direction_count = 64,
-          shift = util.by_pixel(0+2, -33.5+8.5),
-          animation_speed = 8,
-          scale = 0.5,
-          stripes =
-          {
-          {
-          filename = "__base__/graphics/entity/car/car-turret-1.png",
-          width_in_frames = 1,
-          height_in_frames = 32
-          },
-          {
-          filename = "__base__/graphics/entity/car/car-turret-2.png",
-          width_in_frames = 1,
-          height_in_frames = 32
-          }
-          }
-        },
-        {
-          filename = "__base__/graphics/entity/car/car-turret-shadow.png",
-          priority = "low",
-          line_length = 8,
-          width = 46,
-          height = 31,
-          draw_as_shadow = true,
-          direction_count = 64,
-          shift = {0.875, 0.359375}
-        }
-      }
-    },
-    turret_rotation_speed = 0.35 / 60,
-    sound_no_fuel = { filename = "__base__/sound/fight/car-no-fuel-1.ogg", volume = 0.6 },
+    },]]
+
+    --turret_rotation_speed = 0.35 / 60,
+    --sound_no_fuel = { filename = "__base__/sound/fight/car-no-fuel-1.ogg", volume = 0.6 },
     stop_trigger_speed = 0.15,
     stop_trigger =
     {
@@ -330,14 +256,9 @@ data:extend({
       activate_sound = { filename = "__base__/sound/car-engine-start.ogg", volume = 0.67 },
       deactivate_sound = { filename = "__base__/sound/car-engine-stop.ogg", volume = 0.67 },
     },]]
-    --open_sound = { filename = "__base__/sound/car-door-open.ogg", volume=0.5 },
-    --close_sound = { filename = "__base__/sound/car-door-close.ogg", volume = 0.4 },
     rotation_speed = 0.015,
     weight = 700,
-    --guns = { "vehicle-machine-gun" },
-    inventory_size = 80,
-    --track_particle_triggers = movement_triggers.car,
-    --water_reflection = car_reflection(1)
+    inventory_size = 0,
   }
 })
 

@@ -1,0 +1,4 @@
+This is a file just to pay tribute to everyone who helped, or from whom I got assets/code.
+
+-ZarSasha: Wind turbine forked.
+-Velaanix: Code base for infinite brakjing force.

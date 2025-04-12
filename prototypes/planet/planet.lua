@@ -17,8 +17,8 @@ data:extend({
 --rubia.surface_conditions() = function () {}end
 
 --------Basic Map generation
-data:extend(
-{
+
+local planet = {
   {
         type = "planet",
         name = "rubia",
@@ -187,4 +187,20 @@ data:extend(
         asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.vulcanus_gleba)
       }
 }
-)
+
+--Add path to corrundum, if it exists
+if mods["corrundum"] then
+  table.insert(planet, {
+    type = "space-connection",
+    name = "corrundum-rubia",
+    subgroup = "planet-connections",
+    from = "gleba",
+    to = "rubia",
+    order = "f2",
+    length = 5000,
+    asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.vulcanus_gleba)
+  })
+end
+
+
+data:extend(planet)

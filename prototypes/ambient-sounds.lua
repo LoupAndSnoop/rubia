@@ -6,7 +6,10 @@ data:extend(
         name = "rubia-hero",
         track_type = "hero-track",
         planet = "rubia",
-        sound = "__space-age__/sound/ambient/fulgora/fulgora-hero.ogg",
+        sound = {
+          filename = "__rubia__/sounds/JunkyardTribe.ogg",--"__space-age__/sound/ambient/fulgora/fulgora-hero.ogg",
+          volume = 0.5
+        }
     },
     {
         type = "ambient-sound",

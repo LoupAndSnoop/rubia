@@ -125,7 +125,7 @@ script.on_nth_tick(100, function()
 end)
 
 
-
+--For cutscene: force_finish_descending()
 
 
 
