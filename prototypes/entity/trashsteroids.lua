@@ -16,8 +16,8 @@ data:extend({
     name = "medium-trashsteroid",
     icon = "__base__/graphics/icons/car.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},
-    minable = {mining_time = 0.4, result = "car"},
-    mined_sound = sounds.deconstruct_medium(0.8),
+    --minable = {mining_time = 0.4, result = "car"},
+    --mined_sound = sounds.deconstruct_medium(0.8),
     max_health = 450,
     is_military_target = true,
     deliver_category = "vehicle",
@@ -25,6 +25,12 @@ data:extend({
     dying_explosion = "car-explosion",
     alert_icon_shift = util.by_pixel(0, -13),
     energy_per_hit_point = 1,
+    minimap_representation =     {
+        filename = "__rubia__/graphics/entity/trashsteroid-minimap-representation.png",
+        flags = {"icon"},
+        size = {20, 20},
+        scale = 0.5
+    },
     --crash_trigger = crash_trigger(),
     resistances =
     {
@@ -45,10 +51,10 @@ data:extend({
     collision_box = {{-0.7, -1}, {0.7, 1}},
     selection_box = {{-0.7, -1}, {0.7, 1}},
     damaged_trigger_effect = hit_effects.entity(),
-    effectivity = 0.6,
+    effectivity = 0,--0.6,
     braking_power = "200kW",
-    energy_source =
-    {
+    energy_source = {type = "void"},
+    --[[{
       type = "burner",
       fuel_categories = {"chemical"},
       effectivity = 1,
@@ -64,10 +70,10 @@ data:extend({
           starting_frame_deviation = 60
         }
       }
-    },
+    },]]
     consumption = "150kW",
-    friction = 2e-3,
-    light =
+    friction = 1e-6,--2e-3,
+    --[[light =
     {
       {
         type = "oriented",
@@ -103,9 +109,9 @@ data:extend({
         intensity = 0.6,
         color = {0.92, 0.77, 0.3}
       }
-    },
+    },]]
     render_layer = "object",
-    light_animation =
+    --[[light_animation =
     {
       filename = "__base__/graphics/entity/car/car-light.png",
       priority = "low",
@@ -118,7 +124,7 @@ data:extend({
       scale = 0.5,
       shift = util.by_pixel(-1 + 2, -6 + 3),
       repeat_count = 2,
-    },
+    },]]
     animation =
     {
       layers =
@@ -328,7 +334,7 @@ data:extend({
     --close_sound = { filename = "__base__/sound/car-door-close.ogg", volume = 0.4 },
     rotation_speed = 0.015,
     weight = 700,
-    guns = { "vehicle-machine-gun" },
+    --guns = { "vehicle-machine-gun" },
     inventory_size = 80,
     --track_particle_triggers = movement_triggers.car,
     --water_reflection = car_reflection(1)

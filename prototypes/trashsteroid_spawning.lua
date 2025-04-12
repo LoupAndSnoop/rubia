@@ -12,8 +12,9 @@ local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
 local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
 --Trashteroid data
---storage.active_trashsteroids = {} --{{unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}}
+--storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
 storage.active_trashsteroids = storage.active_trashsteroids or {}
+storage.active_trashsteroid_count = storage.active_trashsteroid_count or 0
 --Trashsteroid queue for chunks that currently don't have an active trashsteroid
 --storage.pending_trashsteroid_data = {}--[chunk_data=chunk] = (next_spawn_tick=tick) --has the next tick where we expect a trashsteroid spawn
 storage.pending_trashsteroid_data = storage.pending_trashsteroid_data or {}
@@ -82,7 +83,7 @@ end
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
 local function generate_trashsteroid(trashsteroid_name, chunk)
-  if #storage.active_trashsteroids > max_trashsteroids then return end --We are above the limit of trashsteroids
+  if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroids
 
   --First get a random coord in the chunk
   local x = storage.rubia_asteroid_rng(chunk.area.left_top.x, chunk.area.right_bottom.x)
@@ -96,13 +97,25 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     snap_to_grid = false
   })
 
+  --Set it up
+  resulting_entity.force = game.forces["enemy"]
+
+
+
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
   local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)--+ trashsteroid_lifetime?
   storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
-  table.insert(storage.active_trashsteroids,{unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk})
+  storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk}
+  storage.active_trashsteroid_count = storage.active_trashsteroid_count + 1
+  --table.insert(storage.active_trashsteroids,{unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk})
   return resulting_entity
 end
+
+--[[When a specific trashsteroid is about to be decomissioned, log it as such from any relevant caches.
+local function delist_trashsteroid(entity)
+  storage.active_trashsteroids[entity.unit_number] = {}
+end]]
 
 --Go through one round of going through all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
@@ -113,7 +126,6 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
       --Check chunk exists and its cooldown time is done.
       if (storage.rubia_surface.is_chunk_generated(chunk) --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
         and (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)) then
-  
         generate_trashsteroid("medium-trashsteroid", chunk)
       end
     end
@@ -129,11 +141,18 @@ trashsteroid_lib.trashsteroid_impact_update = function()
   if not storage.active_trashsteroids then return end
   --game.print(serpent.block(storage.active_trashsteroids))
 
+  --Make a temporary array of all trashsteroid entities that need to go through their impact, so we can delete them without changing our iteration.
+  local trashsteroids_impacting = {}
   for i, trashsteroid in pairs(storage.active_trashsteroids) do
     if (trashsteroid.death_tick < game.tick) then
       local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
-      --game.print("About to work on: " .. serpent.block(entity) .. ", from trashteroid: " .. serpent.block(trashsteroid))
-      if entity and entity.valid then --Only continue if it exists
+      --If valid, log it to delete
+      if entity and entity.valid then table.insert(trashsteroids_impacting, entity) end
+    end
+  end
+
+  --Now we go through and actually DO the impacts
+    for i,entity in pairs(trashsteroids_impacting) do
         --TODO Create explosion
         --TODO create damage
         --TODO SFX
@@ -143,10 +162,36 @@ trashsteroid_lib.trashsteroid_impact_update = function()
           direction = defines.direction.east,
           snap_to_grid = false
         })]]
+        
+        --Delist before destruction.
+        table.remove(storage.active_trashsteroids, tostring(entity.unit_number))
+        storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
+        entity.destroy()
+    end  
+end
+
+
+--[[
+  for i, trashsteroid in pairs(storage.active_trashsteroids) do
+    if (trashsteroid.death_tick < game.tick) then
+      local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
+      --game.print("About to work on: " .. serpent.block(entity) .. ", from trashteroid: " .. serpent.block(trashsteroid))
+      if entity and entity.valid then 
+        
+        --Only continue if it exists
+        --TODO Create explosion
+        --TODO create damage
+        --TODO SFX
+        --storage.rubia_surface.create_entity({
+          name = trashsteroid_name,
+          position = {x = x, y = y},
+          direction = defines.direction.east,
+          snap_to_grid = false
+        })
         --game.print("Killing " .. serpent.block(entity))
         entity.destroy()
 
       end
     end
   end
-end
+]]
