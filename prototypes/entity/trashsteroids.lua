@@ -53,9 +53,9 @@ local med_trash_anim_shadow = rubia_lib.make_rotated_animation_variations_from_s
     width = 230,
     height = 230,
     direction_count = 1,
-    shift = util.by_pixel(0+20, 3.5+20),
+    shift = util.by_pixel(0, 3.5),
     scale = 0.25,
-    tint = transparency(0.7),
+    tint = transparency(0.9),
     draw_as_shadow = true
 })
 local med_trash_animations = {}
@@ -63,9 +63,32 @@ for i = 1,6 do
     data:extend({{
         type = "animation",
         name = "medium-trashsteroid-animation" .. tostring(i),
-        layers = {med_trash_anim_solid[i], med_trash_anim_shadow[i]}
+        layers = {med_trash_anim_solid[i]}
+    }})
+    data:extend({{
+        type = "animation",
+        name = "medium-trashsteroid-shadow" .. tostring(i),
+        layers = {med_trash_anim_shadow[i]}
     }})
 end
+
+--Invisible smoke so we don't get smoke upon spawning trashsteroids
+data:extend {{
+    type = "trivial-smoke",
+    name = "rubia-invisible-smoke",
+    duration = 1,
+    fade_away_duration = 1,
+    spread_duration = 1,
+    animation = {
+        filename = "__core__/graphics/empty.png",
+        priority = "high",
+        width = 1,
+        height = 1,
+        flags = {"smoke"},
+        frame_count = 1,
+    },
+    cyclic = true
+}}
 
 --------Defining the trashsteroid prototype(s)
 data:extend({
@@ -76,11 +99,11 @@ data:extend({
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
-    max_health = 450,
+    max_health = 400,
     is_military_target = true,
     deliver_category = "vehicle",
     --corpse = "car-remnants",
-    dying_explosion = "carbonic-asteroid-explosion-3",--"car-explosion",
+    dying_explosion = "carbonic-asteroid-explosion-3",
     alert_icon_shift = util.by_pixel(0, -13),
     energy_per_hit_point = 1,
     minimap_representation =     {
@@ -101,6 +124,10 @@ data:extend({
     consumption = "150kW",
     friction = 1e-4,--2e-3,
     render_layer = "air-object",
+    created_smoke = {
+        type = "create-trivial-smoke",
+        smoke_name = "rubia-invisible-smoke",
+    },
 
     --Blank animation
     animation = {layers = {{filename = "__base__/graphics/decorative/brown-asterisk/brown-asterisk-00.png",

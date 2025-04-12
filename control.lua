@@ -114,13 +114,19 @@ script.on_event(defines.events.on_chunk_charted, function(event)
 end)
 
 --Spawn trashsteroids
-script.on_nth_tick(45, function()
+--script.on_nth_tick(45, function()
+  --trashsteroid_lib.try_spawn_trashsteroids()
+--end)
+
+script.on_nth_tick(2, function()
+  trashsteroid_lib.update_trashsteroid_rendering()
+
   trashsteroid_lib.try_spawn_trashsteroids()
 end)
 
 --Trashsteroid Impact checks
 --{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
-script.on_nth_tick(100, function()
+script.on_nth_tick(3, function()
   trashsteroid_lib.trashsteroid_impact_update()
 end)
 

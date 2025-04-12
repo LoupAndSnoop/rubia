@@ -7,19 +7,32 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 local max_trashsteroids = 200 --Max # of managed trashsteroids active at once
 local trashsteroid_cooldown_min = 60 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 300 --Max cooldown time between trashsteroids in one chunk
-local trashsteroid_lifetime = 300 --Number of ticks that a trashsteroid can live
+local trashsteroid_lifetime = 200 --Number of ticks that a trashsteroid can live
 local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
 local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
 local trashsteroid_names = {"medium-trashsteroid"}
 
 --Trashsteroid movement data
-local trashsteroid_speed = 0.01 --Speed given to trashsteroids upon spawning. 1 is too fast
-local trashsteroid_speed_var = 40 --Speed is randomly up to this % faster
-local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
+local trashsteroid_speed = 0.04 --Speed given to trashsteroids upon spawning. 1 is too fast
+local trashsteroid_speed_var = 40 --Speed is randomly up/down to this % faster
+--local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
+local trashsteroid_rotation_max = 2 -- How much a trashsteroid can rotate (max) over its lifetime.
+local trashsteroid_min_size = 0.3 -- Initial scale of trashsteroid render, which grows linearly until it makes impact.
+local temp_shadow_dist_min = 0.5 --Shift in map space, min
+local temp_shadow_dist_max = 6 --Shift in map space, max
+local temp_shadow_unit_vec = {x=0.707, y=0.707} --unit vector for the direction the shadow should go, relative to the object
+--Premultiply min and max offset of the shadows
+local trashsteroid_shadow_min_vec = {x=temp_shadow_unit_vec.x * temp_shadow_dist_min, y = temp_shadow_unit_vec.y * temp_shadow_dist_min}
+local trashsteroid_shadow_max_vec = {x=temp_shadow_unit_vec.x * temp_shadow_dist_max, y = temp_shadow_unit_vec.y * temp_shadow_dist_max}
+--Give a color that tints something just to transparency.
+local function transparency(value) return {r = value, g = value, b = value, a = value} end
+local trashsteroid_max_opacity = 0.8 --As opaque as it will get.
+local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 
 local trashsteroid_impact_damage = 200 --Raw damage done
 local trashsteroid_impact_radius = 3
+
 
 --Trashteroid data
 --storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
@@ -65,17 +78,7 @@ local function find_impact_targets(position, radius)
 end
 
 
-------------Trashsteroid rendering
---[[--Attach a trashsteroid rendering to the entity, and return the rendering
-local function add_trashsteroid_rendering(entity) 
-  return rendering.draw_animation({
-    animation=…,
-    orientation?=…,
-    x_scale?=…, y_scale?=…, 
-    tint?=…, render_layer?=…, animation_speed?=…, animation_offset?=…, orientation_target?=…, use_target_orientation?=…, oriented_offset?=…, target=…, surface=…, time_to_live?=…, forces?=…, players?=…, visible?=…, only_in_alt_mode?=…})
-end]]
-----------
-
+-----------------
 -- Add entity to the working cache of that item to manage.
 ---@param entity LuaEntity
 local function add_to_cache(entity,cache)--,current_tick)
@@ -140,44 +143,64 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Make it
   local resulting_entity = storage.rubia_surface.create_entity({
-    name = trashsteroid_name,
+   name = trashsteroid_name,
     position = {x = x, y = y},
     direction = defines.direction.east,
-    snap_to_grid = false
+    snap_to_grid = false,
+    --is_military_target = false
   })
 
   --Add a rendering to be able to see it, as it moves somewhat independently
-  rendering.draw_animation({
-    animation = "medium-trashsteroid-animation1",
+  local render = rendering.draw_animation({
+    animation = "medium-trashsteroid-animation" .. tostring(storage.rubia_asteroid_rng(1,6)),
     orientation=storage.rubia_asteroid_rng(1,100) / 100,
     render_layer="air-object",
-    --tint?=…, animation_speed?=…, animation_offset?=…, orientation_target?=…, use_target_orientation?=…, oriented_offset?=…,
+    xscale = trashsteroid_min_size, yscale = trashsteroid_min_size,
     target=resulting_entity, surface=storage.rubia_surface,
-    --time_to_live?=…, forces?=…, players?=…, visible?=…, only_in_alt_mode?=…
+    tint = transparency(0)
   })
-
+  --Draw shadow, matching orientation, but it needs a custom offset
+  local render_shadow = rendering.draw_animation({
+    animation = "medium-trashsteroid-shadow" .. tostring(storage.rubia_asteroid_rng(1,6)),
+    oriention= render.orientation,
+    render_layer="object",
+    xscale = trashsteroid_min_size, yscale = trashsteroid_min_size,
+    target={
+      x = resulting_entity.position.x + trashsteroid_shadow_max_vec.x,
+      y = resulting_entity.position.y + trashsteroid_shadow_max_vec.y},
+    surface=storage.rubia_surface,
+    tint = transparency(0)
+  })
+  
   --Set it up
   resulting_entity.force = game.forces["enemy"]
-  --resulting_entity.color = trashsteroid_color
-  resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(0,trashsteroid_speed_var)/100)
-  resulting_entity.orientation = storage.rubia_asteroid_rng(15,35) / 100
-
-  --resulting_entity.variation = storage.rubia_asteroid_rng(1,6)
-
+  resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(trashsteroid_speed_var,trashsteroid_speed_var)/100)
+  resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
   local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)--+ trashsteroid_lifetime?
   storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
-  storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk}
+
+  storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {
+    unit_number = resulting_entity.unit_number,
+    entity = resulting_entity,
+    death_tick = game.tick + trashsteroid_lifetime,
+    name = trashsteroid_name,
+    chunk_data = chunk,
+    render_solid = render,
+    render_shadow = render_shadow,
+    orient_initial = render.orientation, --Starting orientation for render
+    orient_final = render.orientation * trashsteroid_rotation_max * storage.rubia_asteroid_rng(-20,20)/20 -- ending orientation, not locked to 0-1
+  }
   storage.active_trashsteroid_count = storage.active_trashsteroid_count + 1
-  --table.insert(storage.active_trashsteroids,{unit_number=resulting_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_name, chunk_data=chunk})
+  --table.insert(storage.active_trids,{unit_number=resul_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_namechunk_data=chunk})
   return resulting_entity
 end
 
 --Go through one round of going through all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
-    --game.print("Chunk iterator: " + serpent.block(storage.rubia_chunk_iterator))
+    --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
     try_initialize_RNG()
     if not storage.rubia_chunks then return end --No chunks to worry about
     for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
@@ -187,6 +210,58 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
         generate_trashsteroid("medium-trashsteroid", chunk)
       end
     end
+end
+
+--[[Take in a trashsteroid, and upts rendering to look right.
+trashsteroid_lib.update_trashsteroid_step = function(trashsteroid)
+  locractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
+  trashsteroid.render_solid.x_scale = fractional_age + (1 - fractional_age) * trashsteroid_min_size 
+  trashsteroid.render_solid.y_scale = trashsteroid.render.x_scale
+  trashsteroid.render_shadow.x_scale = trashsteroid.render.x_scale
+  trashsteroid.render_shadow.y_scale = trashsteroid.render.x_scale
+
+  local orient = math.fmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
+  trashsteroid.render_solid.orientation = trashsteroid.angangular_vel * orient
+end]]
+
+--Go through all trashsteroids, and update their rendering.
+trashsteroid_lib.update_trashsteroid_rendering = function()
+  if not storage.active_trashsteroids then return end
+
+  for i, trashsteroid in pairs(storage.active_trashsteroids) do
+    if (trashsteroid.render_solid and trashsteroid.render_solid.valid and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
+      local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
+
+      local scale = fractional_age + (1 - fractional_age) * trashsteroid_min_size
+      trashsteroid.render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
+      trashsteroid.render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
+      trashsteroid.render_shadow.x_scale = scale--trashsteroid.render_solid.x_scale
+      trashsteroid.render_shadow.y_scale = scale--trashsteroid.render_solid.x_scale
+
+      local orient = math.fmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
+      trashsteroid.render_solid.orientation = orient
+      trashsteroid.render_shadow.orientation = orient
+      
+      --Transparency comes in quickly with fractional age.
+      local transparency_scale = math.min(1, 1-(1-fractional_age)^3)
+      trashsteroid.render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
+      trashsteroid.render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
+      
+
+      --Now get shift between shadow and solid
+      --game.print(serpent.block(trashsteroid.render_solid.target.entity.position))
+      local pos = trashsteroid.entity.position
+      trashsteroid.render_shadow.target = {
+        x = fractional_age * trashsteroid_shadow_min_vec.x + (1-fractional_age) * trashsteroid_shadow_max_vec.x + pos.x,
+        y = fractional_age * trashsteroid_shadow_min_vec.y + (1-fractional_age) * trashsteroid_shadow_max_vec.y + pos.y
+      }
+      
+      --[[Make it vulnetable if it is big enough
+      if (trashsteroid.entity and trashsteroid.entity.valid and fractional_age > 0.2) then
+        trashsteroid.entity.is_military_target = false
+      end]]
+    end
+  end
 end
 
 --Spawn trashsteroids
@@ -205,7 +280,10 @@ trashsteroid_lib.trashsteroid_impact_update = function()
     if (trashsteroid.death_tick < game.tick) then
       local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
       --If valid, log it to delete
-      if entity and entity.valid then table.insert(trashsteroids_impacting, entity) end
+      if entity and entity.valid then 
+        table.insert(trashsteroids_impacting, entity)
+        trashsteroid.render_shadow.destroy() --Destroy the shadow while we have the reference.
+      end
     end
   end
 
