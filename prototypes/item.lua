@@ -36,6 +36,71 @@ data:extend(
     --Intermediates and raw resources.
     {
       type = "item",
+      name = "rubia-cupric-scrap",
+      icon = "__rubia__/graphics/icons/rubia-cupric-scrap.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 50,
+      default_import_location = "rubia",
+      weight = 1000/100*kg
+    },
+    {
+      type = "item",
+      name = "rubia-ferrous-scrap",
+      icon = "__rubia__/graphics/icons/rubia-ferrous-scrap.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 50,
+      default_import_location = "rubia",
+      weight = 1000/100*kg
+    },
+
+    {
+      type = "item",
+      name = "rubia-bacteria-A",
+      icon = "__rubia__/graphics/icons/bacteria-typeA.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 50,
+      default_import_location = "rubia",
+      weight = 1000/100*kg,
+      spoil_ticks = 42 * second,
+      spoil_result = nil,
+    },
+    {
+      type = "item",
+      name = "rubia-bacteria-B",
+      icon = "__rubia__/graphics/icons/bacteria-typeB.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 50,
+      default_import_location = "rubia",
+      weight = 1000/100*kg,
+      spoil_ticks = 69 * second,
+      spoil_result = nil,
+    },
+    {
+      type = "item",
       name = "craptonite-chunk",
       icon = "__rubia__/graphics/icons/craptonite-icon.png",
       order = "z[platinum]",
@@ -48,9 +113,47 @@ data:extend(
       stack_size = 2,
       default_import_location = "rubia",
       weight = 10*kg
+    },
+
+    {
+      type = "item",
+      name = "craptonite-frame",
+      icon = "__rubia__/graphics/icons/craptonite-frame.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 50,
+      default_import_location = "rubia",
+      weight = 1000/200*kg
   },
 
-  
+  --Fluids
+  {
+    type = "fluid",
+    name = "rubia-bacterial-sludge",
+    icon = "__rubia__/graphics/icons/bacterial-sludge.png",
+    subgroup = "fluid",
+    default_temperature = 21,
+    max_temperature = 100,
+    base_color = {0,37/255,39/255},
+    flow_color = {0,41/255, 36/255},
+    auto_barrel = false,
+  },
+  {
+    type = "fluid",
+    name = "rubia-froth",
+    icon = "__rubia__/graphics/icons/froth.png",
+    subgroup = "fluid",
+    default_temperature = 21,
+    max_temperature = 100,
+    base_color = {47/255,33/255,28/255},
+    flow_color = {30/255,20/255,18/255},
+    auto_barrel = true,
+  },
 
 
   --Items related to entities

@@ -281,11 +281,6 @@ data:extend({
           {
             type = "instant",
             target_effects = {
-                --[[{
-                    type = "create-entity",
-                    entity_name = "laser-bubble",
-                    tint = {r=0,g=0,b=1,a=1}
-                },]]
                 {
                     type = "create-trivial-smoke",
                     repeat_count = 3,
