@@ -32,6 +32,25 @@ data:extend(
         random_tint_color = item_tints.bluish_science
     },
 
+
+    --Intermediates and raw resources.
+    {
+      type = "item",
+      name = "craptonite-chunk",
+      icon = "__rubia__/graphics/icons/craptonite-icon.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 2,
+      default_import_location = "rubia",
+      weight = 10*kg
+  },
+
+
   --Items related to entities
     {
       type = "item",

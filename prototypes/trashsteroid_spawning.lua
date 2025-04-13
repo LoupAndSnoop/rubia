@@ -13,7 +13,7 @@ local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
 local trashsteroid_names = {"medium-trashsteroid"}
 
---Trashsteroid movement data
+--Medium Trashsteroid movement and rendering data
 local trashsteroid_speed = 0.04 --Speed given to trashsteroids upon spawning. 1 is too fast
 local trashsteroid_speed_var = 40 --Speed is randomly up/down to this % faster
 --local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
@@ -30,8 +30,12 @@ local function transparency(value) return {r = value, g = value, b = value, a = 
 local trashsteroid_max_opacity = 0.8 --As opaque as it will get.
 local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 
+--Trashsteroid ranges, damages, etc
 local trashsteroid_impact_damage = 200 --Raw damage done
 local trashsteroid_impact_radius = 3
+local trashsteroid_chunk_reach = 20 -- How many tiles away can a chunk be generated to reach a collector?
+local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
+local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
 
 
 --Trashteroid data
@@ -75,6 +79,36 @@ local function find_impact_targets(position, radius)
   end
 
   return impacted
+end
+
+--Return the closerst garbo collector in range (LuaEntity) that is in range of an impact to make a chunk projectiles, and is valid to collect.
+--If no valid collector found, return nil.
+local function find_closest_collector(trashsteroid)
+  local start = trashsteroid.entity.position
+  local collectors = storage.rubia_surface.find_entities_filtered({
+    position = start,
+    radius = trashsteroid_chunk_reach,
+    name = "garbo-gatherer"
+  })
+  if not collectors then return nil end --Nothing found. Most common case.
+
+  local best_collector = nil--Closest one that is valid
+  --Compare closest square range to avoid unnecessary sqrt
+  local closest_range = (trashsteroid_chunk_reach + 1)^2
+  for i,entity in pairs(collectors) do
+    if (not entity or not entity.valid) then goto continue end --It just isn't valid
+    --Check that there is enough space for at least one item.
+    if (entity.get_inventory(defines.inventory.chest).can_insert({name="craptonite-chunk",count=1})) then
+      local current_range = (entity.position.x - start.x)^2 + (entity.position.y - start.y)^2
+      if (current_range < closest_range) then --TODO: Electricity check?
+        best_collector = entity
+        closest_range = current_range
+      end
+    end
+    ::continue::
+  end
+
+  return best_collector
 end
 
 
@@ -135,7 +169,7 @@ end
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
 local function generate_trashsteroid(trashsteroid_name, chunk)
-  if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroids
+  if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroid
 
   --First get a random coord in the chunk
   local x = storage.rubia_asteroid_rng(chunk.area.left_top.x, chunk.area.right_bottom.x)
@@ -143,11 +177,11 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Make it
   local resulting_entity = storage.rubia_surface.create_entity({
-   name = trashsteroid_name,
+    name = trashsteroid_name,
     position = {x = x, y = y},
     direction = defines.direction.east,
     snap_to_grid = false,
-    --is_military_target = false
+    create_build_effect_smoke = false
   })
 
   --Add a rendering to be able to see it, as it moves somewhat independently
@@ -317,11 +351,31 @@ trashsteroid_lib.trashsteroid_impact_update = function()
     end  
 end
 
+
+
 --What to do when a medium trashsteroid is killed. Assume it is valid, and the right type.
 trashsteroid_lib.on_med_trashsteroid_killed = function(entity)
   local trashsteroid = storage.active_trashsteroids[tostring(entity.unit_number)]
-  
-  --Make a smalll chunk projectile, if it makes sense.
+
+  --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
+  local collector = find_closest_collector(trashsteroid)
+  if (collector) then --We have a valid collector. Spawn a chunk.
+    --local trash_entity = trashsteroid.entity
+    local chunk_entity = storage.rubia_surface.create_entity({
+      name = "trashsteroid-chunk",
+      position = entity.position,
+      direction = entity.orientation,
+      create_build_effect_smoke = false,
+      speed = trashsteroid_chunk_speed * storage.rubia_asteroid_rng(50,150)/100,
+      max_range = trashsteroid_chunk_reach_quit,
+      target = collector
+    })
+
+
+
+  end
+
+
   --TODO
   
   on_trashsteroid_removed(trashsteroid) --Common cleanup
