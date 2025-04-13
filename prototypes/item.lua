@@ -11,11 +11,12 @@ local simulations_rubia = require("__rubia__.prototypes.factoriopedia-simulation
 
 data:extend(
 {
+  --Science
     {
         type = "tool",
         name = "biorecycling-science-pack",
         localised_description = {"item-description.science-pack"},
-        icon = "__rubia__/graphics/icons/biorecycling-science-pack.png",
+        icon = "__rubia__/graphics/icons/science/sphere_spiked_clear_brown.png",
         subgroup = "science-pack",
         color_hint = { text = "Y" },
         order = "l",
@@ -31,7 +32,46 @@ data:extend(
         durability_description_value = "description.science-pack-remaining-amount-value",
         random_tint_color = item_tints.bluish_science
     },
-
+    {
+      type = "tool",
+      name = "makeshift-biorecycling-science-pack",
+      localised_description = {"item-description.science-pack"},
+      icon = "__rubia__/graphics/icons/science/torus_clear_brown.png",
+      subgroup = "science-pack",
+      color_hint = { text = "Y" },
+      order = "l",
+      inventory_move_sound = item_sounds.science_inventory_move,
+      pick_sound = item_sounds.science_inventory_pickup,
+      drop_sound = item_sounds.science_inventory_move,
+      stack_size = 200,
+      default_import_location = "rubia",
+      weight = 100000*kg,
+      durability = 1,
+      durability_description_key = "description.science-pack-remaining-amount-key",
+      factoriopedia_durability_description_key = "description.factoriopedia-science-pack-remaining-amount-key",
+      durability_description_value = "description.science-pack-remaining-amount-value",
+      random_tint_color = item_tints.bluish_science
+  },
+  {
+    type = "tool",
+    name = "ghetto-biorecycling-science-pack",
+    localised_description = {"item-description.science-pack"},
+    icon = "__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
+    subgroup = "science-pack",
+    color_hint = { text = "Y" },
+    order = "l",
+    inventory_move_sound = item_sounds.science_inventory_move,
+    pick_sound = item_sounds.science_inventory_pickup,
+    drop_sound = item_sounds.science_inventory_move,
+    stack_size = 200,
+    default_import_location = "rubia",
+    weight = 100000*kg,
+    durability = 1,
+    durability_description_key = "description.science-pack-remaining-amount-key",
+    factoriopedia_durability_description_key = "description.factoriopedia-science-pack-remaining-amount-key",
+    durability_description_value = "description.science-pack-remaining-amount-value",
+    random_tint_color = item_tints.bluish_science
+},
 
     --Intermediates and raw resources.
     {
@@ -174,7 +214,11 @@ data:extend(
       place_result = "garbo-gatherer"
   },
 
-
+  --TODO: Crapapult
+  --TODO: Biorecycling plant
+  --TODO: Armored train parts
+  --TODO: Reinforced wall
+  --TODO: T4 mod
 
 
 --[[

@@ -15,14 +15,16 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
           aux = "aux_basic",
           cliffiness = "cliffiness_basic",
           cliff_elevation = "cliff_elevation_from_elevation",
-          ["entity:platinum-ore:probability"] = "rubia_platinum_ore_probability",
+          --[[["entity:platinum-ore:probability"] = "rubia_platinum_ore_probability",
           ["entity:platinum-ore:richness"] = "rubia_platinum_ore_richness",
           ["entity:sulfur-ore:probability"] = "rubia_sulfur_ore_probability",
           ["entity:sulfur-ore:richness"] = "rubia_sulfur_ore_richness",
           ["entity:calcite:probability"] = "rubia_calcite_probability",
           ["entity:calcite:richness"] = "rubia_calcite_richness",
           ["entity:chalcopyrite-ore:probability"] = "rubia_chalcopyrite_ore_probability",
-          ["entity:chalcopyrite-ore:richness"] = "rubia_chalcopyrite_ore_richness",
+          ["entity:chalcopyrite-ore:richness"] = "rubia_chalcopyrite_ore_richness",]]
+          ["entity:bacterial-sludge:probability"] = "bacterial_sludge_probability",
+          ["entity:bacterial-sludge:richness"] = "bacterial_sludge_richness",
         },
         cliff_settings =
         {
@@ -35,14 +37,18 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
   
         autoplace_controls =
         {
+          ["bacterial-sludge"] = {},
           --Controls now show up except we have several problems. 1 no chalcopyrite or sulfur. 2. Platium needs big mining drills.
+          --[[
           ["platinum_ore"] = {},
           ["calcite"] = {},
           ["sulfur_ore"] = {},
           ["chalcopyrite_ore"] = {},
           ["rubia-petroleum"] = {},
           ["rubia_volcanism"] = {},
-          ["rubia-cliff"] = {},
+          ["rubia-cliff"] = {},]]
+
+          
         },
         autoplace_settings =
         {
@@ -115,8 +121,10 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
               --["rubia-med-rock"] = {},
               ["rubia-spidertron-remnants"] = {},
               ["rubia-pole-remnants"] = {},
-              ["rubia-junk-pile"] = {}
+              ["rubia-junk-pile"] = {},
               
+              --Resources
+              ["bacterial-sludge"] = {}
               --["chalcopyrite-ore"] = {},
               --["platinum-ore"] = {},
               --["crater-cliff"] = {},

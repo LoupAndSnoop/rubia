@@ -9,16 +9,12 @@ require("__rubia__.prototypes.trashsteroid_spawning")
 
 ---Fake quality scaling onto the wind turbine.
 local function quality_correct_wind_turbine(entity)
-  --local entityType = entity.type;
-  --if entity.type == "entity-ghost" then entityType = entity.ghost_type end
   --For some reason, 5000 = 300 kW
-  --game.print(tostring(entity.power_production).. " " ..tostring(300 * entity.quality.level) .. "kW - " .. entity.quality.level .. "  " .. entity.name)
   if entity.valid and entity.name == "rubia-wind-turbine" then
       local quality_mult = 1 + 0.3 * entity.quality.level
       entity.power_production = entity.power_production * quality_mult
       entity.electric_buffer_size = entity.electric_buffer_size * quality_mult
    end
-   --game.print(tostring(entity.get_electric_output_flow_limit()))
 end
 
 

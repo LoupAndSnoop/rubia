@@ -90,4 +90,5 @@ rubia_lib.make_rotated_animation_variations_from_sheet = function(variation_coun
       table.insert(result, variation)
     end
    return result
-  end
+end
+
