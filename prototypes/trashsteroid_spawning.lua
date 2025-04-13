@@ -33,10 +33,9 @@ local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 --Trashsteroid ranges, damages, etc
 local trashsteroid_impact_damage = 200 --Raw damage done
 local trashsteroid_impact_radius = 3
-local trashsteroid_chunk_reach = 20 -- How many tiles away can a chunk be generated to reach a collector?
+local trashsteroid_chunk_reach = prototypes.entity["garbo-gatherer"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
 local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
-
 
 --Trashteroid data
 --storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}

@@ -287,6 +287,15 @@ data:extend({
                     tint = {r=0,g=0,b=1,a=1}
                 },]]
                 {
+                    type = "create-trivial-smoke",
+                    repeat_count = 3,
+                    smoke_name = "smoke-fast",
+                    offset_deviation = { { -0.2, -0.2 }, { 0.2, 0.2 } },
+                    initial_height = 0,
+                    speed_from_center = 0.005,
+                    speed_from_center_deviation = 0.02
+                  },
+                {
                     type = "insert-item",
                     item = "craptonite-chunk",
                     count = 1
