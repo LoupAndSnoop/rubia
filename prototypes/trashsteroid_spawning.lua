@@ -194,11 +194,10 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     orient_final = render.orientation * trashsteroid_rotation_max * storage.rubia_asteroid_rng(-20,20)/20 -- ending orientation, not locked to 0-1
   }
   storage.active_trashsteroid_count = storage.active_trashsteroid_count + 1
-  --table.insert(storage.active_trids,{unit_number=resul_entity.unit_number, death_tick=game.tick + trashsteroid_lifetime, name=trashsteroid_namechunk_data=chunk})
   return resulting_entity
 end
 
---Go through one round of going through all chunks and trying to spawn trashsteroids
+--Go through one round of going tgh all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
     --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
     try_initialize_RNG()
@@ -212,17 +211,6 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
     end
 end
 
---[[Take in a trashsteroid, and upts rendering to look right.
-trashsteroid_lib.update_trashsteroid_step = function(trashsteroid)
-  locractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
-  trashsteroid.render_solid.x_scale = fractional_age + (1 - fractional_age) * trashsteroid_min_size 
-  trashsteroid.render_solid.y_scale = trashsteroid.render.x_scale
-  trashsteroid.render_shadow.x_scale = trashsteroid.render.x_scale
-  trashsteroid.render_shadow.y_scale = trashsteroid.render.x_scale
-
-  local orient = math.fmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
-  trashsteroid.render_solid.orientation = trashsteroid.angangular_vel * orient
-end]]
 
 --Go through all trashsteroids, and update their rendering.
 trashsteroid_lib.update_trashsteroid_rendering = function()
@@ -232,10 +220,10 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
     if (trashsteroid.render_solid and trashsteroid.render_solid.valid and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
       local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
 
-      local scale = fractional_age + (1 - fractional_age) * trashsteroid_min_size
+      local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
       trashsteroid.render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
       trashsteroid.render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
-      trashsteroid.render_shadow.x_scale = scale--trashsteroid.render_solid.x_scale
+      trashsteroid.renderhadowscale = scale--trashsteroid.render_solid.x_scale
       trashsteroid.render_shadow.y_scale = scale--trashsteroid.render_solid.x_scale
 
       local orient = math.fmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
@@ -243,7 +231,7 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
       trashsteroid.render_shadow.orientation = orient
       
       --Transparency comes in quickly with fractional age.
-      local transparency_scale = math.min(1, 1-(1-fractional_age)^3)
+      local transparency_scale = math.min(1, 1-(1-fractional_age)^9)--3)
       trashsteroid.render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
       trashsteroid.render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
       
@@ -264,8 +252,12 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
   end
 end
 
---Spawn trashsteroids
---script.on_nth_tick(45, try_spawn_trashsteroids)
+
+function tablelength(T)
+  local count = 0
+  for _ in pairs(T) do count = count + 1 end
+  return count
+end
 
 --Trashsteroid Impact checks
 --{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
@@ -281,14 +273,15 @@ trashsteroid_lib.trashsteroid_impact_update = function()
       local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
       --If valid, log it to delete
       if entity and entity.valid then 
-        table.insert(trashsteroids_impacting, entity)
-        trashsteroid.render_shadow.destroy() --Destroy the shadow while we have the reference.
+        table.insert(trashsteroids_impacting, trashsteroid)
+
       end
     end
   end
 
   --Now we go through and actually DO the impacts
-    for i,entity in pairs(trashsteroids_impacting) do
+    for i,trashsteroid in pairs(trashsteroids_impacting) do
+        local entity = trashsteroid.entity
         --Deal damage
         local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
         for i,hit_entity in pairs(impacted_entities) do
@@ -302,8 +295,12 @@ trashsteroid_lib.trashsteroid_impact_update = function()
           position = {x = entity.position.x + 0.5,y = entity.position.y} --Shift explosion a little bit to lead it.
         })
 
+        --Destroy the renders
+        trashsteroid.render_solid.destroy()
+        trashsteroid.render_shadow.destroy()
+
         --Delist before destruction.
-        table.remove(storage.active_trashsteroids, tostring(entity.unit_number))
+        storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
         storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
         entity.destroy()
     end  

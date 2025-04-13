@@ -59,10 +59,10 @@ local function wind_rotation(entity, event)
                 local player = game.get_player(event.player_index)
                 player.mine_entity(entity, true)
                 player.play_sound{
-				    path="utility/cannot_build",
-				    position=player.position,
-				    volume_modifier=1
-				}
+                    path="utility/cannot_build",
+                    position=player.position,
+                    volume_modifier=1
+                }
             end
 
         end
@@ -112,11 +112,6 @@ script.on_event(defines.events.on_chunk_charted, function(event)
   local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
   trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
-
---Spawn trashsteroids
---script.on_nth_tick(45, function()
-  --trashsteroid_lib.try_spawn_trashsteroids()
---end)
 
 script.on_nth_tick(2, function()
   trashsteroid_lib.update_trashsteroid_rendering()
