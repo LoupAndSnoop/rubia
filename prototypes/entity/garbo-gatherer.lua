@@ -4,19 +4,26 @@ local hit_effects = require("__base__/prototypes/entity/hit-effects")
 local sounds = require("__base__/prototypes/entity/sounds")
 --require("__Ultracube__/prototypes/entities/lib/pipe")
 --require("__Ultracube__/prototypes/entities/lib/module_effects")
+local dim = 4 --Size of this entity is dim x dim
 
 data:extend({
   {
-    type = "assembling-machine",
-    name = "cube-synthesizer",
-    icon = "__rubia__/icons/entities/matter-associator.png",
+    type = "container",
+    name = "garbo-gatherer",
+    icon = "__rubia__/graphics/icons/garbo-gatherer.png",
     icon_size = 128,
-    flags = {"placeable-neutral", "placeable-player", "player-creation"},
-    minable = {mining_time = 1, result = "cube-synthesizer"},
+    flags = {"placeable-neutral", "placeable-player", "player-creation", "not-rotatable", "no-automated-item-insertion"},
+    minable = {mining_time = 1, result = "garbo-gatherer"},
     max_health = 1000,
     damaged_trigger_effect = hit_effects.entity(),
-    --corpse = "cube-big-random-pipes-remnant",
-    dying_explosion = "cube-medium-matter-explosion",
+    corpse = "medium-remnants",
+    dying_explosion = "assembling-machine-3-explosion", --TODO
+
+    --Container fields
+    inventory_size = 20,
+    quality_affects_inventory_size = false,
+    --default_status = "working",
+
     --[[fluid_boxes = {
       {
         production_type = "input",
@@ -48,8 +55,43 @@ data:extend({
       },
     },
     fluid_boxes_off_when_no_fluid_recipe = true,]]
-    collision_box = {{-3.25, -3.25}, {3.25, 3.25}},
-    selection_box = {{-3.5, -3.5}, {3.5, 3.5}},
+    collision_box = {{-dim/2 +0.1, -dim/2 +0.1}, {dim/2 -0.1, dim/2 -0.1}},
+    selection_box = {{-dim/2 +0.1, -dim/2 +0.1}, {dim/2 -0.1, dim/2 -0.1}},--from +/-3.5
+
+    picture = {layers = {
+      {
+        filename = "__rubia__/graphics/entity/garbo-gatherer/matter-associator.png",
+        priority = "high",
+        width = 473,
+        height = 489,
+        frame_count = 1,
+        scale = 0.5 * dim/7,
+        shift = {0, -0.15},
+      },
+      {
+        filename = "__rubia__/graphics/entity/garbo-gatherer/matter-associator-sh.png",
+        priority = "medium",
+        width = 508,
+        height = 446,
+        frame_count = 1,
+        scale = 0.5 * dim/7,
+        shift = {0.38, 0.22},
+        draw_as_shadow = true,
+      },
+    }},
+    
+    
+    --[[{
+      filename = "__rubia__/graphics/entity/garbo-gatherer/matter-associator.png",
+      priority = "high",
+      width = 473,
+      height = 489,
+      frame_count = 1,
+      scale = 0.5,
+      shift = {0, -0.15},
+    },]]
+
+    --[[
     graphics_set = {
       animation = {
         layers = {
@@ -141,10 +183,10 @@ data:extend({
           },
         },
       },
-    },
-    crafting_categories = {"cube-synthesizer", "cube-synthesizer-handcraft"},
+    },]]
+    --crafting_categories = {"cube-synthesizer", "cube-synthesizer-handcraft"},
     vehicle_impact_sound = sounds.generic_impact,
-    working_sound = {
+    --[[working_sound = {
       sound = {
         filename = "__krastorio2-assets-ultracube__/sounds/buildings/matter-associator.ogg",
         volume = 0.60,
@@ -152,7 +194,7 @@ data:extend({
       idle_sound = { filename = "__base__/sound/idle1.ogg" },
       apparent_volume = 0.75,
     },
-    crafting_speed = 1.0,
+    crafting_speed = 1.0,]]
     energy_usage = "50MW",
     energy_source = {
       type = "electric",
@@ -175,6 +217,7 @@ data:extend({
       orientation_to_variation = false,
     },
 
+    --[[
     ingredient_count = 4,
     module_slots = 2,
     icon_draw_specification = {scale = 2, shift = {0, -0.3}},
@@ -183,7 +226,7 @@ data:extend({
       shift = {0, 1.7},
       scale = 1,
     }},
-    allowed_effects = module_effects.speed_efficiency,
+    allowed_effects = module_effects.speed_efficiency,]]
     open_sound = sounds.machine_open,
     close_sound = sounds.machine_close,
   },

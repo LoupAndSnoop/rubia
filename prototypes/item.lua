@@ -31,6 +31,28 @@ data:extend(
         durability_description_value = "description.science-pack-remaining-amount-value",
         random_tint_color = item_tints.bluish_science
     },
+
+  --Items related to entities
+    {
+      type = "item",
+      name = "garbo-gatherer",
+      icon = "__rubia__/graphics/icons/garbo-gatherer.png",
+      order = "z[platinum]",
+      subgroup = "raw-resource",
+      color_hint = { text = "T" },
+
+      inventory_move_sound = item_sounds.resource_inventory_move,
+      pick_sound = item_sounds.resource_inventory_pickup,
+      drop_sound = item_sounds.resource_inventory_move,
+      stack_size = 10,
+      default_import_location = "rubia",
+      weight = 1000*kg
+  },
+
+
+
+
+--[[
     {
         type = "item",
         name = "platinum-ore",
@@ -337,7 +359,7 @@ data:extend(
       weight = 1 * kg,
       random_tint_color = item_tints.yellowing_coal,
       default_import_location = "rubia",
-    },
+    },]]
 }
 
 )

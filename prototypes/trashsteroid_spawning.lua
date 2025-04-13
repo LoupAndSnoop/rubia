@@ -234,7 +234,6 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
       trashsteroid.render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
       trashsteroid.render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
       
-
       --Now get shift between shadow and solid
       --game.print(serpent.block(trashsteroid.render_solid.target.entity.position))
       local pos = trashsteroid.entity.position
@@ -252,10 +251,22 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
 end
 
 
-function tablelength(T)
+--[[function tablelength(T)
   local count = 0
   for _ in pairs(T) do count = count + 1 end
   return count
+end]]
+
+--What to do when this trashsteroid is removed. Takes care of maintaining caches.
+--Includes cleanup common to any mode of death (impact/shot/etc).
+local function on_trashsteroid_removed(trashsteroid)
+    --Destroy the renders
+    trashsteroid.render_solid.destroy()
+    trashsteroid.render_shadow.destroy()
+
+    --Delist before destruction.
+    storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
+    storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
 end
 
 --Trashsteroid Impact checks
@@ -294,15 +305,26 @@ trashsteroid_lib.trashsteroid_impact_update = function()
           position = {x = entity.position.x + 0.5,y = entity.position.y} --Shift explosion a little bit to lead it.
         })
 
-        --Destroy the renders
+        on_trashsteroid_removed(trashsteroid) --Perform common cleanup
+        --[[Destroy the renders
         trashsteroid.render_solid.destroy()
         trashsteroid.render_shadow.destroy()
 
         --Delist before destruction.
         storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
-        storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
+        storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1]]
         entity.destroy()
     end  
+end
+
+--What to do when a medium trashsteroid is killed. Assume it is valid, and the right type.
+trashsteroid_lib.on_med_trashsteroid_killed = function(entity)
+  local trashsteroid = storage.active_trashsteroids[tostring(entity.unit_number)]
+  
+  --Make a smalll chunk projectile, if it makes sense.
+  --TODO
+  
+  on_trashsteroid_removed(trashsteroid) --Common cleanup
 end
 
 

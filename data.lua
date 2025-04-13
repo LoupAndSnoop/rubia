@@ -14,7 +14,9 @@ require("__rubia__.prototypes.technology")
 
 require("__rubia__.prototypes.entity.resources")
 require("__rubia__.prototypes.entity.wind_turbine")
+require("__rubia__.prototypes.entity.garbo-gatherer")
 require("__rubia__.prototypes.entity.trashsteroids")
+
 --require("__rubia__.prototypes.entity.asteroid_spawner")
 require("__rubia__.prototypes.planet.rubia-decoratives")
 require("__rubia__.prototypes.planet.rubia-map-gen")

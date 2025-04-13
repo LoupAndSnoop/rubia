@@ -1,6 +1,5 @@
 require("__rubia__.lib.lib")
 
-
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
@@ -131,7 +130,7 @@ data:extend({
 
     --Blank animation
     animation = {layers = {{filename = "__base__/graphics/decorative/brown-asterisk/brown-asterisk-00.png",
-        width = 119, height = 74, scale = 0, tint = {r=0,g=0,b=0,a=0}}}},--shift = util.by_pixel(9.75, -6.5),
+        width = 119, height = 74, scale = 0, tint = {r=0,g=0,b=0,a=0}}}},
     --This contains an array of animation objects to be used for rendering.
     luarender_animation = med_trash_animations,--[[{layers = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
         filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid.png",
@@ -228,117 +227,97 @@ for i,explosion in pairs(explosions_medium) do
 end
 data:extend(explosions_medium)
 
-  --[[  {
-    type = "fluid-wagon",
-    name = "medium-trashsteroid",
-    icon = "__base__/graphics/icons/fluid-wagon.png",
-    flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "get-by-unit-number"},
-    minable = {mining_time = 0.5, result = "fluid-wagon"},
-    mined_sound = sounds.deconstruct_large(0.8),
-    max_health = 600,
-    capacity = 50000,
-    deliver_category = "vehicle",
-    corpse = "fluid-wagon-remnants",
-    dying_explosion = "fluid-wagon-explosion",
-    factoriopedia_simulation = simulations.factoriopedia_fluid_wagon,
-    collision_box = {{-0.6, -2.4}, {0.6, 2.4}},
-    selection_box = {{-1, -2.703125}, {1, 3.296875}},
-    damaged_trigger_effect = hit_effects.entity(),
-    vertical_selection_shift = -0.796875,
-    icon_draw_specification = {scale = 1.25, shift = {0, -1}},
-    weight = 1000,
-    max_speed = 1.5,
-    braking_force = 3,
-    friction_force = 0.50,
-    air_resistance = 0.01,
-    connection_distance = 3,
-    joint_distance = 4,
-    energy_per_hit_point = 6,
-    resistances =
-    {
-      {
-        type = "fire",
-        decrease = 15,
-        percent = 50
-      },
-      {
-        type = "physical",
-        decrease = 15,
-        percent = 30
-      },
-      {
-        type = "impact",
-        decrease = 50,
-        percent = 60
-      },
-      {
-        type = "explosion",
-        decrease = 15,
-        percent = 30
-      },
-      {
-        type = "acid",
-        decrease = 3,
-        percent = 20
-      }
-    },
-    --back_light = rolling_stock_back_light(),
-    --stand_by_light = rolling_stock_stand_by_light(),
-    color = {r = 0.43, g = 0.23, b = 0, a = 0.5},
-    pictures =
-    {
-      rotated =
-      {
-        layers =
-        {
-          util.sprite_load("__base__/graphics/entity/fluid-wagon/fluid-wagon",
-            {
-              dice = 4,
-              priority = "very-low",
-              allow_low_quality_rotation = true,
-              back_equals_front = true,
-              direction_count = 128,
-              scale = 0.5,
-              usage = "train"
-            }
-          ),
-          util.sprite_load("__base__/graphics/entity/fluid-wagon/fluid-wagon-shadow",
-            {
-              dice = 4,
-              priority = "very-low",
-              allow_low_quality_rotation = true,
-              back_equals_front = true,
-              draw_as_shadow = true,
-              direction_count = 128,
-              scale = 0.5,
-              usage = "train"
-            }
-          )
-        }
-      }
-    },
-    minimap_representation =
-    {
-      filename = "__base__/graphics/entity/fluid-wagon/minimap-representation/fluid-wagon-minimap-representation.png",
-      flags = {"icon"},
-      size = {20, 40},
-      scale = 0.5
-    },
-    selected_minimap_representation =
-    {
-      filename = "__base__/graphics/entity/fluid-wagon/minimap-representation/fluid-wagon-selected-minimap-representation.png",
-      flags = {"icon"},
-      size = {20, 40},
-      scale = 0.5
-    },
-    --wheels = standard_train_wheels,
-    --drive_over_tie_trigger = drive_over_tie(),
-    drive_over_tie_trigger_minimal_speed = 0.5,
-    tie_distance = 50,
-    working_sound = sounds.train_wagon_wheels,
-    --crash_trigger = crash_trigger(),
-    impact_category = "metal-large",
-    --water_reflection = locomotive_reflection()
-  }
+
+
+-----This describes a small trashsteroid chunk that is a projectile.
+-----It is used as an intermediate to connect a medium trashsteroid to a gatherer.
+
+--Save each separate trashsteroid chunk variant as a separate animation prototype
+local trash_chunk_anim_solid = rubia_lib.make_rotated_animation_variations_from_sheet(7,{
+    filename = "__rubia__/graphics/entity/trashsteroids/trashsteroid-chunk.png", --50x350
+    line_length = 1,
+    width = 50,
+    height = 50,
+    direction_count = 1,
+    shift = util.by_pixel(0, 3.5),
+    scale = 0.25,
+    tint = transparency(0.8)
 })
-]]
+local trash_chunk_anim_shadow = rubia_lib.make_rotated_animation_variations_from_sheet(7,{
+    filename = "__rubia__/graphics/entity/trashsteroids/trashsteroid-chunk-shadow.png",
+    line_length = 1,
+    width = 50,
+    height = 50,
+    direction_count = 1,
+    shift = util.by_pixel(0, 3.5),
+    scale = 0.25,
+    tint = transparency(0.9),
+    draw_as_shadow = true
+})
+--local trash_chunk_anim_full = {} --Keep a table of each variation's individual 
+for i = 1,7 do
+    data:extend({{
+        type = "animation",
+        name = "trashsteroid-chunk-animation" .. tostring(i),
+        layers = {trash_chunk_anim_solid[i], trash_chunk_anim_shadow[i]}
+    }})
+    --table.insert(trash_chunk_anim_full, {layers = {trash_chunk_anim_solid[i], trash_chunk_anim_shadow[i]}})
+end
+
+--The actual chunk projectile prototype
+data:extend({
+    {
+        type = "projectile",
+        name = "trashsteroid-chunk",
+        flags = {"not-on-map"},
+        hidden = true,
+        acceleration = 0.01,
+        turn_speed = 0.003,
+        turning_speed_increases_exponentially_with_projectile_speed = true,
+        action =
+        {
+          type = "direct",
+          action_delivery =
+          {
+            type = "instant",
+            target_effects =
+            {
+              {
+                type = "create-entity",
+                entity_name = "explosion"
+              },
+              {
+                type = "damage",
+                damage = {amount = 200, type = "explosion"}
+              },
+              {
+                type = "create-entity",
+                entity_name = "small-scorchmark-tintable",
+                check_buildability = true
+              },
+              {
+                type = "invoke-tile-trigger",
+                repeat_count = 1
+              },
+              {
+                type = "destroy-decoratives",
+                from_render_layer = "decorative",
+                to_render_layer = "object",
+                include_soft_decoratives = true, -- soft decoratives are decoratives with grows_through_rail_path = true
+                include_decals = false,
+                invoke_decorative_trigger = true,
+                decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
+                radius = 1.5 -- large radius for demostrative purposes
+              }
+            }
+          }
+        },
+        --light = {intensity = 0.5, size = 4},
+        --animation = {layers = {trash_chunk_anim_solid[1], trash_chunk_anim_shadow[1]}},
+        animation = trash_chunk_anim_solid,
+        shadow = trash_chunk_anim_shadow,
+        --require("__base__.prototypes.entity.rocket-projectile-pictures").animation({1, 0.8, 0.3}),
+        --shadow = {layers = trash_chunk_anim_shadow[1]},--require("__base__.prototypes.entity.rocket-projectile-pictures").shadow,
+        --smoke = require("__base__.prototypes.entity.rocket-projectile-pictures").smoke,
+      },
+    })

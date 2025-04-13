@@ -125,6 +125,10 @@ script.on_nth_tick(4, function()
   trashsteroid_lib.trashsteroid_impact_update()
 end)
 
+script.on_event(defines.events.on_entity_died, function(event)
+  trashsteroid_lib.on_med_trashsteroid_killed(event.entity)
+end, {{filter = "name", name = "medium-trashsteroid"}})
+
 
 --For cutscene: force_finish_descending()
 
