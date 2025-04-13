@@ -129,6 +129,23 @@ script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity)
 end, {{filter = "name", name = "medium-trashsteroid"}})
 
+--[[Protect collectors from having items added to them
+script.on_event(defines.events.on_player_fast_transferred, function(event)
+  --If adding things in to a garbo gatherer, undo it.
+  if (event.from_player --Adding things in
+  and event.entity and event.entity.valid
+  and event.entity.name == "garbo-gatherer") then
+    local player_inv = game.get_player(event.player_index).get_inventory(defines.inventory.character_main)
+    local collector_inv = event.entity.get_inventory(defines.inventory.chest)
+    
+    --TODO: Transfer everything back
+
+  end
+end)]]
+
+
+-------
+
 
 --For cutscene: force_finish_descending()
 

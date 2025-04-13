@@ -1,10 +1,13 @@
 --Basic settings brought in from ultracube for the graphics.
 
+require("lib.lib")
 local hit_effects = require("__base__/prototypes/entity/hit-effects")
 local sounds = require("__base__/prototypes/entity/sounds")
 --require("__Ultracube__/prototypes/entities/lib/pipe")
 --require("__Ultracube__/prototypes/entities/lib/module_effects")
 local dim = 4 --Size of this entity is dim x dim
+local gather_radius = 20
+
 
 data:extend({
   {
@@ -17,7 +20,38 @@ data:extend({
     max_health = 1000,
     damaged_trigger_effect = hit_effects.entity(),
     corpse = "medium-remnants",
-    dying_explosion = "assembling-machine-3-explosion", --TODO
+    dying_explosion = "assembling-machine-3-explosion",
+    circuit_wire_max_distance = default_circuit_wire_max_distance,
+    circuit_connector = circuit_connector_definitions["chest"],
+    surface_conditions = rubia.surface_conditions(), -- Lock to rubia
+
+    radius_visualisation_specification ={
+      sprite = {
+        filename = "__rubia__/graphics/entity/garbo-gatherer/garbo-gatherer-radius-visualization.png",
+        width = 256,--gather_radius,
+        height = 256,--gather_radius,
+        scale = 0.5
+      },
+      distance = gather_radius
+    },
+    monitor_visualization_tint = {78, 173, 255},
+
+    --[[connection_points =
+    {
+      {
+        shadow =
+        {
+          copper = util.by_pixel(98.5, 2.5),
+          red = util.by_pixel(111.0, 4.5),
+          green = util.by_pixel(85.5, 4.0)
+        },
+        wire =
+        {
+          copper = util.by_pixel(0.0, -82.5),
+          red = util.by_pixel(13.0, -81.0),
+          green = util.by_pixel(-12.5, -81.0)
+        }
+      },]]
 
     --Container fields
     inventory_size = 20,
@@ -231,3 +265,33 @@ data:extend({
     close_sound = sounds.machine_close,
   },
 })
+
+
+--Grandseiken's way of connecting wires
+--[[local function check_circuit_connectors(machine, is_cube_machine)
+  if not settings.startup["cube-circuit-machines"].value then
+    machine.enable_logistic_control_behavior = false
+    machine.circuit_wire_max_distance = 0
+    machine.circuit_connector = nil
+  end
+end
+local function add_circuit_connectors(machine, is_cube_machine, distance, connectors)
+  machine.enable_logistic_control_behavior = true
+  machine.circuit_wire_max_distance = distance
+  machine.circuit_connector = connectors
+  --check_circuit_connectors(machine, is_cube_machine)
+end
+local function add_rotated_circuit_connectors(machine, is_cube_machine, distance, connectors)
+  add_circuit_connectors(machine, is_cube_machine, distance, circuit_connector_definitions.create_vector(universal_connector_template, connectors))
+end
+local function add_vector_circuit_connectors(machine, is_cube_machine, distance, variation, offset, shadow_offset, show_shadow)
+  add_rotated_circuit_connectors(machine, is_cube_machine, distance, {
+    {variation = variation, main_offset = offset, shadow_offset = shadow_offset, show_shadow = show_shadow},
+    {variation = variation, main_offset = offset, shadow_offset = shadow_offset, show_shadow = show_shadow},
+    {variation = variation, main_offset = offset, shadow_offset = shadow_offset, show_shadow = show_shadow},
+    {variation = variation, main_offset = offset, shadow_offset = shadow_offset, show_shadow = show_shadow},
+  })
+end
+data.raw["assembling-machine"]["cube-synthesizer"], true,
+    assembling_machine_circuit_wire_max_distance, 26, util.by_pixel(48, -82), util.by_pixel(64, -64), false)
+]]
