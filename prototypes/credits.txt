@@ -1,4 +1,6 @@
 This is a file just to pay tribute to everyone who helped, or from whom I got assets/code.
 
+-raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work.
 -ZarSasha: Wind turbine forked.
--Velaanix: Code base for infinite brakjing force.
+-Velaanix: Code base for infinite braking force.
+-MadClown: An ore sprite.

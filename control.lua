@@ -113,7 +113,7 @@ script.on_event(defines.events.on_chunk_charted, function(event)
   trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
 
-script.on_nth_tick(2, function()
+script.on_nth_tick(3, function()
   trashsteroid_lib.update_trashsteroid_rendering()
 
   trashsteroid_lib.try_spawn_trashsteroids()
@@ -121,7 +121,7 @@ end)
 
 --Trashsteroid Impact checks
 --{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
-script.on_nth_tick(3, function()
+script.on_nth_tick(4, function()
   trashsteroid_lib.trashsteroid_impact_update()
 end)
 

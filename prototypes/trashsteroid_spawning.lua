@@ -209,8 +209,7 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
         generate_trashsteroid("medium-trashsteroid", chunk)
       end
     end
-end
-
+  end
 
 --Go through all trashsteroids, and update their rendering.
 trashsteroid_lib.update_trashsteroid_rendering = function()
@@ -223,7 +222,7 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
       local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
       trashsteroid.render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
       trashsteroid.render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
-      trashsteroid.renderhadowscale = scale--trashsteroid.render_solid.x_scale
+      trashsteroid.render_shadow.x_scale = scale--trashsteroid.render_solid.x_scale
       trashsteroid.render_shadow.y_scale = scale--trashsteroid.render_solid.x_scale
 
       local orient = math.fmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
