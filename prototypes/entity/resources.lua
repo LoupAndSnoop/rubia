@@ -30,6 +30,18 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
     collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     resource_patch_search_radius = resource_parameters.resource_patch_search_radius,
+    --[[autoplace = resource_autoplace.resource_autoplace_settings
+    {
+      name = resource_parameters.name,
+      order = resource_parameters.order,
+      autoplace_control_name = resource_parameters.autoplace_control_name,
+      base_density = autoplace_parameters.base_density,
+      base_spots_per_km = autoplace_parameters.base_spots_per_km2,
+      regular_rq_factor_multiplier = autoplace_parameters.regular_rq_factor_multiplier,
+      starting_rq_factor_multiplier = autoplace_parameters.starting_rq_factor_multiplier,
+      candidate_spot_count = autoplace_parameters.candidate_spot_count,
+      tile_restriction = autoplace_parameters.tile_restriction
+    },]]
     autoplace = autoplace_parameters.probability_expression ~= nil and
     {
       --control = resource_parameters.name,
@@ -115,14 +127,15 @@ data:extend({
     {
       name = "bacterial-sludge",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
-      base_density = 8.2,
-      base_spots_per_km2 = 1.8,
-      random_probability = 1/48,
-      random_spot_size_minimum = 1,
-      random_spot_size_maximum = 1, -- don't randomize spot size
+      base_density = 8.2 * 20,
+      base_spots_per_km2 = 1.8 * 1.5,
+      random_probability = 1/48 * 0.5,
+      --random_spot_size_minimum = 0.5,
+      --random_spot_size_maximum = 20,
       additional_richness = 220000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
-      has_starting_area_placement = false,
-      regular_rq_factor_multiplier = 1
+      has_starting_area_placement = true,
+      regular_rq_factor_multiplier = 0.4,--1.10,
+      starting_rq_factor_multiplier = 0.5,--1.5,
     },
     stage_counts = {0},
     stages =
@@ -185,6 +198,65 @@ data:extend({
   },
 })
 
+data:extend({
+  resource("__rubia__/graphics/terrain/rubia-cupric-scrap.png",
+    {
+      name = "rubia-cupric-scrap",
+      order = "b",
+      map_color = {r = 0.75, g = 0.21, b = 0.047, a = 1.000},
+      mining_time = 3,
+      walking_sound = sounds.ore,
+      mining_visualisation_tint = {r = 150/256, g = 150/256, b = 160/256, a = 1.000},
+      factoriopedia_simulation = simulations.factoriopedia_rubia_cupric_scrap,
+      --autoplace_control_name = "rubia-cupric-scrap",
+
+      minable = {
+        mining_particle = "cupric-scrap-particle",
+        result = "rubia-cupric-scrap",
+        mining_time = 2,
+      },
+    },
+    {
+      base_density = 12,
+      base_spots_per_km2 = 1.25 * 1.5,
+      has_starting_area_placement = false,
+      random_spot_size_minimum = 0.1,
+      random_spot_size_maximum = 2,
+      regular_rq_factor_multiplier = 0.5,--1.10,
+      starting_rq_factor_multiplier = 0.2,--1.5,
+    }
+  ),
+
+  resource("__rubia__/graphics/terrain/rubia-ferric-scrap.png",
+    {
+      name = "rubia-ferric-scrap",
+      order = "b",
+      map_color = {0,0.34,0.61},
+      
+      walking_sound = sounds.ore,
+      mining_visualisation_tint = {r = 100/256, g = 100/256, b = 180/256, a = 1.000},--{r = 0.99, g = 1.0, b = 0.42, a = 1.000},
+      factoriopedia_simulation = simulations.factoriopedia_rubia_ferric_scrap,
+      --autoplace_control_name = "rubia-ferric-scrap",
+
+      minable = {
+        mining_particle = "ferric-scrap-particle",
+        result = "rubia-ferric-scrap",
+        mining_time = 0.5,
+      },
+    },
+    {
+      base_density = 20,
+      base_spots_per_km2 = 1.25,
+      regular_rq_factor_multiplier = 0.5,--1.10,
+      starting_rq_factor_multiplier = 1.1,--1.5,
+      random_spot_size_minimum = 0.5,
+      random_spot_size_maximum = 2,
+      candidate_spot_count = 22, -- To match 0.17.50 placement
+      has_starting_area_placement = true,
+    }
+  ),
+})
+
 --Autoplace controls
 local u_ore_order = table.deepcopy(data.raw["autoplace-control"]["uranium-ore"].order)
 data:extend({
@@ -213,67 +285,3 @@ data:extend({
   richness = true
 }
 })
-
-
-data:extend({
-  resource("__rubia__/graphics/terrain/rubia-cupric-scrap.png",
-    {
-      name = "rubia-cupric-scrap",
-      order = "b",
-      map_color = {r = 0.75, g = 0.21, b = 0.047, a = 1.000},
-      mining_time = 3,
-      walking_sound = sounds.ore,
-      mining_visualisation_tint = {r = 150/256, g = 150/256, b = 160/256, a = 1.000},
-      factoriopedia_simulation = simulations.factoriopedia_platinum_ore,
-
-      minable = {
-        mining_particle = "cupric-scrap-particle",
-        result = "rubia-cupric-scrap",
-        mining_time = 2,
-      },
-    },
-    {
-      probability_expression = 0
-    }
-  ),
-
-  resource("__rubia__/graphics/terrain/rubia-ferric-scrap.png",
-    {
-      name = "rubia-ferric-scrap",
-      order = "b",
-      map_color = {0,0.34,0.61},
-      
-      walking_sound = sounds.ore,
-      mining_visualisation_tint = {r = 100/256, g = 100/256, b = 180/256, a = 1.000},--{r = 0.99, g = 1.0, b = 0.42, a = 1.000},
-      factoriopedia_simulation = simulations.factoriopedia_rubia_ferric_scrap,
-      
-      minable = {
-        mining_particle = "ferric-scrap-particle",
-        result = "rubia-ferric-scrap",
-        mining_time = 2,
-      },
-    },
-    {
-      probability_expression = 0
-    }
-  ),
-})
-
-  --[[
-  resource(
-    {
-      name = "chalcopyrite-ore",
-      order = "b",
-      map_color = {0.2, 0.2, 0.8},
-      mining_time = 1.2,
-      walking_sound = sounds.ore,
-      mining_visualisation_tint = {r = 100/256, g = 100/256, b = 180/256, a = 1.000},
-      factoriopedia_simulation = simulations.factoriopedia_chalcopyrite_ore,
-
-    },
-    {
-      probability_expression = 0
-    }
-  )
-
-]]

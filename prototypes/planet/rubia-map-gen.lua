@@ -16,13 +16,7 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
           cliffiness = "cliffiness_basic",
           cliff_elevation = "cliff_elevation_from_elevation",
           --[[["entity:platinum-ore:probability"] = "rubia_platinum_ore_probability",
-          ["entity:platinum-ore:richness"] = "rubia_platinum_ore_richness",
-          ["entity:sulfur-ore:probability"] = "rubia_sulfur_ore_probability",
-          ["entity:sulfur-ore:richness"] = "rubia_sulfur_ore_richness",
-          ["entity:calcite:probability"] = "rubia_calcite_probability",
-          ["entity:calcite:richness"] = "rubia_calcite_richness",
-          ["entity:chalcopyrite-ore:probability"] = "rubia_chalcopyrite_ore_probability",
-          ["entity:chalcopyrite-ore:richness"] = "rubia_chalcopyrite_ore_richness",]]
+          ["entity:platinum-ore:richness"] = "rubia_platinum_ore_richness",]]
           ["entity:rubia-ferric-scrap:probability"] = "rubia_ferric_scrap_probability",
           ["entity:rubia-ferric-scrap:richness"] = "rubia_ferric_scrap_richness",
           ["entity:rubia-cupric-scrap:probability"] = "rubia_cupric_scrap_probability",
@@ -48,10 +42,6 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
           --[[
           ["platinum_ore"] = {},
           ["calcite"] = {},
-          ["sulfur_ore"] = {},
-          ["chalcopyrite_ore"] = {},
-          ["rubia-petroleum"] = {},
-          ["rubia_volcanism"] = {},
           ["rubia-cliff"] = {},]]
 
           
@@ -71,7 +61,6 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
               ["lowland-brown-blubber"] = {},
               ["lowland-pale-green"] = {},
 
-              ["natural-yumako-soil"] = {},
               ["midland-cracked-lichen-dark"] = {},
               ["midland-cracked-lichen-dull"] = {},
 
@@ -130,7 +119,9 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
               ["rubia-junk-pile"] = {},
               
               --Resources
-              ["bacterial-sludge"] = {}
+              ["bacterial-sludge"] = {},
+              ["rubia-ferric-scrap"] = {},
+              ["rubia-cupric-scrap"] = {},
               --["chalcopyrite-ore"] = {},
               --["platinum-ore"] = {},
               --["crater-cliff"] = {},
