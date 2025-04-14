@@ -1,8 +1,75 @@
 local sounds = require("__base__.prototypes.entity.sounds")
 local particle_animations = require("__space-age__/prototypes/particle-animations")
 
+particle_animations.get_ferric_scrap_particle_pictures = function(options)
+  return
+  {
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-1.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    },
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-2.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    },
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-3.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    },
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-4.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    }
+  }
+end
 
+particle_animations.get_cupric_scrap_particle_pictures = function(options)
+  return
+  {
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-1.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    },
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-2.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    },
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-3.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    },
+    {
+      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-4.png",
+      priority = "extra-high",
+      width = 32,
+      height = 32,
+      scale = 0.5
+    }
+  }
+end
 
+--[[
 particle_animations.get_platinum_ore_particle_pictures = function(options)
   return
   {
@@ -104,9 +171,11 @@ particle_animations.get_chalcopyrite_ore_particle_pictures = function(options)
     }
   }
 end
+]]
 
 --These functions were here. I'll keep them in case I want to use them later. 
 
+--[[
 local default_smoke_trigger_effect = function()
   return
   {
@@ -235,7 +304,7 @@ local default_ended_in_lava_trigger_effect = function()
     }
   }
 end
-
+]]
 local default_ended_in_water_trigger_effect = function()
   return
   {
@@ -374,22 +443,22 @@ end
 
 local particles =
 {
-
-  
-  make_particle
+  make_particle(
   {
-    name = "platinum-ore-particle",
+    name = "cupric-scrap-particle",
     life_time = 180,
-    pictures = particle_animations.get_platinum_ore_particle_pictures(),
+    pictures = particle_animations.get_cupric_scrap_particle_pictures(),
     shadows = particle_animations.get_old_stone_particle_shadow_pictures() --This happens to be tungsten default shadows, so I'll keep it for platinum as well
-  },
-  make_particle
+  }),
+  make_particle(
   {
-    name = "sulfur-ore-particle",
+    name = "ferric-scrap-particle",
     life_time = 180,
-    pictures = particle_animations.get_sulfur_ore_particle_pictures(),
+    pictures = particle_animations.get_ferric_scrap_particle_pictures(),
     shadows = particle_animations.get_old_stone_particle_shadow_pictures() -- Calcite also uses stone old shadows. Really should be renamed to basic particle shadows, but not worth it to break things.
-  },
+  })
+}
+--[[
   make_particle
   {
     name = "chalcopyrite-ore-particle",
@@ -412,8 +481,8 @@ local particles =
     },
     ended_in_water_trigger_effect = default_ended_in_water_trigger_effect()
   },
-
 }
+]]
 
 data:extend(particles)
 

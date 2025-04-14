@@ -7,7 +7,7 @@ local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 
 
 --Their resource function. Not sure how call theirs without copying it, but this should work
-local function resource(resource_parameters, autoplace_parameters)
+local function resource(resource_graphic,resource_parameters, autoplace_parameters)
   return
   {
     type = "resource",
@@ -54,7 +54,7 @@ local function resource(resource_parameters, autoplace_parameters)
     {
       sheet =
       {
-        filename = "__rubia__/graphics/entity/" .. resource_parameters.name .. "/" .. resource_parameters.name .. ".png",
+        filename = resource_graphic,--"__rubia__/graphics/terrain/" .. resource_parameters.name .. "/" .. resource_parameters.name .. ".png",
         priority = "extra-high",
         size = 128,
         frame_count = 8,
@@ -185,48 +185,51 @@ data:extend({
   },
 })
 
+--Autoplace controls
 local u_ore_order = table.deepcopy(data.raw["autoplace-control"]["uranium-ore"].order)
-data:extend {{
+data:extend({
+{
+  type = "autoplace-control",
+  category = "resource",
+  name = "rubia-ferric-scrap",
+  localised_name = {"", "[item=rubia-ferric-scrap]"," ", {"item-name.rubia-ferric-scrap"}},
+  order = u_ore_order.."1",
+  richness = true
+},
+{
+  type = "autoplace-control",
+  category = "resource",
+  name = "rubia-cupric-scrap",
+  localised_name = {"", "[item=rubia-cupric-scrap]"," ", {"item-name.rubia-cupric-scrap"}},
+  order = u_ore_order.."2",
+  richness = true
+},
+{
   type = "autoplace-control",
   category = "resource",
   name = "bacterial-sludge",
   localised_name = {"", "[fluid=rubia-bacterial-sludge]"," ", {"fluid-name.rubia-bacterial-sludge"}},
-  order = u_ore_order.."4",
+  order = u_ore_order.."3",
   richness = true
-}}
+}
+})
 
---[[
 
-  resource(
+data:extend({
+  resource("__rubia__/graphics/terrain/rubia-cupric-scrap.png",
     {
-      name = "platinum-ore",
+      name = "rubia-cupric-scrap",
       order = "b",
-      map_color = {r = 120/256, g = 120/256, b = 120/256, a = 1.000},
+      map_color = {r = 0.75, g = 0.21, b = 0.047, a = 1.000},
       mining_time = 3,
       walking_sound = sounds.ore,
       mining_visualisation_tint = {r = 150/256, g = 150/256, b = 160/256, a = 1.000},
-      --category = "hard-solid", --hard solid requires big mining drill
       factoriopedia_simulation = simulations.factoriopedia_platinum_ore,
-    },
-    {
-      probability_expression = 0
-    }
-  ),
 
-  resource(
-    {
-      name = "sulfur-ore",
-      order = "b",
-      map_color = {0.8, 0.7, 0.14},
-      
-      walking_sound = sounds.ore,
-      mining_visualisation_tint = {r = 0.99, g = 1.0, b = 0.42, a = 1.000},
-      factoriopedia_simulation = simulations.factoriopedia_sulfur_ore,
-      
       minable = {
-        mining_particle = "sulfur-ore-particle",
-        result = 'sulfur',
-        mining_time = 0.8,
+        mining_particle = "cupric-scrap-particle",
+        result = "rubia-cupric-scrap",
+        mining_time = 2,
       },
     },
     {
@@ -234,6 +237,29 @@ data:extend {{
     }
   ),
 
+  resource("__rubia__/graphics/terrain/rubia-ferric-scrap.png",
+    {
+      name = "rubia-ferric-scrap",
+      order = "b",
+      map_color = {0,0.34,0.61},
+      
+      walking_sound = sounds.ore,
+      mining_visualisation_tint = {r = 100/256, g = 100/256, b = 180/256, a = 1.000},--{r = 0.99, g = 1.0, b = 0.42, a = 1.000},
+      factoriopedia_simulation = simulations.factoriopedia_rubia_ferric_scrap,
+      
+      minable = {
+        mining_particle = "ferric-scrap-particle",
+        result = "rubia-ferric-scrap",
+        mining_time = 2,
+      },
+    },
+    {
+      probability_expression = 0
+    }
+  ),
+})
+
+  --[[
   resource(
     {
       name = "chalcopyrite-ore",
@@ -250,9 +276,4 @@ data:extend {{
     }
   )
 
-
-
-
-
-
-})]]
+]]

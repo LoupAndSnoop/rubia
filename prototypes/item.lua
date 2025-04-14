@@ -91,8 +91,8 @@ data:extend(
     },
     {
       type = "item",
-      name = "rubia-ferrous-scrap",
-      icon = "__rubia__/graphics/icons/rubia-ferrous-scrap.png",
+      name = "rubia-ferric-scrap",
+      icon = "__rubia__/graphics/icons/rubia-ferric-scrap.png",
       order = "z[platinum]",
       subgroup = "raw-resource",
       color_hint = { text = "T" },

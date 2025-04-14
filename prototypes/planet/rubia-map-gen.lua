@@ -23,6 +23,10 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
           ["entity:calcite:richness"] = "rubia_calcite_richness",
           ["entity:chalcopyrite-ore:probability"] = "rubia_chalcopyrite_ore_probability",
           ["entity:chalcopyrite-ore:richness"] = "rubia_chalcopyrite_ore_richness",]]
+          ["entity:rubia-ferric-scrap:probability"] = "rubia_ferric_scrap_probability",
+          ["entity:rubia-ferric-scrap:richness"] = "rubia_ferric_scrap_richness",
+          ["entity:rubia-cupric-scrap:probability"] = "rubia_cupric_scrap_probability",
+          ["entity:rubia-cupric-scrap:richness"] = "rubia_cupric_scrap_richness",
           ["entity:bacterial-sludge:probability"] = "bacterial_sludge_probability",
           ["entity:bacterial-sludge:richness"] = "bacterial_sludge_richness",
         },
@@ -38,6 +42,8 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
         autoplace_controls =
         {
           ["bacterial-sludge"] = {},
+          ["rubia-ferric-scrap"] = {},
+          ["rubia-cupric-scrap"] = {},
           --Controls now show up except we have several problems. 1 no chalcopyrite or sulfur. 2. Platium needs big mining drills.
           --[[
           ["platinum_ore"] = {},
