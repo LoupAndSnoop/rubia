@@ -16,7 +16,7 @@ else
 end
 
 --Helper functions
-_G.rubia_lib = {}
+_G.rubia_lib = _G.rubia_lib or {}
 
 
 

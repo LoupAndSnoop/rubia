@@ -119,9 +119,9 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
               ["rubia-junk-pile"] = {},
               
               --Resources
-              ["bacterial-sludge"] = {},
-              ["rubia-ferric-scrap"] = {},
-              ["rubia-cupric-scrap"] = {},
+              ["bacterial-sludge"] = {},--{frequency = 60, size = 0.1, richness = 10}, --Frequency/Size/richness
+              ["rubia-ferric-scrap"] = {},--{frequency = 2000,size = 0.2, richness = 5},
+              ["rubia-cupric-scrap"] = {},--{25,0.2,5},
               --["chalcopyrite-ore"] = {},
               --["platinum-ore"] = {},
               --["crater-cliff"] = {},

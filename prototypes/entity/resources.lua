@@ -128,14 +128,14 @@ data:extend({
       name = "bacterial-sludge",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
       base_density = 8.2 * 20,
-      base_spots_per_km2 = 1.8 * 1.5,
-      random_probability = 1/48 * 0.5,
+      base_spots_per_km2 = 1.8 * 2,
+      random_probability = 1/48 * 0.4,
       --random_spot_size_minimum = 0.5,
       --random_spot_size_maximum = 20,
       additional_richness = 220000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = true,
-      regular_rq_factor_multiplier = 0.4,--1.10,
-      starting_rq_factor_multiplier = 0.5,--1.5,
+      regular_rq_factor_multiplier = 0.4,--1.10, --0.4
+      starting_rq_factor_multiplier = 0.5,--1.5, --0.5
     },
     stage_counts = {0},
     stages =
@@ -203,7 +203,7 @@ data:extend({
     {
       name = "rubia-cupric-scrap",
       order = "b",
-      map_color = {r = 0.75, g = 0.21, b = 0.047, a = 1.000},
+      map_color = {r = 0.60, g = 0.26, b = 0.157, a = 1.000},
       mining_time = 3,
       walking_sound = sounds.ore,
       mining_visualisation_tint = {r = 150/256, g = 150/256, b = 160/256, a = 1.000},
@@ -216,7 +216,12 @@ data:extend({
         mining_time = 2,
       },
     },
-    {
+    { --Iron ore
+      --[[base_density = 10,
+      regular_rq_factor_multiplier = 0.5,--1.10,
+      starting_rq_factor_multiplier = 0.2,--1.5,
+      candidate_spot_count = 22, -- To match 0.17.50 placement
+      has_starting_area_placement = false,]]
       base_density = 12,
       base_spots_per_km2 = 1.25 * 1.5,
       has_starting_area_placement = false,
@@ -245,6 +250,13 @@ data:extend({
       },
     },
     {
+      --[[Iron ore
+      base_density = 10,
+      regular_rq_factor_multiplier = 0.5,--1.10,
+      starting_rq_factor_multiplier = 1.1,--1.5,
+      candidate_spot_count = 22, -- To match 0.17.50 placement
+      has_starting_area_placement = true,]]
+      
       base_density = 20,
       base_spots_per_km2 = 1.25,
       regular_rq_factor_multiplier = 0.5,--1.10,

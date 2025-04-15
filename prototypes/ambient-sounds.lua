@@ -1,22 +1,28 @@
+
+--Accessibility options for people with a disability.
+local bad_taste_mode = settings.startup["disable-ai-music"].value
+local hero_track
+if bad_taste_mode then hero_track = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1}
+else hero_track = {filename = "__rubia__/sounds/RecycleThatCrap-v2.ogg", volume=0.5} end
+
 data:extend(
 {
-
     {
         type = "ambient-sound",
         name = "rubia-hero",
         track_type = "hero-track",
         planet = "rubia",
-        sound = {
-          filename = "__rubia__/sounds/JunkyardTribe.ogg",--"__space-age__/sound/ambient/fulgora/fulgora-hero.ogg",
-          volume = 0.5
-        }
+        sound = hero_track,
     },
     {
         type = "ambient-sound",
         name = "rubia-1",
         track_type = "main-track",
         planet = "rubia",
-        sound = "__space-age__/sound/ambient/fulgora/fulgora-1.ogg",
+        sound = {
+            filename = "__rubia__/sounds/JunkyardTribe.ogg",--"__space-age__/sound/ambient/fulgora/fulgora-1.ogg",
+            volume = 1,
+        },
         weight = 10
     },
     {
@@ -24,7 +30,10 @@ data:extend(
         name = "rubia-2",
         track_type = "main-track",
         planet = "rubia",
-        sound = "__space-age__/sound/ambient/fulgora/fulgora-2.ogg",
+        sound = {
+            filename = "__rubia__/sounds/junkyard-jam.ogg",
+            volume = 0.5,
+        },
         weight = 10
     },
     {
@@ -32,7 +41,10 @@ data:extend(
         name = "rubia-3",
         track_type = "main-track",
         planet = "rubia",
-        sound = "__space-age__/sound/ambient/fulgora/fulgora-3.ogg",
+        sound = {
+            filename = "__rubia__/sounds/cathedral-of-rusted-cars-DSTechnician.ogg",
+            volume = 1,
+        },
         weight = 10
     },
     {

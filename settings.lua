@@ -1,3 +1,13 @@
+
+data:extend({
+    {
+        type = "bool-setting",
+        name = "disable-ai-music",
+        setting_type = "startup",
+        default_value = false
+    },
+})
+
 --data:extend({
     --[[
     {
