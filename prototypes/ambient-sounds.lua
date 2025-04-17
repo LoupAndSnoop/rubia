@@ -1,9 +1,9 @@
 
 --Accessibility options for people with a disability.
 local bad_taste_mode = settings.startup["disable-ai-music"].value
-local hero_track
-if bad_taste_mode then hero_track = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1}
-else hero_track = {filename = "__rubia__/sounds/RecycleThatCrap-v2.ogg", volume=0.5} end
+local recycle_track
+if bad_taste_mode then recycle_track = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1}
+else recycle_track = {filename = "__rubia__/sounds/RecycleThatCrap-v2.ogg", volume=0.5} end
 
 data:extend(
 {
@@ -12,7 +12,7 @@ data:extend(
         name = "rubia-hero",
         track_type = "hero-track",
         planet = "rubia",
-        sound = hero_track,
+        sound = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1},
     },
     {
         type = "ambient-sound",
@@ -61,7 +61,7 @@ data:extend(
         name = "rubia-6",
         track_type = "main-track",
         planet = "rubia",
-        sound = "__space-age__/sound/ambient/fulgora/fulgora-6.ogg",
+        sound = recycle_track,
         weight = 10
     },
     {

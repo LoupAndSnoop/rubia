@@ -214,7 +214,7 @@ local explosions_medium = {
     table.deepcopy(data.raw["explosion"]["fast-transport-belt-explosion"]),
     table.deepcopy(data.raw["explosion"]["transport-belt-explosion"]),
     table.deepcopy(data.raw["explosion"]["solar-panel-explosion"]),
-    table.deepcopy(data.raw["explosion"]["space-platform-foundation-explosion"]),
+    table.deepcopy(data.raw["explosion"]["storage-chest-explosion"]),--"space-platform-foundation-explosion"]),
     table.deepcopy(data.raw["explosion"]["iron-chest-explosion"])
 }
 --Names of all trashsteroid explosion prototypes

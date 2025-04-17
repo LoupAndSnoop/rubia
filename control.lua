@@ -1,6 +1,8 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
-require("__rubia__.prototypes.trashsteroid_spawning")
+require("__rubia__.script.trashsteroid_spawning")
+require("__rubia__.script.landing-cutscene")
+require("__rubia__.script.wind-correction")
 
 -------
 
@@ -20,6 +22,7 @@ end
 
 -----------
 
+--[[
 --Wind mechanic: Restricting the directions of specific items
 --Code modified from Nancy B + Exfret the wise.
 --Thanks to CodeGreen, for help sorting out horizontal splitters
@@ -64,22 +67,22 @@ local function wind_rotation(entity, event)
         end
     end
     end
-end
+end]]
 
 
 -------Scripts to subscribe functions to events tied to building/modifying
 
 -- Scripts to execute rotation-corrections
 script.on_event(defines.events.on_player_rotated_entity, function(event)
-    wind_rotation(event.entity, event)
+    rubia.wind_rotation(event.entity, event)
 end)
 
 script.on_event(defines.events.on_player_flipped_entity, function(event)
-    wind_rotation(event.entity, event)
+    rubia.wind_rotation(event.entity, event)
 end)
 
 local function do_on_built_changes(event)
-    wind_rotation(event.entity, event)
+    rubia.wind_rotation(event.entity, event)
     quality_correct_wind_turbine(event.entity)
 end
 script.on_event(defines.events.on_built_entity, function(event)

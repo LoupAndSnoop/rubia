@@ -1,14 +1,15 @@
 --This file manages events in control stage, maintaining/executing a table of functions, to be executed after a specific number of ticks.
 
+_G.rubia = _G.rubia or {}
 storage.timing_queue = storage.timing_queue or {}
 --Each event gets a unique ID. This is the one we are currently on.
 storage.timing_queue_next_id = storage.timing_queue_next_id or 1
 --Structure for an event:
 --["event_id"] = {tick_to_execute=on what game tick do we execute?, to_call = function() to call}
 
+rubia.timing_manager = {}
 
-
---Queue up a function to be called ticks_to_wait ticks before executing.
+--Queue up a function to be called ticks_to_wait ticks before executing. Return a string to ID it.
 ---@param function_to_call function() 
 ---@return string event_id event_id that uniquely identifies this particular event
 rubia.timing_manager.wait_then_do = function(ticks_to_wait, function_to_call)
