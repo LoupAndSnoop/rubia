@@ -1,4 +1,26 @@
 require("util")
+require("lib.lib")
+
+--Cargo drop restriction
+local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
+    "rubia", "__rubia__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
+    --TODO: Custom whitelist
+data:extend({rubia_lib.merge(cargo_drops_base, {
+    prerequisites = { "planet-discovery-rubia" }, -- TODO
+    unit = {
+        count = 1000,
+        ingredients = {
+            { "automation-science-pack", 1 },
+            { "logistic-science-pack", 1 },
+            { "chemical-science-pack", 1 },
+            { "military-science-pack", 1 },
+            { "biorecycling-science-pack", 1 },
+        },
+        time = 60,
+    },
+    allows_productivity = false,
+})})
+
 
 --Infinite braking force
 --[[data:extend({

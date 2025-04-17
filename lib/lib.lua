@@ -23,7 +23,7 @@ _G.rubia_lib = _G.rubia_lib or {}
 -----Helper functions to load entity data files.
 --Concatenate all the subtables in a table
 rubia_lib.table_concat = function(big_table)
-local function table_concat_pair(t1,t2)
+  local function table_concat_pair(t1,t2)
         for i=1,#t2 do
             t1[#t1+1] = t2[i]
         end
@@ -35,6 +35,18 @@ local function table_concat_pair(t1,t2)
         result = table_concat_pair(result, big_table[i])
     end
     return result
+end
+
+--Merge 2 tables, making a new table that giving priority to entries in the new table.
+rubia_lib.merge = function(old, new)
+	old = util.table.deepcopy(old)
+
+	for k, v in pairs(new) do
+		if v == "nil" then old[k] = nil
+		else old[k] = v end
+	end
+
+	return old
 end
 
 -- Get multiple sprites from a spritesheet.

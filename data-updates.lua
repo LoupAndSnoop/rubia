@@ -41,10 +41,15 @@ add_quality_factoriopedia_info(data.raw["electric-energy-interface"]["rubia-wind
   end}
 })
 
+--Science pack management
+local all_lab_types = data.raw['lab']
+for k,v in pairs(all_lab_types) do
+  table.insert(v.inputs,"biorecycling-science-pack") --add my science pack to all labs
+end
+
 
 --table.insert(data.raw.lab["lab"].inputs, "biorecycling-science-pack")
 --data.raw["fluid"]["petroleum-gas"].fuel_value = "0.6MJ"
-
 --[[
 local all_lab_types = data.raw['lab']
 local handle_science_populate = true
@@ -58,7 +63,7 @@ end
 
 if not handle_science_populate then
   table.insert(data.raw["lab"]["pressure-lab"].inputs,"biorecycling-science-pack") --I don't add biorecycling-science-pack to my own prototype. This ensures that I still add it somewhere.
-end]]
+end
 
 
 --[[

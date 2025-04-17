@@ -31,6 +31,8 @@ end
 -- Can be used outside of the timing manager to cancel an event before it goes off.
 ---@param event_ids string[] Array of strings that uniquely identifies that particular event
 rubia.timing_manager.dequeue_events = function(event_ids)
+    if not event_ids or #event_ids == 0 then return end
+    --game.print("dequeue:" .. serpent.block(event_ids))
     for _, event_id in pairs(event_ids) do
         storage.timing_queue[event_id] = nil
     end
@@ -40,12 +42,34 @@ end
 script.on_nth_tick(1,function()
     if not storage.timing_queue then return end --Nothing is queued
 
+    --Need to save the result of which things in the queue need done 
+    --because the functions themselves can alter the queue while iterating.
+    local events_completed = {} --Event IDs of the completed ones
+    local functions_to_call = {} -- Actual functions. Need to split in case the function dequeues.
+    for event_id, event in pairs(storage.timing_queue) do
+        if (event and event.tick_to_execute <= game.tick) then --it is time!
+            table.insert(functions_to_call, event.to_call)
+            table.insert(events_completed, event_id)
+        end
+    end
+
+    --if #events_completed > 0 then game.print("done:" .. serpent.block(events_completed)) end
+    rubia.timing_manager.dequeue_events(events_completed)
+    --Now we actually invoke
+    for _, func in pairs(functions_to_call) do func() end
+end)
+
+
+--[[script.on_nth_tick(1,function()
+    if not storage.timing_queue then return end --Nothing is queued
+
     local events_completed = {}
     for event_id, event in pairs(storage.timing_queue) do
-        if (event.tick_to_execute <= game.tick) then --it is time!
+        if (event and event.tick_to_execute <= game.tick) then --it is time!
             event.to_call()
-            table.insert(events_compl, event_id)
-        end    
+            table.insert(events_completed, event_id)
+        end
     end
+    if #events_completed > 0 then game.print("done:" .. serpent.block(events_completed)) end
     rubia.timing_manager.dequeue_events(events_completed)
-end)
+end)]]

@@ -56,9 +56,9 @@ rubia.wind_rotation = function(entity, event)
             else 
                 if entity.type == "entity-ghost" then entity.mine()
                 else 
+                    wind_block_notification(entity, event.player_index)
                     local player = game.get_player(event.player_index)
                     player.mine_entity(entity, true)
-                    wind_block_notification(entity, event.player_index)
                     --[[player.play_sound{
                         path="utility/cannot_build",
                         position=player.position,
