@@ -160,7 +160,7 @@ data:extend({
       }
     },]]
     impact_category = "metal",
-    impact_speed_to_volume_ratio = 4.0,
+    impact_speed_to_volume_ratio = 20.0,
     --[[
     working_sound =
     {
@@ -222,7 +222,7 @@ local explosions_medium = {
 for i,explosion in pairs(explosions_medium) do
     --explosions_medium[i]
     explosion.name = "medium-trashsteroid-explosion" .. tostring(i)
-    explosion.sound = sounds.large_explosion(0.1,0.2) --Min/max volume edit here
+    explosion.sound = sounds.large_explosion(0.03,0.06) --Min/max volume edit here
     --table.insert(trashsteroid_lib.trashsteroid_explosions, explosion.name)
 end
 data:extend(explosions_medium)

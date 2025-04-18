@@ -1,74 +1,129 @@
+require "lib.lib"
+
 local seconds = 60
 local minutes = 60*seconds
 
-data:extend(
-{
-    --BASICS
-    
-    {
-        type ="recipe",
-        name ="biorecycling-science-pack",
-        category ="biorecycling",
-        icon ="__rubia__/graphics/icons/biorecycling-science-pack.png",
-        enabled = false,
-        ingredients = 
-        {
-          {type ="item", name ="sulfur", amount = 2},
-          {type ="item", name ="platinum-plate", amount = 1},
-          {type ="fluid", name ="sulfuric-acid", amount = 100} --Maybe a more advanced recipe will make more of this science. With mixed sulfate solution
-        },
-        surface_conditions =
-        {
-            {
-                property ="pressure",
-                min = 6000,
-                max = 6000
-            },
-            {
-                property ="magnetic-field",
-                min = 99,
-                max = 99
-            }
-        },
-        energy_required = 15,
-        results =
-        {
-          {type ="item", name ="biorecycling-science-pack", amount = 1}
-        },
-        allow_productivity = true,
-        main_product ="biorecycling-science-pack",
-        factoriopedia_description ="Sulfur based science only made on rubia.",
-        crafting_machine_tint =
-        {
+--Machine tints. Primarily have 3 main colors: red, blue, and brown TODO
+local crafting_machine_tint_brown = {
           primary = {r = 1.000, g = 0.912, b = 0.036, a = 1.000}, --rgb(255, 132, 9)
           secondary = {r = 0.707, g = 0.797, b = 0.335, a = 1.000}, --rgb(203, 160, 85)
           tertiary = {r = 0.681, g = 0.635, b = 0.486, a = 1.000}, --rgb(190, 147, 97)
-          quaternary = {r = 1.000, g = 0.804, b = 0.000, a = 1.000}, --rgb(255, 136, 0)
-        },
-    },
+          quaternary = {r = 1.000, g = 0.804, b = 0.000, a = 1.000} --rgb(255, 136, 0)
+}
+local crafting_machine_tint_red = {
+  primary = {r = 1, g = 0.912, b = 0.036, a = 1.000}, --rgb(255, 132, 9)
+  secondary = {r = 1, g = 0.797, b = 0.335, a = 1.000}, --rgb(203, 160, 85)
+  tertiary = {r = 1, g = 0.635, b = 0.486, a = 1.000}, --rgb(190, 147, 97)
+  quaternary = {r = 1.000, g = 0.804, b = 0.000, a = 1.000} --rgb(255, 136, 0)
+}
+local crafting_machine_tint_blue = {
+  primary = {r = 1.000, g = 0.912, b = 1, a = 1.000}, 
+  secondary = {r = 0.707, g = 0.797, b = 1, a = 1.000}, 
+  tertiary = {r = 0.681, g = 0.635, b = 1, a = 1.000},
+  quaternary = {r = 1.000, g = 0.804, b = 1, a = 1.000}
+}
+        
+
+
+data:extend(
+{
+    --Basic Biorecycling for Stage 1
+
+
+  -----Science
+  {
+    type ="recipe",
+    name ="makeshift-biorecycling-science-pack",
+    category ="biorecycling",
+    --icon ="__rubia__/graphics/icons/makeshift-biorecycling-science-pack.png",
+    enabled = false,
+    ingredients = 
     {
-      type = "recipe",
-      icon = "__base__/graphics/icons/rocket-fuel.png",
-      name = "rocket-fuel-catalytic-chemistry",
-      energy_required = 15,
-      enabled = false,
-      category = "biorecycling",
-      ingredients =
-      {
-        {type = "item", name = "solid-fuel", amount = 10},
-        {type = "fluid", name = "light-oil", amount = 10}
-      },
-      results = {{type="item", name="rocket-fuel", amount=1}},
-      crafting_machine_tint =
-      {
-        primary = {r = 194, g = 152, b = 198, a = 1.000}, --rgb(194, 152, 198)
-        secondary = {r = 194, g = 140, b = 215, a = 1.000}, --rgb(194, 140, 215)
-        tertiary = {r = 228, g = 197, b = 151, a = 1.000}, --rgb(228, 197, 151)
-        quaternary = {r = 255, g = 187, b = 73, a = 1.000}, --rgb(255, 187, 73)
-      },
-      allow_productivity = true,
-      main_product = "rocket-fuel",
-      hide_from_player_crafting = true,
+      {type ="item", name ="gun-turret", amount = 1},
+      {type ="item", name ="electric-mining-drill", amount = 1},
+      {type ="fluid", name ="rubia-bacterial-sludge", amount = 100}
+    },
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 5,
+    results =
+    {
+      {type ="item", name ="makeshift-biorecycling-science-pack", amount = 1}
+    },
+    allow_productivity = true,
+    main_product ="makeshift-biorecycling-science-pack",
+    crafting_machine_tint = crafting_machine_tint_brown,
+  },
+  {
+    type ="recipe",
+    name ="ghetto-biorecycling-science-pack",
+    category ="biorecycling",
+    --icon ="__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
+    enabled = false,
+    ingredients = 
+    {
+      {type ="item", name ="rocket-fuel", amount = 1},
+      {type ="item", name ="locomotive", amount = 1},
+    },
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 5,
+    results =
+    {
+      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 1}
+    },
+    allow_productivity = true,
+    main_product ="ghetto-biorecycling-science-pack",
+    crafting_machine_tint = crafting_machine_tint_brown,
+  },
+  {
+    type ="recipe",
+    name ="biorecycling-science-pack",
+    category ="biorecycling",
+    --icon ="__rubia__/graphics/icons/biorecycling-science-pack.png",
+    enabled = false,
+    ingredients = 
+    {
+      {type ="item", name ="craptonite-frame", amount = 4},
+      {type ="item", name ="gun-turret", amount = 1},
+      {type ="item", name ="advanced-circuit", amount = 1}
+    },
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 15,
+    results =
+    {
+      {type ="item", name ="biorecycling-science-pack", amount = 1},
+      {type ="item", name ="craptonite-frame", amount = 3, ignored_by_productivity=3}
+    },
+    allow_productivity = true,
+    main_product ="biorecycling-science-pack",
+    crafting_machine_tint = crafting_machine_tint_brown,
+  },
+
+  ------
+
+
+{
+  type = "recipe",
+  icon = "__base__/graphics/icons/rocket-fuel.png",
+  name = "rocket-fuel-catalytic-chemistry",
+  energy_required = 15,
+  enabled = false,
+  category = "biorecycling",
+  ingredients =
+  {
+    {type = "item", name = "solid-fuel", amount = 10},
+    {type = "fluid", name = "light-oil", amount = 10}
+  },
+  results = {{type="item", name="rocket-fuel", amount=1}},
+  crafting_machine_tint =
+  {
+    primary = {r = 194, g = 152, b = 198, a = 1.000}, --rgb(194, 152, 198)
+    secondary = {r = 194, g = 140, b = 215, a = 1.000}, --rgb(194, 140, 215)
+    tertiary = {r = 228, g = 197, b = 151, a = 1.000}, --rgb(228, 197, 151)
+    quaternary = {r = 255, g = 187, b = 73, a = 1.000}, --rgb(255, 187, 73)
+  },
+  allow_productivity = true,
+  main_product = "rocket-fuel",
+  hide_from_player_crafting = true,
     },
 
     --[[

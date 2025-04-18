@@ -95,6 +95,10 @@ local function start_cutscene(player)
             position=player.position,
             volume_modifier=1
         }
+
+        --cargo_pod.on_cargo_pod_finished_descending()
+        --TODO: Explosion
+
         cutscene_damage(character, player, 260)
         cancel_cutscene(player)
     end))

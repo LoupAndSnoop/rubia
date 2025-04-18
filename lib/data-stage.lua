@@ -1,11 +1,26 @@
 --Helper functions for use in the data stage
 
+--Return surface conditions for something that forces that item/recipe to Rubia only.
 rubia.surface_conditions = function()
     return {{
         property = "wind-speed",
         min = 200,
         max = 200,
     }}
+end
+
+--Take in an EntityPrototype, and ADD surface conditions to it to ban it from Rubia. 
+--This takes in the prototype by reference to modify it, with no return.
+---@class prototype EntityPrototype
+rubia.ban_from_rubia = function(prototype)
+    local rubia_condition = {
+        property = "wind-speed",
+        min = 0, max = 100,
+    }
+    if (not prototype.surface_conditions or #prototype.surface_conditions == 0) then
+        prototype.surface_conditions = {rubia_condition}
+    else table.insert(prototype.surface_conditions, rubia_condition)
+    end
 end
 
 -- Recursive function to ensure all strings are within 20 units.

@@ -3,7 +3,7 @@
 local bad_taste_mode = settings.startup["disable-ai-music"].value
 local recycle_track
 if bad_taste_mode then recycle_track = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1}
-else recycle_track = {filename = "__rubia__/sounds/RecycleThatCrap-v2.ogg", volume=0.5} end
+else recycle_track = {filename = "__rubia__/sounds/RecycleThatCrap-v2.ogg", volume=0.8} end
 
 data:extend(
 {
@@ -32,7 +32,7 @@ data:extend(
         planet = "rubia",
         sound = {
             filename = "__rubia__/sounds/junkyard-jam.ogg",
-            volume = 0.5,
+            volume = 0.35,
         },
         weight = 10
     },

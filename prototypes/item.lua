@@ -202,7 +202,7 @@ data:extend(
       name = "garbo-gatherer",
       icon = "__rubia__/graphics/icons/garbo-gatherer.png",
       order = "z[platinum]",
-      subgroup = "raw-resource",
+      subgroup = "production-machine",
       color_hint = { text = "T" },
 
       inventory_move_sound = item_sounds.resource_inventory_move,
@@ -214,8 +214,24 @@ data:extend(
       place_result = "garbo-gatherer"
   },
 
+  {
+    type = "item",
+    name = "biorecycling-plant",
+    icon = "__rubia__/graphics/icons/biorecycling-plant-test.png",
+    order = "z[platinum]",
+    subgroup = "production-machine",
+    color_hint = { text = "T" },
+
+    inventory_move_sound = item_sounds.resource_inventory_move,
+    pick_sound = item_sounds.resource_inventory_pickup,
+    drop_sound = item_sounds.resource_inventory_move,
+    stack_size = 10,
+    default_import_location = "rubia",
+    weight = 20*kg,
+    place_result = "biorecycling-plant"
+},
+
   --TODO: Crapapult
-  --TODO: Biorecycling plant
   --TODO: Armored train parts
   --TODO: Reinforced wall
   --TODO: T4 mod
