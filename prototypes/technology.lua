@@ -91,6 +91,7 @@ data:extend({
             time = 60
         }
     },
+    --[[
     {
         type = "technology",
         name = "platinum-processing-rubia",
@@ -230,6 +231,7 @@ data:extend({
         },
         prerequisites = { "planet-discovery-rubia","platinum-processing","catalytic-chemical-plant" }
     },
+]]
 
 --[[
 

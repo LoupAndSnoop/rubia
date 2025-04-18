@@ -30,7 +30,7 @@ data:extend(
     --Basic Biorecycling for Stage 1
 
 
-  -----Science
+  --#region Science
   {
     type ="recipe",
     name ="makeshift-biorecycling-science-pack",
@@ -98,8 +98,50 @@ data:extend(
     crafting_machine_tint = crafting_machine_tint_brown,
   },
 
-  ------
+  --#endregion
+  --#region Pre-clear Entity Recipes
+  
+  {
+    type = "recipe",
+    name = "sniper-turret",
+    icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+    icon_size = 64,
+    subgroup = "defensive-structure",
+    order = "b[turret]-a[gun-turret]",
+    enabled = false,
+    energy_required = 10,
+    ingredients = {
+        { type = "item", name = "iron-plate", amount = 10},
+        { type = "item", name = "steel-plate", amount = 10}, 
+        { type = "item", name = "iron-gear-wheel", amount = 10}, 
+    },
+    results = {{
+        type = "item",
+        name = "sniper-turret",
+        amount = 1
+    }}
+},
 
+--#endregion
+--#region Post-clear Rewards
+  {
+    type = "recipe",
+    name = "long-bulk-inserter",
+    category ="advanced-crafting",
+    enabled = false,
+    energy_required = 3,
+    ingredients =
+    {
+      {type = "item", name = "long-handed-inserter", amount = 1},
+      {type = "item", name = "iron-gear-wheel", amount = 10},
+      {type = "item", name = "advanced-circuit", amount = 3},
+      {type = "item", name = "craptonite-frame", amount = 4},
+    },
+    results = {{type="item", name="long-bulk-inserter", amount=1}},
+    crafting_machine_tint = crafting_machine_tint_brown,
+  },
+
+--#endregion
 
 {
   type = "recipe",

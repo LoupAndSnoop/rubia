@@ -11,7 +11,7 @@ local simulations_rubia = require("__rubia__.prototypes.factoriopedia-simulation
 
 data:extend(
 {
-  --Science
+  --#region Science
     {
         type = "tool",
         name = "biorecycling-science-pack",
@@ -73,7 +73,8 @@ data:extend(
     random_tint_color = item_tints.bluish_science
 },
 
-    --Intermediates and raw resources.
+--#endregion
+--#region Intermediates and raw resources.
     {
       type = "item",
       name = "rubia-cupric-scrap",
@@ -171,7 +172,8 @@ data:extend(
       weight = 1000/200*kg
   },
 
-  --Fluids
+  --#endregion
+  --#region Fluids
   {
     type = "fluid",
     name = "rubia-bacterial-sludge",
@@ -195,8 +197,8 @@ data:extend(
     auto_barrel = true,
   },
 
-
-  --Items related to entities
+  --#endregion
+  --#region Items related to entities (pre-clear)
     {
       type = "item",
       name = "garbo-gatherer",
@@ -233,7 +235,19 @@ data:extend(
 --TODO: Crapapult
 --TODO: Armored train parts
 
---Post-clear Rewards
+{
+  type = "item",
+  name = "sniper-turret",
+  icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+  icon_size = 64,
+  subgroup = "defensive-structure",
+  order = "b[turret]-a[gun-turret]",
+  place_result = "sniper-turret",
+  stack_size = 10
+},
+
+--#endregion
+--#region Post-clear Rewards
 
 {
   type = "item",
@@ -255,6 +269,7 @@ data:extend(
   --TODO: Reinforced wall
   --TODO: T4 mod
 
+--#endregion
 
 --[[
     {
