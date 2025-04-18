@@ -13,7 +13,7 @@ local space_age_sounds = require ("__space-age__.prototypes.entity.sounds")
 
 local height = 2
 local width = 4
-local inset = 0.2 --How much to sink in the collision boxes
+local inset = 0.15 --How much to sink in the collision boxes
 
 data:extend({
 
@@ -50,8 +50,8 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 200,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="output", direction = defines.direction.north, 
-                position = {-1, height/2 -inset} }} --position = {-1.5, 0.5} }}, 
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.south, 
+                position = {width/2 - 0.5, height/2 - 0.5} }} --position = {-1.5, 0.5} }}, 
           },
           {
             production_type = "input",
@@ -60,18 +60,8 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 200,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="input", direction = defines.direction.north,
-                position = {1, height/2 - inset} }}
-          },
-          {
-            production_type = "input",
-            pipe_picture = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures,
-            pipe_picture_frozen = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures_frozen,
-            pipe_covers = pipecoverspictures(),
-            volume = 100,
-            secondary_draw_orders = { north = -1 },
             pipe_connections = {{ flow_direction="input", direction = defines.direction.south,
-                position = {-1, -height/2 + inset} }}
+                position = {-width/2 + 0.5, height/2 - 0.5} }}
           },
           {
             production_type = "output",
@@ -80,22 +70,46 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 100,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="output", direction = defines.direction.south,
-                position = {1, -height/2 + inset} }}
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.north,
+                position = {-width/2 + 0.5, -height/2 + 0.5}}}  --position = {-1, -height/2 + inset} }}
+          },
+          {
+            production_type = "input",
+            pipe_picture = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures,
+            pipe_picture_frozen = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").pipe_pictures_frozen,
+            pipe_covers = pipecoverspictures(),
+            volume = 100,
+            secondary_draw_orders = { north = -1 },
+            pipe_connections = {{ flow_direction="input", direction = defines.direction.north,
+                position = {width/2 - 0.5, -height/2 + 0.5} }}
           }
         },
         fluid_boxes_off_when_no_fluid_recipe = true,
         forced_symmetry = "horizontal",
         perceived_performance = {minimum = 0.25, maximum = 10},
 
+        --[[graphics_set = {
+            animation= rubia_lib.make_rotated_animation_variations_from_sheet(1,{
+               filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+                line_length = 1,
+                width = 128,
+                height = 64,
+                direction_count = 1,
+                shift = util.by_pixel(0, 3.5),
+                scale = 1
+          })]]
         graphics_set = {
             animation=
                 {north=
                     {layers = {
                         {filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
-                        width = 128, height = 64, scale = 1,} --tint = {r=0,g=0,b=0,a=0}}
-                    }
-                },
+                        width = 128, height = 64, scale = 1, shift = util.by_pixel(0, 3.5),} --tint = {r=0,g=0,b=0,a=0}}
+                    }},
+                east=
+                    {layers = {
+                        {filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+                        width = 128, height = 64, scale = 1, shift = util.by_pixel(0, 3.5),} --tint = {r=0,g=0,b=0,a=0}}
+                    }},
             }
         },
         --require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").graphics_set,
