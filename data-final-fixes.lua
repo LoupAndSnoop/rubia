@@ -1,4 +1,8 @@
 
+
+
+require("__rubia__.script.crapapult-recipes")
+
 --[[
 local handle_lab = true
 

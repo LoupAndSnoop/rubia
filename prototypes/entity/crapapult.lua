@@ -11,6 +11,30 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local size = 4 --Dimension of the crapapult in tiles
 local inset = 0.2
 
+--#region Crapapult recipes in early data stage
+-- Declare a namespace to have the crapapult blacklist.
+_G.crapapult = {}
+--Crapapult blacklist. This is where other mods could potentially blacklist things.
+--This should be a list of all the names of items to NOT be able to yeet normally.
+crapapult.external_blacklist = {}
+data:extend({
+    {
+        type = "item-subgroup",
+        name = "yeeting-items",
+        group = "yeeting-items",
+        order = "a",
+      },
+      {
+        type = "item-group",
+        name = "yeeting-items",
+        group = "yeeting-items",
+        icon = "__rubia__/graphics/icons/crapapult-icon.png",
+        order = "a",
+      },
+})
+--#endregion
+
+
 local crapapult_base_animation ={layers={
     {
         filename = "__rubia__/graphics/entity/crapapult/crapapult-base.png",
@@ -106,6 +130,8 @@ data:extend({
         max_health = 400,
         corpse = "crapapult-remnants",
         dying_explosion = "electromagnetic-plant-explosion",
+        surface_conditions = rubia.surface_conditions(),
+
         resistances =
         {
           {
@@ -126,14 +152,14 @@ data:extend({
         allowed_effects = {},--"consumption", "speed", "productivity", "pollution", "quality"},
         crafting_categories = {"crapapult"},
         result_inventory_size = 1,
-        crafting_speed = 2,
+        crafting_speed = 5,
         energy_usage = "180kW",
         source_inventory_size = 1,
         energy_source =
         {
           type = "electric",
           usage_priority = "secondary-input",
-          emissions_per_minute = { pollution = 1 }
+          --emissions_per_minute = { pollution = 1 }
         },
         impact_category = "metal",
         open_sound = sounds.electric_large_open,
@@ -155,6 +181,7 @@ data:extend({
         graphics_set =
         {
           animation = crapapult_base_animation,
+          --[[
           working_visualisations =
           {
             {
@@ -226,7 +253,8 @@ data:extend({
                 scale = 0.5
               }
             }
-          },
+          },]]
+          --[[
           water_reflection =
           {
             pictures =
@@ -241,7 +269,7 @@ data:extend({
             },
             rotate = false,
             orientation_to_variation = false
-          }
+          }]]
         }
       },
 
