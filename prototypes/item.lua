@@ -232,7 +232,17 @@ data:extend(
     weight = 20*kg,
     place_result = "biorecycling-plant"
 },
---TODO: Crapapult
+{
+  type = "item",
+  name = "crapapult",
+  icon = "__rubia__/graphics/icons/crapapult-icon.png",
+  icon_size = 64,
+  subgroup = "production-machine",
+  order = "b[turret]-a[gun-turret]",
+  place_result = "crapapult",
+  stack_size = 10
+},
+
 --TODO: Armored train parts
 
 {

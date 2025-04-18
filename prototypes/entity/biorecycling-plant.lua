@@ -7,13 +7,22 @@ require ("__space-age__.prototypes.entity.space-platform-hub-cockpit")
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local space_age_sounds = require ("__space-age__.prototypes.entity.sounds")
---local meld = require("meld")
---local simulations = require("__space-age__.prototypes.factoriopedia-simulations")
---local procession_graphic_catalogue_types = require("__base__/prototypes/planet/procession-graphic-catalogue-types")
 
 local height = 2
 local width = 4
 local inset = 0.15 --How much to sink in the collision boxes
+
+--Intended for if I get a working graphics set in future?
+--[[graphics_set = {
+            animation= rubia_lib.make_rotated_animation_variations_from_sheet(1,{
+               filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+                line_length = 1,
+                width = 128,
+                height = 64,
+                direction_count = 1,
+                shift = util.by_pixel(0, 3.5),
+                scale = 1
+          })]]
 
 data:extend({
 
@@ -29,7 +38,7 @@ data:extend({
         dying_explosion = "biochamber-explosion",
         icon_draw_specification = {shift = {0, -0.25}},
         circuit_wire_max_distance = assembling_machine_circuit_wire_max_distance,
-        circuit_connector = circuit_connector_definitions["electromagnetic-plant"],
+        circuit_connector = circuit_connector_definitions["recycler"],
         heating_energy = "100kW",
         --effect_receiver = { base_effect = { productivity = 0.5 }},
 
@@ -88,17 +97,9 @@ data:extend({
         forced_symmetry = "horizontal",
         perceived_performance = {minimum = 0.25, maximum = 10},
 
+        graphics_set          = require("__quality__.prototypes.entity.recycler-pictures").graphics_set,
+        graphics_set_flipped  = require("__quality__.prototypes.entity.recycler-pictures").graphics_set_flipped,
         --[[graphics_set = {
-            animation= rubia_lib.make_rotated_animation_variations_from_sheet(1,{
-               filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
-                line_length = 1,
-                width = 128,
-                height = 64,
-                direction_count = 1,
-                shift = util.by_pixel(0, 3.5),
-                scale = 1
-          })]]
-        graphics_set = {
             animation=
                 {north=
                     {layers = {
@@ -111,7 +112,7 @@ data:extend({
                         width = 128, height = 64, scale = 1, shift = util.by_pixel(0, 3.5),} --tint = {r=0,g=0,b=0,a=0}}
                     }},
             }
-        },
+        },]]
         --require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").graphics_set,
         open_sound = sounds.metal_large_open,
         close_sound = sounds.metal_large_close,

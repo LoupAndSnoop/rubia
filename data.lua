@@ -19,6 +19,7 @@ require("__rubia__.prototypes.entity.biorecycling-plant")
 require("__rubia__.prototypes.entity.trashsteroids")
 require("__rubia__.prototypes.entity.long-bulk-inserter")
 require("__rubia__.prototypes.entity.sniper-turret")
+require("__rubia__.prototypes.entity.crapapult")
 
 require("__rubia__.prototypes.planet.rubia-decoratives")
 require("__rubia__.prototypes.planet.rubia-map-gen")
