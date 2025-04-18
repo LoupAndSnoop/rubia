@@ -135,10 +135,10 @@ data:extend({
         {
           type = "electric",
           usage_priority = "secondary-input",
-          emissions_per_minute = { pollution = 4 }
+          emissions_per_minute = { pollution = 1 }
         },
         energy_usage = "2000kW",
-        module_slots = 5,
+        module_slots = 4,
         icons_positioning =
         {
           {inventory_index = defines.inventory.furnace_modules, shift = {0, 1}}

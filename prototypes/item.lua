@@ -230,9 +230,28 @@ data:extend(
     weight = 20*kg,
     place_result = "biorecycling-plant"
 },
+--TODO: Crapapult
+--TODO: Armored train parts
 
-  --TODO: Crapapult
-  --TODO: Armored train parts
+--Post-clear Rewards
+
+{
+  type = "item",
+  name = "long-bulk-inserter",
+  icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
+  order = "f[bulk-inserter]",
+  subgroup = "inserter",
+  color_hint = { text = "T" },
+
+  inventory_move_sound = item_sounds.resource_inventory_move,
+  pick_sound = item_sounds.resource_inventory_pickup,
+  drop_sound = item_sounds.resource_inventory_move,
+  stack_size = 50,
+  default_import_location = "rubia",
+  weight = 20*kg,
+  place_result = "long-bulk-inserter"
+},
+
   --TODO: Reinforced wall
   --TODO: T4 mod
 

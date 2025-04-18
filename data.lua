@@ -17,8 +17,9 @@ require("__rubia__.prototypes.entity.wind_turbine")
 require("__rubia__.prototypes.entity.garbo-gatherer")
 require("__rubia__.prototypes.entity.biorecycling-plant")
 require("__rubia__.prototypes.entity.trashsteroids")
+require("__rubia__.prototypes.entity.long-bulk-inserter")
 
---require("__rubia__.prototypes.entity.asteroid_spawner")
+
 require("__rubia__.prototypes.planet.rubia-decoratives")
 require("__rubia__.prototypes.planet.rubia-map-gen")
 require("__rubia__.prototypes.planet.planet")
