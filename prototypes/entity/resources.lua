@@ -44,7 +44,7 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
     },]]
     autoplace = autoplace_parameters.probability_expression ~= nil and
     {
-      --control = resource_parameters.name,
+      control = resource_parameters.name,
       order = resource_parameters.order,
       probability_expression = autoplace_parameters.probability_expression,
       richness_expression = autoplace_parameters.richness_expression
@@ -123,12 +123,11 @@ data:extend({
     driving_sound = tile_sounds.driving.oil,
     collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
-    autoplace = resource_autoplace.resource_autoplace_settings
-    {
+    autoplace = resource_autoplace.resource_autoplace_settings{
       name = "bacterial-sludge",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
       base_density = 8.2 * 20,
-      base_spots_per_km2 = 1.8 * 2,
+      base_spots_per_km2 = 1.8 * 2 / 99999,
       random_probability = 1/48 * 0.4,
       --random_spot_size_minimum = 0.5,
       --random_spot_size_maximum = 20,
@@ -208,7 +207,7 @@ data:extend({
       walking_sound = sounds.ore,
       mining_visualisation_tint = {r = 150/256, g = 150/256, b = 160/256, a = 1.000},
       factoriopedia_simulation = simulations.factoriopedia_rubia_cupric_scrap,
-      --autoplace_control_name = "rubia-cupric-scrap",
+      autoplace_control_name = "rubia-cupric-scrap",
 
       minable = {
         mining_particle = "cupric-scrap-particle",
@@ -216,19 +215,22 @@ data:extend({
         mining_time = 2,
       },
     },
-    { --Iron ore
-      --[[base_density = 10,
-      regular_rq_factor_multiplier = 0.5,--1.10,
-      starting_rq_factor_multiplier = 0.2,--1.5,
-      candidate_spot_count = 22, -- To match 0.17.50 placement
-      has_starting_area_placement = false,]]
+    { 
+      --[[
       base_density = 12,
       base_spots_per_km2 = 1.25 * 1.5,
       has_starting_area_placement = false,
       random_spot_size_minimum = 0.1,
       random_spot_size_maximum = 2,
       regular_rq_factor_multiplier = 0.5,--1.10,
+      starting_rq_factor_multiplier = 0.2,--1.5,]]
+      --probability_expression=0,
+      --Iron ore
+      base_density = 10,
+      regular_rq_factor_multiplier = 0.5,--1.10,
       starting_rq_factor_multiplier = 0.2,--1.5,
+      candidate_spot_count = 22, -- To match 0.17.50 placement
+      has_starting_area_placement = false,
     }
   ),
 
