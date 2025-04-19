@@ -4,7 +4,7 @@ require("lib.lib")
 --Cargo drop restriction
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
     "rubia", "__rubia__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
-    --TODO: Custom whitelist
+    --TODO: Custom whitelist, because construction bots are allowed
 data:extend({rubia_lib.merge(cargo_drops_base, {
     prerequisites = { "planet-discovery-rubia" }, -- TODO
     unit = {
@@ -18,8 +18,18 @@ data:extend({rubia_lib.merge(cargo_drops_base, {
         },
         time = 60,
     },
-    allows_productivity = false,
+    allows_productivity = true,
 })})
+
+
+--Make an array of recipe unlock effects, to unlock several recipes at once.
+--Enter an array of strings of recipe neames.
+local function unlock_recipes(recipe_names)
+    local unlocks = {}
+    for _, name in pairs(recipe_names) do
+        table.insert(unlocks, {type = "unlock-recipe", recipe = name})
+    end
+end
 
 
 --Infinite braking force
@@ -58,7 +68,7 @@ data:extend({rubia_lib.merge(cargo_drops_base, {
 
 
 data:extend({
-    --BASICS
+--#region Core Rubia Progression
     {
         type = "technology",
         name = "planet-discovery-rubia",
@@ -72,10 +82,7 @@ data:extend({
                 space_location = "rubia",
                 use_icon_overlay_constant = true
             },
-            {
-                type = "unlock-recipe",
-                recipe = "rubia-wind-turbine",
-            },
+            --{type = "unlock-recipe", recipe = "rubia-wind-turbine"},
         },
         prerequisites = { "space-platform-thruster", "energy-shield-equipment", "electric-energy-distribution-1"},
         unit =
@@ -91,6 +98,61 @@ data:extend({
             time = 60
         }
     },
+    {
+        type = "technology",
+        name = "rubia-progression-stage1",
+        icons = util.technology_icon_constant_planet("__rubia__/graphics/technology/rubia-discovery.png"),
+        icon_size = 256,
+        essential = true,
+        effects =
+        {
+            {type = "unlock-recipe", recipe = "biorecycling-plant"},
+            {type = "unlock-recipe", recipe = "crapapult"},
+            {type = "unlock-recipe", recipe = "alt-gun-turret"},
+            {type = "unlock-recipe", recipe = "rubia-wind-turbine"},
+
+            {type = "unlock-recipe", recipe = "rubia-bacteria-A"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-ferric-scrap"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-firearm-magazine"},
+        },
+        prerequisites = { "planet-discovery-rubia"},
+        research_trigger = {type = "mine-entity", entity="rubia-spidertron-remnants"},
+    },
+
+
+
+
+    {--Shamelessly taken from maraxsis
+        type = "technology",
+        name = "rubia-project-trashdragon",
+        icon = "__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
+        icon_size = 256,
+        effects = {
+            {
+                type = "nothing",
+                use_icon_overlay_constant = true,
+                icon = "__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
+                icon_size = 256,
+                effect_description = {"modifier-description.rubia-project-trashdragon"}
+            },
+            {type = "unlock-recipe", recipe = "rocket-part-rubia"},
+        },
+        prerequisites = {"planet-discovery-rubia"},
+        unit = {
+            count = 1000,
+            ingredients =
+            {
+                { "automation-science-pack",      1 },
+                { "logistic-science-pack",        1 },
+                { "chemical-science-pack",        1 },
+                { "space-science-pack",           1 },
+            },
+            time = 60,
+        },
+        order = "ea[seadragon]",
+    },
+
+--#endregion
     --[[
     {
         type = "technology",

@@ -30,11 +30,7 @@ local crafting_machine_tint_purple = {
 }
 
 
-data:extend(
-{
-    --Basic Biorecycling for Stage 1
-
-
+data:extend({
 --#region Science
   {
     type ="recipe",
@@ -102,6 +98,68 @@ data:extend(
     main_product ="biorecycling-science-pack",
     crafting_machine_tint = crafting_machine_tint_brown,
   },
+
+
+  --Science yeeting
+  {
+    type = "recipe",
+    name = "yeet-makeshift-biorecycling-science-pack",
+    category = "crapapult",
+    enabled = true,
+    hidden_in_factoriopedia = true,
+    hide_from_player_crafting = true,
+    hide_from_signal_gui = true,
+    hidden = true,
+    energy_required = 0.1,
+    ingredients = {{ type = "item", name = "makeshift-biorecycling-science-pack", amount = 1 }},
+    results = {{ type = "item", name = "yeet-makeshift-biorecycling-science-pack", amount = 1 }},
+    icon = "__rubia__/graphics/icons/science/yeet_torus_clear_brown.png",
+    icon_size = 64,
+    subgroup = "yeeting-items",
+    order = "zz[yeet]",
+    auto_recycle=false,
+    allow_productivity=false,
+  },
+  {
+    type = "recipe",
+    name = "yeet-ghetto-biorecycling-science-pack",
+    icon = "__rubia__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
+    icon_size = 64,
+    category = "crapapult",
+    enabled = true,
+    hidden_in_factoriopedia = true,
+    hide_from_player_crafting = true,
+    hide_from_signal_gui = true,
+    hidden = true,
+    energy_required = 0.1,
+    ingredients = {{ type = "item", name = "ghetto-biorecycling-science-pack", amount = 1 }},
+    results = {{ type = "item", name = "yeet-ghetto-biorecycling-science-pack", amount = 1 }},
+    subgroup = "yeeting-items",
+    order = "zz[yeet]",
+    auto_recycle=false,
+    allow_productivity=false,
+  },
+  {
+    type = "recipe",
+    name = "yeet-biorecycling-science-pack",
+    icon = "__rubia__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png",
+    icon_size = 64,
+    category = "crapapult",
+    enabled = true,
+    hidden_in_factoriopedia = true,
+    hide_from_player_crafting = true,
+    hide_from_signal_gui = true,
+    hidden = true,
+    energy_required = 0.1,
+    ingredients = {{ type = "item", name = "biorecycling-science-pack", amount = 1 }},
+    results = {{ type = "item", name = "yeet-biorecycling-science-pack", amount = 1 }},
+    subgroup = "yeeting-items",
+    order = "zz[yeet]",
+    auto_recycle=false,
+    allow_productivity=false,
+  },
+
+
 
   --#endregion
 --#region Biorecycling Stage 1- Early Rubia
@@ -321,15 +379,53 @@ data:extend(
   crafting_machine_tint = crafting_machine_tint_brown,
 },
 
---#endregion
+{
+  type ="recipe",
+  name ="biorecycle-bacteria-AB-ferric-scrap",
+  icon = "__rubia__/graphics/icons/recipes/bacteria-AB+elec-engine.png",
+  category ="biorecycling",
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="rubia-bacteria-B", amount = 3},
+    {type ="item", name ="engine-unit", amount = 2},
+    {type ="item", name ="processing-unit", amount = 3},
+  },
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 1,
+  results = {
+    {type ="item", name ="electric-engine-unit", amount = 1},
+    {type ="item", name ="copper-cable", amount = 4},
+  },
+  allow_productivity = true,
+  crafting_machine_tint = crafting_machine_tint_red,
+},
+{
+  type = "recipe",
+  name ="rocket-part-rubia",
+  energy_required = 3,
+  surface_conditions = rubia.surface_conditions(),
+  enabled = false,
+  hide_from_player_crafting = true,
+  auto_recycle = false,
+  category = "rocket-building",
+  ingredients =
+  {
+    {type = "item", name = "processing-unit", amount = 1},
+    {type = "item", name = "craptonite-frame", amount = 1},
+    {type = "item", name = "rocket-fuel", amount = 1}
+  },
+  results = {{type="item", name="rocket-part", amount=1}},
+  allow_productivity = true
+},
 
+--#endregion
 --#region Biorecycling Stage 4- Post clear
 
 
 
 --#endregion
 
-  --#region Pre-clear Entity Recipes
+--#region Pre-clear Entity Recipes
   
   {
     type = "recipe",

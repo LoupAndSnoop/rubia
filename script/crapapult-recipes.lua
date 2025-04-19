@@ -1,5 +1,3 @@
---local icons = "__core__/graphics/empty.png",
-
 --Thanks to GotLag for the base for this file, from his Flare Stack mod!
 
 _G.crapapult = _G.crapapult or {}
@@ -9,7 +7,12 @@ local crapapult_recipe_base_energy = 0.02
 --Crapapult blacklist for this mod. The external blacklist is declared earlier, and can be messed with by other mods.
 --This should be a list of all the names of items to NOT be able to yeet normally.
 local internal_blacklist = {
+    "biorecycling-science-pack",
+    "ghetto-biorecycling-science-pack",
     "makeshift-biorecycling-science-pack",
+    "yeet-biorecycling-science-pack",
+    "yeet-ghetto-biorecycling-science-pack",
+    "yeet-makeshift-biorecycling-science-pack",
 }
 local total_blacklist = rubia_lib.merge(internal_blacklist, crapapult.external_blacklist)
 --Make this a dictionary, like a hashset to quickly check.
@@ -42,15 +45,13 @@ function crapapult.yeet_recipe(item, category, craft_category)
     {
       type = "recipe",
       name = "yeet-" .. category .. "-" .. item.name,
-      localised_name = "yeet-" .. "(" .. category .. ") " .. item.name .. " incineration",
+      localised_name = "yeet-" .. "(" .. category .. ") " .. item.name,
       category = craft_category,
       enabled = true,
       hidden_in_factoriopedia = true,
       hide_from_player_crafting = true,
       hide_from_signal_gui = true,
       hidden = true,
-      -- this is now done through incinerator crafting speed
-      -- energy_required = 1.0 / settings.startup["flare-stack-item-rate"].value,
       energy_required = crapapult_recipe_base_energy,--1,
       ingredients =
       {

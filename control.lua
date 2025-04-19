@@ -4,6 +4,12 @@ require("__rubia__.script.trashsteroid_spawning")
 require("__rubia__.script.landing-cutscene")
 require("__rubia__.script.wind-correction")
 
+
+local trashdragon = require("__rubia__.script.project-trashdragon")
+script.on_event(defines.events.on_built_entity, function(event)
+    trashdragon.on_built_rocket_silo(event)
+end)
+
 -------
 
 ---Faux quality scaling
@@ -18,57 +24,6 @@ local function quality_correct_wind_turbine(entity)
       entity.electric_buffer_size = entity.electric_buffer_size * quality_mult
    end
 end
-
-
------------
-
---[[
---Wind mechanic: Restricting the directions of specific items
---Code modified from Nancy B + Exfret the wise.
---Thanks to CodeGreen, for help sorting out horizontal splitters
-local function wind_rotation(entity, event)
-    --game.print(entity.type)
-
-    if entity.surface.name ~= "rubia" or not entity.valid then
-        do return end
-    end
-
-    local entityType = entity.type;
-    if entity.type == "entity-ghost" then entityType = entity.ghost_type end
-
-    --Rotate relevant items to not conflict with wind
-    if entityType == "inserter" then
-        for i = 1, 3 do
-            if entity.direction ~= defines.direction.west then
-                entity.rotate()
-            end
-        end
-    elseif entity.type == "underground-belt" and entity.direction == defines.direction.west then
-        entity.rotate()
-    elseif entityType == "transport-belt" and entity.direction == defines.direction.west then
-        entity.rotate()
-        entity.rotate()
-    else if entityType == "splitter" then
-        if entity.direction == defines.direction.east then do return end
-        elseif entity.direction == defines.direction.west then do entity.rotate() end
-        --Case of horizontal splitters, we need a refund
-        else 
-            if entity.type == "entity-ghost" then entity.mine()
-            else 
-                local player = game.get_player(event.player_index)
-                player.mine_entity(entity, true)
-                player.play_sound{
-                    path="utility/cannot_build",
-                    position=player.position,
-                    volume_modifier=1
-                }
-            end
-
-        end
-    end
-    end
-end]]
-
 
 -------Scripts to subscribe functions to events tied to building/modifying
 
@@ -144,9 +99,6 @@ end)]]
 
 
 -------
-
-
---For cutscene: force_finish_descending()
 
 
 

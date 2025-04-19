@@ -1,6 +1,3 @@
-
-
-
 require("__rubia__.script.crapapult-recipes")
 
 --[[
