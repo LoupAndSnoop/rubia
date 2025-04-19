@@ -14,7 +14,7 @@ data:extend({
     type = "container",
     name = "garbo-gatherer",
     icon = "__rubia__/graphics/icons/garbo-gatherer.png",
-    icon_size = 128,
+    icon_size = 64,
     flags = {"placeable-neutral", "placeable-player", "player-creation", "not-rotatable", "no-automated-item-insertion"},
     minable = {mining_time = 1, result = "garbo-gatherer"},
     max_health = 1000,

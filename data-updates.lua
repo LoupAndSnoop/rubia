@@ -41,11 +41,30 @@ add_quality_factoriopedia_info(data.raw["electric-energy-interface"]["rubia-wind
   end}
 })
 
+--#region Science/tech related updates
 --Science pack management
 local all_lab_types = data.raw['lab']
-for k,v in pairs(all_lab_types) do
+for _,v in pairs(all_lab_types) do
   table.insert(v.inputs,"biorecycling-science-pack") --add my science pack to all labs
 end
+
+
+--Make rubia a prerequisite for this technology. If add_sci_cost, then also make the tech require rubia science.
+local function require_rubia_clear_for_tech(technology_name, add_sci_cost)
+  local technology = data.raw["technology"][technology_name]
+  if technology then 
+    table.insert(technology.prerequisites, "rubia-project-trashdragon")
+    if (technology.unit and add_sci_cost) then 
+      table.insert(technology.unit.ingredients, {"biorecycling-science-pack",1})
+    end
+  end
+end
+--Make project trashdragon a prerequisite for endgame planets, like aquilo
+if (settings.startup["require-rubia-for-endgame-planets"].value) then 
+  require_rubia_clear_for_tech("planet-discovery-aquilo", true)
+  if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
+end
+--#endregion
 
 --table.insert(data.raw.lab["lab"].inputs, "biorecycling-science-pack")
 --data.raw["fluid"]["petroleum-gas"].fuel_value = "0.6MJ"

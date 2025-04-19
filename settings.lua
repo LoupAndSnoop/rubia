@@ -6,6 +6,18 @@ data:extend({
         setting_type = "startup",
         default_value = false
     },
+    {
+        type = "bool-setting",
+        name = "require-rubia-for-endgame-planets",
+        setting_type = "startup",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "remove-rubia-from-promethium_sci",
+        setting_type = "startup",
+        default_value = false
+    },
 })
 
 --data:extend({

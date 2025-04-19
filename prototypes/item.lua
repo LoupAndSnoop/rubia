@@ -33,7 +33,7 @@ data:extend(
       random_tint_color = item_tints.bluish_science
     },
     {
-      type = "tool",
+      type = "item",
       name = "makeshift-biorecycling-science-pack",
       localised_description = {"item-description.science-pack"},
       icon = "__rubia__/graphics/icons/science/torus_clear_brown.png",
@@ -50,10 +50,12 @@ data:extend(
       durability_description_key = "description.science-pack-remaining-amount-key",
       factoriopedia_durability_description_key = "description.factoriopedia-science-pack-remaining-amount-key",
       durability_description_value = "description.science-pack-remaining-amount-value",
-      random_tint_color = item_tints.bluish_science
+      random_tint_color = item_tints.bluish_science,
+      spoil_ticks = 3 * minute,
+      spoil_result = nil,
   },
   {
-    type = "tool",
+    type = "item",
     name = "ghetto-biorecycling-science-pack",
     localised_description = {"item-description.science-pack"},
     icon = "__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
@@ -70,7 +72,9 @@ data:extend(
     durability_description_key = "description.science-pack-remaining-amount-key",
     factoriopedia_durability_description_key = "description.factoriopedia-science-pack-remaining-amount-key",
     durability_description_value = "description.science-pack-remaining-amount-value",
-    random_tint_color = item_tints.bluish_science
+    random_tint_color = item_tints.bluish_science,
+    spoil_ticks = 3 * minute,
+    spoil_result = nil,
 },
 --Science yeeting
 {

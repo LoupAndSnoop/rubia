@@ -6,7 +6,7 @@ local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
     "rubia", "__rubia__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
     --TODO: Custom whitelist, because construction bots are allowed
 data:extend({rubia_lib.merge(cargo_drops_base, {
-    prerequisites = { "planet-discovery-rubia" }, -- TODO
+    prerequisites = { "rubia-project-trashdragon" }, -- TODO
     unit = {
         count = 1000,
         ingredients = {
@@ -82,7 +82,6 @@ data:extend({
                 space_location = "rubia",
                 use_icon_overlay_constant = true
             },
-            --{type = "unlock-recipe", recipe = "rubia-wind-turbine"},
         },
         prerequisites = { "space-platform-thruster", "energy-shield-equipment", "electric-energy-distribution-1"},
         unit =
@@ -101,8 +100,8 @@ data:extend({
     {
         type = "technology",
         name = "rubia-progression-stage1",
-        icons = util.technology_icon_constant_planet("__rubia__/graphics/technology/rubia-discovery.png"),
-        icon_size = 256,
+        icon = "__rubia__/graphics/icons/science/torus_clear_brown.png",
+        icon_size = 64,
         essential = true,
         effects =
         {
@@ -114,13 +113,61 @@ data:extend({
             {type = "unlock-recipe", recipe = "rubia-bacteria-A"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-ferric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-firearm-magazine"},
+            {type = "unlock-recipe", recipe = "makeshift-biorecycling-science-pack"},
         },
         prerequisites = { "planet-discovery-rubia"},
         research_trigger = {type = "mine-entity", entity="rubia-spidertron-remnants"},
     },
+    {
+        type = "technology",
+        name = "rubia-progression-stage2",
+        icon = "__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {type = "unlock-recipe", recipe = "rubia-bacteria-B"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-cupric-scrap"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-engine"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-processing-unit"},
+            
+            {type = "unlock-recipe", recipe = "ghetto-biorecycling-science-pack"},
+        },
+        prerequisites = { "rubia-progression-stage1"},
+        research_trigger = {type = "craft-item", item="yeet-makeshift-biorecycling-science-pack", count=100},
+    },
 
 
+    {
+        type = "technology",
+        name = "rubia-progression-stage3",
+        icon = "__rubia__/graphics/icons/garbo-gatherer-2.png",--"__rubia__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
+        icon_size = 128,
+        essential = true,
+        effects = {
+            {type = "unlock-recipe", recipe = "garbo-gatherer"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-ferric-scrap"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-rail"},
+        },
+        prerequisites = { "rubia-progression-stage2"},
+        research_trigger = {type = "craft-item", item="yeet-ghetto-biorecycling-science-pack", count=100},
+    },
 
+    {
+        type = "technology",
+        name = "craptonite-processing",
+        icon = "__rubia__/graphics/icons/craptonite-frame.png",
+        icon_size = 64,
+        essential = true,
+        effects = {
+            {type = "unlock-recipe", recipe = "assisted-frothing"},
+            {type = "unlock-recipe", recipe = "craptonite-casting"},
+            {type = "unlock-recipe", recipe = "biorecycling-science-pack"},
+
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-elec-engine"},
+        },
+        prerequisites = {"rubia-progression-stage3"},
+        research_trigger = {type = "build-entity", entity="garbo-gatherer"},
+    },
 
     {--Shamelessly taken from maraxsis
         type = "technology",
@@ -137,19 +184,9 @@ data:extend({
             },
             {type = "unlock-recipe", recipe = "rocket-part-rubia"},
         },
-        prerequisites = {"planet-discovery-rubia"},
-        unit = {
-            count = 1000,
-            ingredients =
-            {
-                { "automation-science-pack",      1 },
-                { "logistic-science-pack",        1 },
-                { "chemical-science-pack",        1 },
-                { "space-science-pack",           1 },
-            },
-            time = 60,
-        },
-        order = "ea[seadragon]",
+        prerequisites = {"craptonite-processing"},
+        research_trigger = {type = "craft-item", item="yeet-biorecycling-science-pack", count=100},
+        order = "ea[trashdragon]",
     },
 
 --#endregion

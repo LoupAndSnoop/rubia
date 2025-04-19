@@ -3,12 +3,32 @@ _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.script.trashsteroid_spawning")
 require("__rubia__.script.landing-cutscene")
 require("__rubia__.script.wind-correction")
+require("__rubia__.script.init")
 
-
+--#region Technology/Sci related
 local trashdragon = require("__rubia__.script.project-trashdragon")
 script.on_event(defines.events.on_built_entity, function(event)
     trashdragon.on_built_rocket_silo(event)
 end)
+
+--Disable makeshift/ghetto sci if the progression techs for which they are required are done.
+rubia.check_disable_temporary_science_recipes = function()
+  for _, force in pairs(game.forces) do
+    if force.technologies["rubia-progression-stage2"].researched then
+      force.recipes["makeshift-biorecycling-science-pack"].enabled = false
+    end
+    if force.technologies["rubia-progression-stage3"].researched then
+      force.recipes["ghetto-biorecycling-science-pack"].enabled = false
+    end
+  end
+end
+
+--check_disable_temporary_science_recipes() --One check at startup
+script.on_event(defines.events.on_research_finished, function(event)
+  --Do a correction based on the current state, not on the research which has completed.
+  rubia.check_disable_temporary_science_recipes()
+end)
+--#endregion
 
 -------
 
@@ -99,6 +119,7 @@ end)]]
 
 
 -------
+
 
 
 

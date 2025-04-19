@@ -79,7 +79,6 @@ data:extend({
     type ="recipe",
     name ="biorecycling-science-pack",
     category ="biorecycling",
-    --icon ="__rubia__/graphics/icons/biorecycling-science-pack.png",
     enabled = false,
     ingredients = 
     {
@@ -381,17 +380,18 @@ data:extend({
 
 {
   type ="recipe",
-  name ="biorecycle-bacteria-AB-ferric-scrap",
+  name ="biorecycle-bacteria-AB-elec-engine",
   icon = "__rubia__/graphics/icons/recipes/bacteria-AB+elec-engine.png",
   category ="biorecycling",
   enabled = false,
   ingredients = {
+    {type ="item", name ="rubia-bacteria-A", amount = 1},
     {type ="item", name ="rubia-bacteria-B", amount = 3},
     {type ="item", name ="engine-unit", amount = 2},
     {type ="item", name ="processing-unit", amount = 3},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="item", name ="electric-engine-unit", amount = 1},
     {type ="item", name ="copper-cable", amount = 4},
