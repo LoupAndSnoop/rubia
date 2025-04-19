@@ -13,13 +13,23 @@ end
 --This takes in the prototype by reference to modify it, with no return.
 ---@class prototype EntityPrototype
 rubia.ban_from_rubia = function(prototype)
-    local rubia_condition = {
-        property = "wind-speed",
-        min = 0, max = 100,
-    }
+    local function rubia_condition()
+        return {property = "wind-speed", min = 0, max = 100,}
+    end
+
     if (not prototype.surface_conditions or #prototype.surface_conditions == 0) then
-        prototype.surface_conditions = {rubia_condition}
-    else table.insert(prototype.surface_conditions, rubia_condition)
+        prototype.surface_conditions = {rubia_condition()}
+
+    else
+        --Check if the prototype has wind speed already defined. If it does, update it
+        for i, condition in pairs(prototype.surface_conditions) do
+            if condition.property == "wind-speed" then
+                prototype.surface_conditions[i] = rubia_condition()
+                return
+            end
+        end
+        --No dupes found, just add it in.
+        table.insert(prototype.surface_conditions, rubia_condition())
     end
 end
 

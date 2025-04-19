@@ -36,7 +36,7 @@ function crapapult.get_icons(prototype)
   end
 end
 
-
+local no_icon = {icon="__core__/graphics/empty.png"}
 -- generates a recipe to incinerate the specified non-fluid prototype
 function crapapult.yeet_recipe(item, category, craft_category)
   local newicons = crapapult.get_icons(item)

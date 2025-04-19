@@ -21,6 +21,8 @@ _G.rubia_lib = _G.rubia_lib or {}
 
 
 -----Helper functions to load entity data files.
+
+---#region Basic table manipulation
 --Concatenate all the subtables in a table
 rubia_lib.table_concat = function(big_table)
   local function table_concat_pair(t1,t2)
@@ -37,7 +39,7 @@ rubia_lib.table_concat = function(big_table)
     return result
 end
 
---Merge 2 tables, making a new table that giving priority to entries in the new table.
+--Merge 2 tables, making a new table that gives priority to entries in the new table.
 rubia_lib.merge = function(old, new)
 	old = util.table.deepcopy(old)
 
@@ -48,6 +50,53 @@ rubia_lib.merge = function(old, new)
 
 	return old
 end
+
+--Return an array of all keys in the table where the 
+--filter_condition(the corresponding value) is true. This array may be empty
+rubia_lib.get_filtered_table = function(input_table, filter_condition)
+  local found_keys = {}
+  for key, value in pairs(input_table) do
+    if filter_condition(value) then _G.table.insert(found_keys, key) end
+  end
+  return found_keys
+end
+
+--If the input array contains the given value, return the index of that value (=true!)
+--Otherwise, output false
+rubia_lib.array_find = function(array, value)
+  for index, val in pairs(array) do
+    if val == value then return index end
+  end
+  return false
+end
+
+--If the input array contains a value such that check(value) = true, 
+--then return its index (=true!) Otherwise, output false
+rubia_lib.array_find_condition = function(array, condition)
+  for index, val in pairs(array) do
+    if condition(val) then return index end
+  end
+  return false
+end
+
+--Array goes in, out comes a hashset where hashset[value]=1 
+--for all entries in the old array.
+rubia_lib.array_to_hashset = function(array)
+  local hashset = {}
+  for _, value in pairs(array) do
+    hashset[value]=1
+  end
+  return hashset
+end
+
+--[[Go through all entries in the input table OR array, and for any keys where
+--filter_condtion(input_table[key]) is true, set input_table[key] = operation(input_table[key])
+rubia_lib.operate_on_filtered_table = function(input_table, filter_condition, operation)
+  for key, value in pairs(input_table) do
+    if filter_condition(value) then input_table[key] = operation[key] end
+  end
+end]]
+--#endregion
 
 -- Get multiple sprites from a spritesheet.
 rubia_lib.spritesheet_variations = function(count, line_length, base)
