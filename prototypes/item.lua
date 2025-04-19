@@ -88,7 +88,7 @@ data:extend(
       drop_sound = item_sounds.resource_inventory_move,
       stack_size = 50,
       default_import_location = "rubia",
-      weight = 1000/100*kg
+      weight = 1000/100*kg,
     },
     {
       type = "item",
@@ -103,7 +103,7 @@ data:extend(
       drop_sound = item_sounds.resource_inventory_move,
       stack_size = 50,
       default_import_location = "rubia",
-      weight = 1000/100*kg
+      weight = 1000/100*kg,
     },
 
     {
@@ -153,7 +153,7 @@ data:extend(
       drop_sound = item_sounds.resource_inventory_move,
       stack_size = 2,
       default_import_location = "rubia",
-      weight = 10*kg
+      weight = 10*kg,
     },
 
     {
@@ -169,7 +169,7 @@ data:extend(
       drop_sound = item_sounds.resource_inventory_move,
       stack_size = 50,
       default_import_location = "rubia",
-      weight = 1000/200*kg
+      weight = 1000/200*kg,
   },
 
   --#endregion

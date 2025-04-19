@@ -31,3 +31,6 @@ require("__rubia__.prototypes.planet.rubia-expressions")
 --require("__rubia__.prototypes.rubia-decoratives")
 require("__rubia__.prototypes.ambient-sounds")
 require("__rubia__.prototypes.achievements")
+
+--Late stage data updates
+require("__rubia__.script.recycling-fixes")

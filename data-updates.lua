@@ -47,7 +47,6 @@ for k,v in pairs(all_lab_types) do
   table.insert(v.inputs,"biorecycling-science-pack") --add my science pack to all labs
 end
 
-
 --table.insert(data.raw.lab["lab"].inputs, "biorecycling-science-pack")
 --data.raw["fluid"]["petroleum-gas"].fuel_value = "0.6MJ"
 --[[
