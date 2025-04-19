@@ -35,16 +35,9 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
   
         autoplace_controls =
         {
-          ["bacterial-sludge"] = {},
-          ["rubia-ferric-scrap"] = {},
-          ["rubia-cupric-scrap"] = {250000,0.2,5},
-          --Controls now show up except we have several problems. 1 no chalcopyrite or sulfur. 2. Platium needs big mining drills.
-          --[[
-          ["platinum_ore"] = {},
-          ["calcite"] = {},
-          ["rubia-cliff"] = {},]]
-
-          
+          ["bacterial-sludge"] = {frequency = 6, size = 0.5, richness = 1}, --Frequency/Size/richness
+          ["rubia-ferric-scrap"] = {frequency = 6, size = 0.25, richness = 1},
+          ["rubia-cupric-scrap"] = {frequency = 6, size = 0.25, richness = 1},
         },
         autoplace_settings =
         {
@@ -121,11 +114,7 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
               --Resources
               ["bacterial-sludge"] = {},--{frequency = 60, size = 0.1, richness = 10}, --Frequency/Size/richness
               ["rubia-ferric-scrap"] = {},--{frequency = 2000,size = 0.2, richness = 5},
-              ["rubia-cupric-scrap"] = {25000,0.2,5},--{25,0.2,5},
-              --["chalcopyrite-ore"] = {},
-              --["platinum-ore"] = {},
-              --["crater-cliff"] = {},
-              --["huge-rubia-rock"] = {}
+              ["rubia-cupric-scrap"] = {},--{25,0.2,5},
             }
           }
         }

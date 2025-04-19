@@ -1,26 +1,9 @@
-data:extend(
-{
+--data:extend({
 
-  {
+--[[  {
     type = "autoplace-control",
     name = "platinum_ore",
     localised_name = {"", "[entity=platinum-ore] ", {"item-name.platinum-ore"}},
-    richness = true,
-    order = "b-d",
-    category = "resource"
-  },
-  {
-    type = "autoplace-control",
-    name = "sulfur_ore",
-    localised_name = {"", "[entity=sulfur-ore]", {"item-name.sulfur-ore"}},
-    richness = true,
-    order = "b-d",
-    category = "resource"
-  },
-  {
-    type = "autoplace-control",
-    name = "chalcopyrite_ore",
-    localised_name = {"", "[entity=chalcopyrite-ore]", {"item-name.chalcopyrite-ore"}},
     richness = true,
     order = "b-d",
     category = "resource"
@@ -32,7 +15,9 @@ data:extend(
     richness = true,
     order = "b-c",
     category = "resource"
-  },
+  },]]
+
+--[[
   {
     type = "autoplace-control",
     name = "rubia-cliff",
@@ -53,8 +38,7 @@ data:extend(
     category = "terrain",
     can_be_disabled = false
   },
-
-}
-)
+]]
+--})
 
 

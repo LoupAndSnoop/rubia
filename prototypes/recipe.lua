@@ -99,28 +99,108 @@ data:extend(
   },
 
   --#endregion
+
+--#region Biorecycling Stage 1- Early Rubia
+
+  {
+    type ="recipe",
+    name ="sludge-to-bacteria-A",
+    category ="chemical-plant-only",
+    enabled = false,
+    ingredients = {
+      {type ="fluid", name ="rubia-bacterial-sludge", amount = 30},
+    },
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 1,
+    results = {
+      {type ="item", name ="rubia-bacteria-A", amount = 5},
+    },
+    allow_productivity = true,
+    main_product ="rubia-bacteria-A",
+    crafting_machine_tint = crafting_machine_tint_red,
+    auto_recycle = false,
+  },
+
+--#endregion
+--#region Biorecycling Stage 2- Midgame
+
+
+
+--#endregion
+--#region Biorecycling Stage 3- Final strech before clear
+
+
+
+--#endregion
+--#region Biorecycling Stage 4- Post clear
+
+
+
+--#endregion
+
   --#region Pre-clear Entity Recipes
   
   {
     type = "recipe",
-    name = "sniper-turret",
-    icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+    name = "biorecycling-plant",
+    icon = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
     icon_size = 64,
-    subgroup = "defensive-structure",
+    subgroup = "production-machine",
     order = "b[turret]-a[gun-turret]",
+    category = "crafting",
     enabled = false,
     energy_required = 10,
     ingredients = {
-        { type = "item", name = "iron-plate", amount = 10},
-        { type = "item", name = "steel-plate", amount = 10}, 
-        { type = "item", name = "iron-gear-wheel", amount = 10}, 
+        { type = "item", name = "chemical-plant", amount = 1},
+        { type = "item", name = "electronic-circuit", amount = 20}, 
+        { type = "item", name = "steel-plate", amount = 20}, 
+        { type = "item", name = "iron-gear-wheel", amount = 20}, 
     },
     results = {{
-        type = "item",
-        name = "sniper-turret",
-        amount = 1
-    }}
+        type = "item", name = "biorecycling-plant", amount = 1
+    }},
+    allow_productivity = false,
 },
+{
+  type = "recipe",
+  name = "crapapult",
+  icon = "__rubia__/graphics/icons/crapapult-icon.png",
+  icon_size = 64,
+  subgroup = "production-machine",
+  order = "b[turret]-a[gun-turret]",
+  category = "crafting",
+  enabled = false,
+  energy_required = 10,
+  ingredients = {
+      { type = "item", name = "copper-cable", amount = 50},
+      { type = "item", name = "steel-plate", amount = 100}, 
+      { type = "item", name = "gun-turret", amount = 1}, 
+  },
+  results = {{
+      type = "item", name = "crapapult", amount = 1
+  }},
+  allow_productivity = false,
+},
+{
+  type = "recipe",
+  name = "sniper-turret",
+  icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+  icon_size = 64,
+  subgroup = "defensive-structure",
+  order = "b[turret]-a[gun-turret]",
+  enabled = false,
+  energy_required = 10,
+  ingredients = {
+      { type = "item", name = "iron-plate", amount = 10},
+      { type = "item", name = "steel-plate", amount = 10}, 
+      { type = "item", name = "iron-gear-wheel", amount = 10}, 
+  },
+  results = {{
+      type = "item", name = "sniper-turret", amount = 1
+  }},
+  allow_productivity = false,
+},
+
 
 --#endregion
 --#region Post-clear Rewards

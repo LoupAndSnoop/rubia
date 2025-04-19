@@ -1,4 +1,5 @@
--- Copied from Space Age resources.lua
+-- Copied from Space Age resources.lua, some from Corrundum,
+-- and thanks to DoneTax for helping iron out parameters.
 
 local resource_autoplace = require("resource-autoplace")
 local sounds = require("__base__.prototypes.entity.sounds")
@@ -59,7 +60,8 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
       regular_rq_factor_multiplier = autoplace_parameters.regular_rq_factor_multiplier,
       starting_rq_factor_multiplier = autoplace_parameters.starting_rq_factor_multiplier,
       candidate_spot_count = autoplace_parameters.candidate_spot_count,
-      tile_restriction = autoplace_parameters.tile_restriction
+      tile_restriction = autoplace_parameters.tile_restriction,
+      additional_richness = autoplace_parameters.additional_richness or 0,
     },
     stage_counts = {15000, 9500, 5500, 2900, 1300, 400, 150, 80},
     stages =
@@ -126,15 +128,16 @@ data:extend({
     autoplace = resource_autoplace.resource_autoplace_settings{
       name = "bacterial-sludge",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
-      base_density = 8.2 * 20,
-      base_spots_per_km2 = 1.8 * 2 / 99999,
-      random_probability = 1/48 * 0.4,
-      --random_spot_size_minimum = 0.5,
-      --random_spot_size_maximum = 20,
-      additional_richness = 220000, -- this increases the total everywhere, so base_density needs to be decreased to compensate
+      base_density = 4,
+      base_spots_per_km2 = 50,
+      random_probability = 1/48 * 2,
+      random_spot_size_minimum = 1,
+      random_spot_size_maximum = 6,
+      --At 220000 additional richness, base speed seems to be about 7/s
+      additional_richness = 220000 * 50, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = true,
-      regular_rq_factor_multiplier = 0.4,--1.10, --0.4
-      starting_rq_factor_multiplier = 0.5,--1.5, --0.5
+      regular_rq_factor_multiplier = 1,--1.10, --0.4
+      starting_rq_factor_multiplier = 1,--1.5, --0.5
     },
     stage_counts = {0},
     stages =
@@ -216,21 +219,13 @@ data:extend({
       },
     },
     { 
-      --[[
-      base_density = 12,
-      base_spots_per_km2 = 1.25 * 1.5,
+      --DoneTax's aid
+      base_density = 5,
+      base_spots_per_km2 = 3.5,
+      regular_rq_factor_multiplier = 1,--1.10,
+      starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = false,
-      random_spot_size_minimum = 0.1,
-      random_spot_size_maximum = 2,
-      regular_rq_factor_multiplier = 0.5,--1.10,
-      starting_rq_factor_multiplier = 0.2,--1.5,]]
-      --probability_expression=0,
-      --Iron ore
-      base_density = 10,
-      regular_rq_factor_multiplier = 0.5,--1.10,
-      starting_rq_factor_multiplier = 0.2,--1.5,
-      candidate_spot_count = 22, -- To match 0.17.50 placement
-      has_starting_area_placement = false,
+      additional_richness = 20000,
     }
   ),
 
@@ -252,21 +247,13 @@ data:extend({
       },
     },
     {
-      --[[Iron ore
-      base_density = 10,
-      regular_rq_factor_multiplier = 0.5,--1.10,
-      starting_rq_factor_multiplier = 1.1,--1.5,
-      candidate_spot_count = 22, -- To match 0.17.50 placement
-      has_starting_area_placement = true,]]
-      
-      base_density = 20,
-      base_spots_per_km2 = 1.25,
-      regular_rq_factor_multiplier = 0.5,--1.10,
-      starting_rq_factor_multiplier = 1.1,--1.5,
-      random_spot_size_minimum = 0.5,
-      random_spot_size_maximum = 2,
-      candidate_spot_count = 22, -- To match 0.17.50 placement
-      has_starting_area_placement = true,
+      --DoneTax's aid
+      base_density = 5,
+      base_spots_per_km2 = 3.5,
+      regular_rq_factor_multiplier = 1,--1.10,
+      starting_rq_factor_multiplier = 1,--1.5,
+      has_starting_area_placement = false,
+      additional_richness = 20000,
     }
   ),
 })

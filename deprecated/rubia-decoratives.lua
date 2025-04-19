@@ -1,6 +1,3 @@
---Copied from rubia decoratives.
---vulcanus name changed to rubia
-
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require ("__base__.prototypes.entity.sounds")
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
@@ -45,9 +42,11 @@ data:extend{
 }
 
 
+--[[
 --- TINTABLE ROCKS
 --- BIG ROCKS
 data:extend{
+  
 {
     name = "huge-rubia-rock",
     type = "simple-entity",
@@ -224,3 +223,4 @@ data:extend{
     }
 }
 }
+]]

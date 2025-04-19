@@ -1,6 +1,15 @@
 --Copied from vulcanus
 
 data:extend{
+  {
+    type = "autoplace-control",
+    name = "rubia_volcanism",
+    order = "c-z-b",
+    category = "terrain",
+    can_be_disabled = false
+  },
+
+
   ---- Constants
   {
     type = "noise-expression",
@@ -715,6 +724,7 @@ data:extend{
                                                                favorability = favor_biome > 0.9})"
   },
 
+  --[[
   {
     type = "noise-expression",
     name = "rubia_platinum_ore_size",
@@ -830,7 +840,7 @@ data:extend{
                   * control:calcite:richness / rubia_calcite_size"
   },
 
-
+]]
   {
     type = "noise-expression",
     name = "rubia_ore_dist",

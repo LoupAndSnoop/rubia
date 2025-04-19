@@ -77,7 +77,7 @@ function make_4way_animation_from_spritesheet(animation)
     }
 end
 
-function boiler_reflection()
+--[[function boiler_reflection()
   return
   {
     pictures =
@@ -93,11 +93,11 @@ function boiler_reflection()
     rotate = false,
     orientation_to_variation = true
   }
-end
+end]]
 
 
-data:extend(
-{
+--data:extend({
+  --[[
     {
         type = "assembling-machine",
         name = "catalytic-chemical-plant",
@@ -380,7 +380,7 @@ data:extend(
             rotate = false,
             orientation_to_variation = true
         }
-    },
+    },]]
     --[[
     {
       type = "lab",
@@ -945,7 +945,8 @@ data:extend(
       },
     },]]
 
-    {
+
+    --[[{
       type = "generator",
       name = "red-steam-engine",
       icon = "__rubia__/graphics/icons/red-steam-engine.png",
@@ -1097,7 +1098,7 @@ data:extend(
         min = 10,
         }
       },
-    },
+    },]]
     --[[
     {
       type = "container",
@@ -1817,5 +1818,4 @@ data:extend(
       smoke = require("__base__.prototypes.entity.rocket-projectile-pictures").smoke,
     },
     ]]
-}
-)
+--})
