@@ -9,6 +9,7 @@ storage.active_cutscenes = storage.active_cutscenes or {}
 ---@param player LuaPlayer
 local function cancel_cutscene(player)
     --game.print("Cancelling: " .. serpent.block(storage.active_cutscenes[tostring(player.index)]))
+    game.autosave_enabled = true
     rubia.timing_manager.dequeue_events(storage.active_cutscenes[tostring(player.index)])
     storage.active_cutscenes[tostring(player.index)] = nil
     if (player.controller_type == defines.controllers.cutscene) then 
@@ -54,6 +55,8 @@ local function start_cutscene(player)
     local event_ids = {}
     --game.print("Starting, active cutscene for player " .. serpent.block(player) .. " is ".. serpent.block(storage.active_cutscenes))--[player]))
     cancel_cutscene(player)
+
+    game.autosave_enabled = false --Don't ruin cutscene with an autosave
 
     --game.print("start tick = " .. tostring(game.tick))
 
@@ -143,7 +146,6 @@ local function start_cutscene(player)
         if (character) then 
             character.health = math.min(math.random(3, 200), character.health)
         end
-
         cancel_cutscene(player)
     end))
 

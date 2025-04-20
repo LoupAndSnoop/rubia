@@ -1,6 +1,7 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
+require("__rubia__.lib.function-serializer")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
@@ -55,8 +56,6 @@ end
 script.on_event(defines.events.on_player_changed_surface, function(event)
   landing_cutscene.try_start_cutscene(event)
 end)
-
-
 
 script.on_event(defines.events.on_player_died, function(event)
   landing_cutscene.cancel_on_player_death(event)
