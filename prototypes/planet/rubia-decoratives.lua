@@ -43,7 +43,7 @@ local base_placement_density = 1
 --local base_decorative_order = 10
 
 local function spritesheet_variations(count, line_length, base) return rubia_lib.spritesheet_variations(count, line_length, base) end
-local function table_concat(big_table) return rubia_lib.table_concat(big_table) end
+local function table_concat(big_table) return rubia_lib.array_concat(big_table) end
 
 ---- Collision Masks
 --collision_mask = decorative_object_cliff_collision(),
@@ -670,7 +670,7 @@ data:extend
     order="d[remnants]-a[generic]-a[small]",
     final_render_layer = "remnants",
     remove_on_tile_placement = false,
-    pictures = rubia_lib.table_concat({rubia_lib.spritesheet_variations(3, 1, {
+    pictures = rubia_lib.array_concat({rubia_lib.spritesheet_variations(3, 1, {
       filename = "__base__/graphics/entity/construction-robot/remnants/construction-robot-remnants.png",
       --line_length = 1,
       width = 120,

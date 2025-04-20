@@ -1,6 +1,8 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
-require("__rubia__.script.trashsteroid_spawning")
+require("__rubia__.lib.lib")
+require("__rubia__.script.trashsteroid-blacklist")
+require("__rubia__.script.trashsteroid-spawning")
 require("__rubia__.script.landing-cutscene")
 require("__rubia__.script.wind-correction")
 require("__rubia__.script.init")

@@ -13,9 +13,8 @@ local internal_blacklist = {
     {type="furnace", name="recycler"},
 }
 
---Merge with any existing blacklist in case other mods want to add to this
---blacklist variable.
-rubia.surface_blacklist = rubia_lib.merge(rubia.surface_blacklist, internal_blacklist)
+--Merge with any existing blacklist in case other mods want to add to this blacklist variable.
+rubia.surface_blacklist = rubia_lib.array_concat({rubia.surface_blacklist, internal_blacklist})
 
 --Apply Blacklist.
 --Change from an array of {type, name} to a dictionary of {type, {name1, name2}}
@@ -31,8 +30,6 @@ for category, sub_blacklist in pairs(dictionary_blacklist) do
     for _, prototype in pairs(data.raw[category]) do
         if rubia_lib.array_find(sub_blacklist, prototype.name) then
             rubia.ban_from_rubia(prototype)
-            log("banning " ..  prototype.name .. ", and array find was " ..  tostring(rubia_lib.array_find(sub_blacklist, prototype.name)))
-        else log("not banning: " .. prototype.name .. ", and array find was " ..  tostring(rubia_lib.array_find(sub_blacklist, prototype.name)))
         end
     end
 end

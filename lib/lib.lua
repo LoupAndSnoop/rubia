@@ -1,3 +1,5 @@
+require("util")
+
 --[[require "table"
 require "string"
 require "defines"
@@ -23,8 +25,9 @@ _G.rubia_lib = _G.rubia_lib or {}
 -----Helper functions to load entity data files.
 
 ---#region Basic table manipulation
---Concatenate all the subtables in a table
-rubia_lib.table_concat = function(big_table)
+
+--Concatenate all the sub-arrays in a table
+rubia_lib.array_concat = function(big_table)
   local function table_concat_pair(t1,t2)
         for i=1,#t2 do
             t1[#t1+1] = t2[i]
@@ -87,6 +90,23 @@ rubia_lib.array_to_hashset = function(array)
     hashset[value]=1
   end
   return hashset
+end
+
+--Array goes in, where every entry is a table that contains field "indexing_field".
+--Output a dictionary with each indexing_field as key, and the values
+--are arrays of all_entries where the indexing field is that value, but with indexing field gone.
+--Example: array_to_dictionary({a=1,b=1},{a=1,b=2},"a") gives: dic.a = {{b=1},{b=2}}
+--The difference is that the entries will have value[indexing_field[
+rubia_lib.array_to_dictionary = function(array, indexing_field)
+  local dictionary = {}
+  for _, entry in pairs(array) do
+    local new_entry = util.table.deepcopy(entry)
+    new_entry[indexing_field] = nil
+
+    if not dictionary[entry[indexing_field]] then dictionary[entry[indexing_field]] = {new_entry}
+    else table.insert(dictionary[entry[indexing_field]],new_entry)
+    end
+  end
 end
 
 --[[Go through all entries in the input table OR array, and for any keys where

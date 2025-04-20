@@ -52,14 +52,15 @@ local chunk_key_scale = 2^24
 local function chunk_position_to_key(x, y) return x * chunk_key_scale + y end
 
 ------ Impact Logic
-
+---
 --Return true if the given entity is immune to impacts
 local function entity_is_immune_to_impact(entity)
   --First, blacklist anything with either immunity to damage or impact damage
   if (not entity.is_entity_with_health) then return true end 
   if (entity.prototype.resistances and entity.prototype.resistances.impact and entity.prototype.resistances.impact.percent and entity.prototype.resistances.impact.percent >= 99) then return true end
-
-  --TODO Blacklist
+  
+  --Check manual blacklist.
+  if (rubia.trashsteroid_blacklist.entity[entity.name]) then return true end
 
   --Passed all checks
   return false
