@@ -1,7 +1,7 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
-require("__rubia__.lib.function-serializer")
+--require("__rubia__.lib.function-serializer")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")

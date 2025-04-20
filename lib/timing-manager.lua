@@ -9,14 +9,42 @@ storage.timing_queue_next_id = storage.timing_queue_next_id or 1
 
 rubia.timing_manager = {}
 
+--#region Make a lookup table of functions for invocation
+--This is necessary to be able to serialize the data in case we have things going on and save-reload
+
+--Dictionary of "function_name" => function
+local function_register = {}
+
+--Add a key to the table, so function_register[function_name] => function_to_invoke
+-- The function should be of the form function(arguments[1], arguments[2]...)
+---@param function_to_invoke function
+---@param function_name string
+rubia.timing_manager.register = function(function_name, function_to_invoke)
+  if game then error("Cannot register a function outside the main chunk") end
+  assert(not function_register[function_name], "This function name has been added twice to the function lookup register: " .. function_name)
+  function_register[function_name] = function_to_invoke
+end
+
+--Invoke a function by name, calling it on a set of serialized arguments.
+--The function should be of the form function(arguments[1], arguments[2]...)
+local function invoke(function_name, arguments)
+    assert(function_register[function_name], "Function name not found in lookup table: " .. function_name)
+    function_register[function_name](table.unpack(arguments))
+end
+--#endregion
+
+--@param function_to_call function() 
+
 --Queue up a function to be called ticks_to_wait ticks before executing. Return a string to ID it.
----@param function_to_call function() 
+---@param function_name string
+---@param arguments any[]  
 ---@return string event_id event_id that uniquely identifies this particular event
-rubia.timing_manager.wait_then_do = function(ticks_to_wait, function_to_call)
+rubia.timing_manager.wait_then_do = function(ticks_to_wait, function_name, arguments)
     local event_id = tostring(storage.timing_queue_next_id)
 
     storage.timing_queue[event_id] = {
-        to_call = function_to_call,
+        to_call = function_name,
+        arguments = arguments,
         tick_to_execute = ticks_to_wait + game.tick
     }
 
@@ -46,17 +74,21 @@ script.on_nth_tick(1,function()
     --because the functions themselves can alter the queue while iterating.
     local events_completed = {} --Event IDs of the completed ones
     local functions_to_call = {} -- Actual functions. Need to split in case the function dequeues.
+    local arguments = {}
     for event_id, event in pairs(storage.timing_queue) do
         if (event and event.tick_to_execute <= game.tick) then --it is time!
             table.insert(functions_to_call, event.to_call)
             table.insert(events_completed, event_id)
+            table.insert(arguments, event.arguments)
         end
     end
 
     --if #events_completed > 0 then game.print("done:" .. serpent.block(events_completed)) end
     rubia.timing_manager.dequeue_events(events_completed)
     --Now we actually invoke
-    for _, func in pairs(functions_to_call) do func() end
+    --for index, func in pairs(functions_to_call) do func() end
+    for index, function_name in pairs(functions_to_call) do 
+        invoke(function_name, arguments[index]) end
 end)
 
 

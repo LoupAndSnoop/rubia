@@ -1,6 +1,18 @@
 
 --Shamelessly taken from Muluna, who shamelessly took this from Maraxsis.
 
+--enforce that the entity passed in will have its recipe changed to the rubia-specific rocket part recipe.
+rubia.timing_manager.register("project-trashdragon-recheck", function(entity)
+    if (entity.valid and entity.get_recipe()
+        and entity.get_recipe().name ~= "rocket-part-rubia") then
+            entity.recipe_locked = false
+            entity.set_recipe("rocket-part-rubia")
+            entity.recipe_locked = true
+    end
+end)
+
+
+
 local Public = {}
 function Public.on_built_rocket_silo(event)
     local entity = event.entity
@@ -20,6 +32,8 @@ function Public.on_built_rocket_silo(event)
         entity.recipe_locked = true
 
         --Queue up for next frame to re-correct the rocket recipe in case someone fucked with it
+        rubia.timing_manager.wait_then_do(1,"project-trashdragon-recheck",{entity})
+        --[[
         rubia.timing_manager.wait_then_do(1,function()
             if (entity.valid and entity.get_recipe()
                 and entity.get_recipe().name ~= "rocket-part-rubia") then
@@ -27,7 +41,7 @@ function Public.on_built_rocket_silo(event)
                     entity.set_recipe("rocket-part-rubia")
                     entity.recipe_locked = true
                 end
-            end)
+            end)]]
     else
         entity.recipe_locked = false
         entity.set_recipe("rocket-part")

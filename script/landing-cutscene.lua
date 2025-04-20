@@ -85,8 +85,16 @@ local function start_cutscene(player)
         
     --NOTE: I measured the actual descent cutscene (from player changed surface invocation
     --to actually landing) is 599 ticks. Some of this is a slow descent animation,
-    --which seems to start at 
+    --which seems to start around 450ish ticks
 
+    local arguments = {player, cargo_pod, character}
+    table.insert(event_ids, rubia.timing_manager.wait_then_do(5, "cutscene-part1", arguments))
+    table.insert(event_ids, rubia.timing_manager.wait_then_do(60, "cutscene-part2", arguments))
+    table.insert(event_ids, rubia.timing_manager.wait_then_do(200, "cutscene-part3", arguments))
+    table.insert(event_ids, rubia.timing_manager.wait_then_do(300, "cutscene-part4", arguments))
+    table.insert(event_ids, rubia.timing_manager.wait_then_do(450, "cutscene-end", arguments))
+
+    --[[
     table.insert(event_ids, rubia.timing_manager.wait_then_do(5, function()
         player.play_sound{
             path="utility/cannot_build",
@@ -148,6 +156,9 @@ local function start_cutscene(player)
         end
         cancel_cutscene(player)
     end))
+    ]]
+
+
 
     --[[- Emergency failsafe: Make sure we exit cutscene mode
     table.insert(event_ids, rubia.timing_manager.wait_then_do(1000, function()
@@ -159,6 +170,75 @@ local function start_cutscene(player)
     storage.active_cutscenes[tostring(player.index)] = event_ids--util.table.deepcopy(event_ids)--event_ids
     return event_ids
 end
+
+--#region Cutscene fragments
+rubia.timing_manager.register("cutscene-part1", function(player, cargo_pod, character)
+    player.play_sound{
+        path="utility/cannot_build",
+        position=cargo_pod.position,
+        volume_modifier=1
+    }
+
+end)
+
+rubia.timing_manager.register("cutscene-part2", function(player, cargo_pod, character)
+    player.play_sound{
+        path="utility/rotated_large",
+        position=player.position,
+        volume_modifier=1
+    }
+    game.print({"alert.landing-cutscene-part1"}, {color={r=0.9,g=0,b=0,a=1}})
+    cutscene_damage(character, player, 30)
+end)
+
+rubia.timing_manager.register("cutscene-part3", function(player, cargo_pod, character)
+    player.play_sound{
+        path="utility/rotated_large",
+        position=player.position,
+        volume_modifier=1
+    }
+    game.print({"alert.landing-cutscene-part2"}, {color={r=0.9,g=0,b=0,a=1}})
+    cutscene_damage(character, player, 70)
+end)
+
+rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, character)
+    player.play_sound{
+        path="utility/rotated_large",
+        position=player.position,
+        volume_modifier=1
+    }
+    game.print({"alert.landing-cutscene-part3"}, {color={r=0.9,g=0,b=0,a=1}})
+    cutscene_damage(character, player, 110)
+end)
+
+--End of cutscene
+rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
+    player.play_sound{
+        path="utility/cannot_build",
+        position=player.position,
+        volume_modifier=1
+    }
+
+    --cargo_pod.on_cargo_pod_finished_descending()
+    --TODO: Explosion
+    cargo_pod.force_finish_descending()
+    cargo_pod.destroy()
+    --if player and player.cargo_pod and player.cargo_pod.valid then player.cargo_pod.destroy() end
+
+    cutscene_damage(character, player, 400)
+
+    --Make sure a surviving player is damaged at least a little to their base HP, without killing
+    if (character) then 
+        character.health = math.min(math.random(3, 200), character.health)
+    end
+    cancel_cutscene(player)
+end)
+
+
+
+
+
+--#endregion
 
 --#region External handles to start/end cutscene via events.
 
