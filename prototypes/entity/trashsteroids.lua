@@ -122,6 +122,7 @@ data:extend({
     energy_source = {type = "void"},
     consumption = "150kW",
     friction = 1e-4,--2e-3,
+    has_belt_immunity = true,
     render_layer = "air-object",
     created_smoke = {
         type = "create-trivial-smoke",

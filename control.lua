@@ -6,12 +6,14 @@ require("__rubia__.script.trashsteroid-spawning")
 require("__rubia__.script.landing-cutscene")
 require("__rubia__.script.wind-correction")
 require("__rubia__.script.init")
+local trashdragon = require("__rubia__.script.project-trashdragon")
 
 --#region Technology/Sci related
+--[[
 local trashdragon = require("__rubia__.script.project-trashdragon")
 script.on_event(defines.events.on_built_entity, function(event)
     trashdragon.on_built_rocket_silo(event)
-end)
+end)]]
 
 --Disable makeshift/ghetto sci if the progression techs for which they are required are done.
 rubia.check_disable_temporary_science_recipes = function()
@@ -60,6 +62,7 @@ end)
 
 local function do_on_built_changes(event)
     rubia.wind_rotation(event.entity, event)
+    trashdragon.on_built_rocket_silo(event)
     quality_correct_wind_turbine(event.entity)
 end
 script.on_event(defines.events.on_built_entity, function(event)

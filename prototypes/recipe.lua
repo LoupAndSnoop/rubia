@@ -29,6 +29,14 @@ local crafting_machine_tint_purple = {
   quaternary = {r = 1, g = 0.804, b = 1, a = 1.000}
 }
 
+--Modify the rocket silo to make it able to take the new rocket-part recipe.
+for _, silo in pairs(data.raw["rocket-silo"]) do
+  if silo.fixed_recipe == "rocket-part" then
+      silo.fixed_recipe = nil
+      silo.disabled_when_recipe_not_researched = true
+  end
+end
+
 
 data:extend({
 --#region Science
