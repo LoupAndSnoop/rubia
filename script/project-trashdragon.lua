@@ -13,24 +13,26 @@ function Public.on_built_rocket_silo(event)
         or (entity.get_recipe() and entity.surface.name ~= "rubia")
         or not prototype.crafting_categories["rocket-building"] then return end
 
-
-
     --We need to set the rocket part recipe for rubia, but also put it back for every other surface.
     if (entity.surface.name == "rubia") then
         entity.recipe_locked = false
         entity.set_recipe("rocket-part-rubia")
         entity.recipe_locked = true
+
+        --Queue up for next frame to re-correct the rocket recipe in case someone fucked with it
+        rubia.timing_manager.wait_then_do(1,function()
+            if (entity.valid and entity.get_recipe()
+                and entity.get_recipe().name ~= "rocket-part-rubia") then
+                    entity.recipe_locked = false
+                    entity.set_recipe("rocket-part-rubia")
+                    entity.recipe_locked = true
+                end
+            end)
     else
         entity.recipe_locked = false
         entity.set_recipe("rocket-part")
         entity.recipe_locked = true
     end
 end
-
-
---[[script.on_event(defines.events.on_built_entity, function(event)
-    Public.on_built_rocket_silo(event)
-end)]]
-
 
 return Public

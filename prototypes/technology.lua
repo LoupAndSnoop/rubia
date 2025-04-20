@@ -5,6 +5,13 @@ require("lib.lib")
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
     "rubia", "__rubia__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
     --TODO: Custom whitelist, because construction bots are allowed
+--cargo_drops_base.name = "operation-iron-man"
+--Internal tech name must remain planetslib-rubia-cargo-drops
+--cargo_drops_base.icon = ""
+cargo_drops_base.localised_name = {"technology-name.operation-iron-man"}
+cargo_drops_base.localised_description = {"technology-description.operation-iron-man"}
+cargo_drops_base.effects[1].effect_description = {"modifier-description.operation-iron-man-effect"}
+
 data:extend({rubia_lib.merge(cargo_drops_base, {
     prerequisites = { "rubia-project-trashdragon" }, -- TODO
     unit = {

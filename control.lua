@@ -3,7 +3,7 @@ _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
-require("__rubia__.script.landing-cutscene")
+local landing_cutscene = require("__rubia__.script.landing-cutscene")
 require("__rubia__.script.wind-correction")
 require("__rubia__.script.init")
 local trashdragon = require("__rubia__.script.project-trashdragon")
@@ -34,9 +34,8 @@ script.on_event(defines.events.on_research_finished, function(event)
 end)
 --#endregion
 
--------
 
----Faux quality scaling
+--#region Faux quality scaling
 
 
 ---Fake quality scaling onto the wind turbine.
@@ -48,6 +47,25 @@ local function quality_correct_wind_turbine(entity)
       entity.electric_buffer_size = entity.electric_buffer_size * quality_mult
    end
 end
+
+--#endregion
+
+--Cutscene
+
+script.on_event(defines.events.on_player_changed_surface, function(event)
+  landing_cutscene.try_start_cutscene(event)
+end)
+
+
+
+script.on_event(defines.events.on_player_died, function(event)
+  landing_cutscene.cancel_on_player_death(event)
+end)
+
+
+
+
+
 
 -------Scripts to subscribe functions to events tied to building/modifying
 
@@ -65,6 +83,13 @@ local function do_on_built_changes(event)
     trashdragon.on_built_rocket_silo(event)
     quality_correct_wind_turbine(event.entity)
 end
+
+script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
+  defines.events.script_raised_built, defines.events.script_raised_revive}, function(event)
+  do_on_built_changes(event)
+end)
+
+--[[
 script.on_event(defines.events.on_built_entity, function(event)
     do_on_built_changes(event)
 end)
@@ -80,6 +105,7 @@ end)
 script.on_event(defines.events.script_raised_revive, function(event)
     do_on_built_changes(event)
 end)
+]]
 
 --------------------
 --------------------

@@ -11,6 +11,10 @@ local internal_blacklist = {
     {type="logistic-container", name="storage-chest"},
     {type="logistic-container", name="active-provider-chest"},
     {type="furnace", name="recycler"},
+
+    {type="locomotive", name ="locomotive"},
+    {type="cargo-wagon", name ="cargo-wagon"},
+    {type="fluid-wagon", name ="fluid-wagon"},
 }
 
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.
