@@ -167,7 +167,7 @@ local landing_cutscene = {}
 --See if we need to start a cutscene on a defines.events.on_player_changed_surface event.
 landing_cutscene.try_start_cutscene = function(event)
     local player = game.get_player(event.player_index)
-    local surface = game.get_surface(event.surface_index)
+    --local surface = game.get_surface(event.surface_index)
 
     --[[First, we need to check that we are going from a space platform down to rubia.
     if (not surface --Prev surface destroyed/deleted?

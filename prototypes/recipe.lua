@@ -579,7 +579,25 @@ data:extend({
       {type = "item", name = "craptonite-frame", amount = 4},
     },
     results = {{type="item", name="long-bulk-inserter", amount=1}},
+    allow_productivity=false,
     crafting_machine_tint = crafting_machine_tint_brown,
+  },
+  {
+    type = "recipe",
+    name = "craptonite-wall",
+    category ="advanced-crafting",
+    order = "z-a-a",
+    enabled = false,
+    --surface_conditions = rubia.surface_conditions(),
+    energy_required = 5,
+    ingredients =
+    {
+      {type = "item", name = "craptonite-frame", amount = 1},
+      {type = "item", name = "refined-concrete", amount = 10},
+    },
+    results = {{type="item", name="craptonite-wall", amount=1}},
+    crafting_machine_tint = crafting_machine_tint_brown,
+    allow_productivity=false,
   },
 
 --#endregion

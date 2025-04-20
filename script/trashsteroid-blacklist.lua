@@ -19,6 +19,9 @@ local internal_blacklist = {
     {type="entity", name="legacy-curved-rail"},
     {type="entity", name="rail-signal"},
     {type="entity", name="rail-chain-signal"},
+
+    --Other
+    {type="entity", name="craptonite-wall"},
 }
 
 if script.active_mods["elevated-rails"] then

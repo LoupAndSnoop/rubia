@@ -10,7 +10,7 @@ require("__rubia__.prototypes.item")
 
 require("__rubia__.prototypes.recipe-category")
 require("__rubia__.prototypes.recipe")
-require("__rubia__.prototypes.remnants")
+--require("__rubia__.prototypes.remnants")
 require("__rubia__.prototypes.technology")
 
 require("__rubia__.prototypes.entity.resources")
@@ -21,6 +21,7 @@ require("__rubia__.prototypes.entity.trashsteroids")
 require("__rubia__.prototypes.entity.long-bulk-inserter")
 require("__rubia__.prototypes.entity.sniper-turret")
 require("__rubia__.prototypes.entity.crapapult")
+require("__rubia__.prototypes.entity.craptonite-wall")
 
 require("__rubia__.prototypes.planet.rubia-decoratives")
 require("__rubia__.prototypes.planet.rubia-map-gen")

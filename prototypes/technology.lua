@@ -7,7 +7,9 @@ local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
     --TODO: Custom whitelist, because construction bots are allowed
 --cargo_drops_base.name = "operation-iron-man"
 --Internal tech name must remain planetslib-rubia-cargo-drops
---cargo_drops_base.icon = ""
+cargo_drops_base.icons = nil
+cargo_drops_base.icon = "__rubia__/graphics/technology/operation-iron-man.png"
+cargo_drops_base.icon_size = 256
 cargo_drops_base.localised_name = {"technology-name.operation-iron-man"}
 cargo_drops_base.localised_description = {"technology-description.operation-iron-man"}
 cargo_drops_base.effects[1].effect_description = {"modifier-description.operation-iron-man-effect"}
@@ -147,7 +149,7 @@ data:extend({
     {
         type = "technology",
         name = "rubia-progression-stage3",
-        icon = "__rubia__/graphics/icons/garbo-gatherer-2.png",--"__rubia__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
+        icon = "__rubia__/graphics/icons/garbo-gatherer-2.png",
         icon_size = 128,
         essential = true,
         effects = {
@@ -179,7 +181,7 @@ data:extend({
     {--Shamelessly taken from maraxsis
         type = "technology",
         name = "rubia-project-trashdragon",
-        icon = "__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
+        icon = "__rubia__/graphics/technology/project-trashdragon.png",--"__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
         icon_size = 256,
         effects = {
             {
@@ -197,7 +199,80 @@ data:extend({
     },
 
 --#endregion
-    --[[
+
+--#region Planet Rewards
+{
+    type = "technology",
+    name = "craptonite-wall",
+    icon = "__rubia__/graphics/technology/crap-wall.png",
+    icon_size = 256,
+    essential = false,
+    effects = {{type = "unlock-recipe", recipe = "craptonite-wall"},},
+    prerequisites = { "rubia-project-trashdragon"},
+    unit =
+    {
+        count = 500,
+        ingredients =
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "production-science-pack",    1 },
+            { "military-science-pack",        1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    }
+},
+{
+    type = "technology",
+    name = "long-bulk-inserter",
+    icon = "__rubia__/graphics/technology/long-bulk-inserter.png",
+    icon_size = 256,
+    essential = false,
+    effects = {{type = "unlock-recipe", recipe = "long-bulk-inserter"},},
+    prerequisites = { "rubia-project-trashdragon"},
+    unit =
+    {
+        count = 1000,
+        ingredients =
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    }
+},
+{
+    type = "technology",
+    name = "craptonite-axe",
+    icon = "__rubia__/graphics/technology/crap-axe.png",
+    icon_size = 256,
+    essential = false,
+    effects = {{type = "character-mining-speed", modifier = 2}},
+    prerequisites = { "rubia-project-trashdragon"},
+    unit =
+    {
+        count = 1000,
+        ingredients =
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "military-science-pack",        1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    }
+},
+
+
+--#endregion
+
+--[[
     {
         type = "technology",
         name = "platinum-processing-rubia",
