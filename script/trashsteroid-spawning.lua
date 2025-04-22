@@ -233,19 +233,51 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   return resulting_entity
 end
 
---Go through one round of going tgh all chunks and trying to spawn trashsteroids
+--[[Take 2 chunk data, and see which one should come first in the list.
+local function chunk_spawn_order(chunk1, chunk2)
+  return storage.pending_trashsteroid_data[chunk_position_to_key(chunk1.x,chunk1.y)]
+   <  storage.pending_trashsteroid_data[chunk_position_to_key(chunk2.x,chunk2.y)]
+end]]
+
+
+--Go through one round of going through all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
     --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
     try_initialize_RNG()
     if not storage.rubia_chunks then return end --No chunks to worry about
-    for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
+
+    --Index of the last chunk where we ended iteration
+    storage.trash_gen_index = (storage.trash_gen_index) or 1
+
+    local spawned_trashsteroids = 0 --Total spawned this cycle
+    for i = storage.trash_gen_index, #storage.rubia_chunks, 1 do
+      local chunk = storage.rubia_chunks[i]
+      storage.trash_gen_index = i
+
+    --for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
       --Check chunk exists and its cooldown time is done.
       if (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)
         and (storage.rubia_surface.is_chunk_generated(chunk)) then --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
       --and (storage.rubia_surface.count_entities_filtered{area = chunk.area, force = "player"} > 0)  --testing: and there is player stuff there
+        
         generate_trashsteroid("medium-trashsteroid", chunk)
+
+        spawned_trashsteroids = spawned_trashsteroids + 1
+        if spawned_trashsteroids >= max_trashsteroids_per_update then break end
+
+      --Otherwise put that chunk on cooldown
+      --else storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = 
+      --    game.tick + trashsteroid_cooldown_max
       end
     end
+    --Loop the partial iteration index
+    if storage.trash_gen_index >=  #storage.rubia_chunks then
+      storage.trash_gen_index = 1
+    end
+
+    --if spawned_trashsteroids > 0 then --If we did spawn, then let's sort the list so we have the most stale chunks at the start
+    --  table.sort(storage.rubia_chunks, chunk_spawn_order)
+    --end
   end
 
 --[[
@@ -342,11 +374,11 @@ trashsteroid_lib.trashsteroid_impact_update = function()
   end
 
   --Now we go through and actually DO the impacts
-  for i,trashsteroid in pairs(trashsteroids_impacting) do
+  for _,trashsteroid in pairs(trashsteroids_impacting) do
       local entity = trashsteroid.entity
       --Deal damage
       local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
-      for i,hit_entity in pairs(impacted_entities) do
+      for _,hit_entity in pairs(impacted_entities) do
         hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
       end
 
@@ -378,8 +410,8 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity)
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
   local collector = find_closest_collector(trashsteroid)
   if (collector) then --We have a valid collector. Spawn a chunk.
-    --local trash_entity = trashsteroid.entity
-    local chunk_entity = storage.rubia_surface.create_entity({
+    --local chunk_entity = 
+    storage.rubia_surface.create_entity({
       name = "trashsteroid-chunk",
       position = entity.position,
       direction = entity.orientation,
@@ -388,9 +420,6 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity)
       max_range = trashsteroid_chunk_reach_quit,
       target = collector
     })
-
-
-
   end
 
 
