@@ -66,8 +66,8 @@ rubia.timing_manager.dequeue_events = function(event_ids)
     end
 end
 
---Running the event checks
-script.on_nth_tick(1,function()
+--Run the event checks
+rubia.timing_manager.update = function()
     if not storage.timing_queue then return end --Nothing is queued
 
     --Need to save the result of which things in the queue need done 
@@ -89,7 +89,7 @@ script.on_nth_tick(1,function()
     --for index, func in pairs(functions_to_call) do func() end
     for index, function_name in pairs(functions_to_call) do 
         invoke(function_name, arguments[index]) end
-end)
+end
 
 
 --[[script.on_nth_tick(1,function()

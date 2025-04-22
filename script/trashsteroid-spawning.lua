@@ -270,10 +270,8 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
       --    game.tick + trashsteroid_cooldown_max
       end
     end
-    --Loop the partial iteration index
-    if storage.trash_gen_index >=  #storage.rubia_chunks then
-      storage.trash_gen_index = 1
-    end
+    --Loop the partial iteration index if applicable
+    if storage.trash_gen_index >=  #storage.rubia_chunks then storage.trash_gen_index = 1 end
 
     --if spawned_trashsteroids > 0 then --If we did spawn, then let's sort the list so we have the most stale chunks at the start
     --  table.sort(storage.rubia_chunks, chunk_spawn_order)

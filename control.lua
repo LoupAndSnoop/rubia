@@ -89,34 +89,23 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
   do_on_built_changes(event)
 end)
 
---[[
-script.on_event(defines.events.on_built_entity, function(event)
-    do_on_built_changes(event)
-end)
-
-script.on_event(defines.events.on_robot_built_entity, function(event)
-    do_on_built_changes(event)
-end)
-
-script.on_event(defines.events.script_raised_built, function(event)
-    do_on_built_changes(event)
-end)
-
-script.on_event(defines.events.script_raised_revive, function(event)
-    do_on_built_changes(event)
-end)
-]]
 
 --------------------
 --------------------
 --------------------
 
---- Asteroid Management
+--- Asteroid and on-tick Management
 
 script.on_event(defines.events.on_chunk_charted, function(event)
   local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
   trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
+
+
+script.on_nth_tick(1,function()
+  rubia.timing_manager.update()
+end)
+
 
 script.on_nth_tick(2, function()
   --trashsteroid_lib.update_trashsteroid_rendering()
@@ -137,6 +126,12 @@ end)
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity)
 end, {{filter = "name", name = "medium-trashsteroid"}})
+
+
+--on_player_mined_entity
+--on_robot_mined
+--on_entity_died
+
 
 --[[Protect collectors from having items added to them
 script.on_event(defines.events.on_player_fast_transferred, function(event)

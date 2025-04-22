@@ -191,7 +191,7 @@ landing_cutscene.try_start_cutscene = function(event)
         or cargo_pod.cargo_pod_state ~= "descending"
         or not cargo_pod.cargo_pod_destination.surface
         or cargo_pod.cargo_pod_destination.surface.name ~= "rubia") then
-        game.print("cancelling due to cargo pod state")
+        --game.print("cancelling due to cargo pod state")
         return
     end
 
