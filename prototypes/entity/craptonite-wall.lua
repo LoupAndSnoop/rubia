@@ -18,7 +18,7 @@ data:extend({
     collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     damaged_trigger_effect = hit_effects.wall(),
-    minable = {mining_time = 0.2, result = "stone-wall"},
+    minable = {mining_time = 0.2, result = "craptonite-wall"},
     fast_replaceable_group = "wall",
     max_health = 800,
     repair_speed_modifier = 2,
@@ -42,7 +42,7 @@ data:extend({
     {
       {
         type = "physical",
-        decrease = 10,
+        decrease = 30,
         percent = 60
       },
       {

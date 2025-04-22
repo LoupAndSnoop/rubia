@@ -308,8 +308,6 @@ data:extend(
   stack_size = 10
 },
 
---TODO: Armored train parts
-
 {
   type = "item",
   name = "sniper-turret",
@@ -318,7 +316,50 @@ data:extend(
   subgroup = "defensive-structure",
   order = "b[turret]-a[gun-turret]",
   place_result = "sniper-turret",
-  stack_size = 10
+  stack_size = 10,
+  weight = 1000/20*kg,
+},
+
+{
+  type = "item-with-entity-data",
+  name = "rubia-armored-locomotive",
+  icon = "__base__/graphics/icons/locomotive.png",
+  subgroup = "train-transport",
+  order = "c[rolling-stock]-a[locomotive]",
+  inventory_move_sound = item_sounds.locomotive_inventory_move,
+  pick_sound = item_sounds.locomotive_inventory_pickup,
+  drop_sound = item_sounds.locomotive_inventory_move,
+  place_result = "rubia-armored-locomotive",
+  stack_size = 5,
+  weight = 1000/5*kg,
+},
+{
+  type = "item-with-entity-data",
+  name = "rubia-armored-cargo-wagon",
+  icon = "__base__/graphics/icons/cargo-wagon.png",
+  subgroup = "train-transport",
+  order = "c[rolling-stock]-b[cargo-wagon]",
+  inventory_move_sound = item_sounds.metal_large_inventory_move,
+  pick_sound = item_sounds.locomotive_inventory_pickup,
+  drop_sound = item_sounds.metal_large_inventory_move,
+  place_result = "rubia-armored-cargo-wagon",
+  stack_size = 5,
+  random_tint_color = item_tints.iron_rust,
+  weight = 1000/5*kg,
+},
+{
+  type = "item-with-entity-data",
+  name = "rubia-armored-fluid-wagon",
+  icon = "__base__/graphics/icons/fluid-wagon.png",
+  subgroup = "train-transport",
+  order = "c[rolling-stock]-c[fluid-wagon]",
+  inventory_move_sound = item_sounds.fluid_inventory_move,
+  pick_sound = item_sounds.fluid_inventory_pickup,
+  drop_sound = item_sounds.fluid_inventory_move,
+  place_result = "rubia-armored-fluid-wagon",
+  stack_size = 5,
+  random_tint_color = item_tints.iron_rust,
+  weight = 1000/5*kg,
 },
 
 --#endregion
@@ -326,7 +367,7 @@ data:extend(
 
 {
   type = "item",
-  name = "long-bulk-inserter",
+  name = "rubia-long-bulk-inserter",
   icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
   order = "f[bulk-inserter]",
   subgroup = "inserter",
@@ -338,7 +379,7 @@ data:extend(
   stack_size = 50,
   default_import_location = "rubia",
   weight = 20*kg,
-  place_result = "long-bulk-inserter"
+  place_result = "rubia-long-bulk-inserter"
 },
 {
   type = "item",
@@ -358,7 +399,6 @@ data:extend(
   place_result = "craptonite-wall"
 },
 
-  --TODO: Reinforced wall
   --TODO: T4 mod
 
 --#endregion

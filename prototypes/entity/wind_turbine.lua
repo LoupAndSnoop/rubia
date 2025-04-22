@@ -126,7 +126,6 @@ local entity = {
 -- Compatibility: Space Age DLC --
 --if mods["space-age"] then
     entity.surface_conditions = rubia.surface_conditions()
-    --{{property = "wind-speed",    min = 200, max=200}}
     entity.heating_energy = "30kW"--SETTING.EXQUISITE and "0kW" or "30kW"
 --end
 

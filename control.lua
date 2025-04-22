@@ -1,6 +1,7 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
+require("__rubia__.script.chunk-checker")
 --require("__rubia__.lib.function-serializer")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
@@ -115,6 +116,10 @@ end)
 script.on_event(defines.events.on_chunk_charted, function(event)
   local surface = game.get_surface(event.surface_index) -- convert surface ID to surface.
   trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
+end)
+
+script.on_nth_tick(2, function()
+  --trashsteroid_lib.update_trashsteroid_rendering()
 end)
 
 script.on_nth_tick(3, function()

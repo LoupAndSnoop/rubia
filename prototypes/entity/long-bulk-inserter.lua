@@ -10,7 +10,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
 data:extend({
 {
     type = "corpse",
-    name = "long-bulk-inserter-remnants",
+    name = "rubia-long-bulk-inserter-remnants",
     icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
     flags = {"placeable-neutral", "not-on-map"},
     hidden_in_factoriopedia = true,
@@ -37,13 +37,13 @@ data:extend({
   },
 {
     type = "inserter",
-    name = "long-bulk-inserter",
+    name = "rubia-long-bulk-inserter",
     icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     bulk = true,
-    minable = { mining_time = 0.1, result = "long-bulk-inserter" },
+    minable = { mining_time = 0.1, result = "rubia-long-bulk-inserter" },
     max_health = 350,
-    corpse = "long-bulk-inserter-remnants",
+    corpse = "rubia-long-bulk-inserter-remnants",
     dying_explosion = "bulk-inserter-explosion",
     resistances =
     {

@@ -4,7 +4,8 @@
 _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 
 --- Asteroid Management
-local max_trashsteroids = 200 --Max # of managed trashsteroids active at once
+local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
+local max_trashsteroids_per_update = 20 --Max # of trashsteroids to attempt to spawn in one tick.
 local trashsteroid_cooldown_min = 60 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 300 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 200 --Number of ticks that a trashsteroid can live
@@ -222,6 +223,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     death_tick = game.tick + trashsteroid_lifetime,
     name = trashsteroid_name,
     chunk_data = chunk,
+    --chunk_position = {x=chunk.x, y = chunk.y}, --Do we need both?
     render_solid = render,
     render_shadow = render_shadow,
     orient_initial = render.orientation, --Starting orientation for render
@@ -238,19 +240,35 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
     if not storage.rubia_chunks then return end --No chunks to worry about
     for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
       --Check chunk exists and its cooldown time is done.
-      if (storage.rubia_surface.is_chunk_generated(chunk) --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
-        and (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)) then
+      if (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)
+        and (storage.rubia_surface.is_chunk_generated(chunk)) then --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
+      --and (storage.rubia_surface.count_entities_filtered{area = chunk.area, force = "player"} > 0)  --testing: and there is player stuff there
         generate_trashsteroid("medium-trashsteroid", chunk)
       end
     end
   end
 
+--[[
+--This version checks through ALL visible area
+  local force = game.forces["player"]
+  for _, trashsteroid in pairs(storage.active_trashsteroids) do
+    if (force.is_chunk_visible(storage.rubia_surface, {x=trashsteroid.chunk_data.x, y = trashsteroid.chunk_data.y})
+      
+
+]]
+
+
 --Go through all trashsteroids, and update their rendering.
 trashsteroid_lib.update_trashsteroid_rendering = function()
   if not storage.active_trashsteroids then return end
 
-  for i, trashsteroid in pairs(storage.active_trashsteroids) do
-    if (trashsteroid.render_solid and trashsteroid.render_solid.valid and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
+  local viewed_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+  if not viewed_chunks then return end
+
+  for _, trashsteroid in pairs(storage.active_trashsteroids) do
+    if (viewed_chunks[chunk_checker.chunk_position_to_key(trashsteroid.chunk_data.x,trashsteroid.chunk_data.y)]
+      and trashsteroid.render_solid and trashsteroid.render_solid.valid
+      and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
       local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
 
       local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
@@ -264,7 +282,7 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
       trashsteroid.render_shadow.orientation = orient
       
       --Transparency comes in quickly with fractional age.
-      local transparency_scale = math.min(1, 1-(1-fractional_age)^9)--3)
+      local transparency_scale = math.min(1, 1-(1-fractional_age)^6)--3)
       trashsteroid.render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
       trashsteroid.render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
       
@@ -324,31 +342,31 @@ trashsteroid_lib.trashsteroid_impact_update = function()
   end
 
   --Now we go through and actually DO the impacts
-    for i,trashsteroid in pairs(trashsteroids_impacting) do
-        local entity = trashsteroid.entity
-        --Deal damage
-        local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
-        for i,hit_entity in pairs(impacted_entities) do
-          hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
-        end
+  for i,trashsteroid in pairs(trashsteroids_impacting) do
+      local entity = trashsteroid.entity
+      --Deal damage
+      local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
+      for i,hit_entity in pairs(impacted_entities) do
+        hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
+      end
 
-        local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,9)) --Number of unique explosions go here
-        --trashsteroid_lib.trashsteroid_explosions[storage.rubia_asteroid_rng(1,#trashsteroid_lib.trashsteroid_explosions)]
-        storage.rubia_surface.create_entity({
-          name = explosion_name,
-          position = {x = entity.position.x + 0.5,y = entity.position.y} --Shift explosion a little bit to lead it.
-        })
+      local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,9)) --Number of unique explosions go here
+      --trashsteroid_lib.trashsteroid_explosions[storage.rubia_asteroid_rng(1,#trashsteroid_lib.trashsteroid_explosions)]
+      storage.rubia_surface.create_entity({
+        name = explosion_name,
+        position = {x = entity.position.x + 0.5,y = entity.position.y} --Shift explosion a little bit to lead it.
+      })
 
-        on_trashsteroid_removed(trashsteroid) --Perform common cleanup
-        --[[Destroy the renders
-        trashsteroid.render_solid.destroy()
-        trashsteroid.render_shadow.destroy()
+      on_trashsteroid_removed(trashsteroid) --Perform common cleanup
+      --[[Destroy the renders
+      trashsteroid.render_solid.destroy()
+      trashsteroid.render_shadow.destroy()
 
-        --Delist before destruction.
-        storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
-        storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1]]
-        entity.destroy()
-    end  
+      --Delist before destruction.
+      storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
+      storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1]]
+      entity.destroy()
+  end  
 end
 
 

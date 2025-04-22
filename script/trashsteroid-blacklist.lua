@@ -22,6 +22,9 @@ local internal_blacklist = {
 
     --Other
     {type="entity", name="craptonite-wall"},
+    {type="entity", name="rubia-armored-locomotive"},
+    {type="entity", name="rubia-armored-cargo-wagon"},
+    {type="entity", name="rubia-armored-fluid-wagon"},
 }
 
 if script.active_mods["elevated-rails"] then

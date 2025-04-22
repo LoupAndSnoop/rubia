@@ -3,7 +3,7 @@
 --Return surface conditions for something that forces that item/recipe to Rubia only.
 rubia.surface_conditions = function()
     return {{
-        property = "wind-speed",
+        property = "rubia-wind-speed",
         min = 200,
         max = 200,
     }}
@@ -14,7 +14,7 @@ end
 ---@class prototype EntityPrototype
 rubia.ban_from_rubia = function(prototype)
     local function rubia_condition()
-        return {property = "wind-speed", min = 0, max = 100,}
+        return {property = "rubia-wind-speed", min = 0, max = 100,}
     end
 
     if (not prototype.surface_conditions or #prototype.surface_conditions == 0) then
@@ -23,7 +23,7 @@ rubia.ban_from_rubia = function(prototype)
     else
         --Check if the prototype has wind speed already defined. If it does, update it
         for i, condition in pairs(prototype.surface_conditions) do
-            if condition.property == "wind-speed" then
+            if condition.property == "rubia-wind-speed" then
                 prototype.surface_conditions[i] = rubia_condition()
                 return
             end

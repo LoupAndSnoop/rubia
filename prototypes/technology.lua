@@ -173,6 +173,10 @@ data:extend({
             {type = "unlock-recipe", recipe = "biorecycling-science-pack"},
 
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-elec-engine"},
+
+            {type = "unlock-recipe", recipe = "rubia-armored-locomotive"},
+            {type = "unlock-recipe", recipe = "rubia-armored-cargo-wagon"},
+            {type = "unlock-recipe", recipe = "rubia-armored-fluid-wagon"},
         },
         prerequisites = {"rubia-progression-stage3"},
         research_trigger = {type = "build-entity", entity="garbo-gatherer"},
@@ -226,11 +230,11 @@ data:extend({
 },
 {
     type = "technology",
-    name = "long-bulk-inserter",
+    name = "rubia-long-bulk-inserter",
     icon = "__rubia__/graphics/technology/long-bulk-inserter.png",
     icon_size = 256,
     essential = false,
-    effects = {{type = "unlock-recipe", recipe = "long-bulk-inserter"},},
+    effects = {{type = "unlock-recipe", recipe = "rubia-long-bulk-inserter"},},
     prerequisites = { "rubia-project-trashdragon"},
     unit =
     {

@@ -561,12 +561,74 @@ data:extend({
   surface_conditions = rubia.surface_conditions()
 },
 
+{
+  type = "recipe",
+  name = "rubia-armored-locomotive",
+  energy_required = 10,
+  ingredients = {
+      {type = "item", name = "engine-unit",      amount = 20},
+      {type = "item", name = "craptonite-frame", amount = 10},
+      {type = "item", name = "advanced-circuit", amount = 10},
+      {type = "item", name = "locomotive",       amount = 1}
+  },
+  results = {
+      {type = "item", name = "rubia-armored-locomotive",      amount = 1}
+  },
+
+  main_product = "rubia-armored-locomotive",
+  category ="advanced-crafting",
+  allow_productivity = false,
+  allow_quality = true,
+  enabled = false,
+  surface_conditions = rubia.surface_conditions()
+},
+{
+  type = "recipe",
+  name = "rubia-armored-cargo-wagon",
+  energy_required = 10,
+  ingredients = {
+      {type = "item", name = "craptonite-frame", amount = 10},
+      {type = "item", name = "steel-plate",           amount = 10},
+      {type = "item", name = "cargo-wagon",       amount = 1}
+  },
+  results = {
+      {type = "item", name = "rubia-armored-cargo-wagon",      amount = 1}
+  },
+
+  main_product = "rubia-armored-cargo-wagon",
+  category ="advanced-crafting",
+  allow_productivity = false,
+  allow_quality = true,
+  enabled = false,
+  surface_conditions = rubia.surface_conditions()
+},
+{
+  type = "recipe",
+  name = "rubia-armored-fluid-wagon",
+  energy_required = 10,
+  ingredients = {
+      {type = "item", name = "craptonite-frame", amount = 10},
+      {type = "item", name = "steel-plate",           amount = 10},
+      {type = "item", name = "cargo-wagon",       amount = 1}
+  },
+  results = {
+      {type = "item", name = "rubia-armored-fluid-wagon",      amount = 1}
+  },
+
+  main_product = "rubia-armored-fluid-wagon",
+  category ="advanced-crafting",
+  allow_productivity = false,
+  allow_quality = true,
+  enabled = false,
+  surface_conditions = rubia.surface_conditions()
+},
+
 
 --#endregion
 --#region Post-clear Rewards
   {
     type = "recipe",
-    name = "long-bulk-inserter",
+    name = "rubia-long-bulk-inserter",
     category ="advanced-crafting",
     enabled = false,
     --surface_conditions = rubia.surface_conditions(),
@@ -578,7 +640,7 @@ data:extend({
       {type = "item", name = "advanced-circuit", amount = 3},
       {type = "item", name = "craptonite-frame", amount = 4},
     },
-    results = {{type="item", name="long-bulk-inserter", amount=1}},
+    results = {{type="item", name="rubia-long-bulk-inserter", amount=1}},
     allow_productivity=false,
     crafting_machine_tint = crafting_machine_tint_brown,
   },

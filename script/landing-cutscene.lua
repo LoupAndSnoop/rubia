@@ -180,7 +180,7 @@ landing_cutscene.try_start_cutscene = function(event)
 
     --Operation iron man cancels cutscene.
     if (player.force.technologies["planetslib-rubia-cargo-drops"].researched) then
-        game.print("cancelling from operation iron man")
+        --game.print("cancelling from operation iron man")
         return end
     
     --Secondary check based on the cargo pod

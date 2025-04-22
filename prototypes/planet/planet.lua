@@ -8,12 +8,23 @@ local planet_catalogue_rubia = require("__rubia__.prototypes.planet.procession-c
 data:extend({
   {
     type = "surface-property",
-    name = "wind-speed",
+    name = "rubia-wind-speed",
     default_value = 6.9
   }
 })
 
---data.raw["planet-nauvis"].surface_properties["wind-speed"] = 5
+--Additional wind speeds for flavor
+local function set_wind_speed(planet_name,speed)
+  if (data.raw["planet"][planet_name]) then 
+    data.raw["planet"][planet_name].surface_properties["rubia-wind-speed"] = speed end
+  end
+set_wind_speed("nauvis", 15)
+set_wind_speed("fulgora", 35)
+set_wind_speed("vulcanus", 80)
+set_wind_speed("gleba", 5)
+set_wind_speed("aquilo", 30)
+
+    --data.raw["planet-nauvis"].surface_properties["wind-speed"] = 5
 --rubia.surface_conditions() = function () {}end
 
 --------Basic Map generation
@@ -53,7 +64,7 @@ local planet = {
           ["solar-power"] = 5,
           pressure = 50,
           gravity = 2,
-          ["wind-speed"] = 200
+          ["rubia-wind-speed"] = 200
         },
 
         surface_render_parameters =
