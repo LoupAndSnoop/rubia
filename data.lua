@@ -3,14 +3,11 @@ require("__rubia__.lib.lib")
 
 require("__rubia__.prototypes.particles")
 require("__rubia__.sounds.sound-effects")
---require("__rubia__.prototypes.entities")
 require("__rubia__.prototypes.factoriopedia-simulations")
-require("__rubia__.prototypes.fluid")
 require("__rubia__.prototypes.item")
 
 require("__rubia__.prototypes.recipe-category")
 require("__rubia__.prototypes.recipe")
---require("__rubia__.prototypes.remnants")
 require("__rubia__.prototypes.technology")
 
 require("__rubia__.prototypes.entity.resources")

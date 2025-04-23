@@ -31,7 +31,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound = {
-            filename = "__rubia__/sounds/junkyard-jam.ogg",
+            filename = "__rubia__/sounds/cyberpunk-ambient-music-SoulSerenityAmbience.ogg",
             volume = 0.35,
         },
         weight = 10
@@ -52,9 +52,55 @@ data:extend(
         name = "rubia-4",
         track_type = "main-track",
         planet = "rubia",
-        sound = "__space-age__/sound/ambient/fulgora/fulgora-4.ogg",
+        sound = {filename = "__rubia__/sounds/dark-ambient-background-music-highway-LFC_records.ogg",
+            volume =1 },
         weight = 10
     },
+    {
+        type = "ambient-sound",
+        name = "rubia-5",
+        track_type = "main-track",
+        planet = "rubia",
+        sound =  {filename = "__rubia__/sounds/dark-hybrid-glitch-ambient-DenElbriggs.ogg",
+            volume =1 },
+        weight = 10
+    },
+    {
+        type = "ambient-sound",
+        name = "rubia-6",
+        track_type = "main-track",
+        planet = "rubia",
+        sound =  {filename = "__rubia__/sounds/dark-matter-dark-space-ambient-natures_eye.ogg",
+            volume =1 },
+        weight = 10
+    },
+    {
+        type = "ambient-sound",
+        name = "rubia-7",
+        track_type = "main-track",
+        planet = "rubia",
+        sound =  {filename = "__rubia__/sounds/sinius-shale-and-cinder-dark-ambient-music.ogg",
+            volume =1 },
+        weight = 10
+    },
+    {
+        type = "ambient-sound",
+        name = "rubia-8",
+        track_type = "main-track",
+        planet = "rubia", --Duplicated. We have room for one more
+        sound =  {filename = "__rubia__/sounds/sinius-shale-and-cinder-dark-ambient-music.ogg",
+            volume =1 },
+        weight = 10
+    },
+    {
+        type = "ambient-sound",
+        name = "rubia-9",
+        track_type = "main-track",
+        planet = "rubia",
+        sound =  recycle_track,
+        weight = 10
+    },
+--[[
     require("__space-age__/sound/ambient/fulgora/fulgora-5/fulgora-5"),
     {
         type = "ambient-sound",
@@ -87,7 +133,7 @@ data:extend(
         planet = "rubia",
         sound = "__space-age__/sound/ambient/fulgora/fulgora-9.ogg",
         weight = 10
-    },
+    },]]
     require("__space-age__/sound/ambient/fulgora/interlude-1/interlude-1"),
     require("__space-age__/sound/ambient/fulgora/interlude-2/interlude-2"),
     require("__space-age__/sound/ambient/fulgora/interlude-3/interlude-3"),
