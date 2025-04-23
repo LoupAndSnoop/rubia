@@ -89,7 +89,7 @@ chunk_checker.delist_entity = function(entity_reg_ID)
         for y = (entity_position.y - develop_range), (entity_position.y + develop_range), 1 do
             key = chunk_checker.chunk_position_to_key(x,y)
 
-            storage.developed_chunks[key] = storage.developed_chunks[key] - 1
+            storage.developed_chunks[key].entities = storage.developed_chunks[key].entities - 1
             --check for chunk became blank
             --if (storage.developed_chunks[key] == 0) then storage.developed_chunks[key] = nil end
             if (storage.developed_chunks[key].entities==0 and _ENV.table_size(storage.developed_chunks[key].players)==0) then 
@@ -122,19 +122,19 @@ chunk_checker.is_chunk_developed_by_key = function(key)
     return (storage.developed_chunks) and (storage.developed_chunks[key])
 end
 
-
---Return an iterator that partially iterates over the array of developed chunks.
---chunk_checker.iterate_dev_chunks = function(start_index, total_to_iterate)
----------TODO
+--------
 
 --end
 
 --Print developed chunks to log for debug purposes
-chunk_checker.print_developed_chunks = function()
-    local string = ""
-    for key, _ in pairs(storage.developed_chunks) do
-        string = string .. ", (" .. tostring(chunk_checker.chunk_key_to_position(key).x) .. ","
-        .. tostring(chunk_checker.chunk_key_to_position(key).y) .. ")"
+chunk_checker.print_developed_chunks = function(full_mode)
+    local string = "Total developed  = " .. tostring(_ENV.table_size(storage.developed_chunks) .. ". ")
+    for key, data in pairs(storage.developed_chunks) do
+        if full_mode then
+            string = string .. ". key = " .. tostring(key) .. ": (" .. tostring(data.chunk.x) .. "," .. tostring(data.chunk.y)
+            .. ") players = " .. tostring(_ENV.table_size(data.players)) .. ", entities = " .. tostring(data.entities) ..".  "
+        else string = string .. "(" .. tostring(data.chunk.x) .. "," .. tostring(data.chunk.y) .. ") "
+        end
     end
     game.print(string)
 end
@@ -193,7 +193,6 @@ end
 ---@param surface LuaSurface surface that we are tracking
 chunk_checker.try_update_player_pos = function(player, surface)
     chunk_checker.init()
-
     local track_needed, delist_needed = false, false --Check if we need to (un)register
     --Player's current chunk coordinate
     local new_chunk_pos = chunk_checker.map_pos_to_chunk_pos(player.position.x, player.position.y)
@@ -217,7 +216,7 @@ chunk_checker.try_update_player_pos = function(player, surface)
         end
     end
 
-
+    --game.print("updating player pos. delist = " .. tostring(delist_needed) .. ", track = " .. tostring(track_needed))
     --Delist
     if delist_needed then
         for key in iterate_visible_chunk_keys_from(storage.last_player_chunk[player.index].position) do
@@ -233,17 +232,21 @@ chunk_checker.try_update_player_pos = function(player, surface)
 
     --Tracking to add vision
     if track_needed then
+        --local check_str = ""
         for key, x, y in iterate_visible_chunk_keys_from(new_chunk_pos) do
             --Chunk is already developed
             if storage.developed_chunks[key] then 
                 storage.developed_chunks[key].players[player.index] = 1
             else --Chunk is currently only developped by vision
+                --check_str = check_str .. "(" .. x .. "," .. y .. "), "
                 storage.developed_chunks[key] = {
                     chunk={x=x, y=y, area=chunk_checker.chunk_pos_to_area(x,y)}, 
-                    players={}, entities = 1}
+                    players={[player.index]=1}, entities = 0}
             end
         end
+        --game.print(check_str)
         storage.last_player_chunk[player.index] = {key=new_key, position=new_chunk_pos}
+        --chunk_checker.print_developed_chunks()
     end
 end
 

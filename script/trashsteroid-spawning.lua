@@ -156,6 +156,7 @@ local function clear_all_trashsteroids()
       if entity.valid then entity.destroy() end
     end
   end
+  storage.active_trashsteroid_count = 0
 end
 
 
@@ -170,7 +171,8 @@ trashsteroid_lib.log_chunk_for_trashsteroids = function(surface, position, area)
 
     --Queue up this chunk's next trashsteroid.
     try_initialize_RNG()
-    storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(position.x,position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
+    storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(position.x,position.y)] 
+      = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
   end
 end
 
@@ -220,7 +222,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
-  local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)--+ trashsteroid_lifetime?
+  local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max) + trashsteroid_lifetime
   storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
 
   storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {
@@ -254,26 +256,39 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
   if not storage.developed_chunks then return end --No chunks to worry about
   local spawned_trashsteroids = 0 --Total spawned this cycle
 
+  --game.print(serpent.block(storage.pending_trashsteroid_data))
 
-  local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+  local key = 0
+  --Function of what to do on a valid chunk
+  local function do_on_valid_chunk(value, _)
+    key = chunk_checker.chunk_position_to_key(value.chunk.x,value.chunk.y)
+    local next_tick = storage.pending_trashsteroid_data[key] --The key might not be in the dic,
+    
+    --We may have a developed chunk that isn't charted yet because of the ranges.
+    if not next_tick then
+      --game.print("unlogged chunk at: (" .. value.chunk.x .. "," .. value.chunk.y)
+      --trashsteroid_lib.log_chunk_for_trashsteroids(storage.rubia_surface, 
+      --  {x=value.chunk.x,y=value.chunk.y}, chunk_checker.chunk_pos_to_area(value.chunk.x, value.chunk.y))
+      return
+    end 
+    if next_tick > game.tick then return end --Still on cooldown
 
-  --Index of the last chunk where we ended iteration
-  storage.trash_gen_index = (storage.trash_gen_index) or 1
-
-  --Function of what to do on a vallid chunk
-  local function do_on_valid_chunk(value, key)
-    if storage.pending_trashsteroid_data[key] > game.tick then return end --Still on cooldown
-    --if chunk_checker.chunk_key_to_chunk(key).y > 10000 then chunk_checker.print_developed_chunks() end
-
-    generate_trashsteroid("medium-trashsteroid", value.chunk)--chunk_checker.chunk_key_to_chunk(key))
-
+    --[[if(value.chunk.x == 0 and value.chunk.y == 1) then
+      game.print("key = " .. key .. ", tick = " .. game.tick .. ", next tick = " ..  storage.pending_trashsteroid_data[key] ..
+      ", next calc key = " .. chunk_checker.chunk_position_to_key(value.chunk.x, value.chunk.y))
+    end]]
+    generate_trashsteroid("medium-trashsteroid", value.chunk)
     spawned_trashsteroids = spawned_trashsteroids + 1
     --If we reached the max, then abort the loop
     if spawned_trashsteroids >= max_trashsteroids_per_update then return nil, nil, true end
   end
 
+  --if math.fmod(game.tick,30) == 0 then log(serpent.block(storage.pending_trashsteroid_data)) end
+
+  --Index of the last chunk where we ended iteration
   storage.trash_gen_index = flib_table.for_n_of(storage.developed_chunks, storage.trash_gen_index,
     max_gen_checks_per_update, do_on_valid_chunk)-- ,_next)
+  --game.print(check_string)
 end
 
 
@@ -283,8 +298,10 @@ trashsteroid_lib.hard_refresh = function()
   storage.rubia_chunks = {}
   storage.pending_trashsteroid_data = {}
   storage.rubia_surface = game.get_surface("rubia")
-  for chunk in storage.rubia_surface.get_chunks() do
-    trashsteroid_lib.log_chunk_for_trashsteroids(storage.rubia_surface,{x=chunk.x,y=chunk.y}, chunk.area)
+  if storage.rubia_surface then 
+    for chunk in storage.rubia_surface.get_chunks() do
+      trashsteroid_lib.log_chunk_for_trashsteroids(storage.rubia_surface,{x=chunk.x,y=chunk.y}, chunk.area)
+    end
   end
   try_initialize_RNG()
   --

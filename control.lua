@@ -56,6 +56,9 @@ end
 
 script.on_event(defines.events.on_player_changed_surface, function(event)
   landing_cutscene.try_start_cutscene(event)
+  if game.get_surface("rubia") then
+    chunk_checker.try_update_player_pos(game.get_player(event.player_index), game.get_surface("rubia"))
+  end
 end)
 
 script.on_event(defines.events.on_player_died, function(event)
