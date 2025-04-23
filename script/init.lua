@@ -27,8 +27,16 @@ local function promethium_warning()
     end
 end
 
-script.on_init(promethium_warning)
+--Hard re-initialize. Nuke data, and recalculate everything the mod needs. Helpful for when everything is fucked.
+rubia.hard_initialize = function()
+    promethium_warning()
+    chunk_checker.init()
+    trashsteroid_lib.hard_refresh()
+end
 
+
+script.on_init(rubia.hard_initialize)
+script.on_configuration_changed(rubia.hard_initialize)
 
 --[[script.on_init(function()
     local player = game.forces["player"]

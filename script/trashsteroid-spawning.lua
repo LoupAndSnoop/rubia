@@ -115,6 +115,9 @@ end
 
 
 -----------------
+
+
+
 -- Add entity to the working cache of that item to manage.
 ---@param entity LuaEntity
 local function add_to_cache(entity,cache)--,current_tick)
@@ -147,13 +150,15 @@ end
 --On game startup, clear anything already existing.
 local function clear_all_trashsteroids()
   -- Clear all existing trashsteroids
-  for index, tname in pairs(trashsteroid_names) do
+  for _, tname in pairs(trashsteroid_names) do
     local trashsteroids = find_all_entity_of_name(tname)
-    for surface, entity in pairs(trashsteroids) do
-      entity.destroy()
+    for _, entity in pairs(trashsteroids) do
+      if entity.valid then entity.destroy() end
     end
   end
 end
+
+
 
 --Log and update chunk data
 storage.rubia_chunks = storage.rubia_chunks or {}
@@ -247,12 +252,13 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
   --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
   try_initialize_RNG()
   if not storage.developed_chunks then return end --No chunks to worry about
+  local spawned_trashsteroids = 0 --Total spawned this cycle
+
+
+  local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
 
   --Index of the last chunk where we ended iteration
   storage.trash_gen_index = (storage.trash_gen_index) or 1
-
-  local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
-  local spawned_trashsteroids = 0 --Total spawned this cycle
 
   --Function of what to do on a vallid chunk
   local function do_on_valid_chunk(value, key)
@@ -270,6 +276,20 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
     max_gen_checks_per_update, do_on_valid_chunk)-- ,_next)
 end
 
+
+--Force intialize all variables and a hard refresh
+trashsteroid_lib.hard_refresh = function()
+  clear_all_trashsteroids()
+  storage.rubia_chunks = {}
+  storage.pending_trashsteroid_data = {}
+  storage.rubia_surface = game.get_surface("rubia")
+  for chunk in storage.rubia_surface.get_chunks() do
+    trashsteroid_lib.log_chunk_for_trashsteroids(storage.rubia_surface,{x=chunk.x,y=chunk.y}, chunk.area)
+  end
+  try_initialize_RNG()
+  --
+  --local trashsteroids = storage.rubia_surface.find_entities_filtered({filter="name",name="medium-trashsteroid"})
+end
 
 --[[
 --Go through one round of going through all chunks and trying to spawn trashsteroids

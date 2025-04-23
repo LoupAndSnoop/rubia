@@ -22,7 +22,8 @@ end]]
 --Chunk x/y in chunk space goes in. out comes the bounding box for the chunk
 chunk_checker.chunk_pos_to_area = function(x,y)
     return {left_top = {x=x * 32, y = y * 32}, right_bottom = {x=x * 32 + 32, y = y * 32 + 32}} end
-    
+--Real position to chunk position
+chunk_checker.map_pos_to_chunk_pos = function(x,y) return {x = math.floor(x/32), y = math.floor(y/32)} end
 
 
 --Number of chunks around an entity position to consider developed.
@@ -35,10 +36,13 @@ chunk_checker.init = function()
     storage.developed_chunk_entities = storage.developed_chunk_entities or {}
     --Dictionary to connect on_object_destroyed unique registration ID back to a specific entity.
     storage.developed_chunk_entity_id = storage.developed_chunk_entity_id or {}
+    --Dictionary of player_index to player's last chunk position ON this surface as {key,position={x,y}}
+    --dic[player_index] = nil if no player, or player not looking here.
+    storage.last_player_chunk = storage.last_player_chunk or {}
 end
 
 --Chunk development data: {entities = number of entities "developed" affecting the chunk, 
---  players[] = player indices viewing the chunk, chunk = chunk pos and area}
+--  players[] = hashset of player indices viewing the chunk, chunk = chunk pos and area}
 
 --When a new entity is added at the given map position, register it to the developed chunk dic.
 --Do not check validity
@@ -88,7 +92,7 @@ chunk_checker.delist_entity = function(entity_reg_ID)
             storage.developed_chunks[key] = storage.developed_chunks[key] - 1
             --check for chunk became blank
             --if (storage.developed_chunks[key] == 0) then storage.developed_chunks[key] = nil end
-            if (storage.developed_chunks[key].entities==0 and #storage.developed_chunks[key].players==0) then 
+            if (storage.developed_chunks[key].entities==0 and _ENV.table_size(storage.developed_chunks[key].players)==0) then 
                 storage.developed_chunks[key] = nil
             end
 
@@ -138,9 +142,27 @@ end
 ---------
 ---
 --#region Checking chunks by player current visibility
+
 -- How many chunks around the current viewing spot to count as "viewed"
 --Empirically, when fully zoomed out, the range seems to be a 7 wide, 5 tall chunk region.
 local viewing_range = {x = 4, y = 3} 
+
+--Return an iterator to iterate through all chunk keys viewable from the given position.
+--Return arguments 2/3 are the x/y in chunk space of the chunk
+local function iterate_visible_chunk_keys_from(position)
+    local centered_chunk_pos = {x = math.floor(position.x/32), y = math.floor(position.y/32)}
+    local xmin,ymin = centered_chunk_pos.x - viewing_range.x, centered_chunk_pos.y - viewing_range.y
+    local xmax,ymax = centered_chunk_pos.x + viewing_range.x, centered_chunk_pos.y + viewing_range.y
+    local x,y = xmin,ymin
+    return function()
+        if (y > ymax) then y = ymin; x = x + 1 
+            if (x > xmax) then return nil end
+        end
+        y = y + 1
+        return chunk_checker.chunk_position_to_key(x,y-1), x, y
+    end
+end
+
 --Return a hashset of all chunk position keys that are currently visible for that specific surface.
 ---@param surface LuaSurface
 chunk_checker.currently_viewed_chunks = function(surface)
@@ -148,20 +170,84 @@ chunk_checker.currently_viewed_chunks = function(surface)
 
     viewed_chunks = {}
     for _, player in pairs(game.players) do
-        if player.surface.name ~= surface.name then goto continue end
-
-        --Chunk coordinate for the center of the viewing window for that player
-        local centered_chunk_pos = {x = math.floor(player.position.x/32),
-            y = math.floor(player.position.y/32)}
-        for x = centered_chunk_pos.x - viewing_range.x, centered_chunk_pos.x + viewing_range.x, 1 do
-            for y = centered_chunk_pos.y - viewing_range.y, centered_chunk_pos.y + viewing_range.y, 1 do
-                viewed_chunks[chunk_checker.chunk_position_to_key(x,y)]=1
+        if player.surface.name == surface.name then 
+            for key in iterate_visible_chunk_keys_from(player.position) do
+                viewed_chunks[key]=1
             end
-        end
 
-        ::continue::
+            --[[Chunk coordinate for the center of the viewing window for that player
+            local centered_chunk_pos = {x = math.floor(player.position.x/32),
+                y = math.floor(player.position.y/32)}
+            for x = centered_chunk_pos.x - viewing_range.x, centered_chunk_pos.x + viewing_range.x, 1 do
+                for y = centered_chunk_pos.y - viewing_range.y, centered_chunk_pos.y + viewing_range.y, 1 do
+                    viewed_chunks[chunk_checker.chunk_position_to_key(x,y)]=1
+                end
+            end]]
+        end
     end
     return viewed_chunks
 end
+
+---Try to update our tracking of the current player's position, and update tables if needed.
+---@param player LuaPlayer
+---@param surface LuaSurface surface that we are tracking
+chunk_checker.try_update_player_pos = function(player, surface)
+    chunk_checker.init()
+
+    local track_needed, delist_needed = false, false --Check if we need to (un)register
+    --Player's current chunk coordinate
+    local new_chunk_pos = chunk_checker.map_pos_to_chunk_pos(player.position.x, player.position.y)
+    local new_key = chunk_checker.chunk_position_to_key(new_chunk_pos.x, new_chunk_pos.y)
+
+    --Player is NOT on the surface now
+    if (player.surface.name ~= surface.name) then
+        --But they were also not on the surface before = no update
+        if (not storage.last_player_chunk[player.index]) then return end
+        --And trhey WERE on the surface before => delist, but no track
+        delist_needed = true
+    else --Player is on the surface now
+        --They were also not on the surface before = list, but no delist
+        if (not storage.last_player_chunk[player.index]) then 
+            track_needed = true
+            --goto continue
+        --They were on the surface before, but the chunk didn't change => no update
+        elseif new_key == storage.last_player_chunk[player.index].key then return
+        --They were on the surface AND the chunk changed! We need to both track and delist
+        else track_needed, delist_needed = true, true
+        end
+    end
+
+
+    --Delist
+    if delist_needed then
+        for key in iterate_visible_chunk_keys_from(storage.last_player_chunk[player.index].position) do
+            storage.developed_chunks[key].players[player.index] = nil
+            --There is neither vision nor development on that chunk
+            if (_ENV.table_size(storage.developed_chunks[key].players) == 0
+                and storage.developed_chunks[key].entities == 0) then
+                storage.developed_chunks[key] = nil
+            end
+        end
+        storage.last_player_chunk[player.index] = nil
+    end
+
+    --Tracking to add vision
+    if track_needed then
+        for key, x, y in iterate_visible_chunk_keys_from(new_chunk_pos) do
+            --Chunk is already developed
+            if storage.developed_chunks[key] then 
+                storage.developed_chunks[key].players[player.index] = 1
+            else --Chunk is currently only developped by vision
+                storage.developed_chunks[key] = {
+                    chunk={x=x, y=y, area=chunk_checker.chunk_pos_to_area(x,y)}, 
+                    players={}, entities = 1}
+            end
+        end
+        storage.last_player_chunk[player.index] = {key=new_key, position=new_chunk_pos}
+    end
+end
+
+
+
 
 --#endregion

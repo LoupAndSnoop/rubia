@@ -108,6 +108,10 @@ script.on_event(defines.events.on_chunk_charted, function(event)
   trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
 
+script.on_event(defines.events.on_player_changed_position, function(event)
+  chunk_checker.try_update_player_pos(game.get_player(event.player_index), storage.rubia_surface)
+end)
+
 
 script.on_nth_tick(1,function()
   rubia.timing_manager.update()
@@ -133,6 +137,8 @@ end)
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity)
 end, {{filter = "name", name = "medium-trashsteroid"}})
+
+
 
 
 --on_player_mined_entity
