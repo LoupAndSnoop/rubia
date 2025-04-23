@@ -249,15 +249,19 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
     --Index of the last chunk where we ended iteration
     storage.trash_gen_index = (storage.trash_gen_index) or 1
 
+    local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
     local spawned_trashsteroids = 0 --Total spawned this cycle
+    local key = 0
     for i = storage.trash_gen_index, #storage.rubia_chunks, 1 do
       local chunk = storage.rubia_chunks[i]
       storage.trash_gen_index = i
 
     --for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
       --Check chunk exists and its cooldown time is done.
-      if (storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] < game.tick)
-        and (storage.rubia_surface.is_chunk_generated(chunk)) then --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
+      key = chunk_position_to_key(chunk.x,chunk.y)
+      if (storage.pending_trashsteroid_data[key] < game.tick)
+        and (chunk_checker.is_chunk_developed_by_key(key) or (visible_chunks and visible_chunks[key])) then
+      --and (storage.rubia_surface.is_chunk_generated(chunk)) then --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
       --and (storage.rubia_surface.count_entities_filtered{area = chunk.area, force = "player"} > 0)  --testing: and there is player stuff there
         
         generate_trashsteroid("medium-trashsteroid", chunk)

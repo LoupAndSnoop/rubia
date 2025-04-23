@@ -79,9 +79,12 @@ script.on_event(defines.events.on_player_flipped_entity, function(event)
 end)
 
 local function do_on_built_changes(event)
+    if event.entity.surface.name ~= "rubia" or not event.entity.valid then return end
+
     rubia.wind_rotation(event.entity, event)
     trashdragon.on_built_rocket_silo(event)
     quality_correct_wind_turbine(event.entity)
+    chunk_checker.register_new_entity(event.entity)
 end
 
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
@@ -90,6 +93,10 @@ script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_e
 end)
 
 
+script.on_event(defines.events.on_object_destroyed, function(event)
+  chunk_checker.delist_entity(event.registration_number)
+
+end)
 --------------------
 --------------------
 --------------------
