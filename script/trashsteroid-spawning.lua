@@ -6,6 +6,7 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 --- Asteroid Management
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
 local max_trashsteroids_per_update = 20 --Max # of trashsteroids to attempt to spawn in one tick.
+local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 60 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 300 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 200 --Number of ticks that a trashsteroid can live
@@ -48,9 +49,9 @@ storage.pending_trashsteroid_data = storage.pending_trashsteroid_data or {}
 
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
 local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
-local chunk_key_scale = 2^24
+--local chunk_key_scale = 2^24
 --Take in the x and Y coord of a chunk, and output a key for tables
-local function chunk_position_to_key(x, y) return x * chunk_key_scale + y end
+--local function chunk_position_to_key(x, y) return x * chunk_key_scale + y end
 
 ------ Impact Logic
 ---
@@ -164,7 +165,7 @@ trashsteroid_lib.log_chunk_for_trashsteroids = function(surface, position, area)
 
     --Queue up this chunk's next trashsteroid.
     try_initialize_RNG()
-    storage.pending_trashsteroid_data[chunk_position_to_key(position.x,position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
+    storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(position.x,position.y)] = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)
   end
 end
 
@@ -215,7 +216,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
   local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)--+ trashsteroid_lifetime?
-  storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
+  storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
 
   storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {
     unit_number = resulting_entity.unit_number,
@@ -240,6 +241,37 @@ local function chunk_spawn_order(chunk1, chunk2)
 end]]
 
 
+---This version uses flib iteration
+--Go through one round of going through all chunks and trying to spawn trashsteroids
+trashsteroid_lib.try_spawn_trashsteroids = function()
+  --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
+  try_initialize_RNG()
+  if not storage.developed_chunks then return end --No chunks to worry about
+
+  --Index of the last chunk where we ended iteration
+  storage.trash_gen_index = (storage.trash_gen_index) or 1
+
+  local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+  local spawned_trashsteroids = 0 --Total spawned this cycle
+
+  --Function of what to do on a vallid chunk
+  local function do_on_valid_chunk(value, key)
+    if storage.pending_trashsteroid_data[key] > game.tick then return end --Still on cooldown
+    --if chunk_checker.chunk_key_to_chunk(key).y > 10000 then chunk_checker.print_developed_chunks() end
+
+    generate_trashsteroid("medium-trashsteroid", value.chunk)--chunk_checker.chunk_key_to_chunk(key))
+
+    spawned_trashsteroids = spawned_trashsteroids + 1
+    --If we reached the max, then abort the loop
+    if spawned_trashsteroids >= max_trashsteroids_per_update then return nil, nil, true end
+  end
+
+  storage.trash_gen_index = flib_table.for_n_of(storage.developed_chunks, storage.trash_gen_index,
+    max_gen_checks_per_update, do_on_valid_chunk)-- ,_next)
+end
+
+
+--[[
 --Go through one round of going through all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
     --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
@@ -281,6 +313,7 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
     --  table.sort(storage.rubia_chunks, chunk_spawn_order)
     --end
   end
+]]
 
 --[[
 --This version checks through ALL visible area

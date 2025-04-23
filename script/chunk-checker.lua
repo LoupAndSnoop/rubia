@@ -7,17 +7,29 @@ _G.chunk_checker = {}
 local chunk_key_scale = 2^24
 --Take in the x and Y coord of a chunk, and output a key for tables
 chunk_checker.chunk_position_to_key = function(x, y) return x * chunk_key_scale + y end
---Invert it, for mostly testing purposes
+--[[
+--chunk_checker.chunk_position_to_key = function(x, y) return x * chunk_key_scale + y end
+--Invert the keying function to et from chunk key to x,y in chunk space
 chunk_checker.chunk_key_to_position = function(key) return {x = math.floor(key/chunk_key_scale),
     y=math.fmod(key, chunk_key_scale)} end
+--Invert keying function to get full chunk data with pos and area
+chunk_checker.chunk_key_to_chunk = function(key) 
+    local result =  chunk_checker.chunk_key_to_position(key)
+    result.area = {left_top = {x=result.x * 32, y = result.y * 32}, 
+                right_bottom = {x=result.x * 32 + 32, y = result.y * 32 + 32}}
+    return result
+end]]
+--Chunk x/y in chunk space goes in. out comes the bounding box for the chunk
+chunk_checker.chunk_pos_to_area = function(x,y)
+    return {left_top = {x=x * 32, y = y * 32}, right_bottom = {x=x * 32 + 32, y = y * 32 + 32}} end
+    
 
 
 --Number of chunks around an entity position to consider developed.
 local develop_range = 1
 
 chunk_checker.init = function()
-    --Dictionary of (chunk key) => number of relevant entities that are activating this chunk
-    --for doing our scripts
+    --Dictionary of (chunk key) => number of relevant entities that are activating this chunk for doing our scripts
     storage.developed_chunks = storage.developed_chunks or {}
     --Hashset of all entities which are currently included. This hashset is a safeguard against multiple register calls.
     storage.developed_chunk_entities = storage.developed_chunk_entities or {}
@@ -25,12 +37,13 @@ chunk_checker.init = function()
     storage.developed_chunk_entity_id = storage.developed_chunk_entity_id or {}
 end
 
+--Chunk development data: {entities = number of entities "developed" affecting the chunk, 
+--  players[] = player indices viewing the chunk, chunk = chunk pos and area}
+
 --When a new entity is added at the given map position, register it to the developed chunk dic.
 --Do not check validity
 chunk_checker.register_new_entity = function(entity)
-    storage.developed_chunk_entities = storage.developed_chunk_entities or {}
-    storage.developed_chunk_entity_id = storage.developed_chunk_entity_id or {}
-    storage.developed_chunks = storage.developed_chunks or {}
+    chunk_checker.init()
 
     if (storage.developed_chunk_entities[entity]) then return end --Entity is already registered
     storage.developed_chunk_entities[entity] = 1
@@ -44,8 +57,15 @@ chunk_checker.register_new_entity = function(entity)
     for x = (entity_position.x - develop_range), (entity_position.x + develop_range), 1 do
         for y = (entity_position.y - develop_range), (entity_position.y + develop_range), 1 do
             key = chunk_checker.chunk_position_to_key(x,y)
-            storage.developed_chunks[key] = (storage.developed_chunks[key] or 0) + 1
-            --game.print("x.y = " .. tostring(x) .. "," .. tostring(y))
+            --storage.developed_chunks[key] = (storage.developed_chunks[key] or 0) + 1
+
+            if (storage.developed_chunks[key]) then 
+                storage.developed_chunks[key].entities = storage.developed_chunks[key].entities + 1
+            else storage.developed_chunks[key] = {chunk={x=x, y=y, area=chunk_checker.chunk_pos_to_area(x,y)}, 
+                players={}, entities = 1} --whole new chunk
+            end
+            --game.print("x.y = " .. tostring(x) .. "," .. tostring(y) .. ". Key = " .. tostring(key)
+        --.. ". Key back to x,y = " .. tostring(chunk_checker.chunk_key_to_position(key).x) .. "," .. tostring(chunk_checker.chunk_key_to_position(key).y))
         end
     end
 end
@@ -64,9 +84,14 @@ chunk_checker.delist_entity = function(entity_reg_ID)
     for x = (entity_position.x - develop_range), (entity_position.x + develop_range), 1 do
         for y = (entity_position.y - develop_range), (entity_position.y + develop_range), 1 do
             key = chunk_checker.chunk_position_to_key(x,y)
+
             storage.developed_chunks[key] = storage.developed_chunks[key] - 1
-            --check for chunk blank
-            if (storage.developed_chunks[key] == 0) then storage.developed_chunks[key] = nil end
+            --check for chunk became blank
+            --if (storage.developed_chunks[key] == 0) then storage.developed_chunks[key] = nil end
+            if (storage.developed_chunks[key].entities==0 and #storage.developed_chunks[key].players==0) then 
+                storage.developed_chunks[key] = nil
+            end
+
         end
     end
 end
@@ -92,6 +117,13 @@ end
 chunk_checker.is_chunk_developed_by_key = function(key)
     return (storage.developed_chunks) and (storage.developed_chunks[key])
 end
+
+
+--Return an iterator that partially iterates over the array of developed chunks.
+--chunk_checker.iterate_dev_chunks = function(start_index, total_to_iterate)
+---------TODO
+
+--end
 
 --Print developed chunks to log for debug purposes
 chunk_checker.print_developed_chunks = function()
