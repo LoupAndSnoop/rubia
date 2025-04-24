@@ -9,6 +9,7 @@ local landing_cutscene = require("__rubia__.script.landing-cutscene")
 require("__rubia__.script.wind-correction")
 require("__rubia__.script.init")
 local trashdragon = require("__rubia__.script.project-trashdragon")
+local lore_mining = require("__rubia__.script.lore-mining")
 
 --#region Technology/Sci related
 --[[
@@ -118,17 +119,18 @@ end)
 
 script.on_nth_tick(1,function()
   rubia.timing_manager.update()
+  trashsteroid_lib.try_spawn_trashsteroids()
 end)
 
 
 script.on_nth_tick(2, function()
-  --trashsteroid_lib.update_trashsteroid_rendering()
+
 end)
 
 script.on_nth_tick(3, function()
   trashsteroid_lib.update_trashsteroid_rendering()
 
-  trashsteroid_lib.try_spawn_trashsteroids()
+  --trashsteroid_lib.try_spawn_trashsteroids()
 end)
 
 --Trashsteroid Impact checks
@@ -142,7 +144,12 @@ script.on_event(defines.events.on_entity_died, function(event)
 end, {{filter = "name", name = "medium-trashsteroid"}})
 
 
+----Mining item checks
 
+script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined}, function(event)
+  lore_mining.try_lore_when_mined(event.entity)
+
+end)
 
 --on_player_mined_entity
 --on_robot_mined

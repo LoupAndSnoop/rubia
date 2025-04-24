@@ -15,6 +15,7 @@ local internal_blacklist = {
     {type="locomotive", name ="locomotive"},
     {type="cargo-wagon", name ="cargo-wagon"},
     {type="fluid-wagon", name ="fluid-wagon"},
+    {type="artillery-wagon", name ="artillery-wagon"},
 }
 
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.

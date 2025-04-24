@@ -29,6 +29,8 @@ chunk_checker.map_pos_to_chunk_pos = function(x,y) return {x = math.floor(x/32),
 --Number of chunks around an entity position to consider developed.
 local develop_range = 1
 
+--Chunk development data: {entities = number of entities "developed" affecting the chunk, 
+--  players[] = hashset of player indices viewing the chunk, chunk = chunk pos and area}
 chunk_checker.init = function()
     --Dictionary of (chunk key) => number of relevant entities that are activating this chunk for doing our scripts
     storage.developed_chunks = storage.developed_chunks or {}
@@ -41,8 +43,32 @@ chunk_checker.init = function()
     storage.last_player_chunk = storage.last_player_chunk or {}
 end
 
---Chunk development data: {entities = number of entities "developed" affecting the chunk, 
---  players[] = hashset of player indices viewing the chunk, chunk = chunk pos and area}
+--#region Tracking Development by buildable entities
+
+--First make a pre-blacklist of untrackable entities. Mostly from entities that move after being placed.
+--The blacklist will be made of prototype types that move
+local prototype_type_preblacklist = {"artillery-projectile", "artillery-wagon", "car",
+    "cargo-wagon", "locomotive", "fluid-wagon", "capture-robot", "combat-robot", "character-corpse",
+    "cliff","construction-robot", "corpse", "unit-spawner", "entity-ghost", "explosion", "fire",
+    "fish", "infinity-cargo-wagon", "logistic-robot", "smoke-with-trigger", "spider-leg", "spider-unit",
+    "spider-vehicle", "unit", 
+    --"capsule", "spidertron-remote", "tile","surface",
+    "curved-rail-a", "curved-rail-b", "elevated-curved-rail-a", "elevated-curved-rail-b",
+    "elevated-half-diagonal-rail","elevated-straight-rail","rail-ramp","rail-support", "rail-remnants",
+    "straight-rail", --"train-stop"
+}
+--Make a real blacklist as a hashset of all prototypes of those types
+local prototype_blacklist = {}
+for _, type in pairs(prototype_type_preblacklist) do
+    local type_check = false --Make sure all data was entered properly
+    for _, prototype in pairs(prototypes.get_entity_filtered({{filter="type",type=type}})) do
+        prototype_blacklist[tostring(prototype.name)] = 1
+        type_check = true
+    end
+    if not type_check then error("Type had no prototypes when constructing chunk blacklist: " .. type) end
+end
+--log(serpent.block(prototype_blacklist))
+
 
 --When a new entity is added at the given map position, register it to the developed chunk dic.
 --Do not check validity
@@ -50,6 +76,11 @@ chunk_checker.register_new_entity = function(entity)
     chunk_checker.init()
 
     if (storage.developed_chunk_entities[entity]) then return end --Entity is already registered
+    if not entity.is_entity_with_health then return end --Entity can't even be damaged by trashsteroids!
+    if (prototype_blacklist[entity.prototype.name]) then return end --Entity is blacklisted!
+    
+    game.print("Registering " .. entity.prototype.name)
+
     storage.developed_chunk_entities[entity] = 1
      --Register so we can do the delisting later.
     storage.developed_chunk_entity_id[script.register_on_object_destroyed(entity)] =
@@ -124,7 +155,7 @@ end
 
 --------
 
---end
+--#endregion
 
 --Print developed chunks to log for debug purposes
 chunk_checker.print_developed_chunks = function(full_mode)
@@ -146,8 +177,6 @@ end
 -- How many chunks around the current viewing spot to count as "viewed"
 --Empirically, when fully zoomed out, the range seems to be a 7 wide, 5 tall chunk region.
 local viewing_range = {x = 4, y = 3} 
-
-
 
 --Return an iterator to iterate through all chunk keys viewable from the given position.
 --Return arguments 2/3 are the x/y in chunk space of the chunk. Input position in chunk space

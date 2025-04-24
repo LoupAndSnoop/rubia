@@ -6,12 +6,10 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 --- Asteroid Management
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
 local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to spawn in one tick.
-local max_gen_checks_per_update = 20 --Max # of chunks to try to generate a trashsteroid on, in one tick
+local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 200 --Number of ticks that a trashsteroid can live
-local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
-local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
 
 local trashsteroid_names = {"medium-trashsteroid"}
 

@@ -25,6 +25,7 @@ local internal_blacklist = {
     {type="entity", name="rubia-armored-locomotive"},
     {type="entity", name="rubia-armored-cargo-wagon"},
     {type="entity", name="rubia-armored-fluid-wagon"},
+    {type="entity", name="character-corpse"},
 }
 
 if script.active_mods["elevated-rails"] then
