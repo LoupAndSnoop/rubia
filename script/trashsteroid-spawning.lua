@@ -5,10 +5,10 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 
 --- Asteroid Management
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
-local max_trashsteroids_per_update = 20 --Max # of trashsteroids to attempt to spawn in one tick.
-local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
-local trashsteroid_cooldown_min = 60 --Min cooldown time between trashsteroids in one chunk
-local trashsteroid_cooldown_max = 300 --Max cooldown time between trashsteroids in one chunk
+local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to spawn in one tick.
+local max_gen_checks_per_update = 20 --Max # of chunks to try to generate a trashsteroid on, in one tick
+local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
+local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 200 --Number of ticks that a trashsteroid can live
 local trashsteroid_AOE_radius = 10 -- damage radius for a trashsteroid impact
 local trashsteroid_impact_damage = 200 --Damage done by a trashsteroid.
@@ -222,7 +222,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
-  local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max) + trashsteroid_lifetime
+  local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)-- + trashsteroid_lifetime
   storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
 
   storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {

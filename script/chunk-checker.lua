@@ -147,21 +147,32 @@ end
 --Empirically, when fully zoomed out, the range seems to be a 7 wide, 5 tall chunk region.
 local viewing_range = {x = 4, y = 3} 
 
+
+
 --Return an iterator to iterate through all chunk keys viewable from the given position.
---Return arguments 2/3 are the x/y in chunk space of the chunk
-local function iterate_visible_chunk_keys_from(position)
-    local centered_chunk_pos = {x = math.floor(position.x/32), y = math.floor(position.y/32)}
-    local xmin,ymin = centered_chunk_pos.x - viewing_range.x, centered_chunk_pos.y - viewing_range.y
+--Return arguments 2/3 are the x/y in chunk space of the chunk. Input position in chunk space
+local function iterate_visible_chunk_keys_from(centered_chunk_pos)
+    local x,ymin = centered_chunk_pos.x - viewing_range.x, centered_chunk_pos.y - viewing_range.y
     local xmax,ymax = centered_chunk_pos.x + viewing_range.x, centered_chunk_pos.y + viewing_range.y
-    local x,y = xmin,ymin
+    local y = ymin
+    --game.print("xmin=" .. xmin .. ", xmax = " .. xmax .. ", ymin = " .. ymin .. ", ymax = " .. ymax)
     return function()
+        --game.print("x= " .. x .. ", y = " .. y .. ", xmax = " .. xmax .. ", ymin = " .. ymin .. ", ymax = " .. ymax)
         if (y > ymax) then y = ymin; x = x + 1 
             if (x > xmax) then return nil end
         end
         y = y + 1
-        return chunk_checker.chunk_position_to_key(x,y-1), x, y
+        return chunk_checker.chunk_position_to_key(x,y-1), x, y-1
     end
 end
+
+--[[Output the bounds of iteration for chunk coordinates in the viewable range around a given map position.
+--Return in order xmin, ymin, xmax, ymax
+local function visible_chunk_range(position)
+    local centered_chunk_pos = {x = math.floor(position.x/32), y = math.floor(position.y/32)}
+    return centered_chunk_pos.x - viewing_range.x, centered_chunk_pos.y - viewing_range.y,
+        centered_chunk_pos.x + viewing_range.x, centered_chunk_pos.y + viewing_range.y
+end]]
 
 --Return a hashset of all chunk position keys that are currently visible for that specific surface.
 ---@param surface LuaSurface
@@ -171,7 +182,7 @@ chunk_checker.currently_viewed_chunks = function(surface)
     viewed_chunks = {}
     for _, player in pairs(game.players) do
         if player.surface.name == surface.name then 
-            for key in iterate_visible_chunk_keys_from(player.position) do
+            for key in iterate_visible_chunk_keys_from(chunk_checker.map_pos_to_chunk_pos(player.position.x,player.position.y)) do
                 viewed_chunks[key]=1
             end
 
@@ -208,7 +219,6 @@ chunk_checker.try_update_player_pos = function(player, surface)
         --They were also not on the surface before = list, but no delist
         if (not storage.last_player_chunk[player.index]) then 
             track_needed = true
-            --goto continue
         --They were on the surface before, but the chunk didn't change => no update
         elseif new_key == storage.last_player_chunk[player.index].key then return
         --They were on the surface AND the chunk changed! We need to both track and delist
@@ -216,7 +226,6 @@ chunk_checker.try_update_player_pos = function(player, surface)
         end
     end
 
-    --game.print("updating player pos. delist = " .. tostring(delist_needed) .. ", track = " .. tostring(track_needed))
     --Delist
     if delist_needed then
         for key in iterate_visible_chunk_keys_from(storage.last_player_chunk[player.index].position) do
@@ -232,21 +241,20 @@ chunk_checker.try_update_player_pos = function(player, surface)
 
     --Tracking to add vision
     if track_needed then
-        --local check_str = ""
+        --visible_chunk_range(new_chunk_pos)
         for key, x, y in iterate_visible_chunk_keys_from(new_chunk_pos) do
             --Chunk is already developed
             if storage.developed_chunks[key] then 
                 storage.developed_chunks[key].players[player.index] = 1
             else --Chunk is currently only developped by vision
-                --check_str = check_str .. "(" .. x .. "," .. y .. "), "
                 storage.developed_chunks[key] = {
                     chunk={x=x, y=y, area=chunk_checker.chunk_pos_to_area(x,y)}, 
                     players={[player.index]=1}, entities = 0}
             end
         end
-        --game.print(check_str)
+        
+        --game.print("new pos = " .. new_chunk_pos.x .. "," .. new_chunk_pos.y .. "")
         storage.last_player_chunk[player.index] = {key=new_key, position=new_chunk_pos}
-        --chunk_checker.print_developed_chunks()
     end
 end
 
