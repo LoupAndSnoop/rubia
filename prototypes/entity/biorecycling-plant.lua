@@ -8,8 +8,8 @@ local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local space_age_sounds = require ("__space-age__.prototypes.entity.sounds")
 
-local height = 2
-local width = 4
+local height = 4--2
+local width = 2--4
 local inset = 0.15 --How much to sink in the collision boxes
 
 --Intended for if I get a working graphics set in future?
@@ -59,8 +59,8 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 200,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="output", direction = defines.direction.south, 
-                position = {width/2 - 0.5, height/2 - 0.5} }} --position = {-1.5, 0.5} }}, 
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.east, --south with horiz sprite
+                position = {width/2 - 0.5, height/2 - 0.5} }},
           },
           {
             production_type = "input",
@@ -69,7 +69,7 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 200,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="input", direction = defines.direction.south,
+            pipe_connections = {{ flow_direction="input", direction = defines.direction.west, --south with horiz sprite
                 position = {-width/2 + 0.5, height/2 - 0.5} }}
           },
           {
@@ -79,8 +79,8 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 100,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="output", direction = defines.direction.north,
-                position = {-width/2 + 0.5, -height/2 + 0.5}}}  --position = {-1, -height/2 + inset} }}
+            pipe_connections = {{ flow_direction="output", direction = defines.direction.west, --north when horiz sprite
+                position = {-width/2 + 0.5, -height/2 + 0.5}}} 
           },
           {
             production_type = "input",
@@ -89,16 +89,16 @@ data:extend({
             pipe_covers = pipecoverspictures(),
             volume = 100,
             secondary_draw_orders = { north = -1 },
-            pipe_connections = {{ flow_direction="input", direction = defines.direction.north,
+            pipe_connections = {{ flow_direction="input", direction = defines.direction.east,--north when horiz sprite
                 position = {width/2 - 0.5, -height/2 + 0.5} }}
           }
         },
         fluid_boxes_off_when_no_fluid_recipe = true,
-        forced_symmetry = "horizontal",
+        forced_symmetry = "diagonal-pos",--"horizontal",
         perceived_performance = {minimum = 0.25, maximum = 10},
 
-        graphics_set          = require("__quality__.prototypes.entity.recycler-pictures").graphics_set,
-        graphics_set_flipped  = require("__quality__.prototypes.entity.recycler-pictures").graphics_set_flipped,
+        graphics_set          = require("__rubia__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set,--"__quality__.prototypes.entity.recycler-pictures").graphics_set,
+        graphics_set_flipped  = require("__rubia__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set_flipped,
         --[[graphics_set = {
             animation=
                 {north=

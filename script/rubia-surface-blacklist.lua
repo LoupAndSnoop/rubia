@@ -45,7 +45,6 @@ for _, type in pairs(prototype_type_blacklist) do
         if not rubia_lib.array_find_condition(internal_whitelist,function(value)
             return (value.type==type) and (value.name==entry.name) end) then
             table.insert(internal_blacklist, {type=entry.type,name=entry.name})
-            log(entry.type .. " = " .. entry.name)
         end
     end
 end
