@@ -220,6 +220,28 @@ data:extend({
 },
 {
     type = "technology",
+    name = "rubia-efficiency-module4",
+    icon = "__rubia__/graphics/technology/efficiency-module-4.png",
+    icon_size = 256,
+    effects = {{type = "unlock-recipe", recipe = "rubia-efficiency-module4"},},
+    prerequisites = { "rubia-project-trashdragon","efficiency-module-3"},
+    unit =
+    {
+        count = 2000,
+        ingredients =
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "utility-science-pack",    1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    }
+},
+{
+    type = "technology",
     name = "craptonite-axe",
     icon = "__rubia__/graphics/technology/crap-axe.png",
     icon_size = 256,

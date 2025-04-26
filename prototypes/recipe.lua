@@ -662,32 +662,22 @@ data:extend({
     crafting_machine_tint = crafting_machine_tint_brown,
     allow_productivity=false,
   },
+  {
+    type = "recipe",
+    name = "rubia-efficiency-module4",
+    enabled = false,
+    category ="electronics",
+    ingredients =
+    {
+      {type = "item", name = "efficiency-module-3", amount = 4},
+      {type = "item", name = "craptonite-frame", amount = 5},
+      {type = "item", name = "processing-unit", amount = 5}
+    },
+    energy_required = 60,
+    results = {{type="item", name="rubia-efficiency-module4", amount=1}}
+  },
 
 --#endregion
-
-    --[[
-    {
-      type ="recipe",
-      name ="platinum-plate",
-      category ="metallurgy",
-      icon ="__rubia__/graphics/icons/platinum-plate.png",
-      enabled = false,
-      ingredients =
-      {
-
-        {type ="item", name ="platinum-ore", amount = 4},
-      },
-
-      energy_required = 10,
-      results =
-      {
-        {type ="item", name ="platinum-plate", amount = 1}
-      },
-      allow_productivity = true,
-      allow_quality = true,
-      main_product ="platinum-plate",
-      factoriopedia_description ="Refine platinum from ore."
-    },]]
 })
 
 

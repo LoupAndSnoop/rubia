@@ -399,9 +399,5 @@ data:extend(
   place_result = "craptonite-wall"
 },
 
-  --TODO: T4 mod
-
 --#endregion
-}
-
-)
+})
