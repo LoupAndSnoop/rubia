@@ -62,6 +62,7 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
       candidate_spot_count = autoplace_parameters.candidate_spot_count,
       tile_restriction = autoplace_parameters.tile_restriction,
       additional_richness = autoplace_parameters.additional_richness or 0,
+      --autoplace_set_name = autoplace_parameters.autoplace_set_name or resource_parameters.name,
     },
     stage_counts = {15000, 9500, 5500, 2900, 1300, 400, 150, 80},
     stages =
@@ -138,6 +139,7 @@ data:extend({
       has_starting_area_placement = true,
       regular_rq_factor_multiplier = 1,--1.10, --0.4
       starting_rq_factor_multiplier = 1,--1.5, --0.5
+      --autoplace_set_name="bacterial_sludge",
     },
     stage_counts = {0},
     stages =
@@ -226,6 +228,7 @@ data:extend({
       starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = false,
       additional_richness = 20000,
+      --autoplace_set_name="rubia_cupric_scrap",
     }
   ),
 
@@ -254,6 +257,7 @@ data:extend({
       starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = false,
       additional_richness = 20000,
+      --autoplace_set_name="rubia_ferric_scrap",
     }
   ),
 })
@@ -286,3 +290,29 @@ data:extend({
   richness = true
 }
 })
+
+
+--[[Noise expressions
+data:extend({
+{
+  type = "noise-expression",
+  name = "bacterial_sludge_richness",
+  expression = "250000 * max(starting, gleba_simple_spot(2000, 10 * size ^ 0.5, 180 / frequency ^ 0.5, gleba_midland_aux_1) * gleba_midland_aux_1) * richness / size",
+  local_expressions =
+  {
+    richness = "var('control:iron-ore:richness')",
+    frequency = "var('control:iron-ore:frequency')",
+    size = "var('control:iron-ore:size')",
+    starting = "starting_spot_at_angle{ angle = gleba_starting_angle + 180 * gleba_starting_direction,\z
+                                        distance = 60 * gleba_starting_area_multiplier,\z
+                                        radius = 11 * size ^ 0.5,\z
+                                        x_distortion = gleba_wobble_x * 10,\z
+                                        y_distortion = gleba_wobble_x * 10}"
+  }
+},
+{
+  type = "noise-expression",
+  name = "bacterial_sludge_probability",
+  expression = "bacterial_sludge_richness > 1"
+},
+})]]

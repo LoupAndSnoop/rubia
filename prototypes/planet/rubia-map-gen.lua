@@ -4,7 +4,7 @@ local planet_map_gen = require("__space-age__/prototypes/planet/planet-map-gen")
 
 
 --PLANET MAP GEN
-planet_map_gen.rubia = function() --TODO add all my decorations.
+planet_map_gen.rubia = function()
     return
     {
         property_expression_names =
@@ -17,12 +17,12 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
           cliff_elevation = "cliff_elevation_from_elevation",
           --[[["entity:platinum-ore:probability"] = "rubia_platinum_ore_probability",
           ["entity:platinum-ore:richness"] = "rubia_platinum_ore_richness",]]
-          ["entity:rubia-ferric-scrap:probability"] = "rubia_ferric_scrap_probability",
+          --[[["entity:rubia-ferric-scrap:probability"] = "rubia_ferric_scrap_probability",
           ["entity:rubia-ferric-scrap:richness"] = "rubia_ferric_scrap_richness",
           ["entity:rubia-cupric-scrap:probability"] = "rubia_cupric_scrap_probability",
-          ["entity:rubia-cupric-scrap:richness"] = "rubia_cupric_scrap_richness",
+          ["entity:rubia-cupric-scrap:richness"] = "rubia-cupric-scrap_richness",
           ["entity:bacterial-sludge:probability"] = "bacterial_sludge_probability",
-          ["entity:bacterial-sludge:richness"] = "bacterial_sludge_richness",
+          ["entity:bacterial-sludge:richness"] = "bacterial_sludge_richness",]]
         },
         cliff_settings =
         {
@@ -102,9 +102,6 @@ planet_map_gen.rubia = function() --TODO add all my decorations.
           {
             settings =
             {
-              --Resources
-              ["calcite"] = {},
-
               --Forage
               --["rubia-med-rock"] = {},
               ["rubia-spidertron-remnants"] = {},

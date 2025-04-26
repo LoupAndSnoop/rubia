@@ -41,41 +41,6 @@ local function unlock_recipes(recipe_names)
 end
 
 
---Infinite braking force
---[[data:extend({
-    {
-        type = "technology",
-        name = "braking-force-8",
-        icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
-        effects =
-        {
-          {
-            type = "train-braking-force-bonus",
-            modifier = 0.2
-          }
-        },
-        prerequisites = {"braking-force-7","metallurgic-science-pack"},
-        unit =
-        {
-          count_formula = "2^(L-7)*500",
-          ingredients =
-          {
-            {"automation-science-pack", 1},
-            {"logistic-science-pack", 1},
-            {"chemical-science-pack", 1},
-            {"production-science-pack", 1},
-            {"utility-science-pack", 1},
-            {"metallurgic-science-pack", 1}
-          },
-          time = 60
-        },
-        max_level = "infinite",
-        upgrade = true
-      },
-    })
-    ]]
-
-
 data:extend({
 --#region Core Rubia Progression
     {
@@ -110,8 +75,8 @@ data:extend({
         type = "technology",
         name = "rubia-progression-stage1",
         icon = "__rubia__/graphics/technology/biorecycling.png",--"__rubia__/graphics/icons/science/torus_clear_brown.png",
-        icon_size = 64,
-        essential = true,
+        icon_size = 256,
+        essential = false,
         effects =
         {
             {type = "unlock-recipe", recipe = "biorecycling-plant"},
@@ -135,7 +100,7 @@ data:extend({
         name = "rubia-progression-stage2",
         icon = "__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
         icon_size = 64,
-        essential = true,
+        essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "rubia-bacteria-B"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-cupric-scrap"},
@@ -154,7 +119,7 @@ data:extend({
         name = "rubia-progression-stage3",
         icon = "__rubia__/graphics/icons/garbo-gatherer-2.png",
         icon_size = 128,
-        essential = true,
+        essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "garbo-gatherer"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-ferric-scrap"},
@@ -169,7 +134,7 @@ data:extend({
         name = "craptonite-processing",
         icon = "__rubia__/graphics/icons/craptonite-frame.png",
         icon_size = 64,
-        essential = true,
+        essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "assisted-frothing"},
             {type = "unlock-recipe", recipe = "craptonite-casting"},
@@ -274,78 +239,73 @@ data:extend({
         },
         time = 60
     },
-
-
+},
 --#endregion
 --#region Infinite research
-    {
-        type = "technology",
-        name = "craptonite-productivity",
-        icons = util.technology_icon_constant_recipe_productivity(
-            "__rubia__/graphics/technology/craptonite-frame.png"),
-        icon_size = 1024,--256,
-        effects = {
-            {
-                type = "change-recipe-productivity",
-                recipe = "craptonite-frame",
-                change = 0.1
-            },
-            {
-                type = "change-recipe-productivity",
-                recipe = "assisted-frothing",
-                change = 0.1
-            },
-        },
-        prerequisites = {"rubia-project-trashdragon"},
-        unit = {
-            count_formula = "1.5^L*1000",
-            ingredients = {
-                { "automation-science-pack",      1 },
-                { "logistic-science-pack",        1 },
-                { "chemical-science-pack",        1 },
-                { "military-science-pack",        1 },
-                { "biorecycling-science-pack",    1 },
-            },
-            time = 60
-        },
-        max_level = "infinite",
-        upgrade = true
-    }
-
-},
-
---Infinite braking force. Thanks to a mod by Velaanix
-    {
-        type = "technology",
-        name = "braking-force-8",
-        icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
-        effects =
+{
+    type = "technology",
+    name = "craptonite-productivity",
+    icons = util.technology_icon_constant_recipe_productivity(
+        "__rubia__/graphics/technology/craptonite-frame.png"),
+    icon_size = 1024,--256,
+    effects = {
         {
-          {
-            type = "train-braking-force-bonus",
-            modifier = 0.2
-          }
+            type = "change-recipe-productivity",
+            recipe = "craptonite-casting",
+            change = 0.1
         },
-        prerequisites = {"braking-force-7","rubia-project-trashdragon"},--, "metallurgic-science-pack"},
-        unit =
         {
-          count_formula = "2^(L-7)*500",
-          ingredients =
-          {
-            {"automation-science-pack", 1},
-            {"logistic-science-pack", 1},
-            {"chemical-science-pack", 1},
-            {"production-science-pack", 1},
-            {"military-science-pack", 1 },
-            --{"metallurgic-science-pack", 1},
-            {"biorecycling-science-pack",    1 },
-          },
-          time = 60
+            type = "change-recipe-productivity",
+            recipe = "assisted-frothing",
+            change = 0.1
         },
-        max_level = "infinite",
-        upgrade = true
     },
-
+    prerequisites = {"rubia-project-trashdragon"},
+    unit = {
+        count_formula = "1.5^L*1000",
+        ingredients = {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "military-science-pack",        1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    },
+    max_level = "infinite",
+    upgrade = true
+},
+--Infinite braking force. Thanks to a mod by Velaanix
+{
+    type = "technology",
+    name = "braking-force-8",
+    icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
+    effects =
+    {
+        {
+        type = "train-braking-force-bonus",
+        modifier = 0.2
+        }
+    },
+    prerequisites = {"braking-force-7","rubia-project-trashdragon"},--, "metallurgic-science-pack"},
+    unit =
+    {
+        count_formula = "2^(L-7)*500",
+        ingredients =
+        {
+        {"automation-science-pack", 1},
+        {"logistic-science-pack", 1},
+        {"chemical-science-pack", 1},
+        {"production-science-pack", 1},
+        {"military-science-pack", 1 },
+        --{"metallurgic-science-pack", 1},
+        {"biorecycling-science-pack",    1 },
+        },
+        time = 60
+    },
+    max_level = "infinite",
+    upgrade = true
+},
 --#endregion
 
 }
