@@ -336,7 +336,7 @@ data:extend(
 {
   type = "item-with-entity-data",
   name = "rubia-armored-cargo-wagon",
-  icon = "__base__/graphics/icons/cargo-wagon.png",
+  icon = "__rubia__/graphics/icons/armored-cargo-wagon.png",
   subgroup = "train-transport",
   order = "c[rolling-stock]-b[cargo-wagon]",
   inventory_move_sound = item_sounds.metal_large_inventory_move,
@@ -350,7 +350,7 @@ data:extend(
 {
   type = "item-with-entity-data",
   name = "rubia-armored-fluid-wagon",
-  icon = "__base__/graphics/icons/fluid-wagon.png",
+  icon = "__rubia__/graphics/icons/armored-fluid-wagon.png",
   subgroup = "train-transport",
   order = "c[rolling-stock]-c[fluid-wagon]",
   inventory_move_sound = item_sounds.fluid_inventory_move,

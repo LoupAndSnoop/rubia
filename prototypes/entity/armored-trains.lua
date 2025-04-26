@@ -131,7 +131,6 @@ local armored_locomotive_edits = {
 
 local max_speed_mult = 1.25
 
-
 data:extend({
 {
     type = "locomotive",
@@ -233,7 +232,7 @@ data:extend({
     },
     back_light = rolling_stock_back_light(),
     stand_by_light = rolling_stock_stand_by_light(),
-    color = {r = 0.92, g = 0.07, b = 0, a = 1},
+    color = {r=55/255, g=17/255, b=0, a=1},--color = {r = 0.92, g = 0.07, b = 0, a = 1},
     default_copy_color_from_train_stop = true,
     pictures =
     {
@@ -487,7 +486,7 @@ data:extend({
   {
     type = "cargo-wagon",
     name = "rubia-armored-cargo-wagon",
-    icon = "__base__/graphics/icons/cargo-wagon.png",
+    icon = "__rubia__/graphics/icons/armored-cargo-wagon.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     inventory_size = 100,--40,
     minable = {mining_time = 0.5, result = "rubia-armored-cargo-wagon"},
@@ -519,52 +518,39 @@ data:extend({
     back_light = rolling_stock_back_light(),
     stand_by_light = rolling_stock_stand_by_light(),
     color = {r = 0.43, g = 0.23, b = 0, a = 1},
+
     pictures =
     {
-      rotated =
-      {
-        layers =
-        {
-          util.sprite_load("__base__/graphics/entity/cargo-wagon/cargo-wagon",
-            {
-              dice = 4,
-              priority = "very-low",
-              allow_low_quality_rotation = true,
-              back_equals_front = true,
-              direction_count = 128,
-              scale = 0.5,
-              usage = "train"
+        rotated = {
+            layers ={
+                {
+                priority = "very-low",
+                width = 256,
+                height = 256,
+                back_equals_front = true,
+                direction_count = 64,
+                filename = "__rubia__/graphics/entity/armored-cargo-wagon/armored-cargo-wagon.png",      
+                line_length = 8,
+                lines_per_file = 8,
+                shift = {0.42, -1.125}
+                },
+            
+            --[[util.sprite_load("__base__/graphics/entity/cargo-wagon/cargo-wagon-shadow",
+                {
+                dice = 4,
+                priority = "very-low",
+                allow_low_quality_rotation = true,
+                back_equals_front = true,
+                draw_as_shadow = true,
+                direction_count = 64,-- 128,
+                scale = 0.5,
+                usage = "train"
+                })]]
             }
-          ),
-          util.sprite_load("__base__/graphics/entity/cargo-wagon/cargo-wagon-mask",
-            {
-              dice = 4,
-              priority = "very-low",
-              allow_low_quality_rotation = true,
-              back_equals_front = true,
-              flags = { "mask" },
-              apply_runtime_tint = true,
-              tint_as_overlay = true,
-              direction_count = 128,
-              scale = 0.5,
-              usage = "train"
-            }
-          ),
-          util.sprite_load("__base__/graphics/entity/cargo-wagon/cargo-wagon-shadow",
-            {
-              dice = 4,
-              priority = "very-low",
-              allow_low_quality_rotation = true,
-              back_equals_front = true,
-              draw_as_shadow = true,
-              direction_count = 128,
-              scale = 0.5,
-              usage = "train"
-            }
-          )
         }
-      }
     },
+
+    --[[
     horizontal_doors =
     {
       layers =
@@ -610,7 +596,7 @@ data:extend({
           }
         )
       }
-    },
+    },]]
     minimap_representation =
     {
       filename = "__base__/graphics/entity/cargo-wagon/minimap-representation/cargo-wagon-minimap-representation.png",
@@ -670,7 +656,7 @@ data:extend({
   {
     type = "fluid-wagon",
     name = "rubia-armored-fluid-wagon",
-    icon = "__base__/graphics/icons/fluid-wagon.png",
+    icon = "__rubia__/graphics/icons/armored-fluid-wagon.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     minable = {mining_time = 0.5, result = "rubia-armored-fluid-wagon"},
     mined_sound = sounds.deconstruct_large(0.8),
@@ -704,6 +690,24 @@ data:extend({
     stand_by_light = rolling_stock_stand_by_light(),
     color = {r = 0.43, g = 0.23, b = 0, a = 0.5},
     pictures =
+		{
+			rotated = {
+			priority = "very-low",
+			width = 512, height = 512, scale = 0.5,
+			back_equals_front = true,
+			direction_count = 64,
+			filenames = {
+				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-0.png",      
+				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-1.png",      
+				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-2.png",      
+				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-3.png",      				
+			},
+			line_length = 4,
+			lines_per_file = 4,
+			shift = {0.42, -0.875}
+		},
+    },
+    --[[pictures =
     {
       rotated =
       {
@@ -734,7 +738,7 @@ data:extend({
           )
         }
       }
-    },
+    },]]
     minimap_representation =
     {
       filename = "__base__/graphics/entity/fluid-wagon/minimap-representation/fluid-wagon-minimap-representation.png",
