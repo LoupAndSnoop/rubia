@@ -323,7 +323,7 @@ data:extend(
 {
   type = "item-with-entity-data",
   name = "rubia-armored-locomotive",
-  icon = "__base__/graphics/icons/locomotive.png",
+  icon = "__rubia__/graphics/icons/armored-locomotive.png",
   subgroup = "train-transport",
   order = "c[rolling-stock]-a[locomotive]",
   inventory_move_sound = item_sounds.locomotive_inventory_move,

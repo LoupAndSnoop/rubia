@@ -9,6 +9,9 @@ local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 local simulations = require("__base__.prototypes.factoriopedia-simulations")
 
+local meld = require("__core__.lualib.meld")
+
+
 --#region Helper functions used in initially defining the locomotive.
 local drive_over_tie = function()
     return
@@ -133,7 +136,7 @@ data:extend({
 {
     type = "locomotive",
     name = "rubia-armored-locomotive",
-    icon = "__base__/graphics/icons/locomotive.png",
+    icon = "__rubia__/graphics/icons/armored-locomotive.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     minable = {mining_time = 0.5, result = "rubia-armored-locomotive"},
     mined_sound = sounds.deconstruct_large(0.8),
@@ -238,6 +241,46 @@ data:extend({
       {
         layers =
         {
+            {
+                priority = "very-low",
+                width = 512, 
+                height = 512,
+                direction_count = 256,
+                allow_low_quality_rotation = true,
+                line_length = 8,
+                lines_per_file = 8,
+                shift = util.by_pixel(0, -10),
+                scale = 0.6,
+                filenames =
+                {
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-1.png",
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-2.png",
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-3.png",
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-4.png"
+                }
+            },
+            {
+                priority = "very-low",
+                flags = { "mask" },
+                width = 512, 
+                height = 512,
+                direction_count = 256,
+                allow_low_quality_rotation = true,
+                line_length = 8,
+                lines_per_file = 8,
+                shift = util.by_pixel(0, -10),
+                apply_runtime_tint = true,
+                scale = 0.6,
+                -- Somehow it is different from turret masks (use transparency 192)
+                filenames =
+                {
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-1.png",
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-2.png",
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-3.png",
+                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-4.png"
+                }
+            },
+        --[[
           util.sprite_load("__base__/graphics/entity/locomotive/locomotive",
             {
               dice = 4,
@@ -272,7 +315,7 @@ data:extend({
               scale = 0.5,
               usage = "train"
             }
-          )
+          )]]
         }
       },
     },
@@ -298,14 +341,14 @@ data:extend({
     },
     minimap_representation =
     {
-      filename = "__base__/graphics/entity/locomotive/minimap-representation/locomotive-minimap-representation.png",
+      filename = "__rubia__/graphics/icons/armored-locomotive-minimap-representation.png",--"__base__/graphics/entity/locomotive/minimap-representation/locomotive-minimap-representation.png",
       flags = {"icon"},
       size = {20, 40},
       scale = 0.5
     },
     selected_minimap_representation =
     {
-      filename = "__base__/graphics/entity/locomotive/minimap-representation/locomotive-selected-minimap-representation.png",
+      filename = "__rubia__/graphics/icons/armored-locomotive-selected-minimap-representation.png",--"__base__/graphics/entity/locomotive/minimap-representation/locomotive-selected-minimap-representation.png",
       flags = {"icon"},
       size = {20, 40},
       scale = 0.5
@@ -716,3 +759,82 @@ data:extend({
     water_reflection = locomotive_reflection()
   },
 })
+
+
+if mods["elevated-rails"] then
+    local armored_loc_update =
+    {
+	wheels = {
+        sloped = util.sprite_load("__elevated-rails__/graphics/entity/train-wheel/train-wheel-sloped",
+            {
+                priority = "very-low",
+                direction_count = 160,
+                scale = 0.5,
+                shift = util.by_pixel(0, 8),
+                usage = "train"
+            }),
+        slope_angle_between_frames = 1.25
+    },
+	pictures =
+	{
+		slope_angle_between_frames = 1.25,
+		sloped =
+		{
+			layers =
+			{
+				util.sprite_load("__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mk1-sloped",
+				{
+					dice = 4,
+					priority = "very-low",
+					direction_count = 160,
+					scale = 0.6,
+					usage = "train"
+				}),
+				-- Somehow it is different from turret masks (use transparency 192)
+				-- Some how it is different 20250219 again lol and everything is broken (looks liek dev patched this)
+				util.sprite_load("__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mk1-sloped-mask",
+				{
+					dice = 4,
+					priority = "very-low",
+					flags = { "mask" },
+					apply_runtime_tint = true,
+					--tint_as_overlay = true,
+					direction_count = 160,
+					scale = 0.6,
+					usage = "train"
+				})
+			}
+		}
+	},
+	elevated_rail_sound =
+	{
+		sound =
+		{
+			filename = "__elevated-rails__/sound/elevated-train-driving.ogg",
+			volume = 1.0,
+			modifiers = {volume_multiplier("elevation", 1.0)}
+		},
+		match_volume_to_activity = true,
+		activity_to_volume_modifiers =
+		{
+			multiplier = 1.5,
+			offset = 1.0,
+		},
+		match_speed_to_activity = true,
+		activity_to_speed_modifiers =
+		{
+			multiplier = 0.6,
+			minimum = 1.0,
+			maximum = 1.15,
+			offset = 0.2,
+		}
+	},
+	drive_over_elevated_tie_trigger = {
+        type = "play-sound",
+        sound = sound_variations("__elevated-rails__/sound/elevated-train-tie", 6, 0.8, {volume_multiplier("main-menu", 2.4), volume_multiplier("driving", 0.65)})
+      }
+    }
+    meld(data.raw["locomotive"]["rubia-armored-locomotive"], armored_loc_update)
+
+
+end
