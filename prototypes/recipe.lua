@@ -10,23 +10,24 @@ local crafting_machine_tint_brown = {
           tertiary = {r = 0.681, g = 0.635, b = 0.486, a = 1.000}, --rgb(190, 147, 97)
           quaternary = {r = 1.000, g = 0.804, b = 0.000, a = 1.000} --rgb(255, 136, 0)
 }
+local red_mult, blue_mult, purple_mult =4,4, 4
 local crafting_machine_tint_red = {
-  primary = {r = 1, g = 0.912, b = 0.036, a = 1.000}, --rgb(255, 132, 9)
-  secondary = {r = 1, g = 0.797, b = 0.335, a = 1.000}, --rgb(203, 160, 85)
-  tertiary = {r = 1, g = 0.635, b = 0.486, a = 1.000}, --rgb(190, 147, 97)
-  quaternary = {r = 1.000, g = 0.804, b = 0.000, a = 1.000} --rgb(255, 136, 0)
+  primary = {r = 1, g = 0.912/red_mult, b = 0.036, a = 1.000}, --rgb(255, 132, 9)
+  secondary = {r = 0.9, g = 0.797/red_mult, b = 0.335, a = 1.000}, --rgb(203, 160, 85)
+  tertiary = {r = 0.8, g = 0.635/red_mult, b = 0.486, a = 1.000}, --rgb(190, 147, 97)
+  quaternary = {r = 0.7, g = 0.804/red_mult, b = 0.000, a = 1.000} --rgb(255, 136, 0)
 }
 local crafting_machine_tint_blue = {
-  primary = {r = 0.9, g = 0.912, b = 1, a = 1.000}, 
-  secondary = {r = 0.9, g = 0.797, b = 1, a = 1.000}, 
-  tertiary = {r = 0.8, g = 0.635, b = 1, a = 1.000},
-  quaternary = {r = 0.7, g = 0.804, b = 1, a = 1.000}
+  primary = {r = 0.9/blue_mult, g = 0.912/blue_mult, b = 0.9, a = 1.000}, 
+  secondary = {r = 0.9/blue_mult, g = 0.797/blue_mult, b = 0.8, a = 1.000}, 
+  tertiary = {r = 0.8/blue_mult, g = 0.635/blue_mult, b = 0.8, a = 1.000},
+  quaternary = {r = 0.7/blue_mult, g = 0.804/blue_mult, b = 0.7, a = 1.000}
 }
 local crafting_machine_tint_purple = {
-  primary = {r = 1, g = 0.912, b = 1, a = 1.000}, 
-  secondary = {r = 1, g = 0.797, b = 1, a = 1.000}, 
-  tertiary = {r = 1, g = 0.635, b = 1, a = 1.000},
-  quaternary = {r = 1, g = 0.804, b = 1, a = 1.000}
+  primary = {r = 1, g = 0.912/purple_mult, b = 1, a = 1.000}, 
+  secondary = {r = 1, g = 0.797/purple_mult, b = 1, a = 1.000}, 
+  tertiary = {r = 1, g = 0.635/purple_mult, b = 1, a = 1.000},
+  quaternary = {r = 1, g = 0.804/purple_mult, b = 1, a = 1.000}
 }
 
 --Modify the rocket silo to make it able to take the new rocket-part recipe.
@@ -438,7 +439,7 @@ data:extend({
   {
     type = "recipe",
     name = "biorecycling-plant",
-    icon = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+    icon = "__rubia__/graphics/icons/biorecycling-plant.png",
     icon_size = 64,
     subgroup = "production-machine",
     order = "b[turret]-a[gun-turret]",
@@ -502,11 +503,11 @@ data:extend({
 },
 {
   type = "recipe",
-  name = "sniper-turret",
+  name = "rubia-sniper-turret",
   icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
   icon_size = 64,
   subgroup = "defensive-structure",
-  order = "b[turret]-a[gun-turret]",
+  order = "b[turret]-a[gun-turret]-b",
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
@@ -516,7 +517,7 @@ data:extend({
       { type = "item", name = "iron-gear-wheel", amount = 10}, 
   },
   results = {{
-      type = "item", name = "sniper-turret", amount = 1
+      type = "item", name = "rubia-sniper-turret", amount = 1
   }},
   allow_productivity = false,
 },

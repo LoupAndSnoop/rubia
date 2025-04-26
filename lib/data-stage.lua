@@ -4,8 +4,8 @@
 rubia.surface_conditions = function()
     return {{
         property = "rubia-wind-speed",
-        min = 200,
-        max = 200,
+        min = 300,
+        max = 300,
     }}
 end
 

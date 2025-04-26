@@ -15,7 +15,7 @@ local inset = 0.15 --How much to sink in the collision boxes
 --Intended for if I get a working graphics set in future?
 --[[graphics_set = {
             animation= rubia_lib.make_rotated_animation_variations_from_sheet(1,{
-               filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+               filename = 
                 line_length = 1,
                 width = 128,
                 height = 64,
@@ -29,7 +29,7 @@ data:extend({
     {
         type = "assembling-machine",
         name = "biorecycling-plant",
-        icon = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+        icon = "__rubia__/graphics/icons/biorecycling-plant.png",
         flags = {"placeable-neutral", "placeable-player", "player-creation"},
         minable = {mining_time = 0.1, result = "biorecycling-plant"},
         fast_replaceable_group = "biorecycling-plant",

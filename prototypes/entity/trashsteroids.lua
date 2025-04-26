@@ -10,23 +10,10 @@ local util = require("util")
 --Standard resistances
 local function trashsteroid_resistances() 
     return     {
-        {
-          type = "fire",
-          percent = 80
-        },
-        {
-          type = "impact",
-          percent = 100,
-          --decrease = 50
-        },
-        {
-          type = "laser",
-          percent = 60
-        },
-        {
-            type = "electric",
-            percent = 100
-        }
+        {type = "fire", percent = 80},
+        {type = "impact", percent = 100}, --decrease = 50
+        {type = "laser", percent = 60},
+        {type = "electric", percent = 100},
       }
 end
 
@@ -98,7 +85,7 @@ data:extend({
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
-    max_health = 400,
+    max_health = 200,
     is_military_target = true,
     deliver_category = "vehicle",
     --corpse = "car-remnants",

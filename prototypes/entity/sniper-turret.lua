@@ -1,6 +1,6 @@
 local sounds = require("__base__/prototypes/entity/sounds")
 local range_mult = 2 --Multiplier for how big the range is relative to a gun turret
-local damage_modifier = 10 --Multiplier for how much damage it does per bullet, relative to a gun turret
+local damage_modifier = 20 --Multiplier for how much damage it does per bullet, relative to a gun turret
 
 --Credit: Thanks to xX_Reckless_Xx for the base. I changed numbers to transform.
 
@@ -23,7 +23,7 @@ function sniper_turret_sheet(inputs)
 end
 
 -- TurretPrototype takes table
-circuit_connector_definitions["sniper-turret"] = circuit_connector_definitions.create_vector(
+circuit_connector_definitions["rubia-sniper-turret"] = circuit_connector_definitions.create_vector(
   universal_connector_template,
   {
     { variation = 17, main_offset = util.by_pixel( -21, 1), shadow_offset = util.by_pixel( -12, 10), show_shadow = true },
@@ -36,14 +36,15 @@ circuit_connector_definitions["sniper-turret"] = circuit_connector_definitions.c
 
 data:extend({{
     type = "ammo-turret",
-    name = "sniper-turret",
+    name = "rubia-sniper-turret",
     icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
     icon_size = 32,
     flags = {"placeable-player", "player-creation"},
     minable = {
         mining_time = 1,
-        result = "sniper-turret"
+        result = "rubia-sniper-turret"
     },
+    order =(data.raw["ammo-turret"]["gun-turret"].order or "z-b-a-") .. "-b",
     max_health = 300,
     corpse = "medium-remnants",
     collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
@@ -62,7 +63,7 @@ data:extend({{
     open_sound = sounds.machine_open,
     close_sound = sounds.machine_close,
     turret_base_has_direction = true,
-    circuit_connector = circuit_connector_definitions["sniper-turret"],--circuit_connector_definitions["gun-turret"],
+    circuit_connector = circuit_connector_definitions["rubia-sniper-turret"],--circuit_connector_definitions["gun-turret"],
     circuit_wire_max_distance = default_circuit_wire_max_distance,
 
     graphics_set = {},

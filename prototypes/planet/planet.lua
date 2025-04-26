@@ -64,7 +64,7 @@ local planet = {
           ["solar-power"] = 5,
           pressure = 50,
           gravity = 2,
-          ["rubia-wind-speed"] = 200
+          ["rubia-wind-speed"] = 300
         },
 
         surface_render_parameters =

@@ -284,7 +284,7 @@ data:extend(
   {
     type = "item",
     name = "biorecycling-plant",
-    icon = "__rubia__/graphics/icons/biorecycling-plant-test.png",
+    icon = "__rubia__/graphics/icons/biorecycling-plant.png",
     order = "z[platinum]",
     subgroup = "production-machine",
     color_hint = { text = "T" },
@@ -310,12 +310,12 @@ data:extend(
 
 {
   type = "item",
-  name = "sniper-turret",
+  name = "rubia-sniper-turret",
   icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
   icon_size = 64,
   subgroup = "defensive-structure",
-  order = "b[turret]-a[gun-turret]",
-  place_result = "sniper-turret",
+  order = "b[turret]-a[gun-turret]-b",
+  place_result = "rubia-sniper-turret",
   stack_size = 10,
   weight = 1000/20*kg,
 },
