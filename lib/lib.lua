@@ -83,7 +83,7 @@ rubia_lib.array_find_condition = function(array, condition)
 end
 
 --Array goes in, out comes a hashset where hashset[value]=1 
---for all entries in the old array.
+--for all entries in the old array. Naturally combines duplicates.
 rubia_lib.array_to_hashset = function(array)
   local hashset = {}
   for _, value in pairs(array) do
@@ -92,10 +92,18 @@ rubia_lib.array_to_hashset = function(array)
   return hashset
 end
 
+--[[Array goes in, out comes a dictionary where [array_entry.key_index] is the key, The other
+--parts of the sub table become part of an array of the given value.
+--Example {{key=a,val=1},{key=a,val=3},{key=b,val=1}},"key" => [a] = {{val=1},{val=3}}, [b]={{val=1}}
+--for all entries in the old array.
+rubia_lib.array_to_dictionary = function(array, key_index)
+
+end]]
+
 --Array goes in, where every entry is a table that contains field "indexing_field".
 --Output a dictionary with each indexing_field as key, and the values
 --are arrays of all_entries where the indexing field is that value, but with indexing field gone.
---Example: array_to_dictionary({a=1,b=1},{a=1,b=2},"a") gives: dic.a = {{b=1},{b=2}}
+--Example: array_to_dictionary({{a=1,b=1},{a=1,b=2}},"a") gives: dic.a = {{b=1},{b=2}}
 --The difference is that the entries will have value[indexing_field[
 rubia_lib.array_to_dictionary = function(array, indexing_field)
   local dictionary = {}

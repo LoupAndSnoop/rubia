@@ -57,6 +57,7 @@ local prototype_type_preblacklist = {"artillery-projectile", "artillery-wagon", 
     "elevated-half-diagonal-rail","elevated-straight-rail","rail-ramp","rail-support", "rail-remnants",
     "straight-rail", --"train-stop"
 }
+
 --Make a real blacklist as a hashset of all prototypes of those types
 local prototype_blacklist = {}
 for _, type in pairs(prototype_type_preblacklist) do
@@ -78,8 +79,7 @@ chunk_checker.register_new_entity = function(entity)
     if (storage.developed_chunk_entities[entity]) then return end --Entity is already registered
     if not entity.is_entity_with_health then return end --Entity can't even be damaged by trashsteroids!
     if (prototype_blacklist[entity.prototype.name]) then return end --Entity is blacklisted!
-    
-    game.print("Registering " .. entity.prototype.name)
+    if trashsteroid_lib.entity_is_immune_to_impact(entity) then return end --Don't need to spawn around immune entities.
 
     storage.developed_chunk_entities[entity] = 1
      --Register so we can do the delisting later.
@@ -232,6 +232,7 @@ end
 ---@param player LuaPlayer
 ---@param surface LuaSurface surface that we are tracking
 chunk_checker.try_update_player_pos = function(player, surface)
+    if not surface then return end --No surface (yet?)
     chunk_checker.init()
     local track_needed, delist_needed = false, false --Check if we need to (un)register
     --Player's current chunk coordinate

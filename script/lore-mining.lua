@@ -11,8 +11,8 @@ local lore_drop_table ={
         {count = 8, string = "rubia-lore.spidertron-mine-part4"},
     },
     ["rubia-pole-remnants"] = {
-        {count = 7, string = "rubia-lore.train-stop-mine-part1"},
-        {count = 14, string = "rubia-lore.train-stop-mine-part2"},
+        {count = 2, string = "rubia-lore.train-stop-mine-part1"},
+        {count = 4, string = "rubia-lore.train-stop-mine-part2"},
 
     },
     ["rubia-junk-pile"] = {
@@ -27,7 +27,6 @@ local try_lore_achievement = function()
             --Haven't even mined one => NO
             if (not storage.rubia_mined_lore_entities[entity_name]) then return end
             --There is one lore drop we haven't seen in that category
-            log(serpent.block(entry) .. " - " .. entity_name .. " - " .. serpent.block(storage.rubia_mined_lore_entities))
             if (entry.count > storage.rubia_mined_lore_entities[entity_name]) then return end
         end
     end

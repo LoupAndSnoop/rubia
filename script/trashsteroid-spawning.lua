@@ -54,28 +54,30 @@ local function try_initialize_RNG() if not storage.rubia_asteroid_rng then stora
 ------ Impact Logic
 ---
 --Return true if the given entity is immune to impacts
-local function entity_is_immune_to_impact(entity)
+trashsteroid_lib.entity_is_immune_to_impact = function(entity)
   --First, blacklist anything with either immunity to damage or impact damage
   if (not entity.is_entity_with_health) then return true end 
-  if (entity.prototype.resistances and entity.prototype.resistances.impact and entity.prototype.resistances.impact.percent and entity.prototype.resistances.impact.percent >= 99) then return true end
+  if (entity.prototype.resistances and entity.prototype.resistances.impact and entity.prototype.resistances.impact.percent 
+      and entity.prototype.resistances.impact.percent >= 99) then return true end
   
   --Check manual blacklist.
-  if (rubia.trashsteroid_blacklist.entity[entity.name]) then return true end
+  if (rubia.trashsteroid_blacklist[entity.name]) then return true end
 
   --Passed all checks
   return false
 end
 
 --Return an array of all entities that are in the impact range, which are relevant to impact.
-local function find_impact_targets(position, radius)
+local function find_impact_targets(position, radius) --TODO: Iterator
   local impacted_raw = storage.rubia_surface.find_entities_filtered({
     position = position,
     radius = radius,
     force = game.forces["player"]
   })
   local impacted = {} --Actual list of entities that should be impacted
-  for i,entity in pairs(impacted_raw) do
-    if not entity_is_immune_to_impact(entity) then table.insert(impacted, entity) end
+  for _,entity in pairs(impacted_raw) do
+    if not trashsteroid_lib.entity_is_immune_to_impact(entity) then
+      table.insert(impacted, entity) end
   end
 
   return impacted

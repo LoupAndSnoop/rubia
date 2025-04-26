@@ -1,53 +1,68 @@
 --This file details the items and entities that will NOT be affected by trashsteroids.
 
 --Array of entity prototypes to ban from only rubia's surface.
---Input {type="type",name="entity-name"}, such that data.raw["type"]["entity-name"] gives the prototype. This is global, so other mods can add entries
---to this array before we do our thing. This array can also just be defined and populated
---at some other stage.
+--This array can also just be defined and populated at some other stage.
 rubia.trashsteroid_pre_blacklist = rubia.trashsteroid_pre_blacklist or {}
 local internal_blacklist = {
     --Rails
-    {type="entity", name="straight-rail"},
-    {type="entity", name="half-diagonal-rail"},
-    {type="entity", name="curved-rail-a"},
-    {type="entity", name="curved-rail-b"},
-    {type="entity", name="elevated-straight-rail"},
-    {type="entity", name="elevated-half-diagonal-rail"},
-    {type="entity", name="elevated-curved-rail-a"},
-    {type="entity", name="elevated-curved-rail-b"},
-    {type="entity", name="legacy-straight-rail"},
-    {type="entity", name="legacy-curved-rail"},
-    {type="entity", name="rail-signal"},
-    {type="entity", name="rail-chain-signal"},
-
+    "straight-rail","half-diagonal-rail","curved-rail-a","curved-rail-b",
+    "elevated-straight-rail","elevated-half-diagonal-rail","elevated-curved-rail-a",
+    "elevated-curved-rail-b","legacy-straight-rail","legacy-curved-rail",
+    "rail-signal","rail-chain-signal",
+    --Muh cheats
+    "infinity-pipe","linked-belt","electric-energy-interface",
+    "infinity-chest","heat-interface",
     --Other
-    {type="entity", name="craptonite-wall"},
-    {type="entity", name="rubia-armored-locomotive"},
-    {type="entity", name="rubia-armored-cargo-wagon"},
-    {type="entity", name="rubia-armored-fluid-wagon"},
-    {type="entity", name="character-corpse"},
+    "craptonite-wall","rubia-armored-locomotive","rubia-armored-cargo-wagon",
+    "rubia-armored-fluid-wagon","character-corpse",
 }
 
 if script.active_mods["elevated-rails"] then
-    local elev_blacklist = {
-        {type="entity", name="rail-ramp"},
-        {type="entity", name="rail-support"},
-        {type="entity", name="elevated-straight-rail"},
-        {type="entity", name="elevated-half-diagonal-rail"},
-        {type="entity", name="elevated-straight-rail"},
-        {type="entity", name="elevated-half-diagonal-rail"},
-        {type="entity", name="elevated-curved-rail-a"},
-        {type="entity", name="elevated-curved-rail-b"},
-    }
+    local elev_blacklist = {"rail-ramp","rail-support","elevated-straight-rail",
+        "elevated-half-diagonal-rail","elevated-straight-rail",
+        "elevated-half-diagonal-rail","elevated-curved-rail-a",
+        "elevated-curved-rail-b"}
     internal_blacklist = rubia_lib.array_concat({internal_blacklist, elev_blacklist})
 end
+
+--Muh cheats
+if script.active_mods["editor-extensions"] then
+    local ee_blacklist = {"ee-infinity-chest", "ee-infinity-chest-aggregate-provider",
+        "ee-infinity-chest-passive-provider", "ee-infinity-chest-storage", "ee-infinity-chest-buffer",
+        "ee-infinity-chest-requester", "ee-aggregate-chest","ee-aggregate-chest-passive-provider",
+        "ee-linked-chest", "ee-infinity-loader", "ee-linked-belt",
+        "ee-super-inserter", "ee-super-radar", "ee-super-pump", "ee-infinity-pipe",
+        "ee-infinity-heat-pipe", "ee-super-lab", "ee-super-beacon", "ee-super-roboport",
+        "ee-infinity-accumulator-primary-output", "ee-infinity-accumulator-secondary-output", "ee-infinity-accumulator-tertiary-output",
+        "ee-infinity-accumulator-primary-input", "ee-infinity-accumulator-secondary-input", "ee-infinity-accumulator-tertiary-input",
+        "ee-infinity-accumulator-primary-buffer", "ee-infinity-accumulator-secondary-buffer", "ee-infinity-accumulator-tertiary-buffer",
+        "ee-super-electric-pole", "ee-super-substation"}
+    internal_blacklist = rubia_lib.array_concat({internal_blacklist, ee_blacklist})
+end
+
+
 
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.
 rubia.trashsteroid_pre_blacklist = rubia_lib.array_concat({rubia.trashsteroid_pre_blacklist, internal_blacklist})
 
 --The actual working blacklist, which is a dictionary of hashsets.
 rubia.trashsteroid_blacklist = {}
---On command, make a fast-access blacklist: dictionary of hashsets.
+
+--On command, make a fast-access blacklist: hashset of all names of all entities that are blacklisted.
+rubia.generate_trashsteroid_blacklist = function()
+    local trashsteroid_blacklist = {}
+    for _, entry in pairs(rubia.trashsteroid_pre_blacklist) do
+        assert(prototypes["entity"][entry], "In trashsteroid blacklist, Did not find " .. entry)
+
+        if not trashsteroid_blacklist then 
+            trashsteroid_blacklist = {[entry] = 1}
+        else trashsteroid_blacklist[entry] = 1
+        end
+    end
+    rubia.trashsteroid_blacklist = trashsteroid_blacklist
+end
+
+--[[On command, make a fast-access blacklist: dictionary of hashsets.
 --dictionary[prototype type] = hashset of names of everything in it.
 rubia.generate_trashsteroid_blacklist = function()
     local trashsteroid_blacklist = {}
@@ -61,7 +76,7 @@ rubia.generate_trashsteroid_blacklist = function()
         end
     end
     rubia.trashsteroid_blacklist = trashsteroid_blacklist
-end
+end]]
 --Invoke at least once in control phase to make that runtime blacklist.
 rubia.generate_trashsteroid_blacklist()
 

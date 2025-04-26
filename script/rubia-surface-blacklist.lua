@@ -8,7 +8,7 @@ _G.rubia = _G.rubia or {}
 rubia.surface_blacklist = rubia.surface_blacklist or {}
 local internal_blacklist = {
     {type="logistic-container", name="requester-chest"},
-    {type="logistic-container", name="storage-chest"},
+    {type="logistic-container", name="buffer-chest"},
     {type="logistic-container", name="active-provider-chest"},
     {type="furnace", name="recycler"},
 
@@ -17,17 +17,52 @@ local internal_blacklist = {
     {type="fluid-wagon", name ="fluid-wagon"},
     {type="artillery-wagon", name ="artillery-wagon"},
 }
-
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.
 rubia.surface_blacklist = rubia_lib.array_concat({rubia.surface_blacklist, internal_blacklist})
 
---Apply Blacklist.
+
+--This is a list of all entities that are going to be in a blacklisted prototype type,
+--but I want to keep them in the list.
+local internal_whitelist = {
+    {type="locomotive", name ="rubia-armored-locomotive"},
+    {type="cargo-wagon", name ="rubia-armored-cargo-wagon"},
+    {type="fluid-wagon", name ="rubia-armored-fluid-wagon"},
+    {type="logistic-container", name="passive-provider-chest"},
+    {type="logistic-container", name="storage-chest"},
+}
+--internal_whitelist = rubia_lib.array_to_dictionary(internal_whitelist,"type")
+
+--All entities in these prototype type will be blacklisted automatically, unless explicitly whitelisted.
+--This accounts for mods adding variants in these prototypes.
+local prototype_type_blacklist = {"logistic-container",
+    "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"
+}
+--prototype_type_blacklist = rubia_lib.array_to_hashset(prototype_type_blacklist)
+
+--Add entities in the prototype blacklist (not in the whitelist) to the growing blacklist.
+for _, type in pairs(prototype_type_blacklist) do
+    for _,entry in pairs(data.raw[type]) do
+        if not rubia_lib.array_find_condition(internal_whitelist,function(value)
+            return (value.type==type) and (value.name==entry.name) end) then
+            table.insert(internal_blacklist, {type=entry.type,name=entry.name})
+            log(entry.type .. " = " .. entry.name)
+        end
+    end
+end
+
+
+
+
+--Apply Blacklist to make a dictionary
 --Change from an array of {type, name} to a dictionary of {type, {name1, name2}}
 -- for all in that category
 local dictionary_blacklist = {}
 for _, entry in pairs(rubia.surface_blacklist) do
     if not dictionary_blacklist[entry.type] then dictionary_blacklist[entry.type] = {entry.name}
-    else table.insert(dictionary_blacklist[entry.type], entry.name) end
+    --Only add if not double ban
+    elseif not rubia_lib.array_find(dictionary_blacklist[entry.type], entry.name) then 
+        table.insert(dictionary_blacklist[entry.type], entry.name)
+    end
 end
 
 --Now go through all the blacklist
