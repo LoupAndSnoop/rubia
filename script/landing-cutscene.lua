@@ -5,11 +5,111 @@ local util = require("util")
 storage.active_cutscenes = storage.active_cutscenes or {}
 --storage.player_characters = storage.player_characters or {}
 
+
+--#region Permission-based immobilization for cutscene
+local function immobilize_for_cutscene(player)
+    --Keep a dictionary of players currently immobilzed, mapped to their initial permission groups.
+    if not storage.immobile_players then storage.immobile_players = {} end
+    
+    --Remove from current group, and track it. Might be nil
+    if player.permission_group then 
+        --If this player doesn't have permissions, then don't mess with them. Log it. Sucks for you.
+        if not player.permission_group.allows_action(defines.input_action.add_permission_group)
+        or not player.permission_group.allows_action(defines.input_action.edit_permission_group)
+        or not player.permission_group.allows_action(defines.input_action.delete_permission_group) then
+            storage.immobile_players[player.index] = "no-permission-permissions"
+            return
+        end
+
+        storage.immobile_players[player.index]=player.permission_group
+        player.permission_group.remove_player(player)
+    else storage.immobile_players[player.index]="nil" --Log that there were no permissions before.
+    end
+    
+    --Strip their permissions
+    local no_permissions = game.permissions.create_group("Rubia-cutscene-"..player.index)
+    assert(no_permissions,"Rubia needs to be able to change permissions for the openning cutscene.")
+    
+    --[[local to_disable = {defines.input_action.open_blueprint_library_gui,
+    defines.input_action.remote_view_entity, defines.input_action.remote_view_surface,
+    --Open Guis
+    defines.input_action.open_achievements_gui,
+    defines.input_action.open_blueprint_library_gui, defines.input_action.open_blueprint_record,
+    defines.input_action.open_bonus_gui, defines.input_action.open_character_gui,
+    defines.input_action.open_current_vehicle_gui, defines.input_action.open_equipment,
+    defines.input_action.open_global_electric_network_gui, defines.input_action.open_gui,
+    defines.input_action.open_item, defines.input_action.open_logistics_gui,
+    defines.input_action.open_mod_item, defines.input_action.open_new_platform_button_from_rocket_silo,
+    defines.input_action.open_opened_entity_grid, defines.input_action.open_parent_of_opened_item,
+    defines.input_action.open_production_gui, defines.input_action.open_train_gui,
+    defines.input_action.open_train_station_gui, defines.input_action.open_trains_gui,
+    }]]
+    --for _, input in pairs(to_disable) do
+    for _, input in pairs(defines.input_action) do
+        if input ~= defines.input_action.write_to_console then
+            no_permissions.set_allows_action(input, false)
+        end
+    end
+    no_permissions.set_allows_action(defines.input_action.remote_view_entity, false)
+    --no_permissions.set_allows_action(defines.input_action.remote_view_entity, false)
+    --no_permissions.set_allows_action(defines.input_action.remote_view_surface, false)
+    no_permissions.add_player(player)
+    player.permission_group = no_permissions
+end
+--Give back player permissions
+local function remobilize_from_cutscene(player)
+    --You aren't immobilized in a cutscene I guess.
+    if not storage.immobile_players or not storage.immobile_players[player.index] then return end
+    --We never got to change your permissions.
+    if storage.immobile_players[player.index] == "no-permission-permissions" then
+        storage.immobile_players[player.index] = nil; return
+    end
+
+    --Break out of this permission group we made to immobilize
+    local no_permissions = player.permission_group
+    assert(no_permissions,"No block was found on this player!")
+    no_permissions.remove_player(player)
+    player.permission_group = nil
+    no_permissions.destroy()
+
+    --Get back the old one
+    local old_permissions = storage.immobile_players[player.index]
+    if storage.immobile_players[player.index] == "nil" then return end --There was no old one
+    old_permissions.add_player(player)
+    player.permission_group = old_permissions
+end
+
+rubia.emergency_failsafes = rubia.emergency_failsafes or {}
+--Emergency failsafe to remove immobilization. WARNING: This may mess with player permission groups
+--To invoke, do: /c __rubia__ rubia.emergency_failsafes.cutscene_remobilize()
+rubia.emergency_failsafes.cutscene_remobilize = function()
+    --Remobilize
+    for _, player in pairs(game.players) do
+        if player.permission_group and string.find(player.permission_group.name, "Rubia") then --This belongs to us!
+            local old = player.permission_group
+            old.remove_player(player)
+            old.destroy()
+            player.permission_group=nil
+        end
+
+        --Try to reapply old permissions
+        if (storage.immobile_players and storage.immobile_players[player.index]) then
+            if storage.immobile_players[player.index] == "nil" then return end
+
+            player.permission_group = storage.immobile_players[player.index]
+            storage.immobile_players[player.index].add_player(player)
+            storage.immobile_players[player.index] = nil
+        end
+    end
+end
+--#endregion
+
 --Cancel the cutscene currently playing for the player.
 ---@param player LuaPlayer
 local function cancel_cutscene(player)
     --game.print("Cancelling: " .. serpent.block(storage.active_cutscenes[tostring(player.index)]))
     game.autosave_enabled = true
+    remobilize_from_cutscene(player)
     rubia.timing_manager.dequeue_events(storage.active_cutscenes[tostring(player.index)])
     storage.active_cutscenes[tostring(player.index)] = nil
     if (player.controller_type == defines.controllers.cutscene) then 
@@ -51,21 +151,21 @@ end
 
 --Start the cutscene for the given player. Return an array of all the relevant event_id to be able to cancel it later.
 ---@param player LuaPlayer
-local function start_cutscene(player)
+local function start_cutscene(player, cargo_pod)
     local event_ids = {}
     --game.print("Starting, active cutscene for player " .. serpent.block(player) .. " is ".. serpent.block(storage.active_cutscenes))--[player]))
     cancel_cutscene(player)
 
     game.autosave_enabled = false --Don't ruin cutscene with an autosave
+    immobilize_for_cutscene(player)
 
     --game.print("start tick = " .. tostring(game.tick))
-
-    local cargo_pod = player.cargo_pod
     local character = cargo_pod.get_passenger()
-
-    --TODO: I need my character reference. This isn't good enough
-    --local character = player.character or player.cutscene_character
     assert(character, "Character not found.")
+    
+    player.teleport(character.position, character.surface, false) --break out of remote view
+
+    --player.associate_character(character) --Connect
 
     --[[
     --Note: This destroys the background for the cutscene
@@ -88,11 +188,35 @@ local function start_cutscene(player)
     --which seems to start around 450ish ticks
 
     local arguments = {player, cargo_pod, character}
+    --local function play_sound(wait, path)
+    --    table.insert(event_ids, rubia.timing_manager.wait_then_do(wait, "cutscene-sound", {player, path})) end
     table.insert(event_ids, rubia.timing_manager.wait_then_do(5, "cutscene-part1", arguments))
     table.insert(event_ids, rubia.timing_manager.wait_then_do(60, "cutscene-part2", arguments))
     table.insert(event_ids, rubia.timing_manager.wait_then_do(200, "cutscene-part3", arguments))
     table.insert(event_ids, rubia.timing_manager.wait_then_do(300, "cutscene-part4", arguments))
     table.insert(event_ids, rubia.timing_manager.wait_then_do(450, "cutscene-end", arguments))
+
+    local SFX_schedule = {
+        --["rubia-cutscene-crash"] = {8, 200, 40},
+        ["rubia-cutscene-bullet-impact"] = {20,25,30,35,40,42,
+                101, 120, 160, 188, 210, 260,
+                304, 316, 370, 390, 420},
+        ["rubia-cutscene-metal-impact"] = {200, 40},
+        ["rubia-cutscene-large-impact"] = {87, 180, 251,321},
+        ["rubia-cutscene-longer-woosh"] = {220,290},
+        ["rubia-cutscene-fizzle"] = {90,400},
+        ["rubia-cutscene-alert"] = {30, 70, 90, 240, 270},
+        ["rubia-cutscene-siren1"] = {450-60*5.5},
+        ["rubia-cutscene-siren2"] = {450-60*3.9},
+        --["rubia-cutscene-siren3"] = {450-60*3.1},
+    }
+    for path, schedule in pairs(SFX_schedule) do
+        for _, time in pairs(schedule) do
+            table.insert(event_ids, rubia.timing_manager.wait_then_do(time, "cutscene-sound", {player, path}))
+        end
+    end
+
+    --player.add_custom_alert(character, {type="virtual",name="signal-alert"}, {"alert.landing-cutscene-part1"}, false)
 
     --[[- Emergency failsafe: Make sure we exit cutscene mode
     table.insert(event_ids, rubia.timing_manager.wait_then_do(1000, function()
@@ -106,13 +230,16 @@ local function start_cutscene(player)
 end
 
 --#region Cutscene fragments
-rubia.timing_manager.register("cutscene-part1", function(player, cargo_pod, character)
-    player.play_sound{path="utility/cannot_build", volume_modifier=1}
+rubia.timing_manager.register("cutscene-sound", function(player, path, volume)
+    player.play_sound{path=path, volume_modifier=volume or 1}
+end)
 
+--Whatever we do at the very start of the cutscene
+rubia.timing_manager.register("cutscene-part1", function(player, cargo_pod, character)
+    --player.play_sound{path="utility/cannot_build", volume_modifier=1}
 end)
 
 rubia.timing_manager.register("cutscene-part2", function(player, cargo_pod, character)
-    player.play_sound{path="__core__/sound/alert-destroyed.ogg", volume_modifier=1}
     game.print({"alert.landing-cutscene-part1"}, {color={r=0.9,g=0,b=0,a=1}})
     cutscene_damage(character, player, 30)
 end)
@@ -124,22 +251,18 @@ rubia.timing_manager.register("cutscene-part3", function(player, cargo_pod, char
 end)
 
 rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, character)
-    player.play_sound{path="utility/cannot_build", volume_modifier=1}
+    player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
     game.print({"alert.landing-cutscene-part3"}, {color={r=0.9,g=0,b=0,a=1}})
     cutscene_damage(character, player, 110)
 end)
 
 --End of cutscene
 rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
-    --player.play_sound{ filename = "__base__/sound/car-crash.ogg", volume = 1 }
+    player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
 
-    player.surface.create_entity({
-        name = "nuclear-reactor-explosion",
-        position = player.position,
-    })
+    character.surface.create_entity({name = "nuclear-reactor-explosion", position = character.position})
 
     --cargo_pod.on_cargo_pod_finished_descending()
-    --TODO: Explosion
     cargo_pod.force_finish_descending()
     cargo_pod.destroy()
     --if player and player.cargo_pod and player.cargo_pod.valid then player.cargo_pod.destroy() end
@@ -162,10 +285,11 @@ end)
 --Variable to store exposed cutscene functions
 local landing_cutscene = {}
 
-
---Run cutscene if player lands
---See if we need to start a cutscene on a defines.events.on_player_changed_surface event.
+--See if we need to start a cutscene on a defines.events.on_cargo_pod_finished_ascending event.
 landing_cutscene.try_start_cutscene = function(event)
+    if not event.player_index then return end --Cargo pod had no player riding
+
+    local cargo_pod = event.cargo_pod
     local player = game.get_player(event.player_index)
     --local surface = game.get_surface(event.surface_index)
 
@@ -180,23 +304,25 @@ landing_cutscene.try_start_cutscene = function(event)
 
     --Operation iron man cancels cutscene.
     if (player.force.technologies["planetslib-rubia-cargo-drops"].researched) then
-        --game.print("cancelling from operation iron man")
         return end
     
     --Secondary check based on the cargo pod
-    local cargo_pod = player.cargo_pod
+    --game.print(serpent.block(cargo_pod))
     --game.print("stats = " .. serpent.block(cargo_pod.cargo_pod_state)
     --.. ", destination = " .. serpent.block(cargo_pod.cargo_pod_destination))
     if (not cargo_pod
-        or cargo_pod.cargo_pod_state ~= "descending"
-        or not cargo_pod.cargo_pod_destination.surface
+        or not cargo_pod.cargo_pod_origin --Origin dead
+        --or cargo_pod.cargo_pod_state ~= "descending"
+        or not cargo_pod.cargo_pod_origin.surface
+        or not cargo_pod.cargo_pod_origin.surface.platform --Was not a space platform
+        or not cargo_pod.cargo_pod_destination.surface --Destination blowed up
         or cargo_pod.cargo_pod_destination.surface.name ~= "rubia") then
-        --game.print("cancelling due to cargo pod state")
+        game.print("cancelling due to cargo pod state")
         return
     end
 
     --Passed all checks. Time to go for it!
-    start_cutscene(player)
+    start_cutscene(player, cargo_pod)
 end
 
 

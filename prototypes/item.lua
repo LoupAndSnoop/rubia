@@ -175,8 +175,7 @@ data:extend(
       type = "item",
       name = "rubia-bacteria-A",
       icon = "__rubia__/graphics/icons/bacteria-typeA.png",
-      order = "z[platinum]",
-      subgroup = "raw-resource",
+      subgroup = "rubia-biorecycling", order = "c[rubia stage1]-a",
       color_hint = { text = "T" },
 
       inventory_move_sound = item_sounds.resource_inventory_move,
@@ -192,8 +191,7 @@ data:extend(
       type = "item",
       name = "rubia-bacteria-B",
       icon = "__rubia__/graphics/icons/bacteria-typeB.png",
-      order = "z[platinum]",
-      subgroup = "raw-resource",
+      subgroup = "rubia-biorecycling", order = "d[rubia stage2]-a",
       color_hint = { text = "T" },
 
       inventory_move_sound = item_sounds.resource_inventory_move,
@@ -209,8 +207,7 @@ data:extend(
       type = "item",
       name = "craptonite-chunk",
       icon = "__rubia__/graphics/icons/craptonite-icon.png",
-      order = "z[platinum]",
-      subgroup = "raw-resource",
+      subgroup = "rubia-biorecycling", order = "e[rubia stage3]-a",
       color_hint = { text = "T" },
 
       inventory_move_sound = item_sounds.resource_inventory_move,
@@ -225,8 +222,7 @@ data:extend(
       type = "item",
       name = "craptonite-frame",
       icon = "__rubia__/graphics/icons/craptonite-frame.png",
-      order = "z[platinum]",
-      subgroup = "raw-resource",
+      subgroup = "rubia-biorecycling", order = "e[rubia stage3]-b",
       color_hint = { text = "T" },
 
       inventory_move_sound = item_sounds.resource_inventory_move,

@@ -584,6 +584,7 @@ data:extend{
     name = "rubia_resource_wobble_y",
     expression = "rubia_wobble_y + 0.25 * rubia_wobble_large_y"
   },
+  --[[
   {
     type = "noise-expression",
     name = "rubia_starting_platinum", -- don't use the slider for radius becuase it can make platinum in the safe area
@@ -610,7 +611,7 @@ data:extend{
                                           radius = 35 / 1.5 * rubia_calcite_size,\z
                                           x_distortion = 0.5 * rubia_resource_wobble_x,\z
                                           y_distortion = 0.5 * rubia_resource_wobble_y}"
-  },
+  },]]
  
   {
     type = "noise-function",

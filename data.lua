@@ -2,10 +2,11 @@ _G.rubia = require("__rubia__.lib.constants") -- Global var to query for global 
 require("__rubia__.lib.lib")
 
 require("__rubia__.prototypes.particles")
-require("__rubia__.sounds.sound-effects")
+require("__rubia__.prototypes.sound-effects")
 require("__rubia__.prototypes.factoriopedia-simulations")
-require("__rubia__.prototypes.item")
 
+require("__rubia__.prototypes.item-groups")
+require("__rubia__.prototypes.item")
 require("__rubia__.prototypes.recipe-category")
 require("__rubia__.prototypes.recipe")
 require("__rubia__.prototypes.technology")

@@ -19,6 +19,7 @@ local function promethium_warning()
     if not settings.startup["remove-rubia-from-promethium_sci"].value
         and player.technologies["research-productivity"]
         and (player.technologies["research-productivity"].level > 1)
+        and not (player.players and player.players[1] and player.players[1].cheat_mode)
         and not storage.promethium_warning_done then
 
         --We need to give a warning, but game is not open yet.
