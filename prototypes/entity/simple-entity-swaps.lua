@@ -32,11 +32,12 @@ silo.name = "rubia-rocket-silo"
 --silo.localised_name = {"entity-name.rocket-silo"}
 silo.localised_description = {"entity-description.rocket-silo"}
 silo.rocket_entity = "rubia-rocket-silo-rocket"
-silo.render_not_in_network_icon=false
+--silo.render_not_in_network_icon=false
 silo.fixed_recipe = "rocket-part-rubia"
 silo.hidden_in_factoriopedia = true
 silo.disabled_when_recipe_not_researched = true
 silo.placeable_by = {{item = "rocket-silo", count = 1}}
 silo.flags = {"placeable-player", "player-creation", "not-in-made-in"}
+silo.logistic_trash_inventory_size = 1
 
 data:extend({rocket, silo})

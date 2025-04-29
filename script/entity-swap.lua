@@ -82,4 +82,30 @@ entity_swap.try_entity_swap = function(event)
     end
 end
 
+--Some swapped entities need special GUI
+
+--[[
+--When a GUI is opened, check if it belongs to a relevant entity, and modify if needed.
+entity_swap.try_modified_gui = function(event)
+    local entity = event.entity
+    if not entity.valid then return end
+    local is_ghost = entity.name == "entity-ghost"
+    local name = is_ghost and entity.ghost_name or entity.name
+    local player = game.get_player(event.player_index)
+
+    --Rubia rocket silo needs to block the GUI for logi requests.
+    if name == "rubia-rocket-silo" and event.gui_type == defines.gui_type.entity then
+        --log(serpent.block(player.get_associated_characters().opened))
+        log(serpent.block(event))
+
+        local menu = event.element
+        --for i, entry in pairs(menu.children) do
+        --    log(tostring(i) .. " - " ..  entry.name .. " - ".. tostring(entry.caption))
+        --end
+
+    end
+
+end]]
+
+
 return entity_swap

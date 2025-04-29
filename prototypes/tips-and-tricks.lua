@@ -4,7 +4,7 @@ data:extend {{
     category = "space-age",
     tag = "[planet=rubia]",
     indent = 0,
-    order = "e-a",
+    order = "g-a-a",
     trigger = {
         type = "research",
         technology = "planet-discovery-rubia"
@@ -88,4 +88,35 @@ data:extend {{
         checkboard = false,
         mute_wind_sounds = false,
     },
-}}
+},
+
+{
+    type = "tips-and-tricks-item",
+    name = "rubia-trashsteroid-tips",
+    category = "space-age",
+    tag = "[entity=medium-trashsteroid]",
+    indent = 1,
+    order = "g-a-c",
+    trigger = {
+        type = "research",
+        technology = "rubia-progression-stage1"
+    },
+    dependencies = {"rubia-briefing"}
+},
+
+{
+    type = "tips-and-tricks-item",
+    name = "rubia-wind-tips",
+    category = "space-age",
+    tag = "[entity=rubia-wind-turbine]",
+    indent = 1,
+    order = "g-a-b",
+    trigger = {
+        type = "research",
+        technology = "rubia-progression-stage1"
+    },
+    dependencies = {"rubia-briefing"}
+},
+
+
+}

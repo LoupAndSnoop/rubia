@@ -102,7 +102,12 @@ script.on_event(defines.events.on_object_destroyed, function(event)
 
 end)
 --------------------
---------------------
+
+--[[script.on_event(defines.events.on_gui_opened, function(event)
+  entity_swap.try_modified_gui(event)
+end)]]
+
+
 --------------------
 
 --- Asteroid and on-tick Management
