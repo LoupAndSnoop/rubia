@@ -34,13 +34,15 @@ local crafting_machine_tint_purple = {
 --the recipes are together as needed.
 --local function biorec_recipe_order(substring) return ""
 
+--[[
 --Modify the rocket silo to make it able to take the new rocket-part recipe.
 for _, silo in pairs(data.raw["rocket-silo"]) do
   if silo.fixed_recipe == "rocket-part" then
       silo.fixed_recipe = nil
       silo.disabled_when_recipe_not_researched = true
+      --silo.logistic_trash_inventory_size = 0; --This is a method to make entities with no logistic capability
   end
-end
+end]]
 
 
 data:extend({
@@ -54,15 +56,16 @@ data:extend({
 
     ingredients = 
     {
-      {type ="item", name ="gun-turret", amount = 1},
-      {type ="item", name ="electric-mining-drill", amount = 1},
+      --{type ="item", name ="gun-turret", amount = 2},
+      {type ="item", name ="rubia-wind-turbine", amount = 1},
+      {type ="item", name ="biorecycling-plant", amount = 1},
       {type ="fluid", name ="rubia-bacterial-sludge", amount = 100}
     },
     surface_conditions = rubia.surface_conditions(),
     energy_required = 5,
     results =
     {
-      {type ="item", name ="makeshift-biorecycling-science-pack", amount = 1}
+      {type ="item", name ="makeshift-biorecycling-science-pack", amount = 2}
     },
     allow_productivity = true,
     main_product ="makeshift-biorecycling-science-pack",
@@ -180,7 +183,7 @@ data:extend({
   {
     type ="recipe",
     name ="rubia-bacteria-A",
-    category ="chemical-plant-only",
+    category ="chemistry-or-cryogenics",--"chemical-plant-only",
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-a",
     enabled = false,
     ingredients = {
@@ -205,13 +208,13 @@ data:extend({
 
     ingredients = {
       {type ="item", name ="rubia-bacteria-A", amount = 1},
-      {type ="item", name ="rubia-ferric-scrap", amount = 1},
+      {type ="item", name ="rubia-ferric-scrap", amount = 2},
     },
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 1,
+    energy_required = 3,
     results = {
-      {type ="item", name ="firearm-magazine", amount = 4},
-      {type ="item", name ="copper-cable", amount = 1, probability=0.5},
+      {type ="item", name ="firearm-magazine", amount = 8},
+      {type ="item", name ="copper-cable", amount = 1},--, probability=0.5},
     },
     allow_productivity = true,
     crafting_machine_tint = crafting_machine_tint_red,
@@ -228,7 +231,7 @@ data:extend({
       {type ="item", name ="firearm-magazine", amount = 2},
     },
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 1,
+    energy_required = 3 * 0.6,
     results = {
       {type ="item", name ="iron-plate", amount = 1},
     },
@@ -242,16 +245,16 @@ data:extend({
 {
   type ="recipe",
   name ="rubia-bacteria-B",
-  category ="chemical-plant-only",
+  category = "chemistry-or-cryogenics",--"chemical-plant-only",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-a",
   enabled = false,
   ingredients = {
     {type ="fluid", name ="rubia-bacterial-sludge", amount = 50},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 6,
   results = {
-    {type ="item", name ="rubia-bacteria-B", amount = 1},
+    {type ="item", name ="rubia-bacteria-B", amount = 3},
   },
   allow_productivity = true,
   main_product ="rubia-bacteria-B",
@@ -269,7 +272,7 @@ data:extend({
     {type ="item", name ="rubia-cupric-scrap", amount = 1},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 0.5,
+  energy_required = 1.5,
   results = {
     {type ="item", name ="engine-unit", amount = 4},
     {type ="item", name ="processing-unit", amount = 10},
@@ -289,7 +292,7 @@ data:extend({
     {type ="item", name ="engine-unit", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="item", name ="steel-plate", amount = 4},
     {type ="item", name ="iron-gear-wheel", amount = 1},
@@ -309,10 +312,10 @@ data:extend({
     {type ="item", name ="processing-unit", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="item", name ="advanced-circuit", amount = 1},
-    {type ="fluid", name ="light-oil", amount = 20},
+    {type ="fluid", name ="light-oil", amount = 30},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_blue,
@@ -333,7 +336,7 @@ data:extend({
     {type ="item", name ="rubia-ferric-scrap", amount = 1},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="item", name ="rail", amount = 4},
     {type ="item", name ="fast-transport-belt", amount = 2}, --TODO: Figure out?
@@ -353,7 +356,7 @@ data:extend({
     {type ="item", name ="rail", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="item", name ="concrete", amount = 3},
     {type ="item", name ="steel-plate", amount = 1},
@@ -367,7 +370,7 @@ data:extend({
 {
   type ="recipe",
   name ="assisted-frothing",
-  category ="biorecycling",
+  category = "biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-k",
   enabled = false,
   ingredients = {
@@ -376,7 +379,7 @@ data:extend({
     {type ="fluid", name ="light-oil", amount = 30},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="fluid", name ="rubia-froth", amount = 10},
   },
@@ -386,7 +389,7 @@ data:extend({
 {
   type ="recipe",
   name ="craptonite-casting",
-  category ="biorecycling",
+  category = "organic-or-assembling",--"biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-l",
   enabled = false,
   ingredients = {
@@ -394,7 +397,7 @@ data:extend({
     {type ="fluid", name ="rubia-froth", amount = 50},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1,
+  energy_required = 3,
   results = {
     {type ="item", name ="craptonite-frame", amount = 1},
     {type ="item", name ="concrete", amount = 10, ignored_by_productivity=10},
@@ -418,7 +421,7 @@ data:extend({
     {type ="item", name ="processing-unit", amount = 3},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 3,
+  energy_required = 5,
   results = {
     {type ="item", name ="electric-engine-unit", amount = 1},
     {type ="item", name ="copper-cable", amount = 4},

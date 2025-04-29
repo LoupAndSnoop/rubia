@@ -38,6 +38,7 @@ end
 
 --When an entity is mined, try to go get the lore for it.
 lore_mining.try_lore_when_mined = function(entity)
+    if not entity or not entity.valid then return end
     local prototype_name = entity.prototype.name
     if not lore_drop_table[prototype_name] then return end --not on drop table
 

@@ -16,9 +16,21 @@ local internal_blacklist = {
     {type="cargo-wagon", name ="cargo-wagon"},
     {type="fluid-wagon", name ="fluid-wagon"},
     {type="artillery-wagon", name ="artillery-wagon"},
+
+    --Logistic cheese
+    {type="car", name ="tank"},
 }
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.
 rubia.surface_blacklist = rubia_lib.array_concat({rubia.surface_blacklist, internal_blacklist})
+
+--Specific mods blacklisting
+local mod_item_blacklist = {
+    {mod="SpidertronPatrols", type="proxy-container", name ="sp-spidertron-dock"},
+
+}
+for _, entry in pairs(mod_item_blacklist) do
+    if mods[entry.mod] then table.insert(internal_blacklist, entry) end
+end
 
 
 --This is a list of all entities that are going to be in a blacklisted prototype type,

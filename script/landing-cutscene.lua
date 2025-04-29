@@ -158,6 +158,7 @@ local function start_cutscene(player, cargo_pod)
 
     game.autosave_enabled = false --Don't ruin cutscene with an autosave
     immobilize_for_cutscene(player)
+    player.zoom = 2
 
     --game.print("start tick = " .. tostring(game.tick))
     local character = cargo_pod.get_passenger()
@@ -205,7 +206,7 @@ local function start_cutscene(player, cargo_pod)
         ["rubia-cutscene-large-impact"] = {87, 180, 251,321},
         ["rubia-cutscene-longer-woosh"] = {220,290},
         ["rubia-cutscene-fizzle"] = {90,400},
-        ["rubia-cutscene-alert"] = {30, 70, 90, 240, 270},
+        ["rubia-cutscene-alert"] = {30, 240},
         ["rubia-cutscene-siren1"] = {450-60*5.5},
         ["rubia-cutscene-siren2"] = {450-60*3.9},
         --["rubia-cutscene-siren3"] = {450-60*3.1},
@@ -260,7 +261,7 @@ end)
 rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
     player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
 
-    character.surface.create_entity({name = "nuclear-reactor-explosion", position = character.position})
+    character.surface.create_entity({name = "nuclear-reactor-explosion", position = {x=0,y=0}})
 
     --cargo_pod.on_cargo_pod_finished_descending()
     cargo_pod.force_finish_descending()

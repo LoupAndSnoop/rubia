@@ -13,17 +13,23 @@ end)
 
 
 
-local Public = {}
+local trashdragon = {}
+--[[This is the old version, based on using the same rocket silo recipe
 function Public.on_built_rocket_silo(event)
     local entity = event.entity
     if not entity.valid then return end
     
     local prototype = entity.name == "entity-ghost" and entity.ghost_prototype or entity.prototype
-
     if prototype.type ~= "rocket-silo" 
         --if another mod set the recipe already (on a different surface), don't change it
         or (entity.get_recipe() and entity.surface.name ~= "rubia")
         or not prototype.crafting_categories["rocket-building"] then return end
+
+
+    if (entity.surface.name == "rubia") then
+        req_point = entity.get_requester_point()
+        req_point.enabled = false
+    end
 
     --We need to set the rocket part recipe for rubia, but also put it back for every other surface.
     if (entity.surface.name == "rubia") then
@@ -33,20 +39,28 @@ function Public.on_built_rocket_silo(event)
 
         --Queue up for next frame to re-correct the rocket recipe in case someone fucked with it
         rubia.timing_manager.wait_then_do(1,"project-trashdragon-recheck",{entity})
-        --[[
-        rubia.timing_manager.wait_then_do(1,function()
-            if (entity.valid and entity.get_recipe()
-                and entity.get_recipe().name ~= "rocket-part-rubia") then
-                    entity.recipe_locked = false
-                    entity.set_recipe("rocket-part-rubia")
-                    entity.recipe_locked = true
-                end
-            end)]]
     else
         entity.recipe_locked = false
         entity.set_recipe("rocket-part")
         entity.recipe_locked = true
     end
-end
+end]]
 
-return Public
+--[[This is the old version, based on using the same rocket silo recipe
+function trashdragon.on_built_rocket_silo(event)
+    local entity = event.entity
+    if not entity.valid then return end
+    
+    local prototype = entity.name == "entity-ghost" and entity.ghost_prototype or entity.prototype
+    if prototype.type == "rocket-silo"
+        or (entity.surface and entity.surface.name ~= "rubia")
+        or not prototype.crafting_categories["rocket-building"] then return end
+
+    if (entity.surface.name == "rubia") then
+        req_point = entity.get_requester_point()
+        req_point.enabled = false
+    end
+end]]
+
+
+return trashdragon

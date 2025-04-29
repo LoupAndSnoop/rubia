@@ -130,15 +130,15 @@ data:extend({
             }
         },
 
-        crafting_speed = 2,
-        crafting_categories = {"biorecycling"},
+        crafting_speed = 3,
+        crafting_categories = {"biorecycling", "organic-or-biorecycling"},
         energy_source =
         {
           type = "electric",
           usage_priority = "secondary-input",
           emissions_per_minute = { pollution = 1 }
         },
-        energy_usage = "2000kW",
+        energy_usage = "500kW",
         module_slots = 4,
         icons_positioning =
         {

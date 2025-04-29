@@ -10,6 +10,7 @@ require("__rubia__.script.wind-correction")
 require("__rubia__.script.init")
 local trashdragon = require("__rubia__.script.project-trashdragon")
 local lore_mining = require("__rubia__.script.lore-mining")
+local entity_swap = require("__rubia__.script.entity-swap")
 
 --#region Technology/Sci related
 --[[
@@ -81,12 +82,13 @@ end)
 --end)
 
 local function do_on_built_changes(event)
-    if event.entity.surface.name ~= "rubia" or not event.entity.valid then return end
+  --trashdragon.on_built_rocket_silo(event)
+  entity_swap.try_entity_swap(event)
+  if not event.entity.valid or event.entity.surface.name ~= "rubia" then return end
 
-    rubia.wind_rotation(event.entity, event)
-    trashdragon.on_built_rocket_silo(event)
-    quality_correct_wind_turbine(event.entity)
-    chunk_checker.register_new_entity(event.entity)
+  rubia.wind_rotation(event.entity, event)  
+  quality_correct_wind_turbine(event.entity)
+  chunk_checker.register_new_entity(event.entity)
 end
 
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
