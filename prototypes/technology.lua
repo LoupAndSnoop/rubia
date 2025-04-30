@@ -269,7 +269,7 @@ data:extend({
     name = "craptonite-productivity",
     icons = util.technology_icon_constant_recipe_productivity(
         "__rubia__/graphics/technology/craptonite-frame.png"),
-    icon_size = 1024,--256,
+    icon_size = 256,
     effects = {
         {
             type = "change-recipe-productivity",
