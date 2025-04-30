@@ -29,7 +29,7 @@ rocket.rocket_sprite = {
 
 local silo = util.table.deepcopy(data.raw["rocket-silo"]["rocket-silo"])
 silo.name = "rubia-rocket-silo"
---silo.localised_name = {"entity-name.rocket-silo"}
+silo.localised_name = {"entity-name.rocket-silo"}
 silo.localised_description = {"entity-description.rocket-silo"}
 silo.rocket_entity = "rubia-rocket-silo-rocket"
 --silo.render_not_in_network_icon=false

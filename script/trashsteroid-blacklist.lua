@@ -26,8 +26,8 @@ if script.active_mods["elevated-rails"] then
 end
 
 --Muh cheats
-if script.active_mods["editor-extensions"] then
-    local ee_blacklist = {"ee-infinity-chest", "ee-infinity-chest-aggregate-provider",
+if script.active_mods["EditorExtensions"] then
+    local ee_blacklist = {"ee-infinity-chest", "ee-aggregate-chest",
         "ee-infinity-chest-passive-provider", "ee-infinity-chest-storage", "ee-infinity-chest-buffer",
         "ee-infinity-chest-requester", "ee-aggregate-chest","ee-aggregate-chest-passive-provider",
         "ee-linked-chest", "ee-infinity-loader", "ee-linked-belt",
@@ -35,7 +35,7 @@ if script.active_mods["editor-extensions"] then
         "ee-infinity-heat-pipe", "ee-super-lab", "ee-super-beacon", "ee-super-roboport",
         "ee-infinity-accumulator-primary-output", "ee-infinity-accumulator-secondary-output", "ee-infinity-accumulator-tertiary-output",
         "ee-infinity-accumulator-primary-input", "ee-infinity-accumulator-secondary-input", "ee-infinity-accumulator-tertiary-input",
-        "ee-infinity-accumulator-primary-buffer", "ee-infinity-accumulator-secondary-buffer", "ee-infinity-accumulator-tertiary-buffer",
+        "ee-infinity-accumulator-tertiary-buffer",
         "ee-super-electric-pole", "ee-super-substation"}
     internal_blacklist = rubia_lib.array_concat({internal_blacklist, ee_blacklist})
 end

@@ -6,7 +6,7 @@ require("__rubia__.script.chunk-checker")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
-require("__rubia__.script.wind-correction")
+local rubia_wind = require("__rubia__.script.wind-correction")
 require("__rubia__.script.init")
 local trashdragon = require("__rubia__.script.project-trashdragon")
 local lore_mining = require("__rubia__.script.lore-mining")
@@ -74,11 +74,14 @@ end)
 
 -- Scripts to execute rotation-corrections
 script.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity}, function(event)
-    rubia.wind_rotation(event.entity, event)
+  rubia_wind.wind_rotation(event.entity, event.player_index)
+end)
+script.on_event(defines.events.on_entity_settings_pasted, function(event)
+  rubia_wind.wind_rotation(event.destination, event.player_index)
 end)
 
 --script.on_event(defines.events.on_player_flipped_entity, function(event)
---    rubia.wind_rotation(event.entity, event)
+--    rubia.wind_rotation(event.entity, event.player_index)
 --end)
 
 local function do_on_built_changes(event)
@@ -86,7 +89,7 @@ local function do_on_built_changes(event)
   entity_swap.try_entity_swap(event)
   if not event.entity.valid or event.entity.surface.name ~= "rubia" then return end
 
-  rubia.wind_rotation(event.entity, event)  
+  rubia_wind.wind_rotation(event.entity, event.player_index)  
   quality_correct_wind_turbine(event.entity)
   chunk_checker.register_new_entity(event.entity)
 end
@@ -101,6 +104,27 @@ script.on_event(defines.events.on_object_destroyed, function(event)
   chunk_checker.delist_entity(event.registration_number)
 
 end)
+
+-- Special cases for mods that do adjustment events for adjustable inserters
+script.on_event(defines.events.on_gui_closed, function(event)
+  if event.gui_type == defines.gui_type.entity and event.entity
+    and event.entity.valid then 
+      rubia_wind.wind_rotation(event.entity, event.player_index) 
+    end
+
+
+end)
+
+--[[  local function adjustable_inserter_check(entity)
+  --if entity and entity.valid 
+    --entity.
+
+end
+script.on_event({"qai_adjust", "qai-rotate", "qai-reverse-rotate"}, function(event)
+  game.print(serpent.block(event))
+  --adjustable_inserter_check)
+end)]]
+
 --------------------
 
 --[[script.on_event(defines.events.on_gui_opened, function(event)

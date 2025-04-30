@@ -72,8 +72,8 @@ end
 
 
 --When a new entity is added at the given map position, register it to the developed chunk dic.
---Do not check validity
 chunk_checker.register_new_entity = function(entity)
+    if not entity or not entity.valid then return end
     chunk_checker.init()
 
     if (storage.developed_chunk_entities[entity]) then return end --Entity is already registered
