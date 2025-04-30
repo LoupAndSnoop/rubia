@@ -7,7 +7,7 @@ local simulations = require("__base__.prototypes.factoriopedia-simulations")
 local util = require("util")
 --require("__base__.prototypes.entity.explosions")
 
---Standard resistances
+--Standard resistances. Flat decreases get added later
 local function trashsteroid_resistances() 
     return     {
         {type = "fire", percent = 80},

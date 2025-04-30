@@ -132,8 +132,8 @@ data:extend({
     {
         type = "technology",
         name = "craptonite-processing",
-        icon = "__rubia__/graphics/icons/craptonite-frame.png",
-        icon_size = 64,
+        icon = "__rubia__/graphics/technology/craptonite-frame.png",
+        icon_size = 256,
         essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "assisted-frothing"},
