@@ -81,7 +81,10 @@ rubia_wind.wind_rotation = function(entity, player_index)
         end
     elseif entity.type == "underground-belt" and entity.direction == defines.direction.west then
         entity.rotate(); wind_correction_notification(entity, player_index)
-    elseif entity_type == "transport-belt" and entity.direction == defines.direction.west then
+
+    --Do not allow to go left.
+    elseif (entity_type == "transport-belt" or (entity_type == "mining-drill" and entity.prototype.name ~= "pumpjack")) 
+            and entity.direction == defines.direction.west then
         entity.rotate()
         entity.rotate(); wind_correction_notification(entity, player_index)
     elseif entity_type == "splitter" then

@@ -175,7 +175,7 @@ end, {{filter = "name", name = "medium-trashsteroid"}})
 
 ----Mining item checks
 
-script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined}, function(event)
+script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
   lore_mining.try_lore_when_mined(event.entity)
 
 end)

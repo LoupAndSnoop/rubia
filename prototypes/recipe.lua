@@ -79,14 +79,15 @@ data:extend({
     enabled = false,
     ingredients = 
     {
-      {type ="item", name ="rocket-fuel", amount = 1},
+      {type ="item", name ="rocket-fuel", amount = 3},
       {type ="item", name ="locomotive", amount = 1},
+      {type ="item", name ="substation", amount = 1},
     },
     surface_conditions = rubia.surface_conditions(),
     energy_required = 5,
     results =
     {
-      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 1}
+      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 10}
     },
     allow_productivity = true,
     main_product ="ghetto-biorecycling-science-pack",
@@ -227,13 +228,13 @@ data:extend({
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-c",
     enabled = false,
     ingredients = {
-      {type ="item", name ="rubia-bacteria-A", amount = 1},
-      {type ="item", name ="firearm-magazine", amount = 2},
+      {type ="item", name ="rubia-bacteria-A", amount = 2},
+      {type ="item", name ="firearm-magazine", amount = 3},
     },
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 3 * 0.6,
+    energy_required = 3 * 0.6 * 2,
     results = {
-      {type ="item", name ="iron-plate", amount = 1},
+      {type ="item", name ="iron-plate", amount = 2},
     },
     allow_productivity = true,
     crafting_machine_tint = crafting_machine_tint_red,
@@ -252,7 +253,7 @@ data:extend({
     {type ="fluid", name ="rubia-bacterial-sludge", amount = 50},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 6,
+  energy_required = 3,
   results = {
     {type ="item", name ="rubia-bacteria-B", amount = 3},
   },
@@ -427,7 +428,7 @@ data:extend({
     {type ="item", name ="copper-cable", amount = 4},
   },
   allow_productivity = true,
-  crafting_machine_tint = crafting_machine_tint_red,
+  crafting_machine_tint = crafting_machine_tint_purple,
 },
 {
   type = "recipe",
@@ -440,7 +441,7 @@ data:extend({
   category = "rocket-building",
   ingredients =
   {
-    {type = "item", name = "processing-unit", amount = 1},
+    {type = "item", name = "advanced-circuit", amount = 1},
     {type = "item", name = "craptonite-frame", amount = 1},
     {type = "item", name = "rocket-fuel", amount = 1}
   },
@@ -469,10 +470,10 @@ data:extend({
     surface_conditions = rubia.surface_conditions(),
     energy_required = 10,
     ingredients = {
-        { type = "item", name = "chemical-plant", amount = 1},
-        { type = "item", name = "electronic-circuit", amount = 20}, 
-        { type = "item", name = "steel-plate", amount = 20}, 
-        { type = "item", name = "iron-gear-wheel", amount = 20}, 
+        --{ type = "item", name = "chemical-plant", amount = 1},
+        { type = "item", name = "electronic-circuit", amount = 10}, 
+        { type = "item", name = "steel-plate", amount = 10}, 
+        { type = "item", name = "iron-gear-wheel", amount = 15}, 
     },
     results = {{
         type = "item", name = "biorecycling-plant", amount = 1
@@ -514,7 +515,7 @@ data:extend({
   energy_required = 10,
   ingredients = {
       { type = "item", name = "copper-cable", amount = 50},
-      { type = "item", name = "steel-plate", amount = 100}, 
+      { type = "item", name = "steel-plate", amount = 60}, 
       { type = "item", name = "gun-turret", amount = 1}, 
   },
   results = {{
@@ -607,6 +608,7 @@ data:extend({
 {
   type = "recipe",
   name = "rubia-armored-cargo-wagon",
+  category ="advanced-crafting",
   energy_required = 10,
   ingredients = {
       {type = "item", name = "craptonite-frame", amount = 10},
@@ -618,7 +620,6 @@ data:extend({
   },
 
   main_product = "rubia-armored-cargo-wagon",
-  category ="advanced-crafting",
   allow_productivity = false,
   allow_quality = true,
   enabled = false,
@@ -627,6 +628,7 @@ data:extend({
 {
   type = "recipe",
   name = "rubia-armored-fluid-wagon",
+  category ="advanced-crafting",
   energy_required = 10,
   ingredients = {
       {type = "item", name = "craptonite-frame", amount = 10},
@@ -638,7 +640,6 @@ data:extend({
   },
 
   main_product = "rubia-armored-fluid-wagon",
-  category ="advanced-crafting",
   allow_productivity = false,
   allow_quality = true,
   enabled = false,
@@ -647,6 +648,42 @@ data:extend({
 
 
 --#endregion
+
+--#region Optional mid-clear recipes
+{
+  type ="recipe",
+  name ="biorecycle-scrapapalooza",
+  icon = "__rubia__/graphics/icons/recipes/bacteria-AB+elec-engine.png",--TODO
+  category ="biorecycling",
+  subgroup = "rubia-biorecycling", order = "d[rubia stage2]-e",
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="rubia-bacteria-A", amount = 5},
+    {type ="item", name ="rubia-bacteria-B", amount = 5},
+    {type ="item", name ="rubia-ferric-scrap", amount = 5},
+    {type ="item", name ="rubia-cupric-scrap", amount = 5},
+  },
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 10,
+  results = {
+    {type = "item", name = "gun-turret", probability=0.1, amount = 1},
+    {type = "item", name = "electric-furnace", probability=0.1, amount = 1},
+    {type = "item", name = "fast-inserter", probability = 0.1, amount = 1},
+    {type = "item", name = "fast-transport-belt", probability = 0.1, amount = 10},
+    {type = "item", name = "underground-belt", probability = 0.1, amount = 2},
+    {type = "item", name = "express-splitter", probability = 0.1, amount = 1},
+    {type = "item", name = "pipe-to-ground", probability = 0.1, amount = 2},
+    {type = "item", name = "assembling-machine-2", probability = 0.1, amount = 1},
+  },
+  allow_productivity = false,
+  --allow_quality = false,
+  crafting_machine_tint = crafting_machine_tint_purple,
+},
+
+
+
+--#endregion
+
 --#region Post-clear Rewards
   {
     type = "recipe",

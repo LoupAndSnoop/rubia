@@ -272,12 +272,64 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
 
     --Make sure a surviving player is damaged at least a little to their base HP, without killing
     if (character) then 
-        character.health = math.min(math.random(3, 200), character.health)
+        character.health = math.min(math.random(3, 150), character.health)
     end
     cancel_cutscene(player)
+
+    --Check if they forgot a roboport in their armor before queuing failsafe
+    --No grid = they did forget a roboport
+    if character and character.grid then 
+        --Check if failsafe must activate
+        for _, entry in pairs(character.grid.get_contents()) do
+            local prototype = prototypes.equipment[entry.name]
+            --Found a roboport of some type. No failsafe needed
+            if prototype and prototype.name and string.find(prototype.name, "roboport") then
+                return
+            end
+        end
+    end
+    rubia.timing_manager.wait_then_do(600, "cutscene-roboport-failsafe", {player, character})
 end)
 
+--Give the player a roboport if they forgot to bring one
+rubia.timing_manager.register("cutscene-roboport-failsafe", function(player, character)
+    --First check that we have a valid player with a grid.
+    if not (character and character.valid and character.surface and character.surface.name == "rubia") then return end
+    
+    --[[No grid = they did forget a roboport
+    if character.grid then 
+        --Check if failsafe must activate
+        for _, entry in pairs(character.grid.get_contents()) do
+            local prototype = prototypes.equipment[entry.name]
+            --Found a roboport of some type. No failsafe needed
+            if prototype and prototype.name and string.find(prototype.name, "roboport") then
+                return
+            end
+        end
+    end]]
+    --Motherfucker forgot his roboport and needs to be bailed out.
+    if not storage.rubia_roboport_failsafe then storage.rubia_roboport_failsafe = {} end
+    if storage.rubia_roboport_failsafe[player.index] then return end --They already got their one roboport
 
+    --Make sure to taunt him before giving him a roboport.
+    game.print({"rubia-taunt.forgot-roboport-failsafe"})
+    storage.rubia_roboport_failsafe[player.index] = true
+
+    local inventory = player.get_inventory(defines.inventory.character_main)
+    if inventory and inventory.can_insert({name="personal-roboport-equipment", count=1}) then
+        inventory.insert({name="personal-roboport-equipment", count=1})
+    else
+        character.surface.spill_item_stack(character.position, {name="personal-roboport-equipment", count=1})
+    end
+    rubia.timing_manager.wait_then_do(600, "cutscene-roboport-failsafe-part2", {player, character})
+end)
+
+rubia.timing_manager.register("cutscene-roboport-failsafe-part2", function(player, character)
+    if not (character and character.valid and character.surface and character.surface.name == "rubia") then return end
+    --SMITE
+    game.print({"rubia-taunt.forgot-roboport-failsafe-part2"})
+    character.health = 1
+end)
 --#endregion
 ----------------------------------
 

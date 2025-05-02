@@ -208,7 +208,7 @@ data:extend({
       name = "rubia-cupric-scrap",
       order = "b",
       map_color = {r = 0.60, g = 0.26, b = 0.157, a = 1.000},
-      mining_time = 3,
+      mining_time = 1,
       walking_sound = sounds.ore,
       mining_visualisation_tint = {r = 150/256, g = 150/256, b = 160/256, a = 1.000},
       factoriopedia_simulation = simulations.factoriopedia_rubia_cupric_scrap,
@@ -217,7 +217,7 @@ data:extend({
       minable = {
         mining_particle = "cupric-scrap-particle",
         result = "rubia-cupric-scrap",
-        mining_time = 2,
+        mining_time = 0.35,
       },
     },
     { 
@@ -246,7 +246,7 @@ data:extend({
       minable = {
         mining_particle = "ferric-scrap-particle",
         result = "rubia-ferric-scrap",
-        mining_time = 0.5,
+        mining_time = 0.35,
       },
     },
     {
@@ -255,7 +255,7 @@ data:extend({
       base_spots_per_km2 = 3.5,
       regular_rq_factor_multiplier = 1,--1.10,
       starting_rq_factor_multiplier = 1,--1.5,
-      has_starting_area_placement = false,
+      has_starting_area_placement = true,
       additional_richness = 20000,
       --autoplace_set_name="rubia_ferric_scrap",
     }

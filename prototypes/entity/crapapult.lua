@@ -153,8 +153,9 @@ data:extend({
         crafting_categories = {"crapapult"},
         result_inventory_size = 1,
         crafting_speed = 5,
-        energy_usage = "180kW",
+        energy_usage = "1800kW",
         source_inventory_size = 1,
+        show_recipe_icon = false,
         energy_source =
         {
           type = "electric",

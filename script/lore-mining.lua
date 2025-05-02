@@ -2,21 +2,27 @@
 local lore_mining = {}
 local lore_color = {r=0.2,g=0.9,b=0.9,a=1} --Color of lore text
 
+
+
 --"Drop table" for lore, detailing the entity, the count, and which piece of lore to read
 local lore_drop_table ={
     ["rubia-spidertron-remnants"] = {
-        {count = 2, string = "rubia-lore.spidertron-mine-part1"},
-        {count = 4, string = "rubia-lore.spidertron-mine-part2"},
-        {count = 6, string = "rubia-lore.spidertron-mine-part3"},
-        {count = 8, string = "rubia-lore.spidertron-mine-part4"},
+        {count = 4, string = "rubia-lore.spidertron-mine-part1"},
+        {count = 6, string = "rubia-lore.spidertron-mine-part2"},
+        {count = 8, string = "rubia-lore.spidertron-mine-part3"},
+        {count = 20, string = "rubia-lore.spidertron-mine-part4"},
     },
     ["rubia-pole-remnants"] = {
         {count = 2, string = "rubia-lore.train-stop-mine-part1"},
         {count = 4, string = "rubia-lore.train-stop-mine-part2"},
-
+        {count = 6, string = "rubia-lore.train-stop-mine-part3"},
+        {count = 8, string = "rubia-lore.train-stop-mine-part4"},
     },
     ["rubia-junk-pile"] = {
         {count = 3, string = "rubia-lore.junk-mine-part1"},
+        {count = 6, string = "rubia-lore.junk-mine-part2"},
+        {count = 9, string = "rubia-lore.junk-mine-part3"},
+        {count = 12, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1)},
     }
 }
 
@@ -32,7 +38,7 @@ local try_lore_achievement = function()
     end
 
     --We made it past all the lore checks. Give achievement.
-    game.print("TODO: Give lore achievement")
+    game.print({"rubia-lore.all-lore-done"})
 end
 
 

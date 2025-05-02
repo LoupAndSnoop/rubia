@@ -2,12 +2,12 @@
     "name": "rubia",
     "version": "0.0.1",
     "title": "Planet Rubia",
-    "author": "L&S, 2025",
+    "author": "Loup&Snoop, 2025",
     "factorio_version": "2.0",
     "dependencies": ["base >= 2.0",
         "space-age >= 2.0.26",
         "PlanetsLib >= 1.2.12"
     ],
     "space_travel_required": true,
-    "description": "○🌐Adds Rubia: a windy planet bombarded by trash, where your whole factory must go with the wind."
+    "description": "🌐 Discover the wind planet Rubia. Your whole factory must go with the wind as a never-ending barrage of waste is hurled at your base. Belts and inserters work differently on Rubia, leading to unique building challenges not seen on any other planet."
   }

@@ -126,7 +126,7 @@ data:extend({
         {
             {
                 type = "impact",
-                percent = 30
+                percent = 50
             }
         },
 

@@ -89,12 +89,28 @@ data:extend({
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-ferric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-firearm-magazine"},
             {type = "unlock-recipe", recipe = "makeshift-biorecycling-science-pack"},
-
-
+        },
+        prerequisites = { "planet-discovery-rubia"},
+        research_trigger = {type = "mine-entity", entity="rubia-junk-pile"},
+    },
+--[[    {
+        type = "technology",
+        name = "rubia-progression-stage1-machines",
+        icon = "__rubia__/graphics/technology/biorecycling.png",--"__rubia__/graphics/icons/science/torus_clear_brown.png",
+        icon_size = 256,
+        essential = false,
+        effects =
+        {
+            {type = "unlock-recipe", recipe = "biorecycling-plant"},
+            {type = "unlock-recipe", recipe = "crapapult"},
+            {type = "unlock-recipe", recipe = "alt-gun-turret"},
+            {type = "unlock-recipe", recipe = "rubia-sniper-turret"}, -- TODO Shift?
+            {type = "unlock-recipe", recipe = "rubia-wind-turbine"},
         },
         prerequisites = { "planet-discovery-rubia"},
         research_trigger = {type = "mine-entity", entity="rubia-spidertron-remnants"},
-    },
+    },]]
+
     {
         type = "technology",
         name = "rubia-progression-stage2",
@@ -109,7 +125,7 @@ data:extend({
             
             {type = "unlock-recipe", recipe = "ghetto-biorecycling-science-pack"},
         },
-        prerequisites = { "rubia-progression-stage1"},
+        prerequisites = { "rubia-progression-stage1"},--, "rubia-progression-stage1-machines"},
         research_trigger = {type = "craft-item", item="yeet-makeshift-biorecycling-science-pack", count=100},
     },
 
@@ -142,15 +158,30 @@ data:extend({
 
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-elec-engine"},
 
-            {type = "unlock-recipe", recipe = "rubia-armored-locomotive"},
-            {type = "unlock-recipe", recipe = "rubia-armored-cargo-wagon"},
-            {type = "unlock-recipe", recipe = "rubia-armored-fluid-wagon"},
+            --{type = "unlock-recipe", recipe = "rubia-armored-locomotive"},
+            --{type = "unlock-recipe", recipe = "rubia-armored-cargo-wagon"},
+            --{type = "unlock-recipe", recipe = "rubia-armored-fluid-wagon"},
         },
         prerequisites = {"rubia-progression-stage3"},
         research_trigger = {type = "build-entity", entity="garbo-gatherer"},
     },
 
-    {--Shamelessly taken from maraxsis
+    {
+        type = "technology",
+        name = "rubia-armored-train",
+        icon = "__rubia__/graphics/technology/poo-choo-train.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "unlock-recipe", recipe = "rubia-armored-locomotive"},
+            {type = "unlock-recipe", recipe = "rubia-armored-cargo-wagon"},
+            {type = "unlock-recipe", recipe = "rubia-armored-fluid-wagon"},
+        },
+        prerequisites = {"craptonite-processing"},
+        research_trigger = {type = "craft-item", item="craptonite-frame", count=10},
+    },
+
+    {--Shamelessly derrived from maraxsis
         type = "technology",
         name = "rubia-project-trashdragon",
         icon = "__rubia__/graphics/technology/project-trashdragon.png",--"__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
@@ -300,7 +331,8 @@ data:extend({
 --Infinite braking force. Thanks to a mod by Velaanix
 {
     type = "technology",
-    name = "braking-force-8",
+    name = "rubia-braking-force-8",
+    localised_name = {"technology-name.braking-force"},
     icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
     effects =
     {

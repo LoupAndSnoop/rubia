@@ -92,9 +92,10 @@ local entity = {
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.15, result = TURBINE_NAME},
     max_health = 200,
+    resistances = {{type = "fire", percent = 50}, {type = "impact", percent = 30}},
+
     corpse = "medium-small-remnants",
     dying_explosion = "assembling-machine-1-explosion",
-    resistances = {{type = "fire", percent = 50}},
     damaged_trigger_effect = HIT_EFFECTS.entity(),
     impact_category = "metal",
     --collision_box = {{-1.15, -1.15}, {1.15, 1.15}},

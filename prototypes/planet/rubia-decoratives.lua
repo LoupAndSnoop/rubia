@@ -434,7 +434,7 @@ data:extend
     minable =
     {
       mining_particle = "iron-ore-particle",
-      mining_time = 6,
+      mining_time = 4,
       results =
       {
         --Important drops
@@ -442,13 +442,15 @@ data:extend
         {type = "item", name = "steel-plate", amount_min = 0, amount_max = 3},
         {type = "item", name = "advanced-circuit", probability = 0.25, amount_min = 8, amount_max = 12},
         {type = "item", name = "gun-turret", probability=0.4, amount_min = 5, amount_max = 7},
+        {type = "item", name = "electric-furnace", probability=0.4, amount_min = 1, amount_max = 3},
         --Fun/helpful drops
-        {type = "item", name = "bulk-inserter", probability = 0.1, amount_min = 20, amount_max = 25},
-        {type = "item", name = "fast-transport-belt", probability = 0.1, amount_min = 30, amount_max = 45},
+        {type = "item", name = "fast-inserter", probability = 0.1, amount_min = 20, amount_max = 25},
+        {type = "item", name = "fast-transport-belt", probability = 0.2, amount_min = 50, amount_max = 65},
         {type = "item", name = "underground-belt", probability = 0.069, amount_min = 20, amount_max = 30},
-        {type = "item", name = "express-splitter", probability = 0.08, amount_min = 10, amount_max = 12},
+        {type = "item", name = "express-splitter", probability = 0.1, amount_min = 8, amount_max = 12},
+        {type = "item", name = "pipe-to-ground", probability = 0.1, amount_min = 16, amount_max = 32},
         {type = "item", name = "assembling-machine-2", probability = 0.1, amount_min = 7, amount_max = 12},
-        {type = "item", name = "rail", probability = 0.08, amount_min = 50, amount_max = 80},
+        --{type = "item", name = "rail", probability = 0.08, amount_min = 50, amount_max = 80},
         {type = "item", name = "electric-mining-drill", probability = 0.07, amount_min = 10, amount_max = 20},
         {type = "item", name = "efficiency-module", probability = 0.1, amount_min = 15, amount_max = 30},
         {type = "item", name = "speed-module-2", probability = 0.08, amount_min = 15, amount_max = 25},
@@ -465,7 +467,7 @@ data:extend
       probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
       local_expressions =
       {
-        multiplier = 0.07 * 0.4,
+        multiplier = 0.07 * 0.4 * 4,
         penalty = 1.7,
         region_box = "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
         control = "control:rocks:size"
@@ -529,9 +531,10 @@ data:extend
       mining_time = 3,
       results =
       {
-        {type = "item", name = "iron-stick", amount_min = 3, amount_max = 6},
-        {type = "item", name = "steel-plate", probability=0.5, amount_min = 2, amount_max = 4},
-        {type = "item", name = "electronic-circuit", probability=0.5, amount_min = 2, amount_max = 4}
+        {type = "item", name = "iron-stick", amount_min = 4, amount_max = 8},
+        {type = "item", name = "iron-plate", probability=0.5, amount_min = 5, amount_max = 10},
+        {type = "item", name = "steel-plate", probability=0.5, amount_min = 3, amount_max = 6},
+        {type = "item", name = "electronic-circuit", probability=0.5, amount_min = 4, amount_max = 8}
       },
     },
     
@@ -542,49 +545,73 @@ data:extend
       probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
       local_expressions =
       {
-        multiplier = 0.4 * 0.2,
+        multiplier = 0.4 * 0.25,
         penalty = 1.4,
         region_box = "range_select_base(moisture, 0.35, 1, 0.2, -10, 0)",
         control = "control:rocks:size"
       }
     },
-    animations =
+
+    lower_pictures =
+        {
+          filename = "__rubia__/graphics/entity/remnants/train-stop-base-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
+          line_length = 1,
+          width = 486,
+          height = 454,
+          shift = util.by_pixel(4.5, 13.5),
+          variation_count = 4,
+          scale = 0.5,
+          --tint = minable_item_tint
+        },
+      pictures = 
+      {
+        filename = "__rubia__/graphics/entity/remnants/train-stop-top-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
+        line_length = 1,
+        width = 136,
+        height = 254,
+        shift = util.by_pixel(1.5, -38),
+        variation_count = 4,
+        scale = 0.5,
+        --tint = {r=1, g=0.7, b=0.6, a=1}-- Needs a unique tint to be visible. Not just minable_item_tint
+      }
+
+    --[[animations =
     {
       layers =
       {
         {
-          filename = "__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
+          filename = "__rubia__/graphics/entity/remnants/train-stop-base-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
           line_length = 1,
           width = 486,
           height = 454,
           shift = util.by_pixel(4.5, 13.5),
           direction_count = 4,
           scale = 0.5,
-          tint = minable_item_tint
+          --tint = minable_item_tint
         },
         {
           priority = "low",
-          filename = "__base__/graphics/entity/train-stop/remnants/mask/train-stop-base-remnants-mask.png",
+          filename = "__rubia__/graphics/entity/remnants/train-stop-base-remnants-mask.png",--"__base__/graphics/entity/train-stop/remnants/mask/train-stop-base-remnants-mask.png",
           width = 284,
           height = 214,
-          apply_runtime_tint = true,
+          --apply_runtime_tint = true,
           direction_count = 4,
           shift = util.by_pixel(-1, 0.5),
           scale = 0.5,
-          tint = minable_item_tint
+          --tint = minable_item_tint
         },
         {
-          filename = "__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
+          filename = "__rubia__/graphics/entity/remnants/train-stop-top-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
           line_length = 1,
           width = 136,
           height = 254,
           shift = util.by_pixel(1.5, -38),
           direction_count = 4,
           scale = 0.5,
-          tint = {r=1, g=0.7, b=0.6, a=1}-- Needs a unique tint to be visible. Not just minable_item_tint
+          --tint = {r=1, g=0.7, b=0.6, a=1}-- Needs a unique tint to be visible. Not just minable_item_tint
         }
       }
-    }
+    }]]
   },
 
   {
@@ -614,10 +641,12 @@ data:extend
       {
         {type = "item", name = "iron-gear-wheel", amount_min = 2, amount_max = 4},
         {type = "item", name = "iron-gear-wheel", probability=0.2, amount_min = 35, amount_max = 50},
+        {type = "item", name = "iron-plate", probability=0.4, amount_min = 30, amount_max = 50},
+        {type = "item", name = "firearm-magazine", probability=0.3, amount_min = 20, amount_max = 40},
+        {type = "item", name = "copper-cable", probability=0.3, amount_min = 20, amount_max = 40},
         {type = "item", name = "steel-plate", probability=0.1, amount_min = 30, amount_max = 40},
-        {type = "item", name = "iron-plate", probability=0.2, amount_min = 10, amount_max = 20},
-        {type = "item", name = "copper-cable", probability=0.2, amount_min = 20, amount_max = 40},
-        {type = "item", name = "firearm-magazine", probability=0.1, amount_min = 10, amount_max = 20}
+        --{type = "item", name = "pipe", probability=0.1, amount_min = 30, amount_max = 40},
+        --{type = "item", name = "stone-brick", probability=0.3, amount_min = 20, amount_max = 40},
       }
     },
 
@@ -633,7 +662,7 @@ data:extend
       - 2.1 + 1.2 * min(aux, 1 - moisture) + vulcanus_rock_noise - 0.5 * vulcanus_decorative_knockout),\z
       min(0.05, 2 * (vulcanus_ashlands_biome - 0.5)\z
       - 2.3 + 1.2 * min(aux, 1 - moisture) + vulcanus_rock_noise - 0.5 * vulcanus_decorative_knockout)))",
-      local_expressions ={multiplier=0.3}
+      local_expressions ={multiplier=0.3 * 1.3}
     },    
     
     --[[-- medium rocks
@@ -751,7 +780,7 @@ data:extend
       scale = 0.5
     }),
     spritesheet_variations(3, 1,{ --Rocket turret
-    filename = "__rubia__/graphics/entity/rocket-turret-remnants.png",
+    filename = "__rubia__/graphics/entity/remnants/rocket-turret-remnants.png",
     --"__space-age__/graphics/entity/rocket-turret/remnants/rocket-turret-remnants.png",
     --line_length = 1,
     width = 222,
