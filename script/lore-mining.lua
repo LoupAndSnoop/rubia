@@ -9,7 +9,7 @@ local function spoilage_failsafe(entity)
         and entity.surface and entity.surface.name == "rubia" then
         entity.surface.spill_item_stack{
             position = entity.position, 
-            stack = {name="spoilage", count=2},
+            stack = {name="spoilage", count=5},
             enable_looted =true,
             allow_belts = false,
             force = game.forces["player"],

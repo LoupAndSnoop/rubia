@@ -76,7 +76,7 @@ data:extend(
     spoil_ticks = 3 * minute,
     spoil_result = nil,
 },
---Science yeeting
+--[[Science yeeting
 {
   type = "item",
   name = "yeet-makeshift-biorecycling-science-pack",
@@ -157,7 +157,7 @@ data:extend(
   hidden_in_factoriopedia=true,
   auto_recycle=false,
 },
-
+]]
 --#endregion
 --#region Intermediates and raw resources.
     {

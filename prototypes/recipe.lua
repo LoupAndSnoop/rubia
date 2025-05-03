@@ -51,7 +51,6 @@ data:extend({
     type ="recipe",
     name ="makeshift-biorecycling-science-pack",
     category ="biorecycling",
-    --icon ="__rubia__/graphics/icons/makeshift-biorecycling-science-pack.png",
     enabled = false,
 
     ingredients = 
@@ -117,7 +116,7 @@ data:extend({
   },
 
 
-  --Science yeeting
+  --[[Science yeeting
   {
     type = "recipe",
     name = "yeet-makeshift-biorecycling-science-pack",
@@ -177,7 +176,7 @@ data:extend({
   },
   {
     type = "recipe",
-    name = "yeet-biorecycling-science-pack",
+    name = "yeet-spoilage",
     icon = "__rubia__/graphics/icons/science/yeet-spoilage.png",
     icon_size = 64,
     category = "crapapult",
@@ -194,7 +193,26 @@ data:extend({
     auto_recycle=false,
     allow_productivity=false,
   },
-
+  {
+    type = "recipe",
+    name = "yeet-gun-turret",
+    icon = "__rubia__/graphics/icons/science/yeet-gun-turret.png",
+    icon_size = 64,
+    category = "crapapult",
+    enabled = true,
+    hidden_in_factoriopedia = true,
+    hide_from_player_crafting = true,
+    hide_from_signal_gui = true,
+    hidden = true,
+    energy_required = 0.1,
+    ingredients = {{ type = "item", name = "gun-turret", amount = 1 }},
+    results = {{ type = "item", name = "yeet-gun-turret", amount = 1 }},
+    subgroup = "yeeting-items",
+    order = "zz[yeet]",
+    auto_recycle=false,
+    allow_productivity=false,
+  },
+  --]]
 
   --#endregion
 --#region Biorecycling Stage 1- Early Rubia
@@ -232,7 +250,7 @@ data:extend({
     surface_conditions = rubia.surface_conditions(),
     energy_required = 3,
     results = {
-      {type ="item", name ="firearm-magazine", amount = 8},
+      {type ="item", name ="firearm-magazine", amount = 6},
       {type ="item", name ="copper-cable", amount = 1},--, probability=0.5},
     },
     allow_productivity = true,

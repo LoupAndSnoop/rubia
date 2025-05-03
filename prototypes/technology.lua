@@ -81,8 +81,8 @@ data:extend({
         {
             {type = "unlock-recipe", recipe = "biorecycling-plant"},
             {type = "unlock-recipe", recipe = "crapapult"},
-            {type = "unlock-recipe", recipe = "alt-gun-turret"},
-            {type = "unlock-recipe", recipe = "rubia-sniper-turret"}, -- TODO Shift?
+            --{type = "unlock-recipe", recipe = "alt-gun-turret"},
+            --{type = "unlock-recipe", recipe = "rubia-sniper-turret"}, -- TODO Shift?
             {type = "unlock-recipe", recipe = "rubia-wind-turbine"},
 
             {type = "unlock-recipe", recipe = "rubia-bacteria-A"},
@@ -125,7 +125,7 @@ data:extend({
             
             {type = "unlock-recipe", recipe = "ghetto-biorecycling-science-pack"},
         },
-        prerequisites = { "rubia-progression-stage1"},--, "rubia-progression-stage1-machines"},
+        prerequisites = { "rubia-progression-stage1"},
         research_trigger = {type = "craft-item", item="yeet-makeshift-biorecycling-science-pack", count=1000},
     },
 
@@ -139,7 +139,19 @@ data:extend({
             {type = "unlock-recipe", recipe = "biorecycle-scrapapalooza"},
         },
         prerequisites = { "rubia-progression-stage1"},
-        research_trigger = {type = "craft-item", item="yeet-spoilage", count=2},
+        research_trigger = {type = "craft-item", item="yeet-spoilage", count=3},
+    },
+    {
+        type = "technology",
+        name = "rubia-sniper-turret",
+        icon = "__rubia__/graphics/technology/sniper-turret.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "unlock-recipe", recipe = "rubia-sniper-turret"},
+        },
+        prerequisites = { "rubia-progression-stage1"},
+        research_trigger = {type = "craft-item", item="yeet-gun-turret", count=1000},
     },
 
 

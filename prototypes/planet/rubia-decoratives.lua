@@ -445,7 +445,7 @@ data:extend
         {type = "item", name = "electric-furnace", probability=0.4, amount_min = 1, amount_max = 3},
         --Fun/helpful drops
         {type = "item", name = "fast-inserter", probability = 0.1, amount_min = 20, amount_max = 25},
-        {type = "item", name = "fast-transport-belt", probability = 0.2, amount_min = 50, amount_max = 65},
+        {type = "item", name = "fast-transport-belt", probability = 0.25, amount_min = 50, amount_max = 65},
         {type = "item", name = "underground-belt", probability = 0.069, amount_min = 20, amount_max = 30},
         {type = "item", name = "express-splitter", probability = 0.1, amount_min = 8, amount_max = 12},
         {type = "item", name = "pipe-to-ground", probability = 0.1, amount_min = 16, amount_max = 32},
