@@ -55,19 +55,19 @@ data:extend({
     type = "sound",
     name = "rubia-cutscene-siren1",
     priority = 5,
-    filename = "__rubia__/sounds/alarm-siren-sound-effect-type-01-ribhav-agrawal-trim.ogg",
+    filename = "__rubia__/sounds/alarms/alarm-siren-sound-effect-type-01-ribhav-agrawal-trim.ogg",
   },
   {
     type = "sound",
     name = "rubia-cutscene-siren2",
     priority = 6,
-    filename = "__rubia__/sounds/alarm-siren-sound-effect-type-03-ribhav-agrawal-trim.ogg",
+    filename = "__rubia__/sounds/alarms/alarm-siren-sound-effect-type-03-ribhav-agrawal-trim.ogg",
   },
   {
     type = "sound",
     name = "rubia-cutscene-siren3",
     priority = 7,
-    filename = "__rubia__/sounds/facility-siren-loopable-freesound.ogg",
+    filename = "__rubia__/sounds/alarms/facility-siren-loopable-freesound.ogg",
   },
   {
     type = "sound",

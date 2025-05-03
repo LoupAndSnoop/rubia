@@ -617,9 +617,9 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
   ingredients = {
-      { type = "item", name = "iron-plate", amount = 10},
-      { type = "item", name = "steel-plate", amount = 10}, 
-      { type = "item", name = "iron-gear-wheel", amount = 10}, 
+        {type = "item", name = "processing-unit", amount = 20},
+        {type = "item", name = "steel-plate", amount = 10},
+        {type = "item", name = "gun-turret", amount = 1},
   },
   results = {{
       type = "item", name = "rubia-sniper-turret", amount = 1
@@ -749,14 +749,15 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
   results = {
-    {type = "item", name = "gun-turret", probability=0.3, amount = 1},
+    {type = "item", name = "gun-turret", probability=0.5, amount = 2},
     {type = "item", name = "electric-furnace", probability=0.1, amount = 1},
     {type = "item", name = "fast-inserter", probability = 0.1, amount = 1},
-    {type = "item", name = "fast-transport-belt", probability = 0.15, amount = 10},
+    {type = "item", name = "fast-transport-belt", probability = 0.15, amount = 8},
     {type = "item", name = "underground-belt", probability = 0.1, amount = 2},
     {type = "item", name = "express-splitter", probability = 0.1, amount = 1},
     {type = "item", name = "pipe-to-ground", probability = 0.1, amount = 2},
     {type = "item", name = "assembling-machine-2", probability = 0.1, amount = 1},
+    {type = "item", name = "chemical-plant", probability = 0.2, amount = 1},
   },
   allow_productivity = false,
   --allow_quality = false,

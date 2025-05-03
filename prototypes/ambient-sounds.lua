@@ -2,8 +2,8 @@
 --Accessibility options for people with a disability.
 local bad_taste_mode = settings.startup["disable-ai-music"].value
 local recycle_track
-if bad_taste_mode then recycle_track = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1}
-else recycle_track = {filename = "__rubia__/sounds/RecycleThatCrap-v2.ogg", volume=0.8} end
+if bad_taste_mode then recycle_track = {filename = "__rubia__/sounds/ambient/JunkyardTribe.ogg", volume = 1}
+else recycle_track = {filename = "__rubia__/sounds/ambient/RecycleThatCrap-v2.ogg", volume=0.8} end
 
 data:extend(
 {
@@ -12,7 +12,7 @@ data:extend(
         name = "rubia-hero",
         track_type = "hero-track",
         planet = "rubia",
-        sound = {filename = "__rubia__/sounds/JunkyardTribe.ogg", volume = 1},
+        sound = {filename = "__rubia__/sounds/ambient/JunkyardTribe.ogg", volume = 1},
     },
     {
         type = "ambient-sound",
@@ -20,7 +20,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound = {
-            filename = "__rubia__/sounds/JunkyardTribe.ogg",--"__space-age__/sound/ambient/fulgora/fulgora-1.ogg",
+            filename = "__rubia__/sounds/ambient/JunkyardTribe.ogg",--"__space-age__/sound/ambient/fulgora/fulgora-1.ogg",
             volume = 1,
         },
         weight = 10
@@ -31,7 +31,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound = {
-            filename = "__rubia__/sounds/cyberpunk-ambient-music-SoulSerenityAmbience.ogg",
+            filename = "__rubia__/sounds/ambient/cyberpunk-ambient-music-SoulSerenityAmbience.ogg",
             volume = 0.35,
         },
         weight = 10
@@ -42,7 +42,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound = {
-            filename = "__rubia__/sounds/cathedral-of-rusted-cars-DSTechnician.ogg",
+            filename = "__rubia__/sounds/ambient/cathedral-of-rusted-cars-DSTechnician.ogg",
             volume = 1,
         },
         weight = 10
@@ -52,7 +52,7 @@ data:extend(
         name = "rubia-4",
         track_type = "main-track",
         planet = "rubia",
-        sound = {filename = "__rubia__/sounds/dark-ambient-background-music-highway-LFC_records.ogg",
+        sound = {filename = "__rubia__/sounds/ambient/dark-ambient-background-music-highway-LFC_records.ogg",
             volume =1 },
         weight = 10
     },
@@ -61,7 +61,7 @@ data:extend(
         name = "rubia-5",
         track_type = "main-track",
         planet = "rubia",
-        sound =  {filename = "__rubia__/sounds/dark-hybrid-glitch-ambient-DenElbriggs.ogg",
+        sound =  {filename = "__rubia__/sounds/ambient/dark-hybrid-glitch-ambient-DenElbriggs.ogg",
             volume =1 },
         weight = 10
     },
@@ -70,7 +70,7 @@ data:extend(
         name = "rubia-6",
         track_type = "main-track",
         planet = "rubia",
-        sound =  {filename = "__rubia__/sounds/dark-matter-dark-space-ambient-natures_eye.ogg",
+        sound =  {filename = "__rubia__/sounds/ambient/dark-matter-dark-space-ambient-natures_eye.ogg",
             volume =1 },
         weight = 10
     },
@@ -79,7 +79,7 @@ data:extend(
         name = "rubia-7",
         track_type = "main-track",
         planet = "rubia",
-        sound =  {filename = "__rubia__/sounds/sinius-shale-and-cinder-dark-ambient-music.ogg",
+        sound =  {filename = "__rubia__/sounds/ambient/sinius-shale-and-cinder-dark-ambient-music.ogg",
             volume =1 },
         weight = 10
     },
@@ -88,7 +88,7 @@ data:extend(
         name = "rubia-8",
         track_type = "main-track",
         planet = "rubia", --Duplicated. We have room for one more
-        sound =  {filename = "__rubia__/sounds/sinius-shale-and-cinder-dark-ambient-music.ogg",
+        sound =  {filename = "__rubia__/sounds/ambient/sinius-shale-and-cinder-dark-ambient-music.ogg",
             volume =1 },
         weight = 10
     },

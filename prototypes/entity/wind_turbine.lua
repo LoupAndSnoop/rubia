@@ -145,22 +145,22 @@ data:extend({entity})
 ---------------------------------------------------------------------------------------------------
 -- WIND TURBINE
 ---------------------------------------------------------------------------------------------------
-
+--[[
 local item = {
   type = "item",
-  name = TURBINE_NAME,
-  icon = GRAPHICS_PATH .. "icons/k2-wind-turbine.png",
+  name = "rubia-wind-turbine",
+  icon = "__rubia__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
   icon_size = 64,
   subgroup = "energy",
-  stack_size = 50,
+  stack_size = 40,
   --order = "a[energy-source]-a[wind-turbine]",
-  place_result = TURBINE_NAME,
-  weight = 20*kg,
+  place_result = "rubia-wind-turbine",
+  weight = 20*kg * 1000,
   factoriopedia_description="Converts wind power to electricity. Power scales with quality."
 }
 
 --|FINAL DATA WRITE|-------------------------------------------------------------------------------
-data:extend({item})
+data:extend({item})]]
 
 ---------------------------------------------------------------------------------------------------
 

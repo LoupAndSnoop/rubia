@@ -296,7 +296,18 @@ data:extend(
       weight = 1000*kg,
       place_result = "garbo-gatherer"
   },
-
+  {
+    type = "item",
+    name = "rubia-wind-turbine",
+    icon = "__rubia__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
+    icon_size = 64,
+    subgroup = "energy",
+    stack_size = 40,
+    order = "a[energy-source]-a[wind-turbine]",
+    place_result = "rubia-wind-turbine",
+    weight = 20*kg * 1000,
+    --factoriopedia_description="Converts wind power to electricity. Power scales with quality."
+  },
   {
     type = "item",
     name = "biorecycling-plant",

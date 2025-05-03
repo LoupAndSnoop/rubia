@@ -46,7 +46,8 @@ local crapapult_base_animation ={layers={
         shift = { -0.015625, 0.140625},
         width = 202
         },
-    {
+        --[[
+    {--This is a working sprite for the stationary head. Keep this if we want to change to a different method later.
     filename = "__rubia__/graphics/entity/crapapult/crapapult-head.png",
     priority = "high",
     width = 220,
@@ -55,7 +56,7 @@ local crapapult_base_animation ={layers={
     animation_speed = 0.5,
     shift = util.by_pixel(20, -40),--util.by_pixel(-27, -60),
     scale = 0.5 * size/3,
-    },
+    },]]
     {
     filename = "__rubia__/graphics/entity/crapapult/crapapult-base-shadow.png",
     frame_count = 1,
@@ -67,6 +68,35 @@ local crapapult_base_animation ={layers={
     draw_as_shadow = true,
     }
 }}
+
+--Returns the animation
+local function cannon_turret_sheet()
+  return {
+      layers = {
+        { --Animation of initial turret was defined for different angles. New animation is the same frames for it turning back and forth.
+          filename = "__rubia__/graphics/entity/crapapult/crapapult-head-anim.png",
+          priority = "high",
+          scale = 0.75,
+          width = 378, height = 280,
+          frame_count = 16,
+          line_length = 4,
+          axially_symmetrical = false,
+          --run_mode = "forward-then-backward",
+          shift = util.by_pixel(7 - 3, -71),
+          animation_speed = 0.05,
+          
+          run_mode = "forward",
+          --Back and forth, but starting from middle
+          --frame_sequence = {11,12,13,14,15,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9,10},
+          --Back and forth, starting from middle, but throw some back and forth in the middle
+          frame_sequence = {11,12,13,13,12,11,11,11,11,12,12,12,11,10,11,12,13,14,15,16,
+              15,14,14,14,13,12,11,11,11,12,11,10,9,8,7,6,6,6,7,8,9,9,9,9,8,7,6,5,4,3,2,1,2,3,3,3,3,4,5,6,7,7,7,6,5,5,5,6,7,8,9,10,10,10},
+      }
+    }
+  }
+end
+
+
 
 local circuit_x, circuit_y = -21-15, 1+10
 local circuit_sx, circuit_sy = -12-15, 10+10
@@ -182,95 +212,12 @@ data:extend({
         graphics_set =
         {
           animation = crapapult_base_animation,
-          --[[
-          working_visualisations =
-          {
+          working_visualisations = {
             {
-              fadeout = true,
-              animation =
-              {
-                layers =
-                {
-                  {
-                    filename = "__base__/graphics/entity/electric-furnace/electric-furnace-heater.png",
-                    priority = "high",
-                    width = 60,
-                    height = 56,
-                    frame_count = 12,
-                    animation_speed = 0.5,
-                    draw_as_glow = true,
-                    shift = util.by_pixel(1.75, 32.75),
-                    scale = 0.5
-                  },
-                  {
-                    filename = "__base__/graphics/entity/electric-furnace/electric-furnace-light.png",
-                    blend_mode = "additive",
-                    width = 202,
-                    height = 202,
-                    repeat_count = 12,
-                    draw_as_glow = true,
-                    shift = util.by_pixel(1, 0),
-                    scale = 0.5,
-                  },
-                }
-              },
+              fadeout = false, always_draw = true,
+              animation = cannon_turret_sheet{}
             },
-            {
-              fadeout = true,
-              animation =
-              {
-                filename = "__base__/graphics/entity/electric-furnace/electric-furnace-ground-light.png",
-                blend_mode = "additive",
-                width = 166,
-                height = 124,
-                draw_as_light = true,
-                shift = util.by_pixel(3, 69),
-                scale = 0.5,
-              },
-            },
-            {
-              animation =
-              {
-                filename = "__base__/graphics/entity/electric-furnace/electric-furnace-propeller-1.png",
-                priority = "high",
-                width = 37,
-                height = 25,
-                frame_count = 4,
-                animation_speed = 0.5,
-                shift = util.by_pixel(-20.5, -18.5),
-                scale = 0.5
-              }
-            },
-            {
-              animation =
-              {
-                filename = "__base__/graphics/entity/electric-furnace/electric-furnace-propeller-2.png",
-                priority = "high",
-                width = 23,
-                height = 15,
-                frame_count = 4,
-                animation_speed = 0.5,
-                shift = util.by_pixel(3.5, -38),
-                scale = 0.5
-              }
-            }
-          },]]
-          --[[
-          water_reflection =
-          {
-            pictures =
-            {
-              filename = "__base__/graphics/entity/electric-furnace/electric-furnace-reflection.png",
-              priority = "extra-high",
-              width = 24,
-              height = 24,
-              shift = util.by_pixel(5, 40),
-              variation_count = 1,
-              scale = 5
-            },
-            rotate = false,
-            orientation_to_variation = false
-          }]]
+          }
         }
       },
 
