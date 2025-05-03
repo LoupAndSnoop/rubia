@@ -5,25 +5,22 @@ local rubia_wind = {}
 --#region Notifications
 --Give a notice that an entity's config was changed. Input player index
 local function wind_correction_notification(entity, player_index)
+    if not player_index then return end --No player, no notice.
     local player = game.get_player(player_index)
     if not player then return end --No player, no notice.
     player.create_local_flying_text({text = {"alert.wind_correction_notification"}, position= entity.position, surface=player.surface})
-    player.play_sound{
-        path="utility/rotated_large",
-        position=player.position,
-        volume_modifier=1
-    }
+    player.play_sound{path="utility/rotated_large", position=player.position, volume_modifier=1}
+    player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
 end
 
 --Give notice that the wind blocked the placement of an entity. Input the player index
 local function wind_block_notification(entity, player_index)
+    if not player_index then return end --No player, no notice.
     local player = game.get_player(player_index)
+    if not player then return end --No player, no notice.
     player.create_local_flying_text({text = {"alert.wind_block_notification"}, position= entity.position, surface=player.surface})
-    player.play_sound{
-        path="utility/cannot_build",
-        position=player.position,
-        volume_modifier=1
-    }
+    player.play_sound{path="utility/cannot_build", position=player.position, volume_modifier=1}
+    player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
 end
 --#endregion
 
@@ -57,6 +54,7 @@ end
 --Wind mechanic: Restricting the directions of specific items. Entity passed in could be invalid.
 --Code modified from Nancy B + Exfret the wise.
 --Thanks to CodeGreen, for help sorting out horizontal splitters
+--Warning: Player index could be nil
 rubia_wind.wind_rotation = function(entity, player_index)
     --game.print(entity.type)
 
@@ -85,8 +83,8 @@ rubia_wind.wind_rotation = function(entity, player_index)
     --Do not allow to go left.
     elseif (entity_type == "transport-belt" or (entity_type == "mining-drill" and entity.prototype.name ~= "pumpjack")) 
             and entity.direction == defines.direction.west then
-        entity.rotate()
         entity.rotate(); wind_correction_notification(entity, player_index)
+        
     elseif entity_type == "splitter" then
         if entity.direction == defines.direction.east then do return end
         elseif entity.direction == defines.direction.west then
@@ -96,13 +94,9 @@ rubia_wind.wind_rotation = function(entity, player_index)
             if entity.type == "entity-ghost" then entity.mine()
             else 
                 wind_block_notification(entity, player_index)
-                local player = game.get_player(player_index)
-                player.mine_entity(entity, true)
-                --[[player.play_sound{
-                    path="utility/cannot_build",
-                    position=player.position,
-                    volume_modifier=1
-                }]]
+                if player_index then game.get_player(player_index).mine_entity(entity, true) 
+                else error("splitter going down wouldn't get mined!")
+                end
             end
         end
     end

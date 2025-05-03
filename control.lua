@@ -89,20 +89,27 @@ local function do_on_built_changes(event)
   entity_swap.try_entity_swap(event)
   if not event.entity.valid or event.entity.surface.name ~= "rubia" then return end
 
-  rubia_wind.wind_rotation(event.entity, event.player_index)  
+  --Consolidate robot/player events
+  local player_index = event.player_index
+  if not player_index and event.robot and event.robot.valid then
+    local cell = event.robot.logistic_cell
+    local owner = cell and cell.owner
+    player_index = owner and owner.is_player() and owner.player.player_index
+  end
+
+  rubia_wind.wind_rotation(event.entity, player_index)  
   quality_correct_wind_turbine(event.entity)
   chunk_checker.register_new_entity(event.entity)
 end
 
 script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
-  defines.events.script_raised_built, defines.events.script_raised_revive}, function(event)
+  defines.events.script_raised_built, defines.events.script_raised_revive}, function(event) 
   do_on_built_changes(event)
 end)
 
 
 script.on_event(defines.events.on_object_destroyed, function(event)
   chunk_checker.delist_entity(event.registration_number)
-
 end)
 
 -- Special cases for mods that do adjustment events for adjustable inserters
@@ -189,7 +196,6 @@ script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_
   lore_mining.try_lore_when_mined(event.entity)
 
 end)
-
 
 --[[Protect collectors from having items added to them
 script.on_event(defines.events.on_player_fast_transferred, function(event)

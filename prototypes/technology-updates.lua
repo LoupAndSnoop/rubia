@@ -23,20 +23,23 @@ for _, index in pairs({1,2,3,4,5,6,7,8,9}) do
     end
 end
 
---[[Cerys
-if data.raw.technology["holmium-plate-productivity-1"] then
-    table.insert(data.raw.technology["holmium-plate-productivity-1"].effects, {
-        type = "change-recipe-productivity",
-        recipe = "holmium-craptalysis",
-        change = 0.1,
-        hidden = true
-    })
+
+--Cerys
+if mods["Cerys-Moon-of-Fulgora"] then
+    if data.raw.technology["holmium-plate-productivity-1"] then
+        table.insert(data.raw.technology["holmium-plate-productivity-1"].effects, {
+            type = "change-recipe-productivity",
+            recipe = "holmium-craptalysis",
+            change = 0.1,
+            hidden = true
+        })
+    end
+    if data.raw.technology["holmium-plate-productivity-2"] then
+        table.insert(data.raw.technology["holmium-plate-productivity-2"].effects, {
+            type = "change-recipe-productivity",
+            recipe = "holmium-craptalysis",
+            change = 0.1,
+            hidden = true
+        })
+    end
 end
-if data.raw.technology["holmium-plate-productivity-2"] then
-    table.insert(data.raw.technology["holmium-plate-productivity-2"].effects, {
-        type = "change-recipe-productivity",
-        recipe = "holmium-craptalysis",
-        change = 0.1,
-        hidden = true
-    })
-end]]

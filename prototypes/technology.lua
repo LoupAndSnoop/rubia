@@ -57,7 +57,8 @@ data:extend({
                 use_icon_overlay_constant = true
             },
         },
-        prerequisites = { "space-platform-thruster", "energy-shield-equipment", "electric-energy-distribution-1"},
+        prerequisites = { "space-platform-thruster", "energy-shield-equipment", 
+            "electric-energy-distribution-1", "railway"},
         unit =
         {
             count = 1000,
@@ -119,6 +120,7 @@ data:extend({
         essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "rubia-bacteria-B"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-cupric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-cupric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-engine"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-processing-unit"},
@@ -163,7 +165,7 @@ data:extend({
         essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "garbo-gatherer"},
-            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-ferric-scrap"},
+            --{type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-ferric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-rail"},
         },
         prerequisites = { "rubia-progression-stage2"},

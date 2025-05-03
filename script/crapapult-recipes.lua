@@ -13,11 +13,6 @@ local internal_blacklist = {
     "makeshift-biorecycling-science-pack",
     "spoilage",
     "gun-turret",
-
-    --[["yeet-biorecycling-science-pack",
-    "yeet-ghetto-biorecycling-science-pack",
-    "yeet-makeshift-biorecycling-science-pack",
-    "yeet-spoilage",]]
 }
 --Make the yeet- variants
 local yeet_variants = {}
@@ -97,7 +92,8 @@ crapapult.category_list =
   "module",
   "armor",
   "mining-tool",
-  "repair-tool"
+  "repair-tool",
+  "rail-planner",
 }
 for _, c in pairs(crapapult.category_list) do
   if data.raw[c] then
@@ -108,7 +104,7 @@ for _, c in pairs(crapapult.category_list) do
 end
 --#endregion
 
---Special crapapult recipes
+--#region Special crapapult recipes
 
 --Special yeeting recipes. Make a special item/recipe automatically for items
 --specially marked to be yoten
@@ -171,3 +167,4 @@ data.extend(special_yeet_recipe("ghetto-biorecycling-science-pack","__rubia__/gr
 data.extend(special_yeet_recipe("biorecycling-science-pack","__rubia__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png"))
 data.extend(special_yeet_recipe("spoilage","__rubia__/graphics/icons/science/yeet-spoilage.png"))
 data.extend(special_yeet_recipe("gun-turret","__rubia__/graphics/icons/science/yeet-gun-turret.png"))
+--#endregion

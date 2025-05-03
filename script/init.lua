@@ -37,7 +37,10 @@ end
 
 
 script.on_init(rubia.hard_initialize)
-script.on_configuration_changed(rubia.hard_initialize)
+script.on_configuration_changed(function()
+    rubia.hard_initialize()
+    rubia.check_disable_temporary_science_recipes()
+end)
 
 --[[script.on_init(function()
     local player = game.forces["player"]

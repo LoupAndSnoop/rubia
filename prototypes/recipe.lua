@@ -297,6 +297,7 @@ data:extend({
   main_product ="rubia-bacteria-B",
   crafting_machine_tint = crafting_machine_tint_blue,
 },
+
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-cupric-scrap",
@@ -309,13 +310,58 @@ data:extend({
     {type ="item", name ="rubia-cupric-scrap", amount = 1},
   },
   surface_conditions = rubia.surface_conditions(),
+  energy_required = 3,
+  results = {
+    {type ="item", name ="rail", amount = 4},
+    --{type ="item", name ="fast-transport-belt", amount = 2}, --TODO: Figure out?
+    {type ="item", name ="piercing-rounds-magazine", amount = 2},
+  },
+  allow_productivity = true,
+  crafting_machine_tint = crafting_machine_tint_blue,
+},
+
+--[[{
+  type ="recipe",
+  name ="biorecycle-bacteria-A-cupric-scrap",
+  --icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-B.png", --TODO
+  category ="biorecycling",
+  subgroup = "rubia-biorecycling", order = "d[rubia stage2]-b",
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="rubia-bacteria-A", amount = 2},
+    {type ="item", name ="rubia-cupric-scrap", amount = 1},
+  },
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 3,
+  results = {
+    {type ="item", name ="piercing-rounds-magazine", amount = 4},
+    --{type ="item", name ="processing-unit", amount = 10},
+  },
+  allow_productivity = true,
+  crafting_machine_tint = crafting_machine_tint_blue,
+},]]
+
+
+{
+  type ="recipe",
+  name ="biorecycle-bacteria-AB-cupric-scrap",
+  icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-both.png",
+  category ="biorecycling",
+  subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="rubia-bacteria-A", amount = 1},
+    {type ="item", name ="rubia-bacteria-B", amount = 2},
+    {type ="item", name ="rubia-cupric-scrap", amount = 1},
+  },
+  surface_conditions = rubia.surface_conditions(),
   energy_required = 1.5,
   results = {
     {type ="item", name ="engine-unit", amount = 4},
     {type ="item", name ="processing-unit", amount = 10},
   },
   allow_productivity = true,
-  crafting_machine_tint = crafting_machine_tint_blue,
+  crafting_machine_tint = crafting_machine_tint_purple,
 },
 {
   type ="recipe",
@@ -360,7 +406,7 @@ data:extend({
 
 --#endregion
 --#region Biorecycling Stage 3- Final strech before clear
-{
+--[[{
   type ="recipe",
   name ="biorecycle-bacteria-AB-ferric-scrap",
   icon = "__rubia__/graphics/icons/recipes/scrap-blue+bacteria-both.png",
@@ -381,7 +427,7 @@ data:extend({
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_purple,
-},
+},]]
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-rail",
@@ -703,10 +749,10 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
   results = {
-    {type = "item", name = "gun-turret", probability=0.1, amount = 1},
+    {type = "item", name = "gun-turret", probability=0.3, amount = 1},
     {type = "item", name = "electric-furnace", probability=0.1, amount = 1},
     {type = "item", name = "fast-inserter", probability = 0.1, amount = 1},
-    {type = "item", name = "fast-transport-belt", probability = 0.1, amount = 10},
+    {type = "item", name = "fast-transport-belt", probability = 0.15, amount = 10},
     {type = "item", name = "underground-belt", probability = 0.1, amount = 2},
     {type = "item", name = "express-splitter", probability = 0.1, amount = 1},
     {type = "item", name = "pipe-to-ground", probability = 0.1, amount = 2},

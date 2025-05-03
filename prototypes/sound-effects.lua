@@ -5,14 +5,39 @@
 data.raw["utility-sounds"]["default"].default_driving_sound.sound.volume = 0.6 * 0.1
 --   /c game.print(helpers.is_valid_sound_path( ))
 
---Return a simple sound object with standardized settings
-local std_sound = function(path, volume)
+--Return a simple sound object with standardized settings for cutscene
+local std_cutscene_sound = function(path, volume)
   return {filename = path, volume=volume or 1,
   --min_volume=0.01, 
   min_speed=0.5, max_speed = 3,}
 end
+--Standard sound for SFX
+local std_sfx_sound = function(path, volume)
+  return {filename = path, volume=volume or 1,
+  min_speed=0.7, max_speed = 1.3,}
+end
+
 
 data:extend({
+
+  {
+    type = "sound",
+    name = "rubia-wind-short1",
+    variations = {
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-1.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-2.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-3.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-4.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-5.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-6.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-7.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-8.ogg"),
+      std_sfx_sound("__rubia__/sounds/wind/loup-wind-9.ogg"),
+    }
+  },
+
+
+  --#region Cutscene
   {
     type = "sound",
     name = "rubia-cutscene-crash",
@@ -61,44 +86,45 @@ data:extend({
     type = "sound",
     name = "rubia-cutscene-metal-impact",
     variations = {
-      std_sound("__base__/sound/car-metal-impact-1.ogg",0.5),
-      std_sound("__base__/sound/car-metal-impact-2.ogg",0.8),
-      std_sound("__base__/sound/car-metal-impact-3.ogg",0.6),
-      std_sound("__base__/sound/car-metal-impact-4.ogg",0.7),
-      std_sound("__base__/sound/car-metal-impact-5.ogg",0.5),
-      std_sound("__base__/sound/car-metal-impact-6.ogg",0.5),
+      std_cutscene_sound("__base__/sound/car-metal-impact-1.ogg",0.5),
+      std_cutscene_sound("__base__/sound/car-metal-impact-2.ogg",0.8),
+      std_cutscene_sound("__base__/sound/car-metal-impact-3.ogg",0.6),
+      std_cutscene_sound("__base__/sound/car-metal-impact-4.ogg",0.7),
+      std_cutscene_sound("__base__/sound/car-metal-impact-5.ogg",0.5),
+      std_cutscene_sound("__base__/sound/car-metal-impact-6.ogg",0.5),
     }
   },
   {
     type = "sound",
     name = "rubia-cutscene-large-impact",
     variations = {
-      std_sound("__base__/sound/car-metal-large-impact-1.ogg"),
-      std_sound("__base__/sound/car-metal-large-impact-2.ogg"),
-      std_sound("__base__/sound/car-metal-large-impact-3.ogg"),
-      std_sound("__base__/sound/car-metal-large-impact-4.ogg"),
-      std_sound("__base__/sound/car-metal-large-impact-5.ogg"),
+      std_cutscene_sound("__base__/sound/car-metal-large-impact-1.ogg"),
+      std_cutscene_sound("__base__/sound/car-metal-large-impact-2.ogg"),
+      std_cutscene_sound("__base__/sound/car-metal-large-impact-3.ogg"),
+      std_cutscene_sound("__base__/sound/car-metal-large-impact-4.ogg"),
+      std_cutscene_sound("__base__/sound/car-metal-large-impact-5.ogg"),
     }
   },
   {
     type = "sound",
     name = "rubia-cutscene-longer-woosh",
     variations = {
-      std_sound("__base__/sound/particles/car-debris-3.ogg"),
-      std_sound("__base__/sound/particles/car-debris-5.ogg"),
+      std_cutscene_sound("__base__/sound/particles/car-debris-3.ogg"),
+      std_cutscene_sound("__base__/sound/particles/car-debris-5.ogg"),
     }
   },
   {
     type = "sound",
     name = "rubia-cutscene-bullet-impact",
     variations = {
-      std_sound("__base__/sound/bullets/bullet-impact-metal-large-1.ogg"),
-      std_sound("__base__/sound/bullets/bullet-impact-metal-large-2.ogg"),
-      std_sound("__base__/sound/bullets/bullet-impact-metal-large-3.ogg"),
-      std_sound("__base__/sound/bullets/bullet-impact-metal-large-4.ogg"),
-      std_sound("__base__/sound/bullets/bullet-impact-metal-large-5.ogg"),
+      std_cutscene_sound("__base__/sound/bullets/bullet-impact-metal-large-1.ogg"),
+      std_cutscene_sound("__base__/sound/bullets/bullet-impact-metal-large-2.ogg"),
+      std_cutscene_sound("__base__/sound/bullets/bullet-impact-metal-large-3.ogg"),
+      std_cutscene_sound("__base__/sound/bullets/bullet-impact-metal-large-4.ogg"),
+      std_cutscene_sound("__base__/sound/bullets/bullet-impact-metal-large-5.ogg"),
     }
   },
+  --#endregion
 })
 
 --[[data.raw["utility-sounds"]["default"].default_driving_sound = {
