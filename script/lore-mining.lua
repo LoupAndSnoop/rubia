@@ -3,14 +3,30 @@ local lore_mining = {}
 local lore_color = {r=0.2,g=0.9,b=0.9,a=1} --Color of lore text
 
 
+--If we mined a lot of spidertron remnants, do this to ensure player gets what they need.
+local function spoilage_failsafe(entity)
+    if entity and entity.valid and entity.name == "rubia-spidertron-remnants"
+        and entity.surface and entity.surface.name == "rubia" then
+        entity.surface.spill_item_stack{
+            position = entity.position, 
+            stack = {name="spoilage", count=2},
+            enable_looted =true,
+            allow_belts = false,
+            force = game.forces["player"],
+        }
+    end
+end
+
 
 --"Drop table" for lore, detailing the entity, the count, and which piece of lore to read
+--execute = function to execute when this entity is mined.
 local lore_drop_table ={
     ["rubia-spidertron-remnants"] = {
         {count = 4, string = "rubia-lore.spidertron-mine-part1"},
         {count = 6, string = "rubia-lore.spidertron-mine-part2"},
         {count = 8, string = "rubia-lore.spidertron-mine-part3"},
         {count = 20, string = "rubia-lore.spidertron-mine-part4"},
+        {count = 50, execute = spoilage_failsafe}
     },
     ["rubia-pole-remnants"] = {
         {count = 2, string = "rubia-lore.train-stop-mine-part1"},
@@ -54,8 +70,11 @@ lore_mining.try_lore_when_mined = function(entity)
     storage.rubia_mined_lore_entities[prototype_name] = new_count
     --Check to give lore
     for _, entry in pairs(lore_drop_table[prototype_name]) do
-        if new_count == entry.count then
-            game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string}},{color=lore_color})
+        if new_count == entry.count then --Time to trigger
+            if entry.string then 
+                game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string}},{color=lore_color})
+            end
+            if entry.execute then entry.execute(entity) end
             try_lore_achievement()
             return
         end

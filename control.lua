@@ -115,6 +115,16 @@ script.on_event(defines.events.on_gui_closed, function(event)
 
 end)
 
+--QAI events
+if script.active_mods["quick-adjustable-inserters"] then
+  script.on_event({defines.events.on_qai_inserter_direction_changed, 
+      --defines.events.on_qai_inserter_vectors_changed, 
+      defines.events.on_qai_inserter_adjustment_finished}, function(event)
+    rubia_wind.wind_rotation(event.inserter, event.player_index) 
+  end)
+end
+
+
 --[[  local function adjustable_inserter_check(entity)
   --if entity and entity.valid 
     --entity.

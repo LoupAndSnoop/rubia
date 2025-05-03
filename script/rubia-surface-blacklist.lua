@@ -62,6 +62,14 @@ for _, type in pairs(prototype_type_blacklist) do
 end
 
 
+--I need to ban all possible modded recyclers
+for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) do
+    for _, prototype in pairs(data.raw[type_to_check]) do
+        if prototype.crafting_categories and rubia_lib.array_find(prototype.crafting_categories, "recycling") then
+            table.insert(internal_blacklist, {type = "furnace", name= prototype.name})
+        end
+    end
+end
 
 
 --Apply Blacklist to make a dictionary

@@ -317,9 +317,13 @@ rubia.timing_manager.register("cutscene-roboport-failsafe", function(player, cha
 
     local inventory = player.get_inventory(defines.inventory.character_main)
     if inventory and inventory.can_insert({name="personal-roboport-equipment", count=1}) then
-        inventory.insert({name="personal-roboport-equipment", count=1})
+        inventory.insert({name="personal-roboport-equipment", count=1, enable_looted=true})
     else
-        character.surface.spill_item_stack(character.position, {name="personal-roboport-equipment", count=1})
+        character.surface.spill_item_stack{
+            position = character.position,
+            stack = {name="personal-roboport-equipment", count=1},
+            enable_looted  = true,
+        }
     end
     rubia.timing_manager.wait_then_do(600, "cutscene-roboport-failsafe-part2", {player, character})
 end)

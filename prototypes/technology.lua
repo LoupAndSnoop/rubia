@@ -17,7 +17,7 @@ cargo_drops_base.effects[1].effect_description = {"modifier-description.operatio
 data:extend({rubia_lib.merge(cargo_drops_base, {
     prerequisites = { "rubia-project-trashdragon" }, -- TODO
     unit = {
-        count = 1000,
+        count = 2000,
         ingredients = {
             { "automation-science-pack", 1 },
             { "logistic-science-pack", 1 },
@@ -126,7 +126,20 @@ data:extend({
             {type = "unlock-recipe", recipe = "ghetto-biorecycling-science-pack"},
         },
         prerequisites = { "rubia-progression-stage1"},--, "rubia-progression-stage1-machines"},
-        research_trigger = {type = "craft-item", item="yeet-makeshift-biorecycling-science-pack", count=100},
+        research_trigger = {type = "craft-item", item="yeet-makeshift-biorecycling-science-pack", count=1000},
+    },
+
+    {
+        type = "technology",
+        name = "rubia-scrapapalooza",
+        icon = "__rubia__/graphics/technology/scrapapalooza.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "unlock-recipe", recipe = "biorecycle-scrapapalooza"},
+        },
+        prerequisites = { "rubia-progression-stage1"},
+        research_trigger = {type = "craft-item", item="yeet-spoilage", count=2},
     },
 
 
@@ -211,7 +224,7 @@ data:extend({
     icon_size = 256,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "craptonite-wall"},},
-    prerequisites = { "rubia-project-trashdragon"},
+    prerequisites = { "rubia-project-trashdragon", "production-science-pack"},
     unit =
     {
         count = 500,
@@ -234,7 +247,7 @@ data:extend({
     icon_size = 256,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "rubia-long-bulk-inserter"},},
-    prerequisites = { "rubia-project-trashdragon"},
+    prerequisites = { "rubia-project-trashdragon", "utility-science-pack"},
     unit =
     {
         count = 1000,
@@ -266,6 +279,27 @@ data:extend({
             { "chemical-science-pack",        1 },
             { "utility-science-pack",    1 },
             { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    }
+},
+{
+    type = "technology",
+    name = "rubia-holmium-craptalysis",
+    icon = "__rubia__/graphics/technology/holmium-craptalysis.png",
+    icon_size = 256,
+    effects = {{type = "unlock-recipe", recipe = "rubia-holmium-craptalysis"},},
+    prerequisites = { "rubia-project-trashdragon", "electromagnetic-science-pack"},
+    unit =
+    {
+        count = 2000,
+        ingredients =
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "electromagnetic-science-pack", 1 },
             { "biorecycling-science-pack",    1 },
         },
         time = 60
@@ -333,6 +367,7 @@ data:extend({
     type = "technology",
     name = "rubia-braking-force-8",
     localised_name = {"technology-name.braking-force"},
+    localised_description = {"technology-description.rubia-braking-force-8"},
     icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
     effects =
     {

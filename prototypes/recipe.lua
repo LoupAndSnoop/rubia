@@ -175,7 +175,25 @@ data:extend({
     auto_recycle=false,
     allow_productivity=false,
   },
-
+  {
+    type = "recipe",
+    name = "yeet-biorecycling-science-pack",
+    icon = "__rubia__/graphics/icons/science/yeet-spoilage.png",
+    icon_size = 64,
+    category = "crapapult",
+    enabled = true,
+    hidden_in_factoriopedia = true,
+    hide_from_player_crafting = true,
+    hide_from_signal_gui = true,
+    hidden = true,
+    energy_required = 0.1,
+    ingredients = {{ type = "item", name = "spoilage", amount = 1 }},
+    results = {{ type = "item", name = "yeet-spoilage", amount = 1 }},
+    subgroup = "yeeting-items",
+    order = "zz[yeet]",
+    auto_recycle=false,
+    allow_productivity=false,
+  },
 
 
   --#endregion
@@ -340,7 +358,8 @@ data:extend({
   energy_required = 3,
   results = {
     {type ="item", name ="rail", amount = 4},
-    {type ="item", name ="fast-transport-belt", amount = 2}, --TODO: Figure out?
+    --{type ="item", name ="fast-transport-belt", amount = 2}, --TODO: Figure out?
+    {type ="item", name ="piercing-rounds-magazine", amount = 2},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_purple,
@@ -472,7 +491,7 @@ data:extend({
     ingredients = {
         --{ type = "item", name = "chemical-plant", amount = 1},
         { type = "item", name = "electronic-circuit", amount = 10}, 
-        { type = "item", name = "steel-plate", amount = 10}, 
+        { type = "item", name = "steel-plate", amount = 8}, 
         { type = "item", name = "iron-gear-wheel", amount = 15}, 
     },
     results = {{
@@ -653,7 +672,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-scrapapalooza",
-  icon = "__rubia__/graphics/icons/recipes/bacteria-AB+elec-engine.png",--TODO
+  icon = "__rubia__/graphics/icons/scrapapalooza.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-e",
   enabled = false,
@@ -731,8 +750,31 @@ data:extend({
       {type = "item", name = "craptonite-frame", amount = 5},
       {type = "item", name = "processing-unit", amount = 5}
     },
-    energy_required = 60,
-    results = {{type="item", name="rubia-efficiency-module4", amount=1}}
+    energy_required = 30,
+    results = {{type="item", name="rubia-efficiency-module4", amount=1}},
+    allow_productivity=false,
+  },
+
+  {
+    type = "recipe",
+    name = "rubia-holmium-craptalysis",
+    icon = "__rubia__/graphics/icons/recipes/holmium-craptalysis.png",
+    --order = "b[new-fluid]-c[fulgora]-a[holmium]-b",
+    subgroup = "fulgora-processes", order = "b[holmium]-b[holmium-solution]-b",
+
+    enabled = false,
+    category ="biorecycling",
+    ingredients =
+    {
+      {type = "item", name = "holmium-ore", amount = 2},
+      {type = "item", name = "stone", amount = 2},
+      {type = "item", name = "craptonite-frame", amount = 3},
+      {type = "fluid", name = "water", amount = 20},     
+    },
+    energy_required = 10,
+    results = {{type="fluid", name="holmium-solution", amount=250},
+              {type = "item", name = "craptonite-frame", amount = 3, probability = 0.95, ignored_by_productivity=4}},
+    allow_productivity = true,
   },
 
 --#endregion

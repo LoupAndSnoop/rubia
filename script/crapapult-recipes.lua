@@ -10,9 +10,11 @@ local internal_blacklist = {
     "biorecycling-science-pack",
     "ghetto-biorecycling-science-pack",
     "makeshift-biorecycling-science-pack",
+    "spoilage",
     "yeet-biorecycling-science-pack",
     "yeet-ghetto-biorecycling-science-pack",
     "yeet-makeshift-biorecycling-science-pack",
+    "yeet-spoilage",
 }
 local total_blacklist = rubia_lib.merge(internal_blacklist, crapapult.external_blacklist)
 --Make this a dictionary, like a hashset to quickly check.

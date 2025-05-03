@@ -137,6 +137,26 @@ data:extend(
   hidden_in_factoriopedia=true,
   auto_recycle=false,
 },
+{
+  type = "item",
+  name = "yeet-spoilage",
+  icon = "__rubia__/graphics/icons/science/yeet-spoilage.png",
+  order = "l",
+  subgroup = "science-pack",
+  color_hint = { text = "T" },
+
+  inventory_move_sound = item_sounds.resource_inventory_move,
+  pick_sound = item_sounds.resource_inventory_pickup,
+  drop_sound = item_sounds.resource_inventory_move,
+  stack_size = 50,
+  default_import_location = "rubia",
+  weight = 10000*kg,
+  spoil_ticks = 2,
+  spoil_result = nil,
+  hidden=true,
+  hidden_in_factoriopedia=true,
+  auto_recycle=false,
+},
 
 --#endregion
 --#region Intermediates and raw resources.

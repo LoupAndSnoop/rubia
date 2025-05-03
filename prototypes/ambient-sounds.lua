@@ -98,7 +98,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound =  recycle_track,
-        weight = 10
+        weight = 5
     },
 --[[
     require("__space-age__/sound/ambient/fulgora/fulgora-5/fulgora-5"),
