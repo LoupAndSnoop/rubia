@@ -22,12 +22,15 @@ end)]]
 --Disable makeshift/ghetto sci if the progression techs for which they are required are done.
 rubia.check_disable_temporary_science_recipes = function()
   for _, force in pairs(game.forces) do
+    --if force.name == 
     if force.technologies["rubia-progression-stage2"].researched then
       force.recipes["makeshift-biorecycling-science-pack"].enabled = false
     end
-    if force.technologies["rubia-progression-stage3"].researched then
+    if force.technologies["craptonite-processing"].researched then
+    --if force.technologies["rubia-progression-stage3"].researched then
       force.recipes["ghetto-biorecycling-science-pack"].enabled = false
     end
+    --::continue::
   end
 end
 

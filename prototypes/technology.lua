@@ -157,8 +157,7 @@ data:extend({
         research_trigger = {type = "craft-item", item="yeet-gun-turret", count=1000},
     },
 
-
-    {
+    --[[{
         type = "technology",
         name = "rubia-progression-stage3",
         icon = "__rubia__/graphics/icons/garbo-grabber-2.png",
@@ -171,7 +170,7 @@ data:extend({
         },
         prerequisites = { "rubia-progression-stage2"},
         research_trigger = {type = "craft-item", item="yeet-ghetto-biorecycling-science-pack", count=500},
-    },
+    },]]
 
     {
         type = "technology",
@@ -180,18 +179,23 @@ data:extend({
         icon_size = 256,
         essential = false,
         effects = {
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-rail"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-elec-engine"},
+            {type = "unlock-recipe", recipe = "garbo-grabber"},
+            
+
             {type = "unlock-recipe", recipe = "assisted-frothing"},
             {type = "unlock-recipe", recipe = "craptonite-casting"},
             {type = "unlock-recipe", recipe = "biorecycling-science-pack"},
-
-            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-elec-engine"},
 
             --{type = "unlock-recipe", recipe = "rubia-armored-locomotive"},
             --{type = "unlock-recipe", recipe = "rubia-armored-cargo-wagon"},
             --{type = "unlock-recipe", recipe = "rubia-armored-fluid-wagon"},
         },
-        prerequisites = {"rubia-progression-stage3"},
-        research_trigger = {type = "build-entity", entity="garbo-grabber"},
+        prerequisites = { "rubia-progression-stage2"},
+        research_trigger = {type = "craft-item", item="yeet-ghetto-biorecycling-science-pack", count=500},
+        --prerequisites = {"rubia-progression-stage3"},
+        --research_trigger = {type = "build-entity", entity="garbo-grabber"},
     },
 
     {
