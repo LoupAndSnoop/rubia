@@ -83,8 +83,8 @@ local function cannon_turret_sheet()
           axially_symmetrical = false,
           --run_mode = "forward-then-backward",
           shift = util.by_pixel(7 - 3, -71),
-          animation_speed = 0.05,
-          
+          animation_speed = 0.05 * 2,
+
           run_mode = "forward",
           --Back and forth, but starting from middle
           --frame_sequence = {11,12,13,14,15,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,2,3,4,5,6,7,8,9,10},

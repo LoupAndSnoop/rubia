@@ -41,12 +41,13 @@ data:extend({{
     icon_size = 32,
     flags = {"placeable-player", "player-creation"},
     minable = {
-        mining_time = 1,
+        mining_time = 0.5,
         result = "rubia-sniper-turret"
     },
     order =(data.raw["ammo-turret"]["gun-turret"].order or "z-b-a-") .. "-b",
     max_health = 300,
     corpse = "medium-remnants",
+    fast_replaceable_group = "ammo-turret",
     collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
     selection_box = {{-1, -1}, {1, 1}},
     rotation_speed = 0.01,

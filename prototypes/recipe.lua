@@ -74,19 +74,18 @@ data:extend({
     type ="recipe",
     name ="ghetto-biorecycling-science-pack",
     category ="biorecycling",
-    --icon ="__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
     enabled = false,
     ingredients = 
     {
-      {type ="item", name ="rocket-fuel", amount = 3},
+      {type ="item", name ="rocket-fuel", amount = 2},
+      {type ="item", name ="advanced-circuit", amount = 1},
       {type ="item", name ="locomotive", amount = 1},
-      {type ="item", name ="substation", amount = 1},
     },
     surface_conditions = rubia.surface_conditions(),
     energy_required = 5,
     results =
     {
-      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 10}
+      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 5}
     },
     allow_productivity = true,
     main_product ="ghetto-biorecycling-science-pack",
@@ -342,7 +341,7 @@ data:extend({
 },]]
 
 
-{
+--[[{
   type ="recipe",
   name ="biorecycle-bacteria-AB-cupric-scrap",
   icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-both.png",
@@ -362,7 +361,28 @@ data:extend({
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_purple,
+},]]
+{
+  type ="recipe",
+  name ="biorecycle-bacteria-A-cupric-scrap",
+  icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-A.png",
+  category ="biorecycling",
+  subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="rubia-bacteria-A", amount = 4},
+    {type ="item", name ="rubia-cupric-scrap", amount = 1},
+  },
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 1.5,
+  results = {
+    {type ="item", name ="engine-unit", amount = 2},
+    {type ="item", name ="processing-unit", amount = 5},
+  },
+  allow_productivity = true,
+  crafting_machine_tint = crafting_machine_tint_red,
 },
+
 {
   type ="recipe",
   name ="biorecycle-bacteria-A-engine",
@@ -391,14 +411,14 @@ data:extend({
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-d",
   enabled = false,
   ingredients = {
-    {type ="item", name ="rubia-bacteria-B", amount = 2},
-    {type ="item", name ="processing-unit", amount = 2},
+    {type ="item", name ="rubia-bacteria-B", amount = 3},
+    {type ="item", name ="processing-unit",  amount = 3},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 3,
+  energy_required = 4,
   results = {
     {type ="item", name ="advanced-circuit", amount = 1},
-    {type ="fluid", name ="light-oil", amount = 30},
+    {type ="fluid", name ="light-oil", amount = 20},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_blue,
@@ -575,8 +595,8 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
   ingredients = {
-      { type = "item", name = "refined-concrete", amount = 100},
-      { type = "item", name = "advanced-circuit", amount = 20}, 
+      { type = "item", name = "concrete", amount = 100},
+      { type = "item", name = "advanced-circuit", amount = 30}, 
       { type = "item", name = "steel-plate", amount = 50}, 
       { type = "item", name = "gun-turret", amount = 1}, 
   },
@@ -627,6 +647,7 @@ data:extend({
   allow_productivity = false,
 },
 
+--[[
 {
   type = "recipe",
   name = "alt-gun-turret",
@@ -645,7 +666,7 @@ data:extend({
   }},
   allow_productivity = false,
   auto_recycle = false,
-},
+},]]
 {
   type = "recipe",
   name = "rubia-wind-turbine",

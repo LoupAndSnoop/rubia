@@ -120,9 +120,10 @@ data:extend({
         essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "rubia-bacteria-B"},
-            {type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-cupric-scrap"},
+            --{type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-cupric-scrap"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-cupric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-cupric-scrap"},
-            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-engine"},
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-engine"}, --OPTIONAL
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-processing-unit"},
             
             {type = "unlock-recipe", recipe = "ghetto-biorecycling-science-pack"},
@@ -169,7 +170,7 @@ data:extend({
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-rail"},
         },
         prerequisites = { "rubia-progression-stage2"},
-        research_trigger = {type = "craft-item", item="yeet-ghetto-biorecycling-science-pack", count=100},
+        research_trigger = {type = "craft-item", item="yeet-ghetto-biorecycling-science-pack", count=500},
     },
 
     {

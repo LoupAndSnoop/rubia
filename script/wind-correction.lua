@@ -30,6 +30,8 @@ local function try_adjust_inserter(entity)
     local old_pickup_vector = {x=entity.pickup_position.x - entity.position.x, y=entity.pickup_position.y - entity.position.y}
     local old_drop_vector = {x=entity.drop_position.x - entity.position.x, y=entity.drop_position.y - entity.position.y}
 
+    entity.orientation = defines.direction.west --If I don't fix the orientation, we get weird behavior when uninstalling
+
     --First determine if any edit needs to be made:
     if old_pickup_vector.y == 0 and old_drop_vector.y ==0
         and old_pickup_vector.x <= 0 and old_drop_vector.x >= 0 then return false end

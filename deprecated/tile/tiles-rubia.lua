@@ -195,7 +195,7 @@ local function transition_masks()
   }
 end
 
---TODO, figure out the nuances of vulcanus tiles noise expression. water_base(-2,200) is working fine for lakes.
+--[[TODO, figure out the nuances of vulcanus tiles noise expression. water_base(-2,200) is working fine for lakes.
 data:extend{
 
   {
@@ -263,6 +263,9 @@ data:extend(
         ambient_sounds = lake_ambience
     }
   },
+  ]]
+  --[[
+data:extend({
   {
     name = "rubia-dunes",
     type = "tile",
@@ -334,7 +337,7 @@ data:extend(
     ambient_sounds = sand_ambient_sound,
     scorch_mark_color = {r = 0.3, g = 0.3, b = 0.3, a = 1.000},
     trigger_effect = tile_trigger_effects.sand_trigger_effect()
-  }
+  },}
 
 
 
@@ -344,7 +347,7 @@ table.insert(water_tile_type_names, "petroleum-tile")
 
 
 
-
+]]
 
 
 --[[
