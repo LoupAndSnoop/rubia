@@ -202,7 +202,7 @@ script.on_event(defines.events.on_player_fast_transferred, function(event)
   --If adding things in to a garbo gatherer, undo it.
   if (event.from_player --Adding things in
   and event.entity and event.entity.valid
-  and event.entity.name == "garbo-gatherer") then
+  and event.entity.name == "garbo-grabber") then
     local player_inv = game.get_player(event.player_index).get_inventory(defines.inventory.character_main)
     local collector_inv = event.entity.get_inventory(defines.inventory.chest)
     

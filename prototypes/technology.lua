@@ -161,11 +161,11 @@ data:extend({
     {
         type = "technology",
         name = "rubia-progression-stage3",
-        icon = "__rubia__/graphics/icons/garbo-gatherer-2.png",
+        icon = "__rubia__/graphics/icons/garbo-grabber-2.png",
         icon_size = 128,
         essential = false,
         effects = {
-            {type = "unlock-recipe", recipe = "garbo-gatherer"},
+            {type = "unlock-recipe", recipe = "garbo-grabber"},
             --{type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-ferric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-rail"},
         },
@@ -191,7 +191,7 @@ data:extend({
             --{type = "unlock-recipe", recipe = "rubia-armored-fluid-wagon"},
         },
         prerequisites = {"rubia-progression-stage3"},
-        research_trigger = {type = "build-entity", entity="garbo-gatherer"},
+        research_trigger = {type = "build-entity", entity="garbo-grabber"},
     },
 
     {

@@ -33,7 +33,7 @@ local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 --Trashsteroid ranges, damages, etc
 local trashsteroid_impact_damage = 75 --Raw damage done
 local trashsteroid_impact_radius = 4
-local trashsteroid_chunk_reach = prototypes.entity["garbo-gatherer"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
+local trashsteroid_chunk_reach = prototypes.entity["garbo-grabber"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
 local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
 
@@ -90,7 +90,7 @@ local function find_closest_collector(trashsteroid)
   local collectors = storage.rubia_surface.find_entities_filtered({
     position = start,
     radius = trashsteroid_chunk_reach,
-    name = "garbo-gatherer"
+    name = "garbo-grabber"
   })
   if not collectors then return nil end --Nothing found. Most common case.
 

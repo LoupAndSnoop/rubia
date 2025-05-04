@@ -282,8 +282,8 @@ data:extend(
   --#region Items related to entities (pre-clear)
     {
       type = "item",
-      name = "garbo-gatherer",
-      icon = "__rubia__/graphics/icons/garbo-gatherer.png",
+      name = "garbo-grabber",
+      icon = "__rubia__/graphics/icons/garbo-grabber.png",
       order = "z[platinum]",
       subgroup = "production-machine",
       color_hint = { text = "T" },
@@ -294,7 +294,7 @@ data:extend(
       stack_size = 10,
       default_import_location = "rubia",
       weight = 1000*kg,
-      place_result = "garbo-gatherer"
+      place_result = "garbo-grabber"
   },
   {
     type = "item",

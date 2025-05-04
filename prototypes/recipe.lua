@@ -585,8 +585,8 @@ data:extend({
 },
 {
   type = "recipe",
-  name = "garbo-gatherer",
-  icon = "__rubia__/graphics/icons/garbo-gatherer.png",
+  name = "garbo-grabber",
+  icon = "__rubia__/graphics/icons/garbo-grabber.png",
   icon_size = 64,
   subgroup = "production-machine",
   order = "b[turret]-a[gun-turret]",
@@ -601,7 +601,7 @@ data:extend({
       { type = "item", name = "gun-turret", amount = 1}, 
   },
   results = {{
-      type = "item", name = "garbo-gatherer", amount = 1
+      type = "item", name = "garbo-grabber", amount = 1
   }},
   allow_productivity = false,
 },
