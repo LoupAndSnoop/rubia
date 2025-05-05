@@ -238,7 +238,7 @@ data:extend({
   {
     type ="recipe",
     name ="biorecycle-bacteria-A-ferric-scrap",
-    icon = "__rubia__/graphics/icons/recipes/scrap-blue+bacteria-A.png",
+    icon = "__rubia__/graphics/icons/recipes/biorecycling-yellow-ammo+copper-cable.png",--bacteria-A+firearm-magazine.png",--"scrap-blue+bacteria-A.png",
     category ="biorecycling",
     enabled = false,
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-b",
@@ -259,7 +259,7 @@ data:extend({
   {
     type ="recipe",
     name ="biorecycle-bacteria-A-firearm-magazine",
-    icon = "__rubia__/graphics/icons/recipes/bacteria-A+firearm-magazine.png",
+    icon = "__rubia__/graphics/icons/recipes/biorecycling-iron-plate+bacteriaA.png",--"bacteria-A+firearm-magazine.png",
     category ="biorecycling",
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-c",
     enabled = false,
@@ -301,7 +301,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-cupric-scrap",
-  icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-B.png",
+  icon = "__rubia__/graphics/icons/recipes/biorecycling-red-ammo+rail.png",--"scrap-red+bacteria-B.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-b",
   enabled = false,
@@ -366,7 +366,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-A-cupric-scrap",
-  icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-A.png",
+  icon = "__rubia__/graphics/icons/recipes/biorecycling-processing-unit+engine.png",--"scrap-red+bacteria-A.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
@@ -387,7 +387,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-A-engine",
-  icon = "__rubia__/graphics/icons/recipes/bacteria-A+engine.png",
+  icon = "__rubia__/graphics/icons/recipes/biorecycling-engine+gear.png",--"bacteria-A+engine.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-c",
   enabled = false,
@@ -407,7 +407,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-processing-unit",
-  icon = "__rubia__/graphics/icons/recipes/bacteria-B+blue-circ.png",
+  icon = "__rubia__/graphics/icons/recipes/biorecycling-advanced-circuit+light-oil.png",--"bacteria-B+blue-circ.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-d",
   enabled = false,
@@ -452,7 +452,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-rail",
-  icon = "__rubia__/graphics/icons/recipes/bacteria-B+rail.png",
+  icon = "__rubia__/graphics/icons/recipes/biorecycling-steel+concrete.png",--"bacteria-B+rail.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-d",
   enabled = false,

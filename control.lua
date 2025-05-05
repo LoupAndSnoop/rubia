@@ -189,7 +189,7 @@ script.on_nth_tick(4, function()
 end)
 
 script.on_event(defines.events.on_entity_died, function(event)
-  trashsteroid_lib.on_med_trashsteroid_killed(event.entity)
+  trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)
 end, {{filter = "name", name = "medium-trashsteroid"}})
 
 

@@ -14,6 +14,7 @@ local function trashsteroid_resistances()
         {type = "impact", percent = 100}, --decrease = 50
         {type = "laser", percent = 60},
         {type = "electric", percent = 100},
+        {type = "poison", percent = 100},
       }
 end
 
@@ -255,8 +256,8 @@ end
 --Smoke for projectile
 local chunk_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["smoke"])---fast"])
 chunk_smoke.name = "trashsteroid-collect-smoke"
-chunk_smoke.duration=2.5
-chunk_smoke.fade_away_duration=1
+chunk_smoke.duration=2.5 * 60
+chunk_smoke.fade_away_duration=1 * 60
 chunk_smoke.animation.tint = {r=1,g=0.3,b=0.3,a=1}
 data:extend({chunk_smoke})
 

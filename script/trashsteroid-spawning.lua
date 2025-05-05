@@ -9,7 +9,7 @@ local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to s
 local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
-local trashsteroid_lifetime = 200 --Number of ticks that a trashsteroid can live
+local trashsteroid_lifetime = 200 + 40 --Number of ticks that a trashsteroid can live
 
 local trashsteroid_names = {"medium-trashsteroid"}
 
@@ -473,10 +473,16 @@ trashsteroid_lib.trashsteroid_impact_update = function()
   end  
 end
 
-
+--These damage types will lead to spawning a trashsteroid chunk, if possible. Hashset
+local trash_spawn_dmg_types = {["physical"] = 1, ["explosion"] = 1}
 
 --What to do when a medium trashsteroid is killed. Assume it is valid, and the right type.
-trashsteroid_lib.on_med_trashsteroid_killed = function(entity)
+trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
+  --If invalid entity, or the damage type that killed isn't supposed to make chunks, then escape
+  if (not entity.valid or not damage_type
+    or not trash_spawn_dmg_types[damage_type.name]) then return end
+
+
   local trashsteroid = storage.active_trashsteroids[tostring(entity.unit_number)]
 
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
