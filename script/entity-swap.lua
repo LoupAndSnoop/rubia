@@ -78,7 +78,8 @@ entity_swap.try_entity_swap = function(event)
     --Special case for new entity is a rubian silo to disable requester
     if swap_target == "rubia-rocket-silo" then
         req_point = new_entity.get_requester_point()
-        req_point.enabled = false
+        --There is no point if it is a ghost
+        if req_point then req_point.enabled = false end
     end
 end
 

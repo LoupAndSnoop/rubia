@@ -275,7 +275,7 @@ data:extend(
     max_temperature = 100,
     base_color = {47/255,33/255,28/255},
     flow_color = {30/255,20/255,18/255},
-    auto_barrel = true,
+    auto_barrel = false,
   },
 
   --#endregion

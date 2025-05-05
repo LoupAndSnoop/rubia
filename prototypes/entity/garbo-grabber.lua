@@ -54,7 +54,7 @@ data:extend({
       },]]
 
     --Container fields
-    inventory_size = 20,
+    inventory_size = 8,
     quality_affects_inventory_size = false,
     --default_status = "working",
 

@@ -97,7 +97,7 @@ local function find_closest_collector(trashsteroid)
   local best_collector = nil--Closest one that is valid
   --Compare closest square range to avoid unnecessary sqrt
   local closest_range = (trashsteroid_chunk_reach + 1)^2
-  for i,entity in pairs(collectors) do
+  for _,entity in pairs(collectors) do
     if (not entity or not entity.valid) then goto continue end --It just isn't valid
     --Check that there is enough space for at least one item.
     if (entity.get_inventory(defines.inventory.chest).can_insert({name="craptonite-chunk",count=1})) then
@@ -499,39 +499,3 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity)
   
   on_trashsteroid_removed(trashsteroid) --Common cleanup
 end
-
-
-
-
-
---[[find_entities_filtered(filter)
-
-area 	:: BoundingBox?	
-position 	:: MapPosition?	
-
-Has precedence over area field.
-radius 	:: double?	
-
-If given with position, will return all entities within the radius of the position.
-name 	:: EntityID or array[EntityID]?	
-
-An empty array means nothing matches the name filter.
-type 	:: string or array[string]?	
-
-An empty array means nothing matches the type filter.
-ghost_name 	:: EntityID or array[EntityID]?	
-
-An empty array means nothing matches the ghost_name filter.
-ghost_type 	:: string or array[string]?	
-
-An empty array means nothing matches the ghost_type filter.
-direction 	:: defines.direction or array[defines.direction]?	
-collision_mask 	:: CollisionLayerID or array[CollisionLayerID] or dictionary[CollisionLayerID → true]?	
-force 	:: ForceSet?	
-to_be_deconstructed 	:: boolean?	
-to_be_upgraded 	:: boolean?	
-limit 	:: uint?	
-is_military_target 	:: boolean?	
-has_item_inside 
-
-]]

@@ -135,7 +135,9 @@ data:extend({
       random_spot_size_minimum = 1,
       random_spot_size_maximum = 6,
       --At 220000 additional richness, base speed seems to be about 7/s
-      additional_richness = 220000 * 50, -- this increases the total everywhere, so base_density needs to be decreased to compensate
+      --At 220000*50 additional richness, base speed seems to be about 350/s
+      --Empirically, 220000*25 seems about right, given moduling
+      additional_richness = 220000 * 25, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = true,
       regular_rq_factor_multiplier = 1,--1.10, --0.4
       starting_rq_factor_multiplier = 1,--1.5, --0.5
@@ -227,7 +229,7 @@ data:extend({
       regular_rq_factor_multiplier = 1,--1.10,
       starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = false,
-      additional_richness = 20000,
+      additional_richness = 20000 * 5, --20k gives ore patches in the 3-6M range
       --autoplace_set_name="rubia_cupric_scrap",
     }
   ),
@@ -256,7 +258,7 @@ data:extend({
       regular_rq_factor_multiplier = 1,--1.10,
       starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = true,
-      additional_richness = 20000,
+      additional_richness = 20000 * 5,
       --autoplace_set_name="rubia_ferric_scrap",
     }
   ),

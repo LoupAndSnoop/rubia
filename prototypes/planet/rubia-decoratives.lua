@@ -532,7 +532,7 @@ data:extend
       results =
       {
         {type = "item", name = "iron-stick", amount_min = 4, amount_max = 8},
-        {type = "item", name = "iron-plate", probability=0.5, amount_min = 5, amount_max = 10},
+        {type = "item", name = "iron-plate", probability=0.7, amount_min = 5, amount_max = 10},
         {type = "item", name = "steel-plate", probability=0.5, amount_min = 3, amount_max = 6},
         {type = "item", name = "electronic-circuit", probability=0.5, amount_min = 4, amount_max = 8}
       },
@@ -623,7 +623,7 @@ data:extend
     subgroup = "space-platform-remnants",
     order = "c",
     selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
-    collision_box = {{-0.45, -0.45}, {0.45, 0.45}},
+    collision_box = {{-1.3, -1.3}, {1.3, 1.3}},--{{-0.45, -0.45}, {0.45, 0.45}},
     tile_width = 1,
     tile_height = 1,
     final_render_layer = "object",

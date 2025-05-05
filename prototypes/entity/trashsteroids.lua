@@ -252,6 +252,14 @@ for i = 1,7 do
     --table.insert(trash_chunk_anim_full, {layers = {trash_chunk_anim_solid[i], trash_chunk_anim_shadow[i]}})
 end
 
+--Smoke for projectile
+local chunk_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["smoke"])---fast"])
+chunk_smoke.name = "trashsteroid-collect-smoke"
+chunk_smoke.duration=2.5
+chunk_smoke.fade_away_duration=1
+chunk_smoke.animation.tint = {r=1,g=0.3,b=0.3,a=1}
+data:extend({chunk_smoke})
+
 --The actual chunk projectile prototype
 data:extend({
     {
@@ -272,7 +280,7 @@ data:extend({
                 {
                     type = "create-trivial-smoke",
                     repeat_count = 3,
-                    smoke_name = "smoke-fast",
+                    smoke_name = "trashsteroid-collect-smoke",--"smoke-fast",
                     offset_deviation = { { -0.2, -0.2 }, { 0.2, 0.2 } },
                     initial_height = 0,
                     speed_from_center = 0.005,

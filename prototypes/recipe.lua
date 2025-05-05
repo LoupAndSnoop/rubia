@@ -99,14 +99,15 @@ data:extend({
     ingredients = 
     {
       {type ="item", name ="craptonite-frame", amount = 4},
-      {type ="item", name ="gun-turret", amount = 1},
-      {type ="item", name ="advanced-circuit", amount = 1}
+      {type ="item", name ="rubia-wind-turbine", amount = 2},
+      {type ="item", name ="locomotive", amount = 1},
+      {type ="fluid", name ="light-oil", amount = 5},
     },
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 15,
+    energy_required = 20,
     results =
     {
-      {type ="item", name ="biorecycling-science-pack", amount = 1},
+      {type ="item", name ="biorecycling-science-pack", amount = 4},
       {type ="item", name ="craptonite-frame", amount = 3, ignored_by_productivity=3}
     },
     allow_productivity = true,
@@ -371,12 +372,12 @@ data:extend({
   enabled = false,
   ingredients = {
     {type ="item", name ="rubia-bacteria-A", amount = 4},
-    {type ="item", name ="rubia-cupric-scrap", amount = 1},
+    {type ="item", name ="rubia-cupric-scrap", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
   energy_required = 1.5,
   results = {
-    {type ="item", name ="engine-unit", amount = 2},
+    {type ="item", name ="engine-unit", amount = 3},
     {type ="item", name ="processing-unit", amount = 5},
   },
   allow_productivity = true,
@@ -395,9 +396,9 @@ data:extend({
     {type ="item", name ="engine-unit", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 3,
+  energy_required = 5,
   results = {
-    {type ="item", name ="steel-plate", amount = 4},
+    {type ="item", name ="steel-plate", amount = 3},
     {type ="item", name ="iron-gear-wheel", amount = 1},
   },
   allow_productivity = true,
@@ -483,9 +484,9 @@ data:extend({
     {type ="fluid", name ="light-oil", amount = 30},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 3,
+  energy_required = 10,
   results = {
-    {type ="fluid", name ="rubia-froth", amount = 10},
+    {type ="fluid", name ="rubia-froth", amount = 50},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_brown,
@@ -498,10 +499,10 @@ data:extend({
   enabled = false,
   ingredients = {
     {type ="item", name ="concrete", amount = 20},
-    {type ="fluid", name ="rubia-froth", amount = 50},
+    {type ="fluid", name ="rubia-froth", amount = 100},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 3,
+  energy_required = 6,
   results = {
     {type ="item", name ="craptonite-frame", amount = 1},
     {type ="item", name ="concrete", amount = 10, ignored_by_productivity=10},
@@ -523,12 +524,14 @@ data:extend({
     {type ="item", name ="rubia-bacteria-B", amount = 3},
     {type ="item", name ="engine-unit", amount = 2},
     {type ="item", name ="processing-unit", amount = 3},
+    {type ="item", name ="firearm-magazine", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
   energy_required = 5,
   results = {
     {type ="item", name ="electric-engine-unit", amount = 1},
     {type ="item", name ="copper-cable", amount = 4},
+    {type ="item", name ="electronic-circuit", amount = 2},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_purple,
@@ -595,9 +598,9 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
   ingredients = {
-      { type = "item", name = "concrete", amount = 100},
+      { type = "item", name = "concrete", amount = 50},
       { type = "item", name = "advanced-circuit", amount = 30}, 
-      { type = "item", name = "steel-plate", amount = 50}, 
+      { type = "item", name = "steel-plate", amount = 40}, 
       { type = "item", name = "gun-turret", amount = 1}, 
   },
   results = {{

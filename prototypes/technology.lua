@@ -229,7 +229,7 @@ data:extend({
             {type = "unlock-recipe", recipe = "rocket-part-rubia"},
         },
         prerequisites = {"craptonite-processing"},
-        research_trigger = {type = "craft-item", item="yeet-biorecycling-science-pack", count=100},
+        research_trigger = {type = "craft-item", item="yeet-biorecycling-science-pack", count=1000},
         order = "ea[trashdragon]",
     },
 

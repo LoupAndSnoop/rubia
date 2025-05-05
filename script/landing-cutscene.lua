@@ -374,7 +374,7 @@ landing_cutscene.try_start_cutscene = function(event)
         or not cargo_pod.cargo_pod_origin.surface.platform --Was not a space platform
         or not cargo_pod.cargo_pod_destination.surface --Destination blowed up
         or cargo_pod.cargo_pod_destination.surface.name ~= "rubia") then
-        game.print("cancelling due to cargo pod state")
+        --game.print("cancelling due to cargo pod state")
         return
     end
 
