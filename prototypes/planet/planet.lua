@@ -92,9 +92,10 @@ local planet = {
             detail_sample_1 = { scale = 1.709 / 32, wind_speed_factor = 0.2 / 1.709 },
             detail_sample_2 = { scale = 2.179 / 32, wind_speed_factor = 0.33 / 2.179 },
     
-            scale = 1,
-            movement_speed_multiplier = 0.75,
-            opacity = 0.25,
+            scale = 1 * 3,
+            density = 3,
+            movement_speed_multiplier = 0.75 * 3 * 2,
+            opacity = 0.25 * 0.5,
             opacity_at_night = 0.25,
             density_at_night = 1,
             detail_factor = 1.5,
