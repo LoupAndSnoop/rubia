@@ -3,12 +3,12 @@ require("lib.lib")
 
 --Cargo drop restriction
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
-    "rubia", "__rubia__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
+    "rubia", "__rubia-assets__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
     --TODO: Custom whitelist, because construction bots are allowed
 --cargo_drops_base.name = "operation-iron-man"
 --Internal tech name must remain planetslib-rubia-cargo-drops
 cargo_drops_base.icons = nil
-cargo_drops_base.icon = "__rubia__/graphics/technology/operation-iron-man.png"
+cargo_drops_base.icon = "__rubia-assets__/graphics/technology/operation-iron-man.png"
 cargo_drops_base.icon_size = 256
 cargo_drops_base.localised_name = {"technology-name.operation-iron-man"}
 cargo_drops_base.localised_description = {"technology-description.operation-iron-man"}
@@ -46,7 +46,7 @@ data:extend({
     {
         type = "technology",
         name = "planet-discovery-rubia",
-        icons = util.technology_icon_constant_planet("__rubia__/graphics/technology/rubia-discovery.png"),
+        icons = util.technology_icon_constant_planet("__rubia-assets__/graphics/technology/rubia-discovery.png"),
         icon_size = 256,
         essential = true,
         effects =
@@ -75,7 +75,7 @@ data:extend({
     {
         type = "technology",
         name = "rubia-progression-stage1",
-        icon = "__rubia__/graphics/technology/biorecycling.png",--"__rubia__/graphics/icons/science/torus_clear_brown.png",
+        icon = "__rubia-assets__/graphics/technology/biorecycling.png",--"__rubia-assets__/graphics/icons/science/torus_clear_brown.png",
         icon_size = 256,
         essential = false,
         effects =
@@ -97,7 +97,7 @@ data:extend({
 --[[    {
         type = "technology",
         name = "rubia-progression-stage1-machines",
-        icon = "__rubia__/graphics/technology/biorecycling.png",--"__rubia__/graphics/icons/science/torus_clear_brown.png",
+        icon = "__rubia-assets__/graphics/technology/biorecycling.png",--"__rubia-assets__/graphics/icons/science/torus_clear_brown.png",
         icon_size = 256,
         essential = false,
         effects =
@@ -115,7 +115,7 @@ data:extend({
     {
         type = "technology",
         name = "rubia-progression-stage2",
-        icon = "__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
+        icon = "__rubia-assets__/graphics/icons/science/sphere_tubed_clear_brown.png",
         icon_size = 64,
         essential = false,
         effects = {
@@ -135,7 +135,7 @@ data:extend({
     {
         type = "technology",
         name = "rubia-scrapapalooza",
-        icon = "__rubia__/graphics/technology/scrapapalooza.png",
+        icon = "__rubia-assets__/graphics/technology/scrapapalooza.png",
         icon_size = 256,
         essential = false,
         effects = {
@@ -147,7 +147,7 @@ data:extend({
     {
         type = "technology",
         name = "rubia-sniper-turret",
-        icon = "__rubia__/graphics/technology/sniper-turret.png",
+        icon = "__rubia-assets__/graphics/technology/sniper-turret.png",
         icon_size = 256,
         essential = false,
         effects = {
@@ -160,7 +160,7 @@ data:extend({
     --[[{
         type = "technology",
         name = "rubia-progression-stage3",
-        icon = "__rubia__/graphics/icons/garbo-grabber-2.png",
+        icon = "__rubia-assets__/graphics/icons/garbo-grabber-2.png",
         icon_size = 128,
         essential = false,
         effects = {
@@ -175,7 +175,7 @@ data:extend({
     {
         type = "technology",
         name = "craptonite-processing",
-        icon = "__rubia__/graphics/technology/craptonite-frame.png",
+        icon = "__rubia-assets__/graphics/technology/craptonite-frame.png",
         icon_size = 256,
         essential = false,
         effects = {
@@ -201,7 +201,7 @@ data:extend({
     {
         type = "technology",
         name = "rubia-armored-train",
-        icon = "__rubia__/graphics/technology/poo-choo-train.png",
+        icon = "__rubia-assets__/graphics/technology/poo-choo-train.png",
         icon_size = 256,
         essential = false,
         effects = {
@@ -216,13 +216,13 @@ data:extend({
     {--Shamelessly derrived from maraxsis
         type = "technology",
         name = "rubia-project-trashdragon",
-        icon = "__rubia__/graphics/technology/project-trashdragon.png",--"__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
+        icon = "__rubia-assets__/graphics/technology/project-trashdragon.png",--"__base__/graphics/technology/rocket-silo.png",--"__rubia-assets__/graphics/technology/project_trashdragon.png",
         icon_size = 256,
         effects = {
             {
                 type = "nothing",
                 use_icon_overlay_constant = true,
-                icon = "__base__/graphics/technology/rocket-silo.png",--"__rubia__/graphics/technology/project_trashdragon.png",
+                icon = "__base__/graphics/technology/rocket-silo.png",--"__rubia-assets__/graphics/technology/project_trashdragon.png",
                 icon_size = 256,
                 effect_description = {"modifier-description.rubia-project-trashdragon"}
             },
@@ -239,7 +239,7 @@ data:extend({
 {
     type = "technology",
     name = "craptonite-wall",
-    icon = "__rubia__/graphics/technology/crap-wall.png",
+    icon = "__rubia-assets__/graphics/technology/crap-wall.png",
     icon_size = 256,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "craptonite-wall"},},
@@ -262,7 +262,7 @@ data:extend({
 {
     type = "technology",
     name = "rubia-long-bulk-inserter",
-    icon = "__rubia__/graphics/technology/long-bulk-inserter.png",
+    icon = "__rubia-assets__/graphics/technology/long-bulk-inserter.png",
     icon_size = 256,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "rubia-long-bulk-inserter"},},
@@ -284,7 +284,7 @@ data:extend({
 {
     type = "technology",
     name = "rubia-efficiency-module4",
-    icon = "__rubia__/graphics/technology/efficiency-module-4.png",
+    icon = "__rubia-assets__/graphics/technology/efficiency-module-4.png",
     icon_size = 256,
     effects = {{type = "unlock-recipe", recipe = "rubia-efficiency-module4"},},
     prerequisites = { "rubia-project-trashdragon","efficiency-module-3"},
@@ -306,7 +306,7 @@ data:extend({
 {
     type = "technology",
     name = "rubia-holmium-craptalysis",
-    icon = "__rubia__/graphics/technology/holmium-craptalysis.png",
+    icon = "__rubia-assets__/graphics/technology/holmium-craptalysis.png",
     icon_size = 256,
     effects = {{type = "unlock-recipe", recipe = "rubia-holmium-craptalysis"},},
     prerequisites = { "rubia-project-trashdragon", "electromagnetic-science-pack"},
@@ -327,7 +327,7 @@ data:extend({
 {
     type = "technology",
     name = "craptonite-axe",
-    icon = "__rubia__/graphics/technology/crap-axe.png",
+    icon = "__rubia-assets__/graphics/technology/crap-axe.png",
     icon_size = 256,
     essential = false,
     effects = {{type = "character-mining-speed", modifier = 2}},
@@ -352,7 +352,7 @@ data:extend({
     type = "technology",
     name = "craptonite-productivity",
     icons = util.technology_icon_constant_recipe_productivity(
-        "__rubia__/graphics/technology/craptonite-frame.png"),
+        "__rubia-assets__/graphics/technology/craptonite-frame.png"),
     icon_size = 256,
     effects = {
         {
@@ -427,7 +427,7 @@ if mods["maraxsis"] then
             type = "technology",
             name = "petrol-dehydrogenation-and-combustion",
             icon_size = 64,
-            icon = "__rubia__/graphics/icons/catalytic-chemical-plant.png",
+            icon = "__rubia-assets__/graphics/icons/catalytic-chemical-plant.png",
             essential = false,
             effects =
             {

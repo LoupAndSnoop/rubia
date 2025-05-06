@@ -7,7 +7,7 @@ local damage_modifier = 20 --Multiplier for how much damage it does per bullet, 
 function sniper_turret_sheet(inputs)
     return {
         layers = {{
-            filename = "__rubia__/graphics/entity/sniper-turret/sniper-turret-sheet.png",
+            filename = "__rubia-assets__/graphics/entity/sniper-turret/sniper-turret-sheet.png",
             priority = "medium",
             scale = 0.75,
             width = 128,
@@ -37,7 +37,7 @@ circuit_connector_definitions["rubia-sniper-turret"] = circuit_connector_definit
 data:extend({{
     type = "ammo-turret",
     name = "rubia-sniper-turret",
-    icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+    icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
     icon_size = 32,
     flags = {"placeable-player", "player-creation"},
     minable = {

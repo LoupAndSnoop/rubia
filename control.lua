@@ -1,6 +1,7 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
+wind_speed_lib = require("__rubia__.script.wind-speed-visuals")
 require("__rubia__.script.chunk-checker")
 --require("__rubia__.lib.function-serializer")
 require("__rubia__.script.trashsteroid-blacklist")
@@ -183,10 +184,15 @@ script.on_nth_tick(3, function()
 end)
 
 --Trashsteroid Impact checks
---{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
 script.on_nth_tick(4, function()
   trashsteroid_lib.trashsteroid_impact_update()
 end)
+
+--Rough updates
+script.on_nth_tick(10, function()
+  wind_speed_lib.fluctuate_wind_speed(10)
+end)
+
 
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)
@@ -194,10 +200,19 @@ end, {{filter = "name", name = "medium-trashsteroid"}})
 
 
 ----Mining item checks
-
 script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
   lore_mining.try_lore_when_mined(event.entity)
 
+end)
+
+--Start of rubia
+script.on_event(defines.events.on_surface_created, function(event)
+  if not storage.rubia_surface then
+    local surface = game.get_surface(event.surface_index)
+    if surface and surface.name == "rubia" then storage.rubia_surface = surface end
+  end
+
+  wind_speed_lib.try_set_wind_speed()
 end)
 
 --[[Protect collectors from having items added to them
@@ -216,3 +231,5 @@ end)]]
 
 
 -------
+
+--storage.rubia_surface.wind_speed = 10 / 6000; storage.rubia_surface.wind_orientation = defines.direction.east; storage.rubia_surface.wind_orientation_change = 0;

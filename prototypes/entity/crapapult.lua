@@ -28,7 +28,7 @@ data:extend({
         type = "item-group",
         name = "yeeting-items",
         group = "yeeting-items",
-        icon = "__rubia__/graphics/icons/crapapult-icon.png",
+        icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
         order = "a",
       },
 })
@@ -37,7 +37,7 @@ data:extend({
 
 local crapapult_base_animation ={layers={
     {
-        filename = "__rubia__/graphics/entity/crapapult/crapapult-base.png",
+        filename = "__rubia-assets__/graphics/entity/crapapult/crapapult-base.png",
         frame_count = 1,
         height = 168,
         line_length = 1,
@@ -48,7 +48,7 @@ local crapapult_base_animation ={layers={
         },
         --[[
     {--This is a working sprite for the stationary head. Keep this if we want to change to a different method later.
-    filename = "__rubia__/graphics/entity/crapapult/crapapult-head.png",
+    filename = "__rubia-assets__/graphics/entity/crapapult/crapapult-head.png",
     priority = "high",
     width = 220,
     height = 180,
@@ -58,7 +58,7 @@ local crapapult_base_animation ={layers={
     scale = 0.5 * size/3,
     },]]
     {
-    filename = "__rubia__/graphics/entity/crapapult/crapapult-base-shadow.png",
+    filename = "__rubia-assets__/graphics/entity/crapapult/crapapult-base-shadow.png",
     frame_count = 1,
     height = 148,
     line_length = 1,
@@ -74,7 +74,7 @@ local function cannon_turret_sheet()
   return {
       layers = {
         { --Animation of initial turret was defined for different angles. New animation is the same frames for it turning back and forth.
-          filename = "__rubia__/graphics/entity/crapapult/crapapult-head-anim.png",
+          filename = "__rubia-assets__/graphics/entity/crapapult/crapapult-head-anim.png",
           priority = "high",
           scale = 0.75,
           width = 378, height = 280,
@@ -121,7 +121,7 @@ data:extend({
         layers = {
             {
             direction_count = 1,
-            filename = "__rubia__/graphics/entity/crapapult/crapapult-remnants.png",
+            filename = "__rubia-assets__/graphics/entity/crapapult/crapapult-remnants.png",
             height = 192,
             line_length = 1,
             scale = 0.5 * size/3,
@@ -135,7 +135,7 @@ data:extend({
         final_render_layer = "remnants",
         flags = { "placeable-neutral", "not-on-map" },
         hidden_in_factoriopedia = true,
-        icon = "__rubia__/graphics/icons/crapapult-icon.png",
+        icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
         --icon_size = 128,
         order = "a-c-a",
         remove_on_tile_placement = false,
@@ -151,7 +151,7 @@ data:extend({
     {
         type = "furnace",
         name = "crapapult",
-        icon = "__rubia__/graphics/icons/crapapult-icon.png",
+        icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
         flags = {"placeable-neutral", "placeable-player", "player-creation"},
         minable = {mining_time = 0.2, result = "crapapult"},
         fast_replaceable_group = "furnace",

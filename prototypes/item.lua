@@ -16,7 +16,7 @@ data:extend(
       type = "tool",
       name = "biorecycling-science-pack",
       localised_description = {"item-description.science-pack"},
-      icon = "__rubia__/graphics/icons/science/sphere_spiked_clear_brown.png",
+      icon = "__rubia-assets__/graphics/icons/science/sphere_spiked_clear_brown.png",
       subgroup = "science-pack",
       color_hint = { text = "Y" },
       order = "l",
@@ -36,7 +36,7 @@ data:extend(
       type = "item",
       name = "makeshift-biorecycling-science-pack",
       localised_description = {"item-description.science-pack"},
-      icon = "__rubia__/graphics/icons/science/torus_clear_brown.png",
+      icon = "__rubia-assets__/graphics/icons/science/torus_clear_brown.png",
       subgroup = "science-pack",
       color_hint = { text = "Y" },
       order = "l",
@@ -58,7 +58,7 @@ data:extend(
     type = "item",
     name = "ghetto-biorecycling-science-pack",
     localised_description = {"item-description.science-pack"},
-    icon = "__rubia__/graphics/icons/science/sphere_tubed_clear_brown.png",
+    icon = "__rubia-assets__/graphics/icons/science/sphere_tubed_clear_brown.png",
     subgroup = "science-pack",
     color_hint = { text = "Y" },
     order = "l",
@@ -80,7 +80,7 @@ data:extend(
 {
   type = "item",
   name = "yeet-makeshift-biorecycling-science-pack",
-  icon = "__rubia__/graphics/icons/science/yeet_torus_clear_brown.png",
+  icon = "__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png",
   order = "l",
   subgroup = "science-pack",
   color_hint = { text = "T" },
@@ -100,7 +100,7 @@ data:extend(
 {
   type = "item",
   name = "yeet-ghetto-biorecycling-science-pack",
-  icon = "__rubia__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
+  icon = "__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
   order = "l",
   subgroup = "science-pack",
   color_hint = { text = "T" },
@@ -120,7 +120,7 @@ data:extend(
 {
   type = "item",
   name = "yeet-biorecycling-science-pack",
-  icon = "__rubia__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png",
+  icon = "__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png",
   order = "l",
   subgroup = "science-pack",
   color_hint = { text = "T" },
@@ -140,7 +140,7 @@ data:extend(
 {
   type = "item",
   name = "yeet-spoilage",
-  icon = "__rubia__/graphics/icons/science/yeet-spoilage.png",
+  icon = "__rubia-assets__/graphics/icons/science/yeet-spoilage.png",
   order = "l",
   subgroup = "science-pack",
   color_hint = { text = "T" },
@@ -163,7 +163,7 @@ data:extend(
     {
       type = "item",
       name = "rubia-cupric-scrap",
-      icon = "__rubia__/graphics/icons/rubia-cupric-scrap.png",
+      icon = "__rubia-assets__/graphics/icons/rubia-cupric-scrap.png",
       order = "z[platinum]",
       subgroup = "raw-resource",
       color_hint = { text = "T" },
@@ -178,7 +178,7 @@ data:extend(
     {
       type = "item",
       name = "rubia-ferric-scrap",
-      icon = "__rubia__/graphics/icons/rubia-ferric-scrap.png",
+      icon = "__rubia-assets__/graphics/icons/rubia-ferric-scrap.png",
       order = "z[platinum]",
       subgroup = "raw-resource",
       color_hint = { text = "T" },
@@ -194,7 +194,7 @@ data:extend(
     {
       type = "item",
       name = "rubia-bacteria-A",
-      icon = "__rubia__/graphics/icons/bacteria-typeA.png",
+      icon = "__rubia-assets__/graphics/icons/bacteria-typeA.png",
       subgroup = "rubia-biorecycling", order = "c[rubia stage1]-a",
       color_hint = { text = "T" },
 
@@ -210,7 +210,7 @@ data:extend(
     {
       type = "item",
       name = "rubia-bacteria-B",
-      icon = "__rubia__/graphics/icons/bacteria-typeB.png",
+      icon = "__rubia-assets__/graphics/icons/bacteria-typeB.png",
       subgroup = "rubia-biorecycling", order = "d[rubia stage2]-a",
       color_hint = { text = "T" },
 
@@ -226,7 +226,7 @@ data:extend(
     {
       type = "item",
       name = "craptonite-chunk",
-      icon = "__rubia__/graphics/icons/craptonite-icon.png",
+      icon = "__rubia-assets__/graphics/icons/craptonite-icon.png",
       subgroup = "rubia-biorecycling", order = "e[rubia stage3]-a",
       color_hint = { text = "T" },
 
@@ -241,7 +241,7 @@ data:extend(
     {
       type = "item",
       name = "craptonite-frame",
-      icon = "__rubia__/graphics/icons/craptonite-frame.png",
+      icon = "__rubia-assets__/graphics/icons/craptonite-frame.png",
       subgroup = "rubia-biorecycling", order = "e[rubia stage3]-b",
       color_hint = { text = "T" },
 
@@ -258,7 +258,7 @@ data:extend(
   {
     type = "fluid",
     name = "rubia-bacterial-sludge",
-    icon = "__rubia__/graphics/icons/bacterial-sludge.png",
+    icon = "__rubia-assets__/graphics/icons/bacterial-sludge.png",
     subgroup = "fluid",
     default_temperature = 21,
     max_temperature = 100,
@@ -269,7 +269,7 @@ data:extend(
   {
     type = "fluid",
     name = "rubia-froth",
-    icon = "__rubia__/graphics/icons/froth.png",
+    icon = "__rubia-assets__/graphics/icons/froth.png",
     subgroup = "fluid",
     default_temperature = 21,
     max_temperature = 100,
@@ -283,7 +283,7 @@ data:extend(
     {
       type = "item",
       name = "garbo-grabber",
-      icon = "__rubia__/graphics/icons/garbo-grabber.png",
+      icon = "__rubia-assets__/graphics/icons/garbo-grabber.png",
       order = "z[platinum]",
       subgroup = "production-machine",
       color_hint = { text = "T" },
@@ -299,7 +299,7 @@ data:extend(
   {
     type = "item",
     name = "rubia-wind-turbine",
-    icon = "__rubia__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
+    icon = "__rubia-assets__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
     icon_size = 64,
     subgroup = "energy",
     stack_size = 40,
@@ -311,7 +311,7 @@ data:extend(
   {
     type = "item",
     name = "biorecycling-plant",
-    icon = "__rubia__/graphics/icons/biorecycling-plant.png",
+    icon = "__rubia-assets__/graphics/icons/biorecycling-plant.png",
     order = "z[platinum]",
     subgroup = "production-machine",
     color_hint = { text = "T" },
@@ -327,7 +327,7 @@ data:extend(
 {
   type = "item",
   name = "crapapult",
-  icon = "__rubia__/graphics/icons/crapapult-icon.png",
+  icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
   icon_size = 64,
   subgroup = "production-machine",
   order = "b[turret]-a[gun-turret]",
@@ -338,7 +338,7 @@ data:extend(
 {
   type = "item",
   name = "rubia-sniper-turret",
-  icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+  icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
   icon_size = 64,
   subgroup = "defensive-structure",
   order = "b[turret]-a[gun-turret]-b",
@@ -350,7 +350,7 @@ data:extend(
 {
   type = "item-with-entity-data",
   name = "rubia-armored-locomotive",
-  icon = "__rubia__/graphics/icons/armored-locomotive.png",
+  icon = "__rubia-assets__/graphics/icons/armored-locomotive.png",
   subgroup = "train-transport",
   order = "c[rolling-stock]-a[locomotive]",
   inventory_move_sound = item_sounds.locomotive_inventory_move,
@@ -363,7 +363,7 @@ data:extend(
 {
   type = "item-with-entity-data",
   name = "rubia-armored-cargo-wagon",
-  icon = "__rubia__/graphics/icons/armored-cargo-wagon.png",
+  icon = "__rubia-assets__/graphics/icons/armored-cargo-wagon.png",
   subgroup = "train-transport",
   order = "c[rolling-stock]-b[cargo-wagon]",
   inventory_move_sound = item_sounds.metal_large_inventory_move,
@@ -377,7 +377,7 @@ data:extend(
 {
   type = "item-with-entity-data",
   name = "rubia-armored-fluid-wagon",
-  icon = "__rubia__/graphics/icons/armored-fluid-wagon.png",
+  icon = "__rubia-assets__/graphics/icons/armored-fluid-wagon.png",
   subgroup = "train-transport",
   order = "c[rolling-stock]-c[fluid-wagon]",
   inventory_move_sound = item_sounds.fluid_inventory_move,
@@ -395,7 +395,7 @@ data:extend(
 {
   type = "item",
   name = "rubia-long-bulk-inserter",
-  icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
+  icon = "__rubia-assets__/graphics/icons/long-bulk-inserter.png",
   order = "f[bulk-inserter]",
   subgroup = "inserter",
   color_hint = { text = "T" },
@@ -411,7 +411,7 @@ data:extend(
 {
   type = "item",
   name = "craptonite-wall",
-  icon = "__rubia__/graphics/icons/crap-wall.png",
+  icon = "__rubia-assets__/graphics/icons/crap-wall.png",
   --order = "z-a-a",
   subgroup = "defensive-structure",
   order = "a[stone-wall]-a[stone-wall]",

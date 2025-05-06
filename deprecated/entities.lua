@@ -101,7 +101,7 @@ end]]
     {
         type = "assembling-machine",
         name = "catalytic-chemical-plant",
-        icon = "__rubia__/graphics/icons/catalytic-chemical-plant.png",
+        icon = "__rubia-assets__/graphics/icons/catalytic-chemical-plant.png",
         flags = {"placeable-neutral","placeable-player", "player-creation"},
         minable = {mining_time = 0.1, result = "catalytic-chemical-plant"},
         fast_replaceable_group = "chemical-plant",
@@ -124,7 +124,7 @@ end]]
             animation = make_4way_animation_from_spritesheet({ layers =
             {
             {
-                filename = "__rubia__/graphics/entity/catalytic-chemical-plant.png",
+                filename = "__rubia-assets__/graphics/entity/catalytic-chemical-plant.png",
                 width = 220,
                 height = 292,
                 frame_count = 24,
@@ -385,7 +385,7 @@ end]]
     {
       type = "lab",
       name = "pressure-lab",
-      icon = "__rubia__/graphics/icons/pressure-lab.png", --TODO make icon
+      icon = "__rubia-assets__/graphics/icons/pressure-lab.png", --TODO make icon
       minable = {mining_time = 0.5, result = "pressure-lab"},
       subgroup = "production-machine",
       order = "z-z[z-plab]",
@@ -411,7 +411,7 @@ end]]
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/lab-3-x-frame.png",
+            filename = "__rubia-assets__/graphics/entity/lab-3-x-frame.png",
             width = 194,
             height = 174,
             frame_count = 47,
@@ -423,7 +423,7 @@ end]]
           {
             width = 220, 
             height = 292,
-            filename = "__rubia__/graphics/entity/chem-lab-on-mask.png", --On picture has wrong colors and is shifted weirdly by a pixel.
+            filename = "__rubia-assets__/graphics/entity/chem-lab-on-mask.png", --On picture has wrong colors and is shifted weirdly by a pixel.
             scale = 0.5,
             animation_speed = 1 / 5,
             frame_count = 1,
@@ -436,7 +436,7 @@ end]]
             --fadeout = true,
             --constant_speed = true,
             shift= util.by_pixel_hr(-30, -228),
-            filename = "__rubia__/graphics/entity/chemical-plant-smoke-outer-blue.png",
+            filename = "__rubia-assets__/graphics/entity/chemical-plant-smoke-outer-blue.png",
             width = 90,
             height = 188,
             frame_count = 47, --Just cutting the animation to 5 frames looks bad. Was 47
@@ -451,7 +451,7 @@ end]]
             --fadeout = true,
             --constant_speed = true,
             shift= util.by_pixel_hr(-30, -228),
-            filename = "__rubia__/graphics/entity/chemical-plant-smoke-inner-blue.png",
+            filename = "__rubia-assets__/graphics/entity/chemical-plant-smoke-inner-blue.png",
             frame_count = 47,
             line_length = 16,
             repeat_count = 1,
@@ -472,7 +472,7 @@ end]]
             scale = 0.5
           },
           {
-            filename = "__rubia__/graphics/entity/lab-light-three-times-frames-no-change.png",
+            filename = "__rubia-assets__/graphics/entity/lab-light-three-times-frames-no-change.png",
             blend_mode = "additive",
             draw_as_light = true,
             width = 216,
@@ -505,7 +505,7 @@ end]]
         layers = 
         {
           { 
-            filename = "__rubia__/graphics/entity/lab-3-x-frame.png",
+            filename = "__rubia-assets__/graphics/entity/lab-3-x-frame.png",
             width = 194,
             height = 174,
             frame_count = 1,
@@ -517,7 +517,7 @@ end]]
           {
             width = 220, 
             height = 292,
-            filename = "__rubia__/graphics/entity/chem-lab-on-mask.png", 
+            filename = "__rubia-assets__/graphics/entity/chem-lab-on-mask.png", 
             scale = 0.5,
             animation_speed = 1 / 5,
             frame_count = 1,
@@ -527,7 +527,7 @@ end]]
             blend_mode = "normal",
           },
           {
-            filename = "__rubia__/graphics/entity/lab/lab-shadow.png",
+            filename = "__rubia-assets__/graphics/entity/lab/lab-shadow.png",
             width = 242,
             height = 136,
             line_length = 1,
@@ -630,7 +630,7 @@ end]]
     {
       type = "boiler",
       name = "red-boiler",
-      icon = "__rubia__/graphics/icons/red-boiler.png",
+      icon = "__rubia-assets__/graphics/icons/red-boiler.png",
       flags = {"placeable-neutral", "player-creation"},
       minable = {mining_time = 0.2, result = "red-boiler"},
       fast_replaceable_group = "boiler",
@@ -729,7 +729,7 @@ end]]
             layers =
             {
               {
-                filename = "__rubia__/graphics/entity/red-boiler-N-idle.png",
+                filename = "__rubia-assets__/graphics/entity/red-boiler-N-idle.png",
                 priority = "extra-high",
                 width = 269,
                 height = 221,
@@ -779,7 +779,7 @@ end]]
             layers =
             {
               {
-                filename = "__rubia__/graphics/entity/red-boiler-E-idle.png",
+                filename = "__rubia-assets__/graphics/entity/red-boiler-E-idle.png",
                 priority = "extra-high",
                 width = 216,
                 height = 301,
@@ -837,7 +837,7 @@ end]]
             layers =
             {
               {
-                filename = "__rubia__/graphics/entity/red-boiler-S-idle.png",
+                filename = "__rubia-assets__/graphics/entity/red-boiler-S-idle.png",
                 priority = "extra-high",
                 width = 260,
                 height = 192,
@@ -887,7 +887,7 @@ end]]
             layers =
             {
               {
-                filename = "__rubia__/graphics/entity/red-boiler-W-idle.png",
+                filename = "__rubia-assets__/graphics/entity/red-boiler-W-idle.png",
                 priority = "extra-high",
                 width = 196,
                 height = 273,
@@ -949,7 +949,7 @@ end]]
     --[[{
       type = "generator",
       name = "red-steam-engine",
-      icon = "__rubia__/graphics/icons/red-steam-engine.png",
+      icon = "__rubia-assets__/graphics/icons/red-steam-engine.png",
       flags = {"placeable-neutral","player-creation"},
       minable = {mining_time = 0.3, result = "red-steam-engine"},
       max_health = 400,
@@ -1000,7 +1000,7 @@ end]]
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/red-steam-engine-H.png",
+            filename = "__rubia-assets__/graphics/entity/red-steam-engine-H.png",
             width = 352,
             height = 257,
             frame_count = 32,
@@ -1025,7 +1025,7 @@ end]]
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/red-steam-engine-V.png",
+            filename = "__rubia-assets__/graphics/entity/red-steam-engine-V.png",
             width = 225,
             height = 391,
             frame_count = 32,
@@ -1103,7 +1103,7 @@ end]]
     {
       type = "container",
       name = "ice-box",
-      icon = "__rubia__/graphics/icons/ice-box.png",
+      icon = "__rubia-assets__/graphics/icons/ice-box.png",
       flags = {"placeable-neutral", "player-creation"},
       minable = {mining_time = 0.1, result = "ice-box"},
       max_health = 100,
@@ -1123,7 +1123,7 @@ end]]
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/ice-box.png",
+            filename = "__rubia-assets__/graphics/entity/ice-box.png",
             priority = "extra-high",
             width = 62,
             height = 72,

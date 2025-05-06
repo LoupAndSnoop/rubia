@@ -29,7 +29,7 @@ data:extend({
     {
         type = "assembling-machine",
         name = "biorecycling-plant",
-        icon = "__rubia__/graphics/icons/biorecycling-plant.png",
+        icon = "__rubia-assets__/graphics/icons/biorecycling-plant.png",
         flags = {"placeable-neutral", "placeable-player", "player-creation"},
         minable = {mining_time = 0.1, result = "biorecycling-plant"},
         fast_replaceable_group = "biorecycling-plant",
@@ -97,18 +97,18 @@ data:extend({
         forced_symmetry = "diagonal-pos",--"horizontal",
         perceived_performance = {minimum = 0.25, maximum = 10},
 
-        graphics_set          = require("__rubia__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set,--"__quality__.prototypes.entity.recycler-pictures").graphics_set,
-        graphics_set_flipped  = require("__rubia__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set_flipped,
+        graphics_set          = require("__rubia-assets__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set,--"__quality__.prototypes.entity.recycler-pictures").graphics_set,
+        graphics_set_flipped  = require("__rubia-assets__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set_flipped,
         --[[graphics_set = {
             animation=
                 {north=
                     {layers = {
-                        {filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+                        {filename = "__rubia-assets__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
                         width = 128, height = 64, scale = 1, shift = util.by_pixel(0, 3.5),} --tint = {r=0,g=0,b=0,a=0}}
                     }},
                 east=
                     {layers = {
-                        {filename = "__rubia__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
+                        {filename = "__rubia-assets__/graphics/entity/biorecycling-plant/biorecycling-plant-test.png",
                         width = 128, height = 64, scale = 1, shift = util.by_pixel(0, 3.5),} --tint = {r=0,g=0,b=0,a=0}}
                     }},
             }

@@ -129,7 +129,7 @@ data:extend({
     energy_required = 0.1,
     ingredients = {{ type = "item", name = "makeshift-biorecycling-science-pack", amount = 1 }},
     results = {{ type = "item", name = "yeet-makeshift-biorecycling-science-pack", amount = 1 }},
-    icon = "__rubia__/graphics/icons/science/yeet_torus_clear_brown.png",
+    icon = "__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png",
     icon_size = 64,
     subgroup = "yeeting-items",
     order = "zz[yeet]",
@@ -139,7 +139,7 @@ data:extend({
   {
     type = "recipe",
     name = "yeet-ghetto-biorecycling-science-pack",
-    icon = "__rubia__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
+    icon = "__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
     icon_size = 64,
     category = "crapapult",
     enabled = true,
@@ -158,7 +158,7 @@ data:extend({
   {
     type = "recipe",
     name = "yeet-biorecycling-science-pack",
-    icon = "__rubia__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png",
+    icon = "__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png",
     icon_size = 64,
     category = "crapapult",
     enabled = true,
@@ -177,7 +177,7 @@ data:extend({
   {
     type = "recipe",
     name = "yeet-spoilage",
-    icon = "__rubia__/graphics/icons/science/yeet-spoilage.png",
+    icon = "__rubia-assets__/graphics/icons/science/yeet-spoilage.png",
     icon_size = 64,
     category = "crapapult",
     enabled = true,
@@ -196,7 +196,7 @@ data:extend({
   {
     type = "recipe",
     name = "yeet-gun-turret",
-    icon = "__rubia__/graphics/icons/science/yeet-gun-turret.png",
+    icon = "__rubia-assets__/graphics/icons/science/yeet-gun-turret.png",
     icon_size = 64,
     category = "crapapult",
     enabled = true,
@@ -238,7 +238,7 @@ data:extend({
   {
     type ="recipe",
     name ="biorecycle-bacteria-A-ferric-scrap",
-    icon = "__rubia__/graphics/icons/recipes/biorecycling-yellow-ammo+copper-cable.png",--bacteria-A+firearm-magazine.png",--"scrap-blue+bacteria-A.png",
+    icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-yellow-ammo+copper-cable.png",--bacteria-A+firearm-magazine.png",--"scrap-blue+bacteria-A.png",
     category ="biorecycling",
     enabled = false,
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-b",
@@ -259,7 +259,7 @@ data:extend({
   {
     type ="recipe",
     name ="biorecycle-bacteria-A-firearm-magazine",
-    icon = "__rubia__/graphics/icons/recipes/biorecycling-iron-plate+bacteriaA.png",--"bacteria-A+firearm-magazine.png",
+    icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-iron-plate+bacteriaA.png",--"bacteria-A+firearm-magazine.png",
     category ="biorecycling",
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-c",
     enabled = false,
@@ -301,7 +301,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-cupric-scrap",
-  icon = "__rubia__/graphics/icons/recipes/biorecycling-red-ammo+rail.png",--"scrap-red+bacteria-B.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-red-ammo+rail.png",--"scrap-red+bacteria-B.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-b",
   enabled = false,
@@ -323,7 +323,7 @@ data:extend({
 --[[{
   type ="recipe",
   name ="biorecycle-bacteria-A-cupric-scrap",
-  --icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-B.png", --TODO
+  --icon = "__rubia-assets__/graphics/icons/recipes/scrap-red+bacteria-B.png", --TODO
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-b",
   enabled = false,
@@ -345,7 +345,7 @@ data:extend({
 --[[{
   type ="recipe",
   name ="biorecycle-bacteria-AB-cupric-scrap",
-  icon = "__rubia__/graphics/icons/recipes/scrap-red+bacteria-both.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/scrap-red+bacteria-both.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
@@ -366,7 +366,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-A-cupric-scrap",
-  icon = "__rubia__/graphics/icons/recipes/biorecycling-processing-unit+engine.png",--"scrap-red+bacteria-A.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-processing-unit+engine.png",--"scrap-red+bacteria-A.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
@@ -387,7 +387,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-A-engine",
-  icon = "__rubia__/graphics/icons/recipes/biorecycling-engine+gear.png",--"bacteria-A+engine.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-engine+gear.png",--"bacteria-A+engine.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-c",
   enabled = false,
@@ -407,7 +407,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-processing-unit",
-  icon = "__rubia__/graphics/icons/recipes/biorecycling-advanced-circuit+light-oil.png",--"bacteria-B+blue-circ.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-advanced-circuit+light-oil.png",--"bacteria-B+blue-circ.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-d",
   enabled = false,
@@ -430,7 +430,7 @@ data:extend({
 --[[{
   type ="recipe",
   name ="biorecycle-bacteria-AB-ferric-scrap",
-  icon = "__rubia__/graphics/icons/recipes/scrap-blue+bacteria-both.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/scrap-blue+bacteria-both.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
@@ -452,7 +452,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-B-rail",
-  icon = "__rubia__/graphics/icons/recipes/biorecycling-steel+concrete.png",--"bacteria-B+rail.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-steel+concrete.png",--"bacteria-B+rail.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-d",
   enabled = false,
@@ -515,7 +515,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-AB-elec-engine",
-  icon = "__rubia__/graphics/icons/recipes/bacteria-AB+elec-engine.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/bacteria-AB+elec-engine.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-e",
   enabled = false,
@@ -567,7 +567,7 @@ data:extend({
   {
     type = "recipe",
     name = "biorecycling-plant",
-    icon = "__rubia__/graphics/icons/biorecycling-plant.png",
+    icon = "__rubia-assets__/graphics/icons/biorecycling-plant.png",
     icon_size = 64,
     subgroup = "production-machine",
     order = "b[turret]-a[gun-turret]",
@@ -589,7 +589,7 @@ data:extend({
 {
   type = "recipe",
   name = "garbo-grabber",
-  icon = "__rubia__/graphics/icons/garbo-grabber.png",
+  icon = "__rubia-assets__/graphics/icons/garbo-grabber.png",
   icon_size = 64,
   subgroup = "production-machine",
   order = "b[turret]-a[gun-turret]",
@@ -611,7 +611,7 @@ data:extend({
 {
   type = "recipe",
   name = "crapapult",
-  icon = "__rubia__/graphics/icons/crapapult-icon.png",
+  icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
   icon_size = 64,
   subgroup = "production-machine",
   order = "b[turret]-a[gun-turret]",
@@ -632,7 +632,7 @@ data:extend({
 {
   type = "recipe",
   name = "rubia-sniper-turret",
-  icon = "__rubia__/graphics/icons/sniper-turret-icon.png",
+  icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
   icon_size = 64,
   subgroup = "defensive-structure",
   order = "b[turret]-a[gun-turret]-b",
@@ -760,7 +760,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-scrapapalooza",
-  icon = "__rubia__/graphics/icons/scrapapalooza.png",
+  icon = "__rubia-assets__/graphics/icons/scrapapalooza.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-e",
   enabled = false,
@@ -847,7 +847,7 @@ data:extend({
   {
     type = "recipe",
     name = "rubia-holmium-craptalysis",
-    icon = "__rubia__/graphics/icons/recipes/holmium-craptalysis.png",
+    icon = "__rubia-assets__/graphics/icons/recipes/holmium-craptalysis.png",
     --order = "b[new-fluid]-c[fulgora]-a[holmium]-b",
     subgroup = "fulgora-processes", order = "b[holmium]-b[holmium-solution]-b",
 

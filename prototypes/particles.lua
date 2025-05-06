@@ -5,28 +5,28 @@ particle_animations.get_ferric_scrap_particle_pictures = function(options)
   return
   {
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-1.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/ferric-scrap-particle-1.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-2.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/ferric-scrap-particle-2.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-3.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/ferric-scrap-particle-3.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/ferric-scrap-particle-4.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/ferric-scrap-particle-4.png",
       priority = "extra-high",
       width = 32,
       height = 32,
@@ -39,28 +39,28 @@ particle_animations.get_cupric_scrap_particle_pictures = function(options)
   return
   {
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-1.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/cupric-scrap-particle-1.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-2.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/cupric-scrap-particle-2.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-3.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/cupric-scrap-particle-3.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/scrap-particle/cupric-scrap-particle-4.png",
+      filename = "__rubia-assets__/graphics/particle/scrap-particle/cupric-scrap-particle-4.png",
       priority = "extra-high",
       width = 32,
       height = 32,
@@ -74,28 +74,28 @@ particle_animations.get_platinum_ore_particle_pictures = function(options)
   return
   {
     {
-      filename = "__rubia__/graphics/particle/platinum-ore-particle/platinum-ore-particle-1.png",
+      filename = "__rubia-assets__/graphics/particle/platinum-ore-particle/platinum-ore-particle-1.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/platinum-ore-particle/platinum-ore-particle-2.png",
+      filename = "__rubia-assets__/graphics/particle/platinum-ore-particle/platinum-ore-particle-2.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/platinum-ore-particle/platinum-ore-particle-3.png",
+      filename = "__rubia-assets__/graphics/particle/platinum-ore-particle/platinum-ore-particle-3.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/platinum-ore-particle/platinum-ore-particle-3.png",
+      filename = "__rubia-assets__/graphics/particle/platinum-ore-particle/platinum-ore-particle-3.png",
       priority = "extra-high",
       width = 32,
       height = 32,
@@ -108,28 +108,28 @@ particle_animations.get_sulfur_ore_particle_pictures = function(options)
   return
   {
     {
-      filename = "__rubia__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-1.png",
+      filename = "__rubia-assets__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-1.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-2.png",
+      filename = "__rubia-assets__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-2.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-3.png",
+      filename = "__rubia-assets__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-3.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-4.png",
+      filename = "__rubia-assets__/graphics/particle/sulfur-ore-particle/sulfur-ore-particle-4.png",
       priority = "extra-high",
       width = 32,
       height = 32,
@@ -142,28 +142,28 @@ particle_animations.get_chalcopyrite_ore_particle_pictures = function(options)
   return
   {
     {
-      filename = "__rubia__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-1.png",
+      filename = "__rubia-assets__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-1.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-2.png",
+      filename = "__rubia-assets__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-2.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-3.png",
+      filename = "__rubia-assets__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-3.png",
       priority = "extra-high",
       width = 32,
       height = 32,
       scale = 0.5
     },
     {
-      filename = "__rubia__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-4.png",
+      filename = "__rubia-assets__/graphics/particle/chalcopyrite-ore-particle/chalcopyrite-ore-particle-4.png",
       priority = "extra-high",
       width = 32,
       height = 32,

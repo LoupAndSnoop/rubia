@@ -162,9 +162,9 @@ local function special_yeet_recipe(item_name, icon, icon_size)
 }
 end
 
-data.extend(special_yeet_recipe("makeshift-biorecycling-science-pack","__rubia__/graphics/icons/science/yeet_torus_clear_brown.png"))
-data.extend(special_yeet_recipe("ghetto-biorecycling-science-pack","__rubia__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png"))
-data.extend(special_yeet_recipe("biorecycling-science-pack","__rubia__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png"))
-data.extend(special_yeet_recipe("spoilage","__rubia__/graphics/icons/science/yeet-spoilage.png"))
-data.extend(special_yeet_recipe("gun-turret","__rubia__/graphics/icons/science/yeet-gun-turret.png"))
+data.extend(special_yeet_recipe("makeshift-biorecycling-science-pack","__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png"))
+data.extend(special_yeet_recipe("ghetto-biorecycling-science-pack","__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png"))
+data.extend(special_yeet_recipe("biorecycling-science-pack","__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png"))
+data.extend(special_yeet_recipe("spoilage","__rubia-assets__/graphics/icons/science/yeet-spoilage.png"))
+data.extend(special_yeet_recipe("gun-turret","__rubia-assets__/graphics/icons/science/yeet-gun-turret.png"))
 --#endregion

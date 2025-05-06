@@ -1,5 +1,5 @@
 local recycler_animation_speed = 4
-local biorecycler_path = "__rubia__/graphics/entity/biorecycling-plant/biorecycler-"
+local biorecycler_path = "__rubia-assets__/graphics/entity/biorecycling-plant/biorecycler-"
 local recycler_path = "__quality__/graphics/entity/recycler/recycler-"
 
 local function recycler_direction(key, path)

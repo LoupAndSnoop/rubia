@@ -5,7 +5,7 @@ data:extend({
         type = "module",
         name = "rubia-efficiency-module4", --idk why but -4 makes it not localize correctly
         localised_description = {"item-description.efficiency-module"},
-        icon = "__rubia__/graphics/icons/efficiency-module-4.png",
+        icon = "__rubia-assets__/graphics/icons/efficiency-module-4.png",
         subgroup = "module",
         color_hint = { text = "E" },
         category = "efficiency",

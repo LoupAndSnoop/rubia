@@ -28,7 +28,7 @@ local turbine_scale = 0.85
 local turbine_animation = {
   layers = {
     {
-      filename = "__rubia__/graphics/entity/wind-turbine/wind-turbine.png",
+      filename = "__rubia-assets__/graphics/entity/wind-turbine/wind-turbine.png",
       priority = "medium",
       width = 196,
       height = 286,
@@ -39,7 +39,7 @@ local turbine_animation = {
       shift = {0, turbine_scale * -1.2},
     },
     {
-      filename = "__rubia__/graphics/entity/wind-turbine/wind-turbine-shadow.png",
+      filename = "__rubia-assets__/graphics/entity/wind-turbine/wind-turbine-shadow.png",
       priority = "medium",
       width = 242,
       height = 100,
@@ -55,7 +55,7 @@ local turbine_animation = {
 
 local turbine_water_reflection = {
   pictures = {
-    filename = "__rubia__/graphics/entity/wind-turbine/wind-turbine-reflection.png",
+    filename = "__rubia-assets__/graphics/entity/wind-turbine/wind-turbine-reflection.png",
     priority = "extra-high",
     width = 20,
     height = 25,
@@ -88,7 +88,7 @@ data:extend({
     name = "rubia-wind-turbine",
     localised_name = {"entity-name.rubia-wind-turbine"},
     localised_description = {"entity-description.rubia-wind-turbine"},
-    icon = "__rubia__/graphics/entity/wind-turbine/wind-turbine-icon.png",
+    icon = "__rubia-assets__/graphics/entity/wind-turbine/wind-turbine-icon.png",
     icon_size = 64,
     flags = {"placeable-neutral", "player-creation", "not-rotatable"},
     collision_mask = {

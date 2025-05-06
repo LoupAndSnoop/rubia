@@ -135,7 +135,7 @@ data:extend({
 {
     type = "locomotive",
     name = "rubia-armored-locomotive",
-    icon = "__rubia__/graphics/icons/armored-locomotive.png",
+    icon = "__rubia-assets__/graphics/icons/armored-locomotive.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     minable = {mining_time = 0.5, result = "rubia-armored-locomotive"},
     mined_sound = sounds.deconstruct_large(0.8),
@@ -252,10 +252,10 @@ data:extend({
                 scale = 0.6,
                 filenames =
                 {
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-1.png",
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-2.png",
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-3.png",
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-4.png"
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-1.png",
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-2.png",
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-3.png",
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-4.png"
                 }
             },
             {
@@ -273,10 +273,10 @@ data:extend({
                 -- Somehow it is different from turret masks (use transparency 192)
                 filenames =
                 {
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-1.png",
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-2.png",
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-3.png",
-                    "__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mask-4.png"
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-mask-1.png",
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-mask-2.png",
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-mask-3.png",
+                    "__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-mask-4.png"
                 }
             },
         --[[
@@ -340,14 +340,14 @@ data:extend({
     },
     minimap_representation =
     {
-      filename = "__rubia__/graphics/icons/armored-locomotive-minimap-representation.png",--"__base__/graphics/entity/locomotive/minimap-representation/locomotive-minimap-representation.png",
+      filename = "__rubia-assets__/graphics/icons/armored-locomotive-minimap-representation.png",--"__base__/graphics/entity/locomotive/minimap-representation/locomotive-minimap-representation.png",
       flags = {"icon"},
       size = {20, 40},
       scale = 0.5
     },
     selected_minimap_representation =
     {
-      filename = "__rubia__/graphics/icons/armored-locomotive-selected-minimap-representation.png",--"__base__/graphics/entity/locomotive/minimap-representation/locomotive-selected-minimap-representation.png",
+      filename = "__rubia-assets__/graphics/icons/armored-locomotive-selected-minimap-representation.png",--"__base__/graphics/entity/locomotive/minimap-representation/locomotive-selected-minimap-representation.png",
       flags = {"icon"},
       size = {20, 40},
       scale = 0.5
@@ -486,7 +486,7 @@ data:extend({
   {
     type = "cargo-wagon",
     name = "rubia-armored-cargo-wagon",
-    icon = "__rubia__/graphics/icons/armored-cargo-wagon.png",
+    icon = "__rubia-assets__/graphics/icons/armored-cargo-wagon.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     inventory_size = 100,--40,
     minable = {mining_time = 0.5, result = "rubia-armored-cargo-wagon"},
@@ -529,7 +529,7 @@ data:extend({
                 height = 256,
                 back_equals_front = true,
                 direction_count = 64,
-                filename = "__rubia__/graphics/entity/armored-cargo-wagon/armored-cargo-wagon.png",      
+                filename = "__rubia-assets__/graphics/entity/armored-cargo-wagon/armored-cargo-wagon.png",      
                 line_length = 8,
                 lines_per_file = 8,
                 shift = {0.42, -1.125}
@@ -656,7 +656,7 @@ data:extend({
   {
     type = "fluid-wagon",
     name = "rubia-armored-fluid-wagon",
-    icon = "__rubia__/graphics/icons/armored-fluid-wagon.png",
+    icon = "__rubia-assets__/graphics/icons/armored-fluid-wagon.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     minable = {mining_time = 0.5, result = "rubia-armored-fluid-wagon"},
     mined_sound = sounds.deconstruct_large(0.8),
@@ -697,10 +697,10 @@ data:extend({
 			back_equals_front = true,
 			direction_count = 64,
 			filenames = {
-				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-0.png",      
-				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-1.png",      
-				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-2.png",      
-				"__rubia__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-3.png",      				
+				"__rubia-assets__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-0.png",      
+				"__rubia-assets__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-1.png",      
+				"__rubia-assets__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-2.png",      
+				"__rubia-assets__/graphics/entity/armored-fluid-wagon/4aw_fw_vc_sheet-3.png",      				
 			},
 			line_length = 4,
 			lines_per_file = 4,
@@ -786,7 +786,7 @@ if mods["elevated-rails"] then
 		{
 			layers =
 			{
-				util.sprite_load("__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mk1-sloped",
+				util.sprite_load("__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-mk1-sloped",
 				{
 					dice = 4,
 					priority = "very-low",
@@ -796,7 +796,7 @@ if mods["elevated-rails"] then
 				}),
 				-- Somehow it is different from turret masks (use transparency 192)
 				-- Some how it is different 20250219 again lol and everything is broken (looks liek dev patched this)
-				util.sprite_load("__rubia__/graphics/entity/armored-locomotive/armored-locomotive-mk1-sloped-mask",
+				util.sprite_load("__rubia-assets__/graphics/entity/armored-locomotive/armored-locomotive-mk1-sloped-mask",
 				{
 					dice = 4,
 					priority = "very-low",

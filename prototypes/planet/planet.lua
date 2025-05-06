@@ -1,6 +1,7 @@
 local planet_map_gen = require("__rubia__.prototypes.planet.rubia-map-gen")
 local asteroid_util = require("__space-age__.prototypes.planet.asteroid-spawn-definitions")
 local planet_catalogue_rubia = require("__rubia__.prototypes.planet.procession-catalogue-rubia")
+local effects = require("__core__.lualib.surface-render-parameter-effects")
 
 --local planet_map_gen = require("__rubia__/planet/rubia-map-gen")
 
@@ -26,15 +27,16 @@ set_wind_speed("aquilo", 30)
 
     --data.raw["planet-nauvis"].surface_properties["wind-speed"] = 5
 --rubia.surface_conditions() = function () {}end
-
+local fog = effects.default_fog_effect_properties()
+fog.tick_factor = -fog.tick_factor
 --------Basic Map generation
 
 local planet = {
   {
         type = "planet",
         name = "rubia",
-        icon = "__rubia__/graphics/icons/rubia-icon.png",
-        starmap_icon = "__rubia__/graphics/icons/starmap-planet-rubia.png",
+        icon = "__rubia-assets__/graphics/icons/rubia-icon.png",
+        starmap_icon = "__rubia-assets__/graphics/icons/starmap-planet-rubia.png",
         starmap_icon_size = 512,
         gravity_pull = 10,
         distance = 15,
@@ -69,6 +71,7 @@ local planet = {
 
         surface_render_parameters =
         {
+          --fog = fog,--effects.default_fog_effect_properties(),
           clouds =
           {
             shape_noise_texture =
@@ -118,8 +121,8 @@ local planet = {
           },]]
           day_night_cycle_color_lookup =
           {
-            {0.7, "__rubia__/graphics/terrain/rubia-day.png"},
-            {0.4, "__rubia__/graphics/terrain/rubia-night.png"},
+            {0.7, "__rubia-assets__/graphics/terrain/rubia-day.png"},
+            {0.4, "__rubia-assets__/graphics/terrain/rubia-night.png"},
           },
 
           terrain_tint_effect =
@@ -139,7 +142,7 @@ local planet = {
             global_scale = 0.25,
             zoom_factor = 3.8,
             zoom_intensity = 0.75
-          }
+          },
         },
         asteroid_spawn_influence = 1,
         asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_fulgora, 0.9),

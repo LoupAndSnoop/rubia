@@ -11,7 +11,7 @@ data:extend({
 {
     type = "corpse",
     name = "rubia-long-bulk-inserter-remnants",
-    icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
+    icon = "__rubia-assets__/graphics/icons/long-bulk-inserter.png",
     flags = {"placeable-neutral", "not-on-map"},
     hidden_in_factoriopedia = true,
     subgroup = "inserter-remnants",
@@ -26,7 +26,7 @@ data:extend({
     remove_on_tile_placement = false,
     animation = rubia_lib.make_rotated_animation_variations_from_sheet (4,
     {
-      filename = "__rubia__/graphics/entity/long-bulk-inserter/remnants/long-bulk-inserter-remnants.png",
+      filename = "__rubia-assets__/graphics/entity/long-bulk-inserter/remnants/long-bulk-inserter-remnants.png",
       line_length = 1,
       width = 132,
       height = 96,
@@ -38,7 +38,7 @@ data:extend({
 {
     type = "inserter",
     name = "rubia-long-bulk-inserter",
-    icon = "__rubia__/graphics/icons/long-bulk-inserter.png",
+    icon = "__rubia-assets__/graphics/icons/long-bulk-inserter.png",
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     bulk = true,
     minable = { mining_time = 0.1, result = "rubia-long-bulk-inserter" },
@@ -80,7 +80,7 @@ data:extend({
     working_sound = sounds.inserter_fast,
     hand_base_picture =
     {
-      filename = "__rubia__/graphics/entity/long-bulk-inserter/long-bulk-inserter-hand-base.png",
+      filename = "__rubia-assets__/graphics/entity/long-bulk-inserter/long-bulk-inserter-hand-base.png",
       priority = "extra-high",
       width = 32,
       height = 136,
@@ -88,7 +88,7 @@ data:extend({
     },
     hand_closed_picture =
     {
-      filename = "__rubia__/graphics/entity/long-bulk-inserter/long-bulk-inserter-hand-closed.png",
+      filename = "__rubia-assets__/graphics/entity/long-bulk-inserter/long-bulk-inserter-hand-closed.png",
       priority = "extra-high",
       width = 100,
       height = 164,
@@ -96,7 +96,7 @@ data:extend({
     },
     hand_open_picture =
     {
-      filename = "__rubia__/graphics/entity/long-bulk-inserter/long-bulk-inserter-hand-open.png",
+      filename = "__rubia-assets__/graphics/entity/long-bulk-inserter/long-bulk-inserter-hand-open.png",
       priority = "extra-high",
       width = 130,
       height = 164,
@@ -130,7 +130,7 @@ data:extend({
     {
       sheet =
       {
-        filename = "__rubia__/graphics/entity/long-bulk-inserter/long-bulk-inserter-platform.png",
+        filename = "__rubia-assets__/graphics/entity/long-bulk-inserter/long-bulk-inserter-platform.png",
         priority = "extra-high",
         width = 105,
         height = 79,

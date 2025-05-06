@@ -13,7 +13,7 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
   {
     type = "resource",
     name = resource_parameters.name,
-    icon = "__rubia__/graphics/icons/" .. resource_parameters.name .. ".png", --changed space-age to rubia
+    icon = "__rubia-assets__/graphics/icons/" .. resource_parameters.name .. ".png", --changed space-age to rubia
     flags = {"placeable-neutral"},
     order="a-b-"..resource_parameters.order,
     tree_removal_probability = 0.8,
@@ -69,7 +69,7 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
     {
       sheet =
       {
-        filename = resource_graphic,--"__rubia__/graphics/terrain/" .. resource_parameters.name .. "/" .. resource_parameters.name .. ".png",
+        filename = resource_graphic,--"__rubia-assets__/graphics/terrain/" .. resource_parameters.name .. "/" .. resource_parameters.name .. ".png",
         priority = "extra-high",
         size = 128,
         frame_count = 8,
@@ -95,7 +95,7 @@ data:extend({
   {
     type = "resource",
     name = "bacterial-sludge",
-    icon = "__rubia__/graphics/entity/bacterial-sludge/sludge-well-icon.png",--"__base__/graphics/icons/crude-oil-resource.png",
+    icon = "__rubia-assets__/graphics/entity/bacterial-sludge/sludge-well-icon.png",--"__base__/graphics/icons/crude-oil-resource.png",
     flags = {"placeable-neutral"},
     category = "basic-fluid",
     subgroup = "mineable-fluids",
@@ -146,7 +146,7 @@ data:extend({
     stage_counts = {0},
     stages =
     {
-      sheet = util.sprite_load("__rubia__/graphics/entity/bacterial-sludge/sludge-well",--"__base__/graphics/entity/crude-oil/crude-oil",
+      sheet = util.sprite_load("__rubia-assets__/graphics/entity/bacterial-sludge/sludge-well",--"__base__/graphics/entity/crude-oil/crude-oil",
       {
         priority = "extra-high",
         scale = 0.5,
@@ -160,7 +160,7 @@ data:extend({
       {
         count = 1,
         render_layer = "decorative",
-        animation = util.sprite_load("__rubia__/graphics/entity/bacterial-sludge/sludge-well-animation",
+        animation = util.sprite_load("__rubia-assets__/graphics/entity/bacterial-sludge/sludge-well-animation",
         {
           priority = "extra-high",
           scale = 0.5,
@@ -205,7 +205,7 @@ data:extend({
 })
 
 data:extend({
-  resource("__rubia__/graphics/terrain/rubia-cupric-scrap.png",
+  resource("__rubia-assets__/graphics/terrain/rubia-cupric-scrap.png",
     {
       name = "rubia-cupric-scrap",
       order = "b",
@@ -234,7 +234,7 @@ data:extend({
     }
   ),
 
-  resource("__rubia__/graphics/terrain/rubia-ferric-scrap.png",
+  resource("__rubia-assets__/graphics/terrain/rubia-ferric-scrap.png",
     {
       name = "rubia-ferric-scrap",
       order = "b",

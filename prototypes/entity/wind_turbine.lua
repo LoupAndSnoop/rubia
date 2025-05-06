@@ -16,8 +16,8 @@
 local MOD_NAME      = "rubia"
 --local MOD_TITLE     = "Krastorio 2 Wind Turbine (ZarSasha's Fork)"
 local TURBINE_NAME  = "rubia-wind-turbine"
-local GRAPHICS_PATH = "__rubia__/graphics/entity/wind-turbine/"
-local SOUNDS_PATH   = "__rubia__/sounds/"
+local GRAPHICS_PATH = "__rubia-assets__/graphics/entity/wind-turbine/"
+local SOUNDS_PATH   = "__rubia-assets__/sounds/"
 
 ---------------------------------------------------------------------------------------------------
 -- STARTUP SETTINGS
@@ -149,7 +149,7 @@ data:extend({entity})
 local item = {
   type = "item",
   name = "rubia-wind-turbine",
-  icon = "__rubia__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
+  icon = "__rubia-assets__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
   icon_size = 64,
   subgroup = "energy",
   stack_size = 40,

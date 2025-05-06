@@ -40,7 +40,7 @@ local remnants =
     {
     type = "corpse",
     name = "catalytic-chemical-plant-remnants",
-    icon = "__rubia__/graphics/icons/catalytic-chemical-plant.png",
+    icon = "__rubia-assets__/graphics/icons/catalytic-chemical-plant.png",
     flags = {"placeable-neutral", "building-direction-8-way", "not-on-map"},
     hidden_in_factoriopedia = true,
     subgroup = "production-machine-remnants",
@@ -55,7 +55,7 @@ local remnants =
     remove_on_tile_placement = false,
     animation =
     {
-      filename = "__rubia__/graphics/entity/catalytic-chemical-plant-remnants.png",
+      filename = "__rubia-assets__/graphics/entity/catalytic-chemical-plant-remnants.png",
       line_length = 1,
       width = 366,
       height = 306,
@@ -82,7 +82,7 @@ local remnants =
     remove_on_tile_placement = false,
     animation = make_rotated_animation_variations_from_sheet (1,
     {
-      filename = "__rubia__/graphics/entity/red-steam-engine-remnants.png",
+      filename = "__rubia-assets__/graphics/entity/red-steam-engine-remnants.png",
       line_length = 1,
       width = 462,
       height = 386,
@@ -109,7 +109,7 @@ local remnants =
     remove_on_tile_placement = false,
     animation =
     {
-      filename = "__rubia__/graphics/entity/red-boiler-remnants.png",
+      filename = "__rubia-assets__/graphics/entity/red-boiler-remnants.png",
       line_length = 1,
       width = 274,
       height = 220,
@@ -122,7 +122,7 @@ local remnants =
   {
     type = "corpse",
     name = "ice-box-remnants",
-    icon = "__rubia__/graphics/icons/ice-box.png",
+    icon = "__rubia-assets__/graphics/icons/ice-box.png",
     hidden_in_factoriopedia = true,
     flags = {"placeable-neutral", "building-direction-8-way", "not-on-map"},
     subgroup = "storage-remnants",
@@ -137,7 +137,7 @@ local remnants =
     remove_on_tile_placement = false,
     animation =
     {
-      filename = "__rubia__/graphics/entity/ice-box-remnants.png",
+      filename = "__rubia-assets__/graphics/entity/ice-box-remnants.png",
       line_length = 1,
       width = 110,
       height = 74,

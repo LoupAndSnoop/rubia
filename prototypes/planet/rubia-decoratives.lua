@@ -554,7 +554,7 @@ data:extend
 
     lower_pictures =
         {
-          filename = "__rubia__/graphics/entity/remnants/train-stop-base-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
+          filename = "__rubia-assets__/graphics/entity/remnants/train-stop-base-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
           line_length = 1,
           width = 486,
           height = 454,
@@ -565,7 +565,7 @@ data:extend
         },
       pictures = 
       {
-        filename = "__rubia__/graphics/entity/remnants/train-stop-top-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
+        filename = "__rubia-assets__/graphics/entity/remnants/train-stop-top-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
         line_length = 1,
         width = 136,
         height = 254,
@@ -580,7 +580,7 @@ data:extend
       layers =
       {
         {
-          filename = "__rubia__/graphics/entity/remnants/train-stop-base-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
+          filename = "__rubia-assets__/graphics/entity/remnants/train-stop-base-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-base-remnants.png",
           line_length = 1,
           width = 486,
           height = 454,
@@ -591,7 +591,7 @@ data:extend
         },
         {
           priority = "low",
-          filename = "__rubia__/graphics/entity/remnants/train-stop-base-remnants-mask.png",--"__base__/graphics/entity/train-stop/remnants/mask/train-stop-base-remnants-mask.png",
+          filename = "__rubia-assets__/graphics/entity/remnants/train-stop-base-remnants-mask.png",--"__base__/graphics/entity/train-stop/remnants/mask/train-stop-base-remnants-mask.png",
           width = 284,
           height = 214,
           --apply_runtime_tint = true,
@@ -601,7 +601,7 @@ data:extend
           --tint = minable_item_tint
         },
         {
-          filename = "__rubia__/graphics/entity/remnants/train-stop-top-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
+          filename = "__rubia-assets__/graphics/entity/remnants/train-stop-top-remnants.png",--"__base__/graphics/entity/train-stop/remnants/train-stop-top-remnants.png",
           line_length = 1,
           width = 136,
           height = 254,
@@ -780,7 +780,7 @@ data:extend
       scale = 0.5
     }),
     spritesheet_variations(3, 1,{ --Rocket turret
-    filename = "__rubia__/graphics/entity/remnants/rocket-turret-remnants.png",
+    filename = "__rubia-assets__/graphics/entity/remnants/rocket-turret-remnants.png",
     --"__space-age__/graphics/entity/rocket-turret/remnants/rocket-turret-remnants.png",
     --line_length = 1,
     width = 222,

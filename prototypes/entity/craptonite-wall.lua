@@ -4,7 +4,7 @@ require ("util")
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 
---local path = "__rubia__/graphics/entity/wall/"
+--local path = "__rubia-assets__/graphics/entity/wall/"
 --local wall_prototype = util.table.deepcopy(data.raw.wall["stone-wall"])
 --wall_prototype.name = "craptonite-wall"
 --data:extend({wall_prototype})
@@ -13,7 +13,7 @@ data:extend({
 {
     type = "wall",
     name = "craptonite-wall",
-    icon = "__rubia__/graphics/icons/crap-wall.png",
+    icon = "__rubia-assets__/graphics/icons/crap-wall.png",
     flags = {"placeable-neutral", "player-creation"},
     collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
@@ -76,7 +76,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-single.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-single.png",
             priority = "extra-high",
             width = 64,
             height = 86,
@@ -102,7 +102,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-vertical.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-vertical.png",
             priority = "extra-high",
             width = 64,
             height = 134,
@@ -128,7 +128,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-horizontal.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-horizontal.png",
             priority = "extra-high",
             width = 64,
             height = 92,
@@ -154,7 +154,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-corner-right.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-corner-right.png",
             priority = "extra-high",
             width = 64,
             height = 128,
@@ -180,7 +180,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-corner-left.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-corner-left.png",
             priority = "extra-high",
             width = 64,
             height = 134,
@@ -206,7 +206,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-t.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-t.png",
             priority = "extra-high",
             width = 64,
             height = 134,
@@ -232,7 +232,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-ending-right.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-ending-right.png",
             priority = "extra-high",
             width = 64,
             height = 92,
@@ -258,7 +258,7 @@ data:extend({
         layers =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-ending-left.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-ending-left.png",
             priority = "extra-high",
             width = 64,
             height = 92,
@@ -281,7 +281,7 @@ data:extend({
       },
       filling =
       {
-        filename = "__rubia__/graphics/entity/wall/wall-filling.png",
+        filename = "__rubia-assets__/graphics/entity/wall/wall-filling.png",
         priority = "extra-high",
         width = 48,
         height = 56,
@@ -295,7 +295,7 @@ data:extend({
         sheets =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-patch.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-patch.png",
             priority = "extra-high",
             width = 116,
             height = 128,
@@ -318,7 +318,7 @@ data:extend({
         sheets =
         {
           {
-            filename = "__rubia__/graphics/entity/wall/wall-gate.png",
+            filename = "__rubia-assets__/graphics/entity/wall/wall-gate.png",
             priority = "extra-high",
             width = 82,
             height = 108,

@@ -228,19 +228,19 @@ data:extend(
           main =
           {
             {
-              picture = "__rubia__/graphics/tile/petrol-1.png",
+              picture = "__rubia-assets__/graphics/tile/petrol-1.png",
               count = 1,
               scale = 0.5,
               size = 1
             },
             {
-              picture = "__rubia__/graphics/tile/petrol-2.png",
+              picture = "__rubia-assets__/graphics/tile/petrol-2.png",
               count = 1,
               scale = 0.5,
               size = 2
             },
             {
-              picture = "__rubia__/graphics/tile/petrol-4.png",
+              picture = "__rubia-assets__/graphics/tile/petrol-4.png",
               count = 1,
               scale = 0.5,
               size = 4
@@ -285,7 +285,7 @@ data:extend({
       transition = transition_masks(),
       material_background =
       {
-        picture = "__rubia__/graphics/terrain/rubia-dunes.png",
+        picture = "__rubia-assets__/graphics/terrain/rubia-dunes.png",
         line_length = 4,
         count = 16,
         scale = 0.5
@@ -321,7 +321,7 @@ data:extend({
       transition = transition_masks(),
       material_background =
       {
-        picture = "__rubia__/graphics/terrain/rubia-sand.png",
+        picture = "__rubia-assets__/graphics/terrain/rubia-sand.png",
         line_length = 4,
         count = 16,
         scale = 0.5

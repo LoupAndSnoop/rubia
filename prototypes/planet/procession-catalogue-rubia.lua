@@ -134,7 +134,7 @@ return
     index = procession_graphic_catalogue.planet_tint,
     type = "sprite",
     sprite = {
-      filename = "__rubia__/graphics/procession/clouds/rubia-sky-tint.png",
+      filename = "__rubia-assets__/graphics/procession/clouds/rubia-sky-tint.png",
       width = 16,
       height = 16,
       priority = "no-atlas",

@@ -118,7 +118,5 @@ planet_map_gen.rubia = function()
     }
 end
 
---TODO iron chest dying explosion
-
 return planet_map_gen
 

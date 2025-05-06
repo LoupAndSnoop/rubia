@@ -25,7 +25,7 @@ end
 local function transparency(value) return {r = value, g = value, b = value, a = value} end
 --Get ready an array of animations so they can be rendered
 local med_trash_anim_solid = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
-    filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid.png",
+    filename = "__rubia-assets__/graphics/entity/trashsteroids/medium-trashsteroid.png",
     line_length = 1,
     width = 230,
     height = 230,
@@ -35,7 +35,7 @@ local med_trash_anim_solid = rubia_lib.make_rotated_animation_variations_from_sh
     tint = transparency(0.8)
 })
 local med_trash_anim_shadow = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
-    filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
+    filename = "__rubia-assets__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
     line_length = 1,
     width = 230,
     height = 230,
@@ -82,7 +82,7 @@ data:extend({
 {
     type = "car",
     name = "medium-trashsteroid",
-    icon = "__rubia__/graphics/icons/trashsteroid-chunk-icon.png",--"__base__/graphics/icons/car.png",
+    icon = "__rubia-assets__/graphics/icons/trashsteroid-chunk-icon.png",--"__base__/graphics/icons/car.png",
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
@@ -94,7 +94,7 @@ data:extend({
     alert_icon_shift = util.by_pixel(0, -13),
     energy_per_hit_point = 1,
     minimap_representation =     {
-        filename = "__rubia__/graphics/icons/trashsteroid-minimap-representation.png",
+        filename = "__rubia-assets__/graphics/icons/trashsteroid-minimap-representation.png",
         flags = {"icon"},
         size = {20, 20},
         scale = 0.5
@@ -122,7 +122,7 @@ data:extend({
         width = 119, height = 74, scale = 0, tint = {r=0,g=0,b=0,a=0}}}},
     --This contains an array of animation objects to be used for rendering.
     luarender_animation = med_trash_animations,--[[{layers = rubia_lib.make_rotated_animation_variations_from_sheet(6,{
-        filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid.png",
+        filename = "__rubia-assets__/graphics/entity/trashsteroids/medium-trashsteroid.png",
         line_length = 6,
         width = 230,
         height = 230,
@@ -131,7 +131,7 @@ data:extend({
         scale = 0.25,
         tint = transparency(0.5)
     }), rubia_lib.make_rotated_animation_variations_from_sheet(6,{
-        filename = "__rubia__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
+        filename = "__rubia-assets__/graphics/entity/trashsteroids/medium-trashsteroid-shadow.png",
         line_length = 6,
         width = 230,
         height = 230,
@@ -223,7 +223,7 @@ data:extend(explosions_medium)
 
 --Save each separate trashsteroid chunk variant as a separate animation prototype
 local trash_chunk_anim_solid = rubia_lib.make_rotated_animation_variations_from_sheet(7,{
-    filename = "__rubia__/graphics/entity/trashsteroids/trashsteroid-chunk.png", --50x350
+    filename = "__rubia-assets__/graphics/entity/trashsteroids/trashsteroid-chunk.png", --50x350
     line_length = 1,
     width = 50,
     height = 50,
@@ -233,7 +233,7 @@ local trash_chunk_anim_solid = rubia_lib.make_rotated_animation_variations_from_
     tint = transparency(0.8)
 })
 local trash_chunk_anim_shadow = rubia_lib.make_rotated_animation_variations_from_sheet(7,{
-    filename = "__rubia__/graphics/entity/trashsteroids/trashsteroid-chunk-shadow.png",
+    filename = "__rubia-assets__/graphics/entity/trashsteroids/trashsteroid-chunk-shadow.png",
     line_length = 1,
     width = 50,
     height = 50,

@@ -10,7 +10,7 @@ rocket.localised_description = {"entity-description.rocket-silo-rocket"}
 rocket.rocket_sprite = {
     layers =
       {
-        util.sprite_load("__rubia__/graphics/entity/rocket/rubia-rocket",
+        util.sprite_load("__rubia-assets__/graphics/entity/rocket/rubia-rocket",
       {
         dice_y = 4,
         shift = util.by_pixel( 0, 17.0+48),

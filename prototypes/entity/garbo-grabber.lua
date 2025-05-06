@@ -13,7 +13,7 @@ data:extend({
   {
     type = "container",
     name = "garbo-grabber",
-    icon = "__rubia__/graphics/icons/garbo-grabber.png",
+    icon = "__rubia-assets__/graphics/icons/garbo-grabber.png",
     icon_size = 64,
     flags = {"placeable-neutral", "placeable-player", "player-creation", "not-rotatable", "no-automated-item-insertion"},
     minable = {mining_time = 1, result = "garbo-grabber"},
@@ -27,7 +27,7 @@ data:extend({
 
     radius_visualisation_specification ={
       sprite = {
-        filename = "__rubia__/graphics/entity/garbo-grabber/garbo-grabber-radius-visualization.png",
+        filename = "__rubia-assets__/graphics/entity/garbo-grabber/garbo-grabber-radius-visualization.png",
         width = 256,--gather_radius,
         height = 256,--gather_radius,
         scale = 0.5
@@ -94,7 +94,7 @@ data:extend({
 
     picture = {layers = {
       {
-        filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator.png",
+        filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator.png",
         priority = "high",
         width = 473,
         height = 489,
@@ -103,7 +103,7 @@ data:extend({
         shift = {0, -0.15},
       },
       {
-        filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-sh.png",
+        filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-sh.png",
         priority = "medium",
         width = 508,
         height = 446,
@@ -116,7 +116,7 @@ data:extend({
     
     
     --[[{
-      filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator.png",
+      filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator.png",
       priority = "high",
       width = 473,
       height = 489,
@@ -130,7 +130,7 @@ data:extend({
       animation = {
         layers = {
           {
-            filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator.png",
+            filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator.png",
             priority = "high",
             width = 473,
             height = 489,
@@ -139,7 +139,7 @@ data:extend({
             shift = {0, -0.15},
           },
           {
-            filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-sh.png",
+            filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-sh.png",
             priority = "medium",
             width = 508,
             height = 446,
@@ -153,7 +153,7 @@ data:extend({
       working_visualisations = {
         {
           animation = {
-            filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-working-glow-light.png",
+            filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-working-glow-light.png",
             priority = "high",
             draw_as_light = true,
             width = 144,
@@ -168,7 +168,7 @@ data:extend({
         {
           synced_fadeout = true,
           animation = {
-            filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-working-glow.png",
+            filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-working-glow.png",
             priority = "high",
             draw_as_glow = true,
             blend_mode = "additive",
@@ -185,7 +185,7 @@ data:extend({
           animation = {
             layers = {
               {
-                filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-working-light.png",
+                filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-working-light.png",
                 priority = "high",
                 width = 473,
                 height = 489,
@@ -197,7 +197,7 @@ data:extend({
                 draw_as_light = true,
               },
               {
-                filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-working.png",
+                filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-working.png",
                 priority = "high",
                 width = 473,
                 height = 489,
@@ -239,7 +239,7 @@ data:extend({
 
     water_reflection = {
       pictures = {
-        filename = "__rubia__/graphics/entity/garbo-grabber/matter-associator-reflection.png",
+        filename = "__rubia-assets__/graphics/entity/garbo-grabber/matter-associator-reflection.png",
         priority = "extra-high",
         width = 46,
         height = 46,
