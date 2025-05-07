@@ -71,23 +71,44 @@ rubia.get_item_localised_name = function(name)
     local item = get_prototype("item", name)
     if not item then return end
     if item.localised_name then
-      return item.localised_name
+        return item.localised_name
     end
     local prototype
     local type_name = "item"
     if item.place_result then
-      prototype = get_prototype("entity", item.place_result)
-      type_name = "entity"
+        prototype = get_prototype("entity", item.place_result)
+        type_name = "entity"
     elseif item.place_as_equipment_result then
-      prototype = get_prototype("equipment", item.place_as_equipment_result)
-      type_name = "equipment"
+        prototype = get_prototype("equipment", item.place_as_equipment_result)
+        type_name = "equipment"
     elseif item.place_as_tile then
-      -- Tiles with variations don't have a localised name
-      local tile_prototype = data.raw.tile[item.place_as_tile.result]
-      if tile_prototype and tile_prototype.localised_name then
+        -- Tiles with variations don't have a localised name
+        local tile_prototype = data.raw.tile[item.place_as_tile.result]
+        if tile_prototype and tile_prototype.localised_name then
         prototype = tile_prototype
         type_name = "tile"
-      end
+        end
     end
     return prototype and prototype.localised_name or {type_name.."-name."..name}
-  end
+end
+
+
+--Determine if the technology is a (distant) prerequisite of the other. Return true if yes.
+--Pass in as the names of technology prototype
+function rubia.technology_is_prerequisite(potential_parent, potential_dependent)
+    --Go get the technology prototypes
+    local parent = data.raw.technology[potential_parent]
+    local child = data.raw.technology[potential_dependent]
+    --If string, go get the technology prototype. Else, assume it is a technology prototype.
+    --local parent = (type(potential_parent) == type("a")) and data.raw.technology[potential_parent] or potential_parent
+    --local child = (type(potential_dependent) == type("a")) and data.raw.technology[potential_dependent] or potential_dependent
+    if not parent or not child then return false end --Those techs were not found.
+    if not child.prerequisites then return false end --No prerequisites
+    
+    for _, prereq in pairs(child.prerequisites) do
+        if prereq == potential_parent then return true end --We found the prerequisite
+        if rubia.technology_is_prerequisite(potential_parent, prereq) then return true end
+    end
+
+    return false --No connection found
+end

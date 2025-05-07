@@ -5,18 +5,32 @@ _G.crapapult = _G.crapapult or {}
 
 local crapapult_recipe_base_energy = 0.02
 
+
+
+
 --Crapapult blacklist for this mod. The external blacklist is declared earlier, and can be messed with by other mods.
 --This should be a list of all the names of items to NOT be able to yeet normally.
-local internal_blacklist = {
-    "biorecycling-science-pack",
-    "ghetto-biorecycling-science-pack",
-    "makeshift-biorecycling-science-pack",
-    "spoilage",
-    "gun-turret",
-
+local internal_blacklist = {}
+--[[
+    "biorecycling-science-pack", "ghetto-biorecycling-science-pack", "makeshift-biorecycling-science-pack", "spoilage", "gun-turret",
     "metallurgic-science-pack",
-}
---Make the yeet- variants
+}]]
+
+--Check all technologies for yeeting triggers, to set them aside for blacklisting
+local yeet_trigger_tech_items = {}
+for _, tech in pairs(data.raw["technology"]) do
+  local trigger = tech.research_trigger
+  --Do I need a more stringent search?
+  if trigger and trigger.type == "craft-item" and trigger.item
+    and (type(trigger.item) == type("a")) and string.find(trigger.item, "yeet-") --Yeet trigger
+    and rubia.technology_is_prerequisite("planet-discovery-rubia", tech.name) then --And the tech depends on rubia
+    table.insert(yeet_trigger_tech_items, string.sub(trigger.item,6,-1))
+  end
+end
+rubia_lib.merge(internal_blacklist,yeet_trigger_tech_items)
+
+
+--Make the yeet- variants of everything in the blacklist
 local yeet_variants = {}
 for _, entry in pairs(internal_blacklist) do table.insert(yeet_variants, "yeet-" .. entry) end
 rubia_lib.merge(internal_blacklist,yeet_variants)
@@ -24,9 +38,9 @@ rubia_lib.merge(internal_blacklist,yeet_variants)
 
 local total_blacklist = rubia_lib.merge(internal_blacklist, crapapult.external_blacklist)
 --Make this a dictionary, like a hashset to quickly check.
-crapapult.blacklist = {}
+local crapapult_blacklist = {}
 if (total_blacklist) then 
-    for _, v in pairs(total_blacklist) do crapapult.blacklist[v] = 1 end
+    for _, v in pairs(total_blacklist) do crapapult_blacklist[v] = 1 end
 end
 
 
@@ -115,13 +129,13 @@ end
 
 -- create Yeet recipe for any item that is not blacklisted
 for _, vi in pairs(data.raw.item) do
-    if (not crapapult.blacklist[vi.name]) then
+    if (not crapapult_blacklist[vi.name]) then
         crapapult.yeet_recipe(vi, "item", "crapapult")
     end
 end
 
 -- non-item categories to yeet too
-crapapult.category_list =
+local crapapult_category_list =
 {
   "capsule",
   "ammo",
@@ -132,7 +146,7 @@ crapapult.category_list =
   "repair-tool",
   "rail-planner",
 }
-for _, c in pairs(crapapult.category_list) do
+for _, c in pairs(crapapult_category_list) do
   if data.raw[c] then
     for _, i in pairs(data.raw[c]) do
       crapapult.yeet_recipe(i, c, "crapapult")
@@ -150,6 +164,9 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   local local_item_name = rubia.get_item_localised_name(item_name)
 
   local item = data.raw.item[item_name] or data.raw.tool[item_name]
+  --If item doesn't exist, just skip it. Mostly for external mods/planets
+  if not item then log("No item found for " .. item_name); return end
+
   local icons = (icon and {{icon=icon, icon_size = icon_size}}) 
     or generate_crapapult_recipe_icons_from_item(item)
 
@@ -157,7 +174,7 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   {{
     type = "recipe",
     name = "yeet-" .. item_name,
-    --icon = icon,
+    --icon = icon,    
     icons = icons,
     icon_size = icon_size,
     category = "crapapult",
@@ -181,6 +198,7 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   {
     type = "item",
     name = "yeet-" .. item_name,
+    flags = {"ignore-spoil-time-modifier"},
     --icon = icon,
     icons = icons,
     icon_size = icon_size,
@@ -206,6 +224,13 @@ local function special_yeet_recipe(item_name, icon, icon_size)
 }
 end
 
+--Actually make the items and recipes
+for _, item in pairs(yeet_trigger_tech_items) do
+  data.extend(special_yeet_recipe(item))
+end
+
+
+--[[
 data.extend(special_yeet_recipe("makeshift-biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png"))
 data.extend(special_yeet_recipe("ghetto-biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png"))
 data.extend(special_yeet_recipe("biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png"))
@@ -213,4 +238,5 @@ data.extend(special_yeet_recipe("spoilage"))--,"__rubia-assets__/graphics/icons/
 data.extend(special_yeet_recipe("gun-turret"))--,"__rubia-assets__/graphics/icons/science/yeet-gun-turret.png"))
 
 data.extend(special_yeet_recipe("metallurgic-science-pack"))
+]]
 --#endregion
