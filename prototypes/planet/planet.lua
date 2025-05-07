@@ -28,7 +28,7 @@ set_wind_speed("aquilo", 30)
     --data.raw["planet-nauvis"].surface_properties["wind-speed"] = 5
 --rubia.surface_conditions() = function () {}end
 local fog = effects.default_fog_effect_properties()
-fog.tick_factor = -fog.tick_factor
+--fog.tick_factor = -fog.tick_factor
 --------Basic Map generation
 
 local planet = {
@@ -71,7 +71,7 @@ local planet = {
 
         surface_render_parameters =
         {
-          --fog = fog,--effects.default_fog_effect_properties(),
+          fog = fog,--effects.default_fog_effect_properties(),
           clouds =
           {
             shape_noise_texture =
@@ -92,12 +92,12 @@ local planet = {
             detail_sample_1 = { scale = 1.709 / 32, wind_speed_factor = 0.2 / 1.709 },
             detail_sample_2 = { scale = 2.179 / 32, wind_speed_factor = 0.33 / 2.179 },
     
-            scale = 1 * 3,
-            density = 3,
-            movement_speed_multiplier = 0.75 * 3 * 2,
+            scale = 1 * 2,
+            density = 1,
+            movement_speed_multiplier = 0.75 * 6 / 2,
             opacity = 0.25 * 0.5,
-            opacity_at_night = 0.25,
-            density_at_night = 1,
+            opacity_at_night = 0.25 * 0.2,
+            density_at_night = 1 * 1,
             detail_factor = 1.5,
             detail_factor_at_night = 2,
             shape_warp_strength = 0.06,

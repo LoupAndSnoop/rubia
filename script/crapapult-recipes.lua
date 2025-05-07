@@ -13,6 +13,8 @@ local internal_blacklist = {
     "makeshift-biorecycling-science-pack",
     "spoilage",
     "gun-turret",
+
+    "metallurgic-science-pack",
 }
 --Make the yeet- variants
 local yeet_variants = {}
@@ -42,10 +44,45 @@ function crapapult.get_icons(prototype)
   end
 end
 
+local subicon_scale = 0.7--0.5--0.8
+local base_icon_size = 64
+--Make a generic yeet recipe icon
+local function generate_crapapult_recipe_icons_from_item(item)
+  local icons = {}
+  if item.icons == nil then
+    icons = {
+      {icon = "__rubia-assets__/graphics/icons/yeet-base.png"},--"__quality__/graphics/icons/recycling.png"},
+      {
+        icon = item.icon,
+        icon_size = item.icon_size,
+        scale = (0.5 * defines.default_icon_size / (item.icon_size or defines.default_icon_size)) * subicon_scale,
+        shift = {x=base_icon_size * subicon_scale/4, y =-base_icon_size * subicon_scale/4},
+      },
+      {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"},--"__quality__/graphics/icons/recycling-top.png"},
+    }
+  else
+    icons = {{icon = "__rubia-assets__/graphics/icons/yeet-base.png",}}--"__quality__/graphics/icons/recycling.png"}}
+    for i = 1, #item.icons do
+      local icon = table.deepcopy(item.icons[i]) -- we are gonna change the scale, so must copy the table
+      icon.scale = ((icon.scale == nil) and (0.5 * defines.default_icon_size / (icon.icon_size or defines.default_icon_size)) or icon.scale) * subicon_scale
+      icon.shift = util.mul_shift(icon.shift, subicon_scale) or {0,0}
+      icon.shift = {(icon.shift[1] or 0) + base_icon_size * subicon_scale/4,
+                    (icon.shift[2] or 0) - base_icon_size * subicon_scale/4}
+      --icon = scale_icon(icon)
+      icons[#icons + 1] = icon
+    end
+    icons[#icons + 1] = {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"}--"__quality__/graphics/icons/recycling-top.png"
+  end
+  return icons
+end
+
+
+
 local no_icon = {icon="__core__/graphics/empty.png"}
 -- generates a recipe to incinerate the specified non-fluid prototype
 function crapapult.yeet_recipe(item, category, craft_category)
-  local newicons = crapapult.get_icons(item)
+  local newicons = generate_crapapult_recipe_icons_from_item(item)
+  --local newicons = crapapult.get_icons(item)
   table.insert(newicons, no_icon)
   local local_item_name = rubia.get_item_localised_name(item.name)
   data:extend({
@@ -107,15 +144,21 @@ end
 --#region Special crapapult recipes
 
 --Special yeeting recipes. Make a special item/recipe automatically for items
---specially marked to be yoten
+--specially marked to be yoten. If no custom icon is given, use an auto-generated one.
 local function special_yeet_recipe(item_name, icon, icon_size)
   icon_size = icon_size or 64
   local local_item_name = rubia.get_item_localised_name(item_name)
+
+  local item = data.raw.item[item_name] or data.raw.tool[item_name]
+  local icons = (icon and {{icon=icon, icon_size = icon_size}}) 
+    or generate_crapapult_recipe_icons_from_item(item)
+
   return
   {{
     type = "recipe",
     name = "yeet-" .. item_name,
-    icon = icon,
+    --icon = icon,
+    icons = icons,
     icon_size = icon_size,
     category = "crapapult",
     enabled = true,
@@ -138,7 +181,8 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   {
     type = "item",
     name = "yeet-" .. item_name,
-    icon = icon,
+    --icon = icon,
+    icons = icons,
     icon_size = icon_size,
     order = "l",
     subgroup = "science-pack",
@@ -162,9 +206,11 @@ local function special_yeet_recipe(item_name, icon, icon_size)
 }
 end
 
-data.extend(special_yeet_recipe("makeshift-biorecycling-science-pack","__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png"))
-data.extend(special_yeet_recipe("ghetto-biorecycling-science-pack","__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png"))
-data.extend(special_yeet_recipe("biorecycling-science-pack","__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png"))
-data.extend(special_yeet_recipe("spoilage","__rubia-assets__/graphics/icons/science/yeet-spoilage.png"))
-data.extend(special_yeet_recipe("gun-turret","__rubia-assets__/graphics/icons/science/yeet-gun-turret.png"))
+data.extend(special_yeet_recipe("makeshift-biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png"))
+data.extend(special_yeet_recipe("ghetto-biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png"))
+data.extend(special_yeet_recipe("biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png"))
+data.extend(special_yeet_recipe("spoilage"))--,"__rubia-assets__/graphics/icons/science/yeet-spoilage.png"))
+data.extend(special_yeet_recipe("gun-turret"))--,"__rubia-assets__/graphics/icons/science/yeet-gun-turret.png"))
+
+data.extend(special_yeet_recipe("metallurgic-science-pack"))
 --#endregion
