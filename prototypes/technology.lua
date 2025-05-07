@@ -419,6 +419,139 @@ data:extend({
 }
 )
 
+--#region Craptonite tools. Add on a per planet/mod basis
+if data.raw.planet["fulgora"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-boots",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-boots.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "character-running-speed", modifier = 0.25},
+            },
+            prerequisites = {"craptonite-axe", "electromagnetic-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-electromagnetic-science-pack", count=1000},
+        },
+    })
+end
+if data.raw.planet["vulcanus"] then 
+    local reach_modifier = 2
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-hook",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-hookshot.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = 'character-build-distance', modifier = reach_modifier, hidden=true},
+                {type = 'character-item-drop-distance', modifier = reach_modifier, hidden=true},
+                {type = 'character-resource-reach-distance', modifier = reach_modifier, hidden=true},
+                {type = 'character-reach-distance', modifier = reach_modifier},
+            },
+            prerequisites = {"craptonite-axe", "metallurgic-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-metallurgic-science-pack", count=1000},
+        },
+    })
+end
+if data.raw.planet["gleba"] then
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-satchel",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-satchel.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = 'character-logistic-trash-slots', modifier = 10},
+            },
+            prerequisites = {"craptonite-axe", "agricultural-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=1000},
+        },
+    })
+end
+if data.raw.planet["aquilo"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-cannister",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-cannister.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "character-running-speed", modifier = 0.25},
+                {type = "character-crafting-speed", modifier = 0.25},
+                {type = "character-health-bonus", modifier = -50, 
+                    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
+            },
+            prerequisites = {"craptonite-axe", "cryogenic-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-cryogenic-science-pack", count=1000},
+        },
+    })
+end
+
+--External mods
+if mods["Moshine"] then 
+    local moshine_module_multiplier = 0.1
+    local moshine_tech = {
+            type = "technology",
+            name = "rubia-craptonite-cannister",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-circlet.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "change-recipe-productivity", recipe = "speed-module", change = moshine_module_multiplier},
+                {type = "change-recipe-productivity", recipe = "productivity-module", change = moshine_module_multiplier},
+                {type = "change-recipe-productivity", recipe = "efficiency-module", change = moshine_module_multiplier},
+            },
+            prerequisites = {"craptonite-axe", "moshine-tech-ai-tier-10"},
+            research_trigger = {type = "craft-item", item="yeet-ai-tier-10", count=500},
+        }
+    if mods["quality"] then
+        table.insert(moshine_tech.effects,
+        {type = "change-recipe-productivity", recipe = "quality-module", change = moshine_module_multiplier})
+    end
+    data:extend({moshine_tech})
+end
+
+if mods["corrundum"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-glove",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-glove.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "character-crafting-speed", modifier = 1},
+            },
+            prerequisites = {"craptonite-axe", "electrochemical-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-electrochemical-science-pack", count=1000},
+        },
+    })
+end
+
+if mods["Cerys-Moon-of-Fulgora"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-earring",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-earring.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "change-recipe-productivity", recipe = "plutonium-fuel", change = 0.25},
+            },
+            prerequisites = {"craptonite-axe", "cerys-applications-of-radioactivity"},
+            research_trigger = {type = "craft-item", item="yeet-plutonium-239", count=1000},
+        },
+    })
+end
+
+--#endregion
+
 --[[
 if mods["maraxsis"] then
     data:extend(
