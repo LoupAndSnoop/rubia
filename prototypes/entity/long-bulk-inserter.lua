@@ -62,7 +62,7 @@ data:extend({
     starting_distance = 1.7,
     pickup_position = {0, -2},
     insert_position = {0, 2.2},
-    energy_per_movement = "20kJ",
+    energy_per_movement = "20kJ", --Bulk = 20 kJ. Long = 5 kJ
     energy_per_rotation = "20kJ",
     energy_source =
     {
@@ -70,6 +70,8 @@ data:extend({
       usage_priority = "secondary-input",
       drain = "1kW"
     },
+    --Bulk inserter: extension_speed = 0.1, rotation_speed = 0.04,
+    --Long inserter: extension_speed = 0.05,rotation_speed = 0.02,
     extension_speed = 0.1,
     rotation_speed = 0.04,
     filter_count = 5,

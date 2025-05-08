@@ -12,9 +12,12 @@ local internal_blacklist = {
     --Muh cheats
     "infinity-pipe","linked-belt","electric-energy-interface",
     "infinity-chest","heat-interface",
-    --Other
+    --Anything made with craptonite
     "craptonite-wall","rubia-armored-locomotive","rubia-armored-cargo-wagon",
-    "rubia-armored-fluid-wagon","character-corpse",
+    "rubia-armored-fluid-wagon",
+    "rubia-long-bulk-inserter", "rubia-long-stack-inserter", 
+    --Other
+    "character-corpse",
 }
 
 if script.active_mods["elevated-rails"] then

@@ -396,9 +396,9 @@ data:extend(
   type = "item",
   name = "rubia-long-bulk-inserter",
   icon = "__rubia-assets__/graphics/icons/long-bulk-inserter.png",
-  order = "f[bulk-inserter]",
+  order = "f[bulk-inserter]-b",
   subgroup = "inserter",
-  color_hint = { text = "T" },
+  color_hint = { text = "L" },
 
   inventory_move_sound = item_sounds.resource_inventory_move,
   pick_sound = item_sounds.resource_inventory_pickup,
@@ -408,6 +408,24 @@ data:extend(
   weight = 20*kg,
   place_result = "rubia-long-bulk-inserter"
 },
+{
+  type = "item",
+  name = "rubia-long-stack-inserter",
+  icon = "__rubia-assets__/graphics/icons/long-stack-inserter.png",
+  order = "h[stack-inserter]-b",
+  subgroup = "inserter",
+  color_hint = { text = "L" },
+
+  inventory_move_sound = item_sounds.resource_inventory_move,
+  pick_sound = item_sounds.resource_inventory_pickup,
+  drop_sound = item_sounds.resource_inventory_move,
+  stack_size = 50,
+  default_import_location = "rubia",
+  weight = 1000/50*kg,
+  place_result = "rubia-long-stack-inserter"
+},
+
+
 {
   type = "item",
   name = "craptonite-wall",

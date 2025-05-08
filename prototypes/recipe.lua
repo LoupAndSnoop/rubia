@@ -799,7 +799,7 @@ data:extend({
     category ="advanced-crafting",
     enabled = false,
     --surface_conditions = rubia.surface_conditions(),
-    energy_required = 3,
+    energy_required = 5,
     ingredients =
     {
       {type = "item", name = "long-handed-inserter", amount = 1},
@@ -811,6 +811,24 @@ data:extend({
     allow_productivity=false,
     crafting_machine_tint = crafting_machine_tint_brown,
   },
+  {
+    type = "recipe",
+    name = "rubia-long-stack-inserter",
+    category ="advanced-crafting",
+    enabled = false,
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 5,
+    ingredients = {
+      {type = "item", name = "rubia-long-bulk-inserter", amount = 1},
+      {type = "item", name = "carbon-fiber", amount = 2},
+      {type = "item", name = "uranium-238", amount = 5},
+      {type = "item", name = "processing-unit", amount = 5},
+    },
+    results = {{type="item", name="rubia-long-stack-inserter", amount=1}},
+    allow_productivity=false,
+    crafting_machine_tint = crafting_machine_tint_brown,
+  },
+
   {
     type = "recipe",
     name = "craptonite-wall",

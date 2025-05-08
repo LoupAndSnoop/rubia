@@ -281,6 +281,30 @@ data:extend({
         time = 60
     }
 },
+
+{
+    type = "technology",
+    name = "rubia-long-stack-inserter",
+    icon = "__rubia-assets__/graphics/technology/long-stack-inserter.png",
+    icon_size = 256,
+    essential = false,
+    effects = {{type = "unlock-recipe", recipe = "rubia-long-stack-inserter"},},
+    prerequisites = { "stack-inserter", "rubia-long-bulk-inserter"},
+    unit =
+    {
+        count = 1000,
+        ingredients = --TODO: This is currently a placeholder.
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "biorecycling-science-pack",    1 },
+        },
+        time = 60
+    }
+},
+
 {
     type = "technology",
     name = "rubia-efficiency-module4",
@@ -456,6 +480,7 @@ if data.raw.planet["vulcanus"] then
         },
     })
 end
+
 if data.raw.planet["gleba"] then
     data:extend({
         {
@@ -467,11 +492,12 @@ if data.raw.planet["gleba"] then
             effects = {
                 {type = 'character-logistic-trash-slots', modifier = 10},
             },
-            prerequisites = {"craptonite-axe", "agricultural-science-pack"},
-            research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=1000},
+            prerequisites = {"craptonite-axe", "carbon-fiber"},
+            research_trigger = {type = "craft-item", item="yeet-carbon-fiber", count=2000}, --"yeet-agricultural-science-pack"
         },
     })
 end
+
 if data.raw.planet["aquilo"] then 
     data:extend({
         {
