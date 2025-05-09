@@ -44,9 +44,26 @@ add_quality_factoriopedia_info(data.raw["electric-energy-interface"]["rubia-wind
 
 --#region Science/tech related updates
 --Science pack management
+--Add my science pack to all labs
 local all_lab_types = data.raw['lab']
-for _,v in pairs(all_lab_types) do
-  table.insert(v.inputs,"biorecycling-science-pack") --add my science pack to all labs
+for _,lab in pairs(all_lab_types) do
+  table.insert(lab.inputs,"biorecycling-science-pack")
+end
+
+
+--Biofusion science pack
+---If something deleted gleba, then remove all biofusion technologies
+if not data.raw.planet["gleba"] or mods["delete-gleba"] then
+  local biofusion_tech = data.raw.technology["rubia-biofusion-science-pack"]
+  biofusion_tech.icon = "__rubia-assets__/graphics/technology/biofusion-science-pack.png"
+  biofusion_tech.localised_description = {"technology-description.rubia-biofusion-science-pack.removed"}
+  biofusion_tech.research_trigger = {type = "craft-item", item = "rubia-biofusion-science-pack", count = 10^50}
+
+else --We ARE doing biofusion science.
+  --Add biofusion science only to biolab
+  if data.raw.lab.biolab then 
+    table.insert(data.raw.lab.biolab.inputs,"rubia-biofusion-science-pack")
+  end
 end
 
 

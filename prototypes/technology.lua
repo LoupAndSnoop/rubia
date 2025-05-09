@@ -3,7 +3,7 @@ require("lib.lib")
 
 --Cargo drop restriction
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
-    "rubia", "__rubia-assets__/graphics/technology/rubia-discovery.png", 256) --TODO Icon
+    "rubia", "__rubia-assets__/graphics/planet/rubia-discovery.png", 256) --TODO Icon
     --TODO: Custom whitelist, because construction bots are allowed
 --cargo_drops_base.name = "operation-iron-man"
 --Internal tech name must remain planetslib-rubia-cargo-drops
@@ -46,7 +46,7 @@ data:extend({
     {
         type = "technology",
         name = "planet-discovery-rubia",
-        icons = util.technology_icon_constant_planet("__rubia-assets__/graphics/technology/rubia-discovery.png"),
+        icons = util.technology_icon_constant_planet("__rubia-assets__/graphics/technology/rubia.png"),
         icon_size = 256,
         essential = true,
         effects =
@@ -284,29 +284,6 @@ data:extend({
 
 {
     type = "technology",
-    name = "rubia-long-stack-inserter",
-    icon = "__rubia-assets__/graphics/technology/long-stack-inserter.png",
-    icon_size = 256,
-    essential = false,
-    effects = {{type = "unlock-recipe", recipe = "rubia-long-stack-inserter"},},
-    prerequisites = { "stack-inserter", "rubia-long-bulk-inserter"},
-    unit =
-    {
-        count = 1000,
-        ingredients = --TODO: This is currently a placeholder.
-        {
-            { "automation-science-pack",      1 },
-            { "logistic-science-pack",        1 },
-            { "chemical-science-pack",        1 },
-            { "utility-science-pack",         1 },
-            { "biorecycling-science-pack",    1 },
-        },
-        time = 60
-    }
-},
-
-{
-    type = "technology",
     name = "rubia-efficiency-module4",
     icon = "__rubia-assets__/graphics/technology/efficiency-module-4.png",
     icon_size = 256,
@@ -371,6 +348,50 @@ data:extend({
     },
 },
 --#endregion
+
+--#region Biofusion science line
+{
+    type = "technology",
+    name = "rubia-biofusion-science-pack",
+    icon = "__rubia-assets__/graphics/technology/biofusion-science-pack.png",
+    icon_size = 256,
+    essential = false,
+    effects = {
+        {type = "unlock-recipe", recipe = "rubia-biofusion-science-pack"},
+    },
+    prerequisites = {"rubia-project-trashdragon"},
+    research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=10000},
+},
+
+{
+    type = "technology",
+    name = "rubia-long-stack-inserter",
+    icon = "__rubia-assets__/graphics/technology/long-stack-inserter.png",
+    icon_size = 256,
+    essential = false,
+    effects = {{type = "unlock-recipe", recipe = "rubia-long-stack-inserter"},},
+    prerequisites = { "stack-inserter", "rubia-long-bulk-inserter", 
+        "rubia-biofusion-science-pack"},
+    unit =
+    {
+        count = 1000,
+        ingredients = --TODO: This is currently a placeholder.
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
+        },
+        time = 60
+    }
+},
+
+
+--#endregion
+
 --#region Infinite research
 {
     type = "technology",

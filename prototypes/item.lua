@@ -19,7 +19,7 @@ data:extend(
       icon = "__rubia-assets__/graphics/icons/science/sphere_spiked_clear_brown.png",
       subgroup = "science-pack",
       color_hint = { text = "Y" },
-      order = "l",
+      order = "n-c",
       inventory_move_sound = item_sounds.science_inventory_move,
       pick_sound = item_sounds.science_inventory_pickup,
       drop_sound = item_sounds.science_inventory_move,
@@ -39,7 +39,7 @@ data:extend(
       icon = "__rubia-assets__/graphics/icons/science/torus_clear_brown.png",
       subgroup = "science-pack",
       color_hint = { text = "Y" },
-      order = "l",
+      order = "n-a",
       inventory_move_sound = item_sounds.science_inventory_move,
       pick_sound = item_sounds.science_inventory_pickup,
       drop_sound = item_sounds.science_inventory_move,
@@ -61,7 +61,7 @@ data:extend(
     icon = "__rubia-assets__/graphics/icons/science/sphere_tubed_clear_brown.png",
     subgroup = "science-pack",
     color_hint = { text = "Y" },
-    order = "l",
+    order = "n-b",
     inventory_move_sound = item_sounds.science_inventory_move,
     pick_sound = item_sounds.science_inventory_pickup,
     drop_sound = item_sounds.science_inventory_move,
@@ -76,6 +76,34 @@ data:extend(
     spoil_ticks = 3 * minute,
     spoil_result = nil,
 },
+
+{
+  type = "tool",
+  name = "rubia-biofusion-science-pack",
+  localised_description = {"item-description.science-pack"},
+  icon = "__rubia-assets__/graphics/icons/science/biofusion-science-pack.png",
+  subgroup = "science-pack",
+  color_hint = { text = "Y" },
+  order = "n-d",
+  inventory_move_sound = item_sounds.science_inventory_move,
+  pick_sound = item_sounds.science_inventory_pickup,
+  drop_sound = item_sounds.science_inventory_move,
+  stack_size = 200,
+  default_import_location = "rubia",
+  weight = 100000*kg,
+  durability = 1,
+  durability_description_key = "description.science-pack-remaining-amount-key",
+  factoriopedia_durability_description_key = "description.factoriopedia-science-pack-remaining-amount-key",
+  durability_description_value = "description.science-pack-remaining-amount-value",
+  random_tint_color = item_tints.bluish_science,
+  spoil_ticks = 30 * minute,
+  spoil_result = nil,
+},
+
+
+
+    icon = "__rubia-assets__/graphics/technology/biofusion-science-pack.png",
+
 --[[Science yeeting
 {
   type = "item",

@@ -114,7 +114,28 @@ data:extend({
     main_product ="biorecycling-science-pack",
     crafting_machine_tint = crafting_machine_tint_brown,
   },
-
+  {
+    type ="recipe",
+    name ="rubia-biofusion-science-pack",
+    category ="organic",
+    enabled = false,
+    ingredients = 
+    {
+      {type ="item", name ="biter-egg", amount = 1},
+      {type ="item", name ="iron-bacteria", amount = 1},
+      {type ="fluid", name ="rubia-froth", amount = 200},
+    },
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 15,
+    results =
+    {
+      {type ="item", name ="rubia-biofusion-science-pack", amount = 1},
+    },
+    allow_productivity = true,
+    main_product ="rubia-biofusion-science-pack",
+    result_is_always_fresh = true,
+    crafting_machine_tint = crafting_machine_tint_brown,
+  },
 
   --[[Science yeeting
   {

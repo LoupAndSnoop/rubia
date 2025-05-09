@@ -35,8 +35,8 @@ local planet = {
   {
         type = "planet",
         name = "rubia",
-        icon = "__rubia-assets__/graphics/icons/rubia-icon.png",
-        starmap_icon = "__rubia-assets__/graphics/icons/starmap-planet-rubia.png",
+        icon = "__rubia-assets__/graphics/planet/rubia-icon.png",
+        starmap_icon = "__rubia-assets__/graphics/planet/starmap-planet-rubia.png",
         starmap_icon_size = 512,
         gravity_pull = 10,
         distance = 15,
