@@ -74,6 +74,10 @@ script.on_event(defines.events.on_cargo_pod_finished_ascending, function(event)
   landing_cutscene.try_start_cutscene(event)
 end)
 
+script.on_event(defines.events.on_player_respawned, function(event)
+  landing_cutscene.check_respawn_off_rubia(event)
+end)
+
 -------Scripts to subscribe functions to events tied to building/modifying
 
 -- Scripts to execute rotation-corrections

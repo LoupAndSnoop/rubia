@@ -1,9 +1,11 @@
 require("lib.timing-manager")
 local util = require("util")
 
+--Variable to store exposed cutscene functions
+local landing_cutscene = {}
+
 --Dictionary of ["player_index"] => array of event_id strings for the sub-cutscene events.
 storage.active_cutscenes = storage.active_cutscenes or {}
---storage.player_characters = storage.player_characters or {}
 
 
 --#region Permission-based immobilization for cutscene
@@ -116,6 +118,55 @@ local function cancel_cutscene(player)
         player.exit_cutscene() end
 end
 
+
+--If the player character is respawning on rubia mid-cutscene, we need to do this to send them back from Rubia.
+landing_cutscene.check_respawn_off_rubia = function(event)
+    --If we are responding to the event of a non-respawn-blocked player, then stop
+    if not storage.rubia_respawn_blocked_players
+        or not storage.rubia_respawn_blocked_players[event.player_index] 
+        then return end
+
+    --First we need to find a surface
+    local target = nil--game.get_surface("nauvis") --Default
+    for _, surface in pairs(game.surfaces) do
+        local platform = surface.platform
+        if surface.valid and platform and platform.last_visited_space_location
+            and platform.last_visited_space_location.name == "rubia" then
+            target = surface
+            break
+        end
+    end
+
+    --We need a backup because maybe the platform was destroyed. Find a vanilla planet.
+    if not target then 
+        local vanilla_surfaces = {"nauvis", "vulcanus", "gleba","fulgora", "aquilo"}
+        for _, surface in pairs(vanilla_surfaces) do
+            target = game.get_surface(surface)
+            if target then break end
+        end
+    end
+
+    --Need a backup for the backup
+    if not target then
+        local banned_surfaces = rubia_lib.array_to_hashset({"rubia", "blueprint-sandboxes"})
+        for _, surface in pairs(game.surfaces) do
+            if surface.valid and not banned_surfaces[surface.name] then
+                target = surface; break
+            end
+        end
+    end
+    assert(target, "You are not allowed to respawn like that on Rubia, but we can't find a valid respawn point. Tell the mod creator.")
+
+    --Go back to the target
+    local player = game.get_player(event.player_index)
+    player.teleport({x=0,y=0}, target)
+    --If the target is a space platform hub, then we also need to enter
+    if target.platform then player.enter_space_platform(target.platform) end
+
+    --Unregister
+    storage.rubia_respawn_blocked_players[event.player_index] = nil
+end
+
 --I need to make a script to go through the player's equipment grid, and change the shield.
 local function set_character_shields(character, new_total_shield_value)
     if (not character.grid or not character.grid.valid) then return end --Nothing to do
@@ -140,12 +191,19 @@ local function cutscene_damage(character, player, damage)
         set_character_shields(character, ending_shield)
     end
 
-    --We are about to kill the player. Give back control
+    --We are about to kill the player. Give back control, if in a cutscene style implementation
     if (character.health <= damage) and (player.controller_type == defines.controllers.cutscene) then 
         player.exit_cutscene()
         character.die(game.forces["enemy"])
     else 
-        character.damage(damage,game.forces["enemy"]) --Otherwise just hurt him
+        character.damage(damage, game.forces["enemy"]) --Otherwise just hurt him
+    end
+
+    --If they died, set a respawn block
+    if (not character.valid or character.health <= 0) then
+        --Respawn block them. Keep a hashset of all player ID that are respawn blocked
+        storage.rubia_respawn_blocked_players = storage.rubia_respawn_blocked_players or {}
+        storage.rubia_respawn_blocked_players[player.index] = true
     end
 end
 
@@ -245,24 +303,28 @@ end)
 
 --Whatever we do at the very start of the cutscene
 rubia.timing_manager.register("cutscene-part1", function(player, cargo_pod, character)
-    --player.play_sound{path="utility/cannot_build", volume_modifier=1}
 end)
 
+--Note: Realistically, a player might have 4-10 shields when coming to Rubia. => 500-800 total health. 
+--Expect about 6 seconds worth of regen from shields, which charge at 12 HP/s each. 50 HP shield => about 120 HP /shield.
+--First segment should not kill an unshielded player, so do just under 300 HP. 4 shields should
+--fully heal off that damage via regen mostly. Final burst of dmg should be the actual check for your total HP upon arrival.
+--
 rubia.timing_manager.register("cutscene-part2", function(player, cargo_pod, character)
     game.print({"alert.landing-cutscene-part1"}, {color={r=0.9,g=0,b=0,a=1}})
-    cutscene_damage(character, player, 30)
+    cutscene_damage(character, player, 70)
 end)
 
 rubia.timing_manager.register("cutscene-part3", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
     game.print({"alert.landing-cutscene-part2"}, {color={r=0.9,g=0,b=0,a=1}})
-    cutscene_damage(character, player, 70)
+    cutscene_damage(character, player, 90)
 end)
 
 rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
     game.print({"alert.landing-cutscene-part3"}, {color={r=0.9,g=0,b=0,a=1}})
-    cutscene_damage(character, player, 110)
+    cutscene_damage(character, player, 130)
 end)
 
 --End of cutscene
@@ -271,22 +333,23 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
 
     character.surface.create_entity({name = "nuclear-reactor-explosion", position = {x=0,y=0}})
 
-    --cargo_pod.on_cargo_pod_finished_descending()
+
     cargo_pod.force_finish_descending()
     cargo_pod.destroy()
     --if player and player.cargo_pod and player.cargo_pod.valid then player.cargo_pod.destroy() end
 
-    cutscene_damage(character, player, 400)
+    --Main damage check here. Empirically, 460 = need 6 shields with no health upgrades.
+    cutscene_damage(character, player, 460 + 50)
 
     --Make sure a surviving player is damaged at least a little to their base HP, without killing
-    if (character) then 
+    if (character and character.valid) then 
         character.health = math.min(math.random(3, 150), character.health)
     end
     cancel_cutscene(player)
 
     --Check if they forgot a roboport in their armor before queuing failsafe
     --No grid = they did forget a roboport
-    if character and character.grid then 
+    if character and character.valid and character.grid then 
         --Check if failsafe must activate
         for _, entry in pairs(character.grid.get_contents()) do
             local prototype = prototypes.equipment[entry.name]
@@ -351,8 +414,7 @@ end)
 
 --#region External handles to start/end cutscene via events.
 
---Variable to store exposed cutscene functions
-local landing_cutscene = {}
+
 
 
 
