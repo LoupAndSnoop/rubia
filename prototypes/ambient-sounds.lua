@@ -87,8 +87,8 @@ data:extend(
         type = "ambient-sound",
         name = "rubia-8",
         track_type = "main-track",
-        planet = "rubia", --Duplicated. We have room for one more
-        sound =  {filename = "__rubia-assets__/sounds/ambient/sinius-shale-and-cinder-dark-ambient-music.ogg",
+        planet = "rubia",
+        sound =  {filename = "__rubia-assets__/sounds/ambient/iridium-granular-ambient-2049-13856-zen_man.ogg",
             volume =1 },
         weight = 10
     },
@@ -100,6 +100,16 @@ data:extend(
         sound =  recycle_track,
         weight = 5
     },
+    {
+        type = "ambient-sound",
+        name = "rubia-10",
+        track_type = "main-track",
+        planet = "rubia",
+        sound =  {filename = "__rubia-assets__/sounds/ambient/dark-140112-Haletski.ogg",
+            volume =1 },
+        weight = 7
+    },
+
 --[[
     require("__space-age__/sound/ambient/fulgora/fulgora-5/fulgora-5"),
     {

@@ -650,12 +650,27 @@ data:extend
       }
     },
 
+    --[[
     animations = util.sprite_load("__space-age__/graphics/entity/asteroid-collector/asteroid-collector-remnants",{
       scale = 0.5,
       direction_count = 4,
       line_length = 1,
       tint = minable_item_tint
-    }),
+    }),]]
+    pictures = 
+    {
+        filename = "__space-age__/graphics/entity/asteroid-collector/asteroid-collector-remnants.png",
+        width = 316,
+        height = 324,
+        shift = util.by_pixel( 0.0, 19.5),
+        line_length = 1,
+        variation_count = 4,
+        scale = 0.5,
+        tint = minable_item_tint
+      },
+  
+
+
     autoplace = { --Vulc chimney truncated
       order = "a[landscape]-b[chimney]-b[truncated]-d",
       probability_expression = "multiplier * (max( min(0.05, 2 * (vulcanus_mountains_biome - 0.5)\z

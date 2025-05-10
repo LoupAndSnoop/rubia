@@ -358,6 +358,9 @@ data:extend({
     essential = false,
     effects = {
         {type = "unlock-recipe", recipe = "rubia-biofusion-science-pack"},
+        {type = "nothing", use_icon_overlay_constant = false,
+        icon = "__space-age__/graphics/icons/iron-bacteria-cultivation.png",
+        effect_description = {"modifier-description.biofusion-bacteria-release"}}
     },
     prerequisites = {"rubia-project-trashdragon", "biolab"},
     research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=10000},

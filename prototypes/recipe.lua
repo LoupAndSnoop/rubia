@@ -496,7 +496,7 @@ data:extend({
 {
   type ="recipe",
   name ="assisted-frothing",
-  category = "biorecycling",
+  category = "organic-or-biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-k",
   enabled = false,
   ingredients = {

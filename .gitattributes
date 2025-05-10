@@ -1,0 +1,23 @@
+
+#Command to archive. Thanks fgardt
+#git archive --format zip --prefix rubia/ --worktree-attributes --output rubia_[VERSION].zip HEAD
+
+
+# Set the default behavior to automatically detect text files and perform LF normalization
+* text=auto
+
+# files that should not be modified
+*.png binary
+*.blend binary export-ignore
+
+# files that should not get included in a release zip
+README.md export-ignore
+.xcf export-ignore
+.mp3 export-ignore
+.vscode export-ignore
+.git export-ignore
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+.releaserc export-ignore
+deprecated* export-ignore

@@ -105,3 +105,10 @@ if (settings.startup["require-rubia-for-endgame-planets"].value) then
   if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
 end
 --#endregion
+
+
+--Edits to vanilla recipes
+
+--Make biofusion science possible
+local bacteria_recipe = data.raw.recipe["iron-bacteria-cultivation"]
+if bacteria_recipe then bacteria_recipe.surface_conditions = nil end

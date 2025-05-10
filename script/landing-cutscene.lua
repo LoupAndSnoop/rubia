@@ -230,6 +230,14 @@ local function start_cutscene(player, cargo_pod)
     return event_ids
 end
 
+--Do the cutscene/congrats for the first win
+local first_blast_off_cutscene = function()
+    rubia.timing_manager.wait_then_do(1, "delayed-text-print", {{"rubia-taunt.rubia-first-blast-off-part1"}})
+    rubia.timing_manager.wait_then_do(5 * 60, "delayed-text-print", {{"rubia-taunt.rubia-first-blast-off-part2"}})
+    rubia.timing_manager.wait_then_do(10 * 60, "delayed-text-print", {{"rubia-taunt.rubia-first-blast-off-part3"}})
+end
+
+
 --#region Cutscene fragments
 rubia.timing_manager.register("cutscene-sound", function(player, path, volume)
     player.play_sound{path=path, volume_modifier=volume or 1}
@@ -334,6 +342,10 @@ rubia.timing_manager.register("cutscene-roboport-failsafe-part2", function(playe
     game.print({"rubia-taunt.forgot-roboport-failsafe-part2"})
     character.health = 1
 end)
+
+rubia.timing_manager.register("delayed-text-print", function(local_string) 
+    game.print(local_string)
+end)
 --#endregion
 ----------------------------------
 
@@ -341,6 +353,8 @@ end)
 
 --Variable to store exposed cutscene functions
 local landing_cutscene = {}
+
+
 
 --See if we need to start a cutscene on a defines.events.on_cargo_pod_finished_ascending event.
 landing_cutscene.try_start_cutscene = function(event)
@@ -350,14 +364,21 @@ landing_cutscene.try_start_cutscene = function(event)
     local player = game.get_player(event.player_index)
     --local surface = game.get_surface(event.surface_index)
 
-    --[[First, we need to check that we are going from a space platform down to rubia.
-    if (not surface --Prev surface destroyed/deleted?
-        or not surface.platform --Old surface was not a platform
-        or player.surface.name ~= "rubia") then--new surface is not the right planet
 
-        game.print("cancel cutscene")
-        return
-    end]]
+    --Check for first blastoff:
+    if (not storage.rubia_first_blastoff_complete
+        and cargo_pod
+        and cargo_pod.cargo_pod_destination
+        and cargo_pod.cargo_pod_destination.type == defines.cargo_destination.station
+        and cargo_pod.cargo_pod_destination.station.surface.platform
+        and cargo_pod.cargo_pod_origin
+        and cargo_pod.cargo_pod_origin.surface
+        and cargo_pod.cargo_pod_origin.surface.name == "rubia") then
+            storage.rubia_first_blastoff_complete = true
+            first_blast_off_cutscene()
+            
+            return
+    end
 
     --Operation iron man cancels cutscene.
     if (player.force.technologies["planetslib-rubia-cargo-drops"].researched) then

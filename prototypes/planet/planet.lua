@@ -71,8 +71,8 @@ local planet = {
 
         surface_render_parameters =
         {
-          fog = fog,--effects.default_fog_effect_properties(),
-          --[[clouds =
+          --fog = fog,--effects.default_fog_effect_properties(),
+          clouds =
           {
             shape_noise_texture =
             {
@@ -103,7 +103,7 @@ local planet = {
             shape_warp_strength = 0.06,
             shape_warp_weight = 0.4,
             detail_sample_morph_duration = 0,
-          },]]
+          },
     
           -- Should be based on the default day/night times, ie
           -- sun starts to set at 0.25

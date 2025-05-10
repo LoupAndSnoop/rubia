@@ -22,23 +22,23 @@ end
 --execute = function to execute when this entity is mined.
 local lore_drop_table ={
     ["rubia-spidertron-remnants"] = {
-        {count = 4, string = "rubia-lore.spidertron-mine-part1"},
-        {count = 6, string = "rubia-lore.spidertron-mine-part2"},
-        {count = 8, string = "rubia-lore.spidertron-mine-part3"},
-        {count = 20, string = "rubia-lore.spidertron-mine-part4"},
+        {count = 3, string = "rubia-lore.spidertron-mine-part1"},
+        {count = 8, string = "rubia-lore.spidertron-mine-part2"},
+        {count = 23, string = "rubia-lore.spidertron-mine-part3"},
+        {count = 46, string = "rubia-lore.spidertron-mine-part4"},
         {count = 50, execute = spoilage_failsafe}
     },
     ["rubia-pole-remnants"] = {
-        {count = 2, string = "rubia-lore.train-stop-mine-part1"},
-        {count = 4, string = "rubia-lore.train-stop-mine-part2"},
-        {count = 6, string = "rubia-lore.train-stop-mine-part3"},
-        {count = 8, string = "rubia-lore.train-stop-mine-part4"},
+        {count = 3, string = "rubia-lore.train-stop-mine-part1"},
+        {count = 8, string = "rubia-lore.train-stop-mine-part2"},
+        {count = 23, string = "rubia-lore.train-stop-mine-part3"},
+        {count = 32, string = "rubia-lore.train-stop-mine-part4"},
     },
     ["rubia-junk-pile"] = {
         {count = 3, string = "rubia-lore.junk-mine-part1"},
-        {count = 6, string = "rubia-lore.junk-mine-part2"},
-        {count = 9, string = "rubia-lore.junk-mine-part3"},
-        {count = 12, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1)},
+        {count = 12, string = "rubia-lore.junk-mine-part2"},
+        {count = 21, string = "rubia-lore.junk-mine-part3"},
+        {count = 31, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1)},
     }
 }
 
