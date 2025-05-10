@@ -20,13 +20,9 @@ local internal_blacklist = {
     --Logistic cheese
     {type="car", name ="tank"},
 }
---Merge with any existing blacklist in case other mods want to add to this blacklist variable.
-rubia.surface_blacklist = rubia_lib.array_concat({rubia.surface_blacklist, internal_blacklist})
-
 --Specific mods blacklisting
 local mod_item_blacklist = {
     {mod="SpidertronPatrols", type="proxy-container", name ="sp-spidertron-dock"},
-
 }
 for _, entry in pairs(mod_item_blacklist) do
     if mods[entry.mod] then table.insert(internal_blacklist, entry) end
@@ -72,6 +68,9 @@ for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) d
 end
 
 
+--Merge with any existing blacklist in case other mods want to add to this blacklist variable.
+rubia.surface_blacklist = rubia_lib.array_concat({rubia.surface_blacklist, internal_blacklist})
+
 --Apply Blacklist to make a dictionary
 --Change from an array of {type, name} to a dictionary of {type, {name1, name2}}
 -- for all in that category
@@ -89,6 +88,7 @@ for category, sub_blacklist in pairs(dictionary_blacklist) do
     for _, prototype in pairs(data.raw[category]) do
         if rubia_lib.array_find(sub_blacklist, prototype.name) then
             rubia.ban_from_rubia(prototype)
+            log("Banning " .. prototype.name)
         end
     end
 end

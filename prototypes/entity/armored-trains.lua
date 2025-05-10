@@ -10,7 +10,7 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local simulations = require("__base__.prototypes.factoriopedia-simulations")
 
 local meld = require("__core__.lualib.meld")
-
+local surface_conditions = function() return {{property="gravity", min=0.1}} end
 
 --#region Helper functions used in initially defining the locomotive.
 local drive_over_tie = function()
@@ -139,6 +139,8 @@ data:extend({
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     minable = {mining_time = 0.5, result = "rubia-armored-locomotive"},
     mined_sound = sounds.deconstruct_large(0.8),
+    surface_conditions = surface_conditions(),
+
     max_health = 1000 * 2,
     deliver_category = "vehicle",
     corpse = "locomotive-remnants",
@@ -491,6 +493,7 @@ data:extend({
     inventory_size = 100,--40,
     minable = {mining_time = 0.5, result = "rubia-armored-cargo-wagon"},
     mined_sound = sounds.deconstruct_large(0.8),
+    surface_conditions = surface_conditions(),
     max_health = 600,
     deliver_category = "vehicle",
     corpse = "cargo-wagon-remnants",
@@ -660,6 +663,7 @@ data:extend({
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
     minable = {mining_time = 0.5, result = "rubia-armored-fluid-wagon"},
     mined_sound = sounds.deconstruct_large(0.8),
+    surface_conditions = surface_conditions(),
     max_health = 600,
     capacity = 50000*4,
     deliver_category = "vehicle",

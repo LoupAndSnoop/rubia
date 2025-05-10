@@ -22,6 +22,7 @@ rubia.ban_from_rubia = function(prototype)
 
     else
         --Check if the prototype has wind speed already defined. If it does, update it
+        log("Starting on " .. prototype.name)
         for i, condition in pairs(prototype.surface_conditions) do
             if condition.property == "rubia-wind-speed" then
                 prototype.surface_conditions[i] = rubia_condition()
@@ -29,7 +30,9 @@ rubia.ban_from_rubia = function(prototype)
             end
         end
         --No dupes found, just add it in.
+        --prototype.surface_conditions[#prototype.surface_conditions + 1] = rubia_condition()
         table.insert(prototype.surface_conditions, rubia_condition())
+        --log("added manually" .. prototype.name)
     end
 end
 
