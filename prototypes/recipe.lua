@@ -272,7 +272,7 @@ data:extend({
     energy_required = 3,
     results = {
       {type ="item", name ="firearm-magazine", amount = 6},
-      {type ="item", name ="copper-cable", amount = 1},--, probability=0.5},
+      {type ="item", name ="copper-cable", amount = 2},--, probability=0.5},
     },
     allow_productivity = true,
     crafting_machine_tint = crafting_machine_tint_red,
@@ -536,7 +536,7 @@ data:extend({
 {
   type ="recipe",
   name ="biorecycle-bacteria-AB-elec-engine",
-  icon = "__rubia-assets__/graphics/icons/recipes/bacteria-AB+elec-engine.png",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-elec-engine+copper.png",
   category ="biorecycling",
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-e",
   enabled = false,
@@ -551,8 +551,7 @@ data:extend({
   energy_required = 5,
   results = {
     {type ="item", name ="electric-engine-unit", amount = 1},
-    {type ="item", name ="copper-cable", amount = 4},
-    {type ="item", name ="electronic-circuit", amount = 2},
+    {type ="item", name ="copper-plate", amount = 4},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_purple,
@@ -578,7 +577,23 @@ data:extend({
 
 --#endregion
 --#region Biorecycling Stage 4- Post clear
-
+{
+  type = "recipe",
+  name = "rubia-nutrients-from-sludge",
+  icon = "__rubia-assets__/graphics/icons/sludge-to-nutrients.png",
+  icon_size = 64,
+  subgroup = "agriculture-processes",
+  order = "c[nutrients]-a[nutrients-from-spoilage]-b",
+  category = "organic",
+  enabled = false,
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 1,
+  ingredients = {
+      { type = "fluid", name = "rubia-bacterial-sludge", amount = 20}, 
+  },
+  results = {{type = "item", name = "nutrients", amount = 1, percent_spoiled=0.5}},
+  allow_productivity = true,
+},
 
 
 --#endregion

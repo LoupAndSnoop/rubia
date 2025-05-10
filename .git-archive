@@ -1,0 +1,4 @@
+
+-- git archive --format zip --prefix rubia/ --worktree-attributes --output rubia_[VERSION].zip HEAD
+
+

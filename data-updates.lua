@@ -67,6 +67,28 @@ else --We ARE doing biofusion science.
 end
 
 
+--Set Nutrient productivity recipes
+local nutrient_prod_effects = {}
+local nutrient_prod_magnitude = 0.1
+--Manual blacklist for names of recipes to not ever get nutrient prod.
+local nutrient_prod_blacklist = rubia_lib.array_to_hashset({
+})
+for _, recipe in pairs(data.raw.recipe) do
+  --Looking for recipes that only make 1 product, and that product is nutrients
+  if recipe.results and #recipe.results == 1
+  and recipe.results[1].name and recipe.results[1].name == "nutrients" 
+  and recipe.category ~= "recycling" --Don't give me recycling nonsense
+  and not nutrient_prod_blacklist[recipe.name] then
+    table.insert(nutrient_prod_effects, 
+      {type = "change-recipe-productivity",
+      recipe = recipe.name,
+      change = nutrient_prod_magnitude})
+  end
+end
+data.raw.technology["rubia-nutrient-productivity"].effects = nutrient_prod_effects
+
+
+
 --Make rubia a prerequisite for this technology. If add_sci_cost, then also make the tech require rubia science.
 local function require_rubia_clear_for_tech(technology_name, add_sci_cost)
   local technology = data.raw["technology"][technology_name]

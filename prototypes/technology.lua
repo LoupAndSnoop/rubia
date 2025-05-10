@@ -46,7 +46,7 @@ data:extend({
     {
         type = "technology",
         name = "planet-discovery-rubia",
-        icons = util.technology_icon_constant_planet("__rubia-assets__/graphics/technology/rubia.png"),
+        icons = util.technology_icon_constant_planet("__rubia-assets__/graphics/planet/rubia.png"),
         icon_size = 256,
         essential = true,
         effects =
@@ -359,7 +359,7 @@ data:extend({
     effects = {
         {type = "unlock-recipe", recipe = "rubia-biofusion-science-pack"},
     },
-    prerequisites = {"rubia-project-trashdragon"},
+    prerequisites = {"rubia-project-trashdragon", "biolab"},
     research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=10000},
 },
 
@@ -375,7 +375,7 @@ data:extend({
     unit =
     {
         count = 1000,
-        ingredients = --TODO: This is currently a placeholder.
+        ingredients =
         {
             { "automation-science-pack",      1 },
             { "logistic-science-pack",        1 },
@@ -389,10 +389,61 @@ data:extend({
     }
 },
 
+{
+    type = "technology",
+    name = "rubia-nutrients-from-sludge",
+    icon = "__rubia-assets__/graphics/icons/sludge-to-nutrients.png",
+    icon_size = 256,
+    essential = false,
+    effects = {{type = "unlock-recipe", recipe = "rubia-nutrients-from-sludge"},},
+    prerequisites = {"rubia-biofusion-science-pack"},
+    unit =
+    {
+        count = 1000,
+        ingredients =
+        {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
+        },
+        time = 60
+    }
+},
+
+{
+    type = "technology",
+    name = "rubia-nutrient-productivity",
+    icons = util.technology_icon_constant_recipe_productivity(
+        "__rubia-assets__/graphics/technology/nutrients-technology.png"),    
+        --"__rubia-assets__/graphics/technology/craptonite-frame.png"),
+    icon_size = 64,
+    effects = {
+        --{type = "change-recipe-productivity", recipe = "craptonite-casting", change = 0.1},
+    },
+    prerequisites = {"rubia-biofusion-science-pack"},
+    unit = {
+        count_formula = "1.5^L*1000",
+        ingredients = {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
+        },
+        time = 60
+    },
+    max_level = "infinite",
+    upgrade = true
+},
 
 --#endregion
 
---#region Infinite research
+--#region Infinite research (general)
 {
     type = "technology",
     name = "craptonite-productivity",
@@ -400,16 +451,8 @@ data:extend({
         "__rubia-assets__/graphics/technology/craptonite-frame.png"),
     icon_size = 256,
     effects = {
-        {
-            type = "change-recipe-productivity",
-            recipe = "craptonite-casting",
-            change = 0.1
-        },
-        {
-            type = "change-recipe-productivity",
-            recipe = "assisted-frothing",
-            change = 0.1
-        },
+        {type = "change-recipe-productivity", recipe = "craptonite-casting", change = 0.1},
+        {type = "change-recipe-productivity", recipe = "assisted-frothing", change = 0.1},
     },
     prerequisites = {"rubia-project-trashdragon"},
     unit = {
