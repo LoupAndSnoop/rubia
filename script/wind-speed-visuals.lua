@@ -26,6 +26,10 @@ wind_speed_lib.fluctuate_wind_speed = function(tick_period)
     local target_speed = math.random(-50,50) * tick_period * wind_fluctuation_magnitude + surface.wind_speed
     --Clamp it 
     surface.wind_speed = math.min(math.max(wind_speed_min, target_speed),wind_speed_max)
+
+    --Reorient in case try_set_wind_speed was dodged.
+    surface.wind_orientation = 0.25;
+    surface.wind_orientation_change = 0;
 end
 
 return wind_speed_lib

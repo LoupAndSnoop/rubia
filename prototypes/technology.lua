@@ -400,7 +400,8 @@ data:extend({
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "rubia-nutrients-from-sludge"},},
     prerequisites = {"rubia-biofusion-science-pack"},
-    unit =
+    research_trigger = {type = "craft-item", item="yeet-rubia-biofusion-science-pack", count=1000},
+    --[[unit =
     {
         count = 1000,
         ingredients =
@@ -414,7 +415,7 @@ data:extend({
             { "rubia-biofusion-science-pack", 1 },
         },
         time = 60
-    }
+    }]]
 },
 
 {

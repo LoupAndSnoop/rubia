@@ -1,3 +1,5 @@
+local picker_dollies = require("__rubia__.compat.pickier-dollies")
+
 --Give a warning if Rubia is not removed from promethium sci, when 
 --you just downloaded the mod, and you DO have some ranks of it.
 storage.promethium_warning_done = storage.promethium_warning_done or false
@@ -35,11 +37,26 @@ rubia.hard_initialize = function()
     trashsteroid_lib.hard_refresh()
 end
 
+--Everything to be done every time we boot up the game, via init, config change, OR load
+local function on_every_load()
+    picker_dollies.add_picker_dollies_blacklists()
+end
 
-script.on_init(rubia.hard_initialize)
+
+
+
+script.on_init(function()
+    rubia.hard_initialize()
+    on_every_load()
+end)
 script.on_configuration_changed(function()
     rubia.hard_initialize()
     rubia.check_disable_temporary_science_recipes()
+    on_every_load()
+end)
+
+script.on_load(function()
+    on_every_load()
 end)
 
 --[[script.on_init(function()
