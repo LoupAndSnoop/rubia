@@ -1,7 +1,7 @@
 
 require("__rubia__.lib.lib")
 require("util")
-require("__rubia__.script.rubia-surface-blacklist")
+--require("__rubia__.script.rubia-surface-blacklist")
 require("__rubia__.prototypes.technology-updates")
 
 --Add quality information to factoriopedia.

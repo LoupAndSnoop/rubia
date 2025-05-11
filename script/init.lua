@@ -37,7 +37,7 @@ rubia.hard_initialize = function()
     trashsteroid_lib.hard_refresh()
 end
 
---Everything to be done every time we boot up the game, via init, config change, OR load
+--Everything to be done every time we boot up the game, via init OR load
 local function on_every_load()
     picker_dollies.add_picker_dollies_blacklists()
 end
@@ -52,7 +52,6 @@ end)
 script.on_configuration_changed(function()
     rubia.hard_initialize()
     rubia.check_disable_temporary_science_recipes()
-    on_every_load()
 end)
 
 script.on_load(function()

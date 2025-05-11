@@ -906,7 +906,7 @@ data:extend({
     subgroup = "fulgora-processes", order = "b[holmium]-b[holmium-solution]-b",
 
     enabled = false,
-    category ="biorecycling",
+    category ="organic-or-chemistry",
     ingredients =
     {
       {type = "item", name = "holmium-ore", amount = 2},
