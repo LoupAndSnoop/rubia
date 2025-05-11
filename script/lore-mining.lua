@@ -39,6 +39,7 @@ local lore_drop_table ={
         {count = 12, string = "rubia-lore.junk-mine-part2"},
         {count = 21, string = "rubia-lore.junk-mine-part3"},
         {count = 31, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1)},
+        {count = 39, string = "rubia-lore.junk-mine-part5"},
     }
 }
 

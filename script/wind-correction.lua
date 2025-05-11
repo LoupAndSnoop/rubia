@@ -52,6 +52,21 @@ local function try_adjust_inserter(entity)
 end
 
 
+---TODO: Not implemented yet.
+--Dictionary of special cases to send different entity prototypes to specific wind behaviors
+local wind_behavior_dic = {
+    --Renai transportation
+    ["DirectedBouncePlate"] =   {wind_type = "force_not_orient", orient=defines.direction.west},
+    ["DirectedBouncePlate15"] = {wind_type = "force_not_orient", orient=defines.direction.west},
+    ["RTVacuumHatch"] =         {wind_type = "force_orient", orient=defines.direction.west},
+    ["RTThrower-EjectorHatchRT"] ={wind_type = "force_orient", orient=defines.direction.west},
+    --TODO Loaders force east
+
+
+}
+
+
+
 
 --Wind mechanic: Restricting the directions of specific items. Entity passed in could be invalid.
 --Code modified from Nancy B + Exfret the wise.

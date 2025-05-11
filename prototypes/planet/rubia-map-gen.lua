@@ -15,14 +15,8 @@ planet_map_gen.rubia = function()
           aux = "aux_basic",
           cliffiness = "cliffiness_basic",
           cliff_elevation = "cliff_elevation_from_elevation",
-          --[[["entity:platinum-ore:probability"] = "rubia_platinum_ore_probability",
-          ["entity:platinum-ore:richness"] = "rubia_platinum_ore_richness",]]
           --[[["entity:rubia-ferric-scrap:probability"] = "rubia_ferric_scrap_probability",
-          ["entity:rubia-ferric-scrap:richness"] = "rubia_ferric_scrap_richness",
-          ["entity:rubia-cupric-scrap:probability"] = "rubia_cupric_scrap_probability",
-          ["entity:rubia-cupric-scrap:richness"] = "rubia-cupric-scrap_richness",
-          ["entity:bacterial-sludge:probability"] = "bacterial_sludge_probability",
-          ["entity:bacterial-sludge:richness"] = "bacterial_sludge_richness",]]
+          ["entity:rubia-ferric-scrap:richness"] = "rubia_ferric_scrap_richness",]]
         },
         cliff_settings =
         {
@@ -35,7 +29,7 @@ planet_map_gen.rubia = function()
   
         autoplace_controls =
         {
-          ["bacterial-sludge"] = {frequency = 6, size = 0.5, richness = 1}, --Frequency/Size/richness
+          ["rubia-bacterial-sludge"] = {frequency = 6, size = 0.5, richness = 1}, --Frequency/Size/richness
           ["rubia-ferric-scrap"] = {frequency = 6, size = 0.25, richness = 1},
           ["rubia-cupric-scrap"] = {frequency = 6, size = 0.25, richness = 1},
         },
@@ -45,11 +39,6 @@ planet_map_gen.rubia = function()
           {
             settings =
             {
-              --["grass-4"] = {},
-              --["dirt-4"] = {},
-              --["dirt-7"] = {},
-              --["red-desert-0"] = {},
-
               ["midland-turquoise-bark-2"] = {},
               ["lowland-brown-blubber"] = {},
               ["lowland-pale-green"] = {},
@@ -94,8 +83,6 @@ planet_map_gen.rubia = function()
               ["rubia-medium-remnants"] = {},
               ["rubia-pump-remnants"] = {},
               ["rubia-heat-exchanger-remnants"] = {},
-              --[""] = {}
-              --[""] = {}
             }
           },
           ["entity"] =
@@ -109,7 +96,7 @@ planet_map_gen.rubia = function()
               ["rubia-junk-pile"] = {},
               
               --Resources
-              ["bacterial-sludge"] = {},--{frequency = 60, size = 0.1, richness = 10}, --Frequency/Size/richness
+              ["rubia-bacterial-sludge"] = {},--{frequency = 60, size = 0.1, richness = 10}, --Frequency/Size/richness
               ["rubia-ferric-scrap"] = {},--{frequency = 2000,size = 0.2, richness = 5},
               ["rubia-cupric-scrap"] = {},--{25,0.2,5},
             }

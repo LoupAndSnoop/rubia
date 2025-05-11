@@ -644,6 +644,42 @@ if mods["Cerys-Moon-of-Fulgora"] then
     })
 end
 
+if mods["maraxsis"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-lamp",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-lamp.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "nothing", icon_size = 64,
+                icon = "__rubia-assets__/graphics/technology/craptonite-tools/lightbulb-icon.png",
+                effect_description = {"modifier-description.rubia-craptonite-lamp"}},
+            },
+            prerequisites = {"craptonite-axe", "maraxsis-project-seadragon"},
+            research_trigger = {type = "craft-item", item="yeet-hydraulic-science-pack", count=1000},
+        },
+    })
+end
+
+if mods["planet-muluna"] then  --TODO
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-belt-buckle",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-belt-buckle.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "character-running-speed", modifier = 0.1},
+            },
+            prerequisites = {"craptonite-axe"},
+            research_trigger = {type = "craft-item", item="yeet-wood", count=10000},
+        },
+    })
+end
+
 --#endregion
 
 --[[

@@ -94,7 +94,7 @@ data:extend({
 
   {
     type = "resource",
-    name = "bacterial-sludge",
+    name = "rubia-bacterial-sludge",
     icon = "__rubia-assets__/graphics/entity/bacterial-sludge/sludge-well-icon.png",--"__base__/graphics/icons/crude-oil-resource.png",
     flags = {"placeable-neutral"},
     category = "basic-fluid",
@@ -127,7 +127,7 @@ data:extend({
     collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     autoplace = resource_autoplace.resource_autoplace_settings{
-      name = "bacterial-sludge",
+      name = "rubia-bacterial-sludge",
       order = "c", -- Other resources are "b"; oil won't get placed if something else is already there.
       base_density = 4,
       base_spots_per_km2 = 50,
@@ -141,7 +141,7 @@ data:extend({
       has_starting_area_placement = true,
       regular_rq_factor_multiplier = 1,--1.10, --0.4
       starting_rq_factor_multiplier = 1,--1.5, --0.5
-      --autoplace_set_name="bacterial_sludge",
+      --autoplace_set_name="rubia-bacterial_sludge",
     },
     stage_counts = {0},
     stages =
@@ -286,7 +286,7 @@ data:extend({
 {
   type = "autoplace-control",
   category = "resource",
-  name = "bacterial-sludge",
+  name = "rubia-bacterial-sludge",
   localised_name = {"", "[fluid=rubia-bacterial-sludge]"," ", {"fluid-name.rubia-bacterial-sludge"}},
   order = u_ore_order.."3",
   richness = true
@@ -298,7 +298,7 @@ data:extend({
 data:extend({
 {
   type = "noise-expression",
-  name = "bacterial_sludge_richness",
+  name = "rubia-bacterial_sludge_richness",
   expression = "250000 * max(starting, gleba_simple_spot(2000, 10 * size ^ 0.5, 180 / frequency ^ 0.5, gleba_midland_aux_1) * gleba_midland_aux_1) * richness / size",
   local_expressions =
   {
@@ -314,7 +314,7 @@ data:extend({
 },
 {
   type = "noise-expression",
-  name = "bacterial_sludge_probability",
-  expression = "bacterial_sludge_richness > 1"
+  name = "rubia-bacterial_sludge_probability",
+  expression = "rubia-bacterial_sludge_richness > 1"
 },
 })]]

@@ -23,6 +23,7 @@ local internal_blacklist = {
 --Specific mods blacklisting
 local mod_item_blacklist = {
     {mod="SpidertronPatrols", type="proxy-container", name ="sp-spidertron-dock"},
+    {mod="RenaiTransportation", type="constant-combinator", name ="DirectorBouncePlate"},
 }
 for _, entry in pairs(mod_item_blacklist) do
     if mods[entry.mod] then table.insert(internal_blacklist, entry) end
@@ -88,7 +89,6 @@ for category, sub_blacklist in pairs(dictionary_blacklist) do
     for _, prototype in pairs(data.raw[category]) do
         if rubia_lib.array_find(sub_blacklist, prototype.name) then
             rubia.ban_from_rubia(prototype)
-            log("Banning " .. prototype.name)
         end
     end
 end
