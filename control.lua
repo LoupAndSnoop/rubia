@@ -8,10 +8,11 @@ require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
 local rubia_wind = require("__rubia__.script.wind-correction")
-require("__rubia__.script.init")
+local init_functions = require("__rubia__.script.init")
 local trashdragon = require("__rubia__.script.project-trashdragon")
 local lore_mining = require("__rubia__.script.lore-mining")
 local entity_swap = require("__rubia__.script.entity-swap")
+local technology_scripts = require("__rubia__.script.technology-scripts")
 
 --#region Technology/Sci related
 --[[
@@ -20,7 +21,7 @@ script.on_event(defines.events.on_built_entity, function(event)
     trashdragon.on_built_rocket_silo(event)
 end)]]
 
---Disable makeshift/ghetto sci if the progression techs for which they are required are done.
+--[[Disable makeshift/ghetto sci if the progression techs for which they are required are done.
 rubia.check_disable_temporary_science_recipes = function()
   for _, force in pairs(game.forces) do
     if force.technologies["rubia-progression-stage2"].researched then
@@ -31,12 +32,13 @@ rubia.check_disable_temporary_science_recipes = function()
       force.recipes["ghetto-biorecycling-science-pack"].enabled = false
     end
   end
-end
+end]]
 
 --check_disable_temporary_science_recipes() --One check at startup
 script.on_event(defines.events.on_research_finished, function(event)
   --Do a correction based on the current state, not on the research which has completed.
-  rubia.check_disable_temporary_science_recipes()
+  --rubia.check_disable_temporary_science_recipes()
+  technology_scripts.execute_on_research_scripts(event.research)
 end)
 --#endregion
 
@@ -216,6 +218,27 @@ script.on_event(defines.events.on_surface_created, function(event)
 
   wind_speed_lib.try_set_wind_speed()
 end)
+
+-----------
+
+--Initialization/loadup
+script.on_init(function()
+  init_functions.hard_initialize()
+  init_functions.on_every_load()
+  technology_scripts.execute_startup_scripts()
+end)
+
+script.on_configuration_changed(function()
+  init_functions.hard_initialize()
+  technology_scripts.execute_startup_scripts()
+end)
+
+script.on_load(function()
+  init_functions.on_every_load()
+end)
+
+
+
 
 --[[Protect collectors from having items added to them
 script.on_event(defines.events.on_player_fast_transferred, function(event)

@@ -1,5 +1,7 @@
 local picker_dollies = require("__rubia__.compat.pickier-dollies")
 
+local init_functions = {}
+
 --Give a warning if Rubia is not removed from promethium sci, when 
 --you just downloaded the mod, and you DO have some ranks of it.
 storage.promethium_warning_done = storage.promethium_warning_done or false
@@ -30,68 +32,22 @@ local function promethium_warning()
     end
 end
 
+
+
+
 --Hard re-initialize. Nuke data, and recalculate everything the mod needs. Helpful for when everything is fucked.
-rubia.hard_initialize = function()
+function init_functions.hard_initialize()
     promethium_warning()
     chunk_checker.init()
     trashsteroid_lib.hard_refresh()
 end
 
 --Everything to be done every time we boot up the game, via init OR load
-local function on_every_load()
+function init_functions.on_every_load()
     picker_dollies.add_picker_dollies_blacklists()
 end
 
+return init_functions
 
-
-
-script.on_init(function()
-    rubia.hard_initialize()
-    on_every_load()
-end)
-script.on_configuration_changed(function()
-    rubia.hard_initialize()
-    rubia.check_disable_temporary_science_recipes()
-end)
-
-script.on_load(function()
-    on_every_load()
-end)
-
---[[script.on_init(function()
-    local player = game.forces["player"]
-    if not settings.startup["remove-rubia-from-promethium_sci"].value
-        and player.technologies["research-productivity"]
-        and (player.technologies["research-productivity"].level > 1)
-        and not storage.promethium_warning_done then
-
-        --We need to give a warning, but game is not open yet.
-        rubia.timing_manager.wait_then_do(10, "promethium-warning-part1", {player})
-        rubia.timing_manager.wait_then_do(90, "promethium-warning-part2", {player})
-    end
-end)]]
-
---[[
-script.on_init(function()
-    local player = game.forces["player"]
-    if not settings.startup["remove-rubia-from-promethium_sci"].value
-        and player.technologies["research-productivity"]
-        and (player.technologies["research-productivity"].level > 1)
-        and not storage.promethium_warning_done then
-        --We need to give a warning, but game is not open yet. Keep a variable to only do this once.
-        local function warning()
-            if (not storage.promethium_warning_done) then
-                game.print({"alert.promethium_warning"},{color={r=0.9,g=0.2,b=0.2,a=1}})
-                storage.promethium_warning_done = true
-                player.play_sound({path = "utility/console_message"})
-            end
-        end
-        rubia.timing_manager.wait_then_do(10, warning)
-        rubia.timing_manager.wait_then_do(90, function()
-            game.print({"alert.promethium_warning-part2"},{color={r=0.9,g=0.2,b=0.2,a=1}}) end)
-    end
-end)
-
-]]
 
 --picker_dollies.add_picker_dollies_blacklists()
