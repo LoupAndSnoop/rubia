@@ -43,3 +43,4 @@ You find yourself on a planet with perpetual hurricane-force winds that have err
 - Can be added to existing Space Age saves.
 - Rubia science being added to infinite research productivity research can be toggled.
 - Despite the junk theme, this mod does NOT play like Fulgora at all.
+- Rubia is explicitly compatible with several adjustasble inserter mods: Bob's inserters, JanSharp's quick adjustable inserters, Renai Transportation.
