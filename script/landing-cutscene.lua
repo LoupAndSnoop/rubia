@@ -340,7 +340,7 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
 
     --If player has no shields, amplify the amount of damage they need to survive.
     local bonus_damage = 0
-    if (not character.grid) or character.grid.max_shield == 0 then bonus_damage = 300 end
+    if (not character.grid) or character.grid.max_shield == 0 then bonus_damage = 400 end
 
     --Main damage check here. Empirically, 460 = need 6 shields with no health upgrades.
     cutscene_damage(character, player, PLANNED_BIG_DAMAGE + bonus_damage)

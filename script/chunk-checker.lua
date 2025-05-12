@@ -41,6 +41,12 @@ chunk_checker.init = function()
     --Dictionary of player_index to player's last chunk position ON this surface as {key,position={x,y}}
     --dic[player_index] = nil if no player, or player not looking here.
     storage.last_player_chunk = storage.last_player_chunk or {}
+
+    --[[A dictionary of surface => hashset of currently viewed chunk position keys on that surface
+    storage.viewed_chunks = storage.viewed_chunks or {}
+    if storage.rubia_surface then
+        storage.viewed_chunks[storage.rubia_surface] = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+    end]]
 end
 
 --#region Tracking Development by buildable entities
@@ -228,6 +234,23 @@ chunk_checker.currently_viewed_chunks = function(surface)
     return viewed_chunks
 end
 
+--Note: Dueto how optimized the iteration is, caching the result is somehow slower.
+--[[Return a hashset of all chunk position keys that are currently visible for that specific surface.
+--Just fetches a running cache.
+---@param surface LuaSurface
+chunk_checker.get_currently_viewed_chunks = function(surface)
+    if not storage.viewed_chunks then return end
+    return storage.viewed_chunks[surface] or {}
+end]]
+
+--This is worse. Function is too expensive per each to beat making a hashset.
+--[[Return TRUE if the current chunk is visible to someone
+function chunk_checker.chunk_is_visible(chunk_key)
+    local entry = storage.developed_chunks[chunk_key]
+    return entry and entry.players--_ENV.table_size(entry.players) ~= 0
+end]]
+
+
 ---Try to update our tracking of the current player's position, and update tables if needed.
 ---@param player LuaPlayer
 ---@param surface LuaSurface surface that we are tracking
@@ -286,6 +309,10 @@ chunk_checker.try_update_player_pos = function(player, surface)
         --game.print("new pos = " .. new_chunk_pos.x .. "," .. new_chunk_pos.y .. "")
         storage.last_player_chunk[player.index] = {key=new_key, position=new_chunk_pos}
     end
+
+    --[[Update a running cache of which chunks are currently visible
+    storage.viewed_chunks = storage.viewed_chunks or {}
+    storage.viewed_chunks[surface] = chunk_checker.currently_viewed_chunks(surface)]]
 end
 
 

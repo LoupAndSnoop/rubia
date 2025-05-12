@@ -231,6 +231,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     death_tick = game.tick + trashsteroid_lifetime,
     name = trashsteroid_name,
     chunk_data = chunk,
+    chunk_key = chunk_checker.chunk_position_to_key(chunk.x, chunk.y),
     --chunk_position = {x=chunk.x, y = chunk.y}, --Do we need both?
     render_solid = render,
     render_shadow = render_shadow,
@@ -370,7 +371,8 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
   if not viewed_chunks then return end
 
   for _, trashsteroid in pairs(storage.active_trashsteroids) do
-    if (viewed_chunks[chunk_checker.chunk_position_to_key(trashsteroid.chunk_data.x,trashsteroid.chunk_data.y)]
+    --if (chunk_checker.chunk_is_visible(trashsteroid.chunk_key)
+    if (viewed_chunks[trashsteroid.chunk_key]--[chunk_checker.chunk_position_to_key(trashsteroid.chunk_data.x,trashsteroid.chunk_data.y)]
       and trashsteroid.render_solid and trashsteroid.render_solid.valid
       and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
       local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
