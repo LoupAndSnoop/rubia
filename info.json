@@ -1,6 +1,6 @@
 {
     "name": "rubia",
-    "version": "0.69.2",
+    "version": "0.69.3",
     "title": "Planet Rubia",
     "author": "Loup&Snoop, 2025",
     "factorio_version": "2.0",
@@ -11,5 +11,5 @@
     ],
     "space_travel_required": true,
     "description": "🌐 Discover the wind planet Rubia. Your whole factory must go with the wind as a never-ending barrage of waste is hurled at your base. Belts and inserters work differently on Rubia, leading to unique building challenges not seen on any other planet.",
-    "homepage": "https://discord.gg/9gE3TwKn8D" 
+    "homepage": "https://discord.gg/CaDJzEj557"
 }

@@ -51,3 +51,4 @@ return init_functions
 
 
 --picker_dollies.add_picker_dollies_blacklists()
+--game.forces["player"].technologies["rubia-progression-stage2"].enabled = false

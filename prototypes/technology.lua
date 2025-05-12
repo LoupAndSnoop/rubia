@@ -396,7 +396,7 @@ data:extend({
     type = "technology",
     name = "rubia-nutrients-from-sludge",
     icon = "__rubia-assets__/graphics/icons/sludge-to-nutrients.png",
-    icon_size = 256,
+    icon_size = 64,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "rubia-nutrients-from-sludge"},},
     prerequisites = {"rubia-biofusion-science-pack"},

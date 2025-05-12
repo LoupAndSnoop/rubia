@@ -224,8 +224,6 @@ local function start_cutscene(player, cargo_pod)
     
     player.teleport(character.position, character.surface, false) --break out of remote view
 
-    --player.associate_character(character) --Connect
-
     --[[
     --Note: This destroys the background for the cutscene
     player.set_controller{type=defines.controllers.cutscene,
@@ -311,19 +309,19 @@ end)
 --fully heal off that damage via regen mostly. Final burst of dmg should be the actual check for your total HP upon arrival.
 --
 rubia.timing_manager.register("cutscene-part2", function(player, cargo_pod, character)
-    game.print({"alert.landing-cutscene-part1"}, {color={r=0.9,g=0,b=0,a=1}})
+    player.print({"alert.landing-cutscene-part1"}, {color={r=0.9,g=0,b=0,a=1}})
     cutscene_damage(character, player, 70)
 end)
 
 rubia.timing_manager.register("cutscene-part3", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
-    game.print({"alert.landing-cutscene-part2"}, {color={r=0.9,g=0,b=0,a=1}})
+    player.print({"alert.landing-cutscene-part2"}, {color={r=0.9,g=0,b=0,a=1}})
     cutscene_damage(character, player, 90)
 end)
 
 rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
-    game.print({"alert.landing-cutscene-part3"}, {color={r=0.9,g=0,b=0,a=1}})
+    player.print({"alert.landing-cutscene-part3"}, {color={r=0.9,g=0,b=0,a=1}})
     cutscene_damage(character, player, 130)
 end)
 
@@ -383,7 +381,7 @@ rubia.timing_manager.register("cutscene-roboport-failsafe", function(player, cha
     if storage.rubia_roboport_failsafe[player.index] then return end --They already got their one roboport
 
     --Make sure to taunt him before giving him a roboport.
-    game.print({"rubia-taunt.forgot-roboport-failsafe"})
+    player.print({"rubia-taunt.forgot-roboport-failsafe"})
     storage.rubia_roboport_failsafe[player.index] = true
 
     local inventory = player.get_inventory(defines.inventory.character_main)
@@ -402,12 +400,14 @@ end)
 rubia.timing_manager.register("cutscene-roboport-failsafe-part2", function(player, character)
     if not (character and character.valid and character.surface and character.surface.name == "rubia") then return end
     --SMITE
-    game.print({"rubia-taunt.forgot-roboport-failsafe-part2"})
+    player.print({"rubia-taunt.forgot-roboport-failsafe-part2"})
     character.health = 1
 end)
 
-rubia.timing_manager.register("delayed-text-print", function(local_string) 
-    game.print(local_string)
+rubia.timing_manager.register("delayed-text-print", function(player, local_string) 
+    if player then player.print(local_string)
+    else game.print(local_string)
+    end
 end)
 --#endregion
 ----------------------------------
@@ -475,7 +475,7 @@ landing_cutscene.cancel_on_player_death = function(event)
     local player = game.get_player(event.player_index)
     cancel_cutscene(player)
     --Give hint for next time.
-    game.print({"alert.on-player-died-on-entry"}, {color={r=0.7,g=0.7,b=0,a=1}})
+    player.print({"alert.on-player-died-on-entry"}, {color={r=0.7,g=0.7,b=0,a=1}})
 end
 
 --Cancel if player dies
@@ -483,15 +483,16 @@ script.on_event(defines.events.on_player_died, function(event)
     local player = game.get_player(event.player_index)
     cancel_cutscene(player)
     --Give hint for next time.
-    game.print({"alert.on-player-died-on-entry"}, {color={r=0.7,g=0.7,b=0,a=1}})
+    player.print({"alert.on-player-died-on-entry"}, {color={r=0.7,g=0.7,b=0,a=1}})
 end)
 
 
 
 ------------Testing method
 _G.rubia = _G.rubia or {}
-rubia.test_cutscene = function() start_cutscene(game.get_player(1)) end
-rubia.test_cutscene_cancel = function() cancel_cutscene(game.get_player(1)) end
+rubia.testing = rubia.testing or {}
+rubia.testing.test_cutscene = function() start_cutscene(game.get_player(1)) end
+rubia.testing.test_cutscene_cancel = function() cancel_cutscene(game.get_player(1)) end
 --Copy this: /c __rubia__ rubia.test_cutscene()
 
 --#endregion

@@ -273,3 +273,16 @@ rubia_lib.make_rotated_animation_variations_from_sheet = function(variation_coun
    return result
 end
 
+
+
+--Technology searching
+
+--[[Make a dictionary of: "tech name" => {names of all its children}
+rubia_lib.make_child_tech_dictionary = function()
+  local prototype_list = {}
+  if rubia.stage == "data" then prototype_list = data.raw["technology"]
+  elseif rubia.stage == "control" then prototype_list = prototypes.technology
+  else error("This function should not be called outside data stage or control stage.")
+  end
+
+end]]

@@ -126,7 +126,7 @@ local function force_splitter_like_orientation_to(entity, player_index, directio
     if entity.direction == direction then return end
 
     --If one rotation gets this entity to the right state, then we're good to just give notice.
-    entity.rotate{by_player=player_index}
+    entity.rotate() --Do not raise event, because that causes an infinite loop
     if entity.direction == direction then
         wind_correction_notification(entity, player_index)
         return

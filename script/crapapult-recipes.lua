@@ -23,7 +23,7 @@ for _, tech in pairs(data.raw["technology"]) do
   --Do I need a more stringent search?
   if trigger and trigger.type == "craft-item" and trigger.item
     and (type(trigger.item) == type("a")) and string.find(trigger.item, "yeet-") --Yeet trigger
-    and rubia.technology_is_prerequisite("planet-discovery-rubia", tech.name) then --And the tech depends on rubia
+    and rubia_lib.technology_is_prerequisite("planet-discovery-rubia", tech.name) then --And the tech depends on rubia
     table.insert(yeet_trigger_tech_items, string.sub(trigger.item,6,-1))
   end
 end

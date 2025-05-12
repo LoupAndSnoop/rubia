@@ -98,7 +98,7 @@ end
 
 --Determine if the technology is a (distant) prerequisite of the other. Return true if yes.
 --Pass in as the names of technology prototype
-function rubia.technology_is_prerequisite(potential_parent, potential_dependent)
+function rubia_lib.technology_is_prerequisite(potential_parent, potential_dependent)
     --Go get the technology prototypes
     local parent = data.raw.technology[potential_parent]
     local child = data.raw.technology[potential_dependent]
@@ -110,7 +110,7 @@ function rubia.technology_is_prerequisite(potential_parent, potential_dependent)
     
     for _, prereq in pairs(child.prerequisites) do
         if prereq == potential_parent then return true end --We found the prerequisite
-        if rubia.technology_is_prerequisite(potential_parent, prereq) then return true end
+        if rubia_lib.technology_is_prerequisite(potential_parent, prereq) then return true end
     end
 
     return false --No connection found
