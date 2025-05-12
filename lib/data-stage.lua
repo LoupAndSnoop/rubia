@@ -1,4 +1,5 @@
 --Helper functions for use in the data stage
+_G.rubia_lib = _G.rubia_lib or {}
 
 --Return surface conditions for something that forces that item/recipe to Rubia only.
 rubia.surface_conditions = function()

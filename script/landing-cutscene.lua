@@ -307,24 +307,26 @@ end)
 --Expect about 6 seconds worth of regen from shields, which charge at 12 HP/s each. 50 HP shield => about 120 HP /shield.
 --First segment should not kill an unshielded player, so do just under 300 HP. 4 shields should
 --fully heal off that damage via regen mostly. Final burst of dmg should be the actual check for your total HP upon arrival.
---
+local CUTSCENE_TEXT_SETTINGS = {color={r=0.9,g=0,b=0,a=1}}
 rubia.timing_manager.register("cutscene-part2", function(player, cargo_pod, character)
-    player.print({"alert.landing-cutscene-part1"}, {color={r=0.9,g=0,b=0,a=1}})
-    cutscene_damage(character, player, 70)
+    player.print({"alert.landing-cutscene-part1"}, CUTSCENE_TEXT_SETTINGS)
+    cutscene_damage(character, player, 90)
 end)
 
 rubia.timing_manager.register("cutscene-part3", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
-    player.print({"alert.landing-cutscene-part2"}, {color={r=0.9,g=0,b=0,a=1}})
+    player.print({"alert.landing-cutscene-part2"}, CUTSCENE_TEXT_SETTINGS)
     cutscene_damage(character, player, 90)
 end)
 
 rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
-    player.print({"alert.landing-cutscene-part3"}, {color={r=0.9,g=0,b=0,a=1}})
-    cutscene_damage(character, player, 130)
+    player.print({"alert.landing-cutscene-part3"}, CUTSCENE_TEXT_SETTINGS)
+    cutscene_damage(character, player, 110)
 end)
 
+
+local PLANNED_BIG_DAMAGE = 460 + 50
 --End of cutscene
 rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
     player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
@@ -336,8 +338,12 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     cargo_pod.destroy()
     --if player and player.cargo_pod and player.cargo_pod.valid then player.cargo_pod.destroy() end
 
+    --If player has no shields, amplify the amount of damage they need to survive.
+    local bonus_damage = 0
+    if (not character.grid) or character.grid.max_shield == 0 then bonus_damage = 300 end
+
     --Main damage check here. Empirically, 460 = need 6 shields with no health upgrades.
-    cutscene_damage(character, player, 460 + 50)
+    cutscene_damage(character, player, PLANNED_BIG_DAMAGE + bonus_damage)
 
     --Make sure a surviving player is damaged at least a little to their base HP, without killing
     if (character and character.valid) then 
@@ -478,14 +484,72 @@ landing_cutscene.cancel_on_player_death = function(event)
     player.print({"alert.on-player-died-on-entry"}, {color={r=0.7,g=0.7,b=0,a=1}})
 end
 
---Cancel if player dies
+--[[Cancel if player dies
 script.on_event(defines.events.on_player_died, function(event)
     local player = game.get_player(event.player_index)
     cancel_cutscene(player)
     --Give hint for next time.
     player.print({"alert.on-player-died-on-entry"}, {color={r=0.7,g=0.7,b=0,a=1}})
-end)
+end)]]
 
+
+------
+--Give warning when initially going to rubia. For an on_space_platform_changed_state event
+landing_cutscene.check_initial_journey_warning = function(event)
+    local platform = event.platform
+
+    --Check if space platform is headed to rubia
+    if not (platform and platform.state == defines.space_platform_state.on_the_path
+        and platform.space_connection
+        and (platform.space_connection.to.name == "rubia" or platform.space_connection.from.name == "rubia")) then
+        --game.print("cancel due to space connection: " .. serpent.block(platform.space_connection))
+        return
+    end
+
+    --Check player characters on board
+    local characters = {}
+    storage.rubia_initial_journey_warned = storage.rubia_initial_journey_warned or {}
+    for _, player in pairs(game.players) do
+        local char = player.character
+        --If character is riding, not already warned, and project iron man no researched
+        if char and char.surface and char.surface.index == platform.surface.index 
+            and not storage.rubia_initial_journey_warned[player.index]
+            and not player.force.technologies["planetslib-rubia-cargo-drops"].researched then
+            table.insert(characters, {character = char, player = player})
+            storage.rubia_initial_journey_warned[player.index] = true
+        end
+    end
+    
+    --if #characters == 0 then game.print("No characters to check") end
+
+    --Evaluate type of warning for each
+    for _, entry in pairs(characters) do
+        local issue_warning = false
+
+        local char = entry.character
+        local effective_health = char.max_health
+        if (char.grid and char.grid.valid
+            and ((char.grid.max_solar_energy + char.grid.get_generator_energy()) > 0)) then
+            effective_health = effective_health + char.grid.max_shield
+
+            local expected_regen = 
+                12 * char.grid.count("energy-shield-mk2-equipment")
+                + 12 * char.grid.count("energy-shield-equipment")
+
+            expected_regen = math.min(300, expected_regen * 6 * 0.5) --How much healing we expect max
+            --If shields, then issue warning if total eff health too small
+            if effective_health + expected_regen < PLANNED_BIG_DAMAGE + 300 then
+                issue_warning = true
+            end
+
+        else issue_warning = true -- no shields => definitely issue warning
+        end
+
+        if issue_warning then entry.player.print({"alert.pre-rubia-cutscene-unprepared"}, CUTSCENE_TEXT_SETTINGS)
+        else entry.player.print({"alert.pre-rubia-cutscene-prepared"}, CUTSCENE_TEXT_SETTINGS)
+        end
+    end
+end
 
 
 ------------Testing method

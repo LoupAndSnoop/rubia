@@ -78,6 +78,10 @@ script.on_event(defines.events.on_player_respawned, function(event)
   landing_cutscene.check_respawn_off_rubia(event)
 end)
 
+script.on_event(defines.events.on_space_platform_changed_state, function(event)
+  landing_cutscene.check_initial_journey_warning(event)
+end)
+
 -------Scripts to subscribe functions to events tied to building/modifying
 
 -- Scripts to execute rotation-corrections
