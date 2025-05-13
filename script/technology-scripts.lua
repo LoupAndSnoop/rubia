@@ -95,7 +95,8 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
         for _, prereq in pairs(orig_tech.prerequisites) do
             if not prereq.researched 
                 and not tech_lib.is_unknown_tech_placeholder(prereq.name) --unk do not block
-                and tech_lib.has_rubia_tech_cost(prototypes.technology[prereq.name]) --Only Rubia techs can hide things
+                and prototypes.get_history("technology", prereq.name).created == "rubia" --Only rubia techs can hide things
+                --and tech_lib.has_rubia_tech_cost(prototypes.technology[prereq.name]) --Only Rubia techs can hide things
                 then should_hide = true; break; end
         end
     end

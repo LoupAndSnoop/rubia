@@ -56,8 +56,13 @@ data:extend {{
             }
 
             game.surfaces[1].create_entity {
-                name = "inserter",
+                name = "rubia-junk-pile",
                 position = {4, -2},
+                create_build_effect_smoke = false
+            }
+            game.surfaces[1].create_entity {
+                name = "rubia-junk-pile",
+                position = {7, 6},
                 create_build_effect_smoke = false
             }
 

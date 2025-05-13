@@ -11,6 +11,7 @@ local rubia_minables = rubia_lib.array_to_hashset({
     "rubia-spidertron-remnants", "rubia-junk-pile", "rubia-pole-remnants",
 })
 
+
 ---Return true if the given technology prototype has a cost associated with being tied
 ---to Rubia. This is not specific enough to weed out things like research-prod, that
 ---may have science costs on them automatically tied to my sciences.
