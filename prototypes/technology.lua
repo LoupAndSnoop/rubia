@@ -141,7 +141,7 @@ data:extend({
         effects = {
             {type = "unlock-recipe", recipe = "biorecycle-scrapapalooza"},
         },
-        prerequisites = { "rubia-progression-stage1"},
+        prerequisites = { "rubia-progression-stage2"},
         research_trigger = {type = "craft-item", item="yeet-spoilage", count=3},
     },
     {
@@ -153,7 +153,7 @@ data:extend({
         effects = {
             {type = "unlock-recipe", recipe = "rubia-sniper-turret"},
         },
-        prerequisites = { "rubia-progression-stage1"},
+        prerequisites = { "rubia-progression-stage2"},
         research_trigger = {type = "craft-item", item="yeet-gun-turret", count=1000},
     },
 

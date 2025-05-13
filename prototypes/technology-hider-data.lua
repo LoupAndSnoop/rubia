@@ -104,6 +104,7 @@ local function get_techs_to_be_hidden()
         for _, child in pairs(rubia_lib.get_child_technologies(tech)) do
             if tech_lib.has_rubia_tech_cost(data.raw["technology"][child]) then
                 to_hide[child] = true
+            --log("Hiding child = " .. child) else log("Not Hiding child = " .. child) 
             end
         end
     end
@@ -123,8 +124,7 @@ local function get_techs_to_be_hidden()
             table.insert(to_remove, tech)
         end
     end
-    log("To hide middle:" .. serpent.block(to_hide))
-    log("To remove:" .. serpent.block(to_remove))
+
     for _, tech in pairs(to_remove) do
         to_hide[tech] = nil;
     end
@@ -142,7 +142,7 @@ local function make_all_unknown_tech_prototypes()
     assert(data.raw["technology"]["rubia-project-trashdragon"], "Unknown techs cannot be made before Rubia techs prototypes are defined.")
 
     local to_hide = get_techs_to_be_hidden()
-    log("hiding techs: " .. serpent.block(to_hide))
+    --log("hiding techs: " .. serpent.block(to_hide))
     for tech in pairs(to_hide) do
         make_unknown_tech_of(tech)
     end

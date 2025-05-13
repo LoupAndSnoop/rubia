@@ -7,24 +7,45 @@ local rubia_sciences = rubia_lib.array_to_hashset({
     "rubia-biofusion-science-pack", "makeshift-biorecycling-science-pack",
     "ghetto-biorecycling-science-pack","biorecycling-science-pack"})
 
+local rubia_minables = rubia_lib.array_to_hashset({
+    "rubia-spidertron-remnants", "rubia-junk-pile", "rubia-pole-remnants",
+})
+
 ---Return true if the given technology prototype has a cost associated with being tied
 ---to Rubia. This is not specific enough to weed out things like research-prod, that
 ---may have science costs on them automatically tied to my sciences.
-----@param technology_prototype
+---Input can be a TechnologyPrototype or LuaTechnologyPrototype
 tech_lib.has_rubia_tech_cost = function(technology_prototype)
     assert(type(technology_prototype) ~= type("s"), "Expecting tech prototype, not tech name.")
 
-    --Yeet trigger techs
-    if technology_prototype.research_trigger and technology_prototype.research_trigger.type == "craft-item"
-    and (string.sub(technology_prototype.research_trigger.item,1,5) == "yeet-") then
-        return true
+    --Check to see if a rubia science is in the research cost
+    if rubia.stage == "data" then
+        if technology_prototype.unit and technology_prototype.unit.ingredients then
+            for _, entry in pairs(technology_prototype.unit.ingredients) do
+                if rubia_sciences[entry[1]] then return true end
+            end
+        end
+    else --Control stage
+        for _, entry in pairs(technology_prototype.research_unit_ingredients) do
+            if rubia_sciences[entry.name] then return true end
+        end
     end
 
-    --Check to see if a rubia science is in the research cost
-    if technology_prototype.unit and technology_prototype.unit.ingredients then
-        for _, entry in pairs(technology_prototype.unit.ingredients) do
-            if rubia_sciences[entry[1]] then return true end
-        end
+    --Craft trigger techs
+    if technology_prototype.research_trigger and technology_prototype.research_trigger.type == "craft-item" then
+        local item = technology_prototype.research_trigger.item
+        item = item.name or item --For data stage or control stage
+        if string.sub(item,1,5) == "yeet-" then return true end
+        if item == "craptonite-frame" then return true end
+        --if string.sub(item,1,6) == "rubia-" then return true end
+        return false
+    end
+
+    --Mining a rubia-specific entity
+    if technology_prototype.research_trigger and technology_prototype.research_trigger.type == "mine-entity" then
+        local entity = technology_prototype.research_trigger.entity
+        entity = entity.name or entity
+        if rubia_minables[entity] then return true end
     end
 
     return false --Not one of my sciences!
@@ -32,9 +53,10 @@ end
 
 local UNKNOWN_TECH_PREFIX = "rubia-unknown-technology-"
 
---Return TRUE if the technology name corresponds to an unknown tech placeholder
+---Return TRUE if the technology name corresponds to an unknown tech placeholder
+---@param technology_name string
 tech_lib.is_unknown_tech_placeholder = function(technology_name)
-    return string.find(technology_name, UNKNOWN_TECH_PREFIX)
+    return string.sub(technology_name, 1, string.len(UNKNOWN_TECH_PREFIX)) == UNKNOWN_TECH_PREFIX
 end
 
 --Givem the name of a tech, produce the name that should be given to the equiv

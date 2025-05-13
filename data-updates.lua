@@ -92,7 +92,7 @@ data.raw.technology["rubia-nutrient-productivity"].effects = nutrient_prod_effec
 local function require_rubia_clear_for_tech(technology_name, add_sci_cost)
   local technology = data.raw["technology"][technology_name]
   if technology then 
-    table.insert(technology.prerequisites, "rubia-project-trashdragon")
+    table.insert(technology.prerequisites, "planetslib-rubia-cargo-drops")
     if (technology.unit and add_sci_cost) then 
       table.insert(technology.unit.ingredients, {"biorecycling-science-pack",1})
     end
