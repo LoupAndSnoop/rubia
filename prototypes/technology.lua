@@ -15,7 +15,7 @@ cargo_drops_base.localised_description = {"technology-description.operation-iron
 cargo_drops_base.effects[1].effect_description = {"modifier-description.operation-iron-man-effect"}
 
 data:extend({rubia_lib.merge(cargo_drops_base, {
-    prerequisites = { "rubia-project-trashdragon" }, -- TODO
+    prerequisites = { "rubia-project-trashdragon" },
     unit = {
         count = 2000,
         ingredients = {
@@ -243,7 +243,7 @@ data:extend({
     icon_size = 256,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "craptonite-wall"},},
-    prerequisites = { "rubia-project-trashdragon", "production-science-pack"},
+    prerequisites = {"planetslib-rubia-cargo-drops", "production-science-pack"},
     unit =
     {
         count = 500,
@@ -266,7 +266,7 @@ data:extend({
     icon_size = 256,
     essential = false,
     effects = {{type = "unlock-recipe", recipe = "rubia-long-bulk-inserter"},},
-    prerequisites = { "rubia-project-trashdragon", "utility-science-pack"},
+    prerequisites = {"planetslib-rubia-cargo-drops", "utility-science-pack"},
     unit =
     {
         count = 1000,
@@ -288,7 +288,7 @@ data:extend({
     icon = "__rubia-assets__/graphics/technology/efficiency-module-4.png",
     icon_size = 256,
     effects = {{type = "unlock-recipe", recipe = "rubia-efficiency-module4"},},
-    prerequisites = { "rubia-project-trashdragon","efficiency-module-3"},
+    prerequisites = {"planetslib-rubia-cargo-drops","efficiency-module-3"},
     unit =
     {
         count = 2000,
@@ -310,7 +310,7 @@ data:extend({
     icon = "__rubia-assets__/graphics/technology/holmium-craptalysis.png",
     icon_size = 256,
     effects = {{type = "unlock-recipe", recipe = "rubia-holmium-craptalysis"},},
-    prerequisites = { "rubia-project-trashdragon", "electromagnetic-science-pack"},
+    prerequisites = {"planetslib-rubia-cargo-drops", "electromagnetic-science-pack"},
     unit =
     {
         count = 2000,
@@ -332,7 +332,7 @@ data:extend({
     icon_size = 256,
     essential = false,
     effects = {{type = "character-mining-speed", modifier = 2}},
-    prerequisites = { "rubia-project-trashdragon"},
+    prerequisites = {"planetslib-rubia-cargo-drops"},
     unit =
     {
         count = 1000,
@@ -362,7 +362,7 @@ data:extend({
         icon = "__space-age__/graphics/icons/iron-bacteria-cultivation.png",
         effect_description = {"modifier-description.biofusion-bacteria-release"}}
     },
-    prerequisites = {"rubia-project-trashdragon", "biolab"},
+    prerequisites = {"planetslib-rubia-cargo-drops", "biolab"},
     research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=10000},
 },
 
@@ -458,7 +458,7 @@ data:extend({
         {type = "change-recipe-productivity", recipe = "craptonite-casting", change = 0.1},
         {type = "change-recipe-productivity", recipe = "assisted-frothing", change = 0.1},
     },
-    prerequisites = {"rubia-project-trashdragon"},
+    prerequisites = {"planetslib-rubia-cargo-drops"},
     unit = {
         count_formula = "1.5^L*1000",
         ingredients = {
@@ -487,7 +487,7 @@ data:extend({
         modifier = 0.2
         }
     },
-    prerequisites = {"braking-force-7","rubia-project-trashdragon"},--, "metallurgic-science-pack"},
+    prerequisites = {"braking-force-7","planetslib-rubia-cargo-drops"},--, "metallurgic-science-pack"},
     unit =
     {
         count_formula = "2^(L-7)*500",
