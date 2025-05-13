@@ -23,7 +23,6 @@ rubia.ban_from_rubia = function(prototype)
 
     else
         --Check if the prototype has wind speed already defined. If it does, update it
-        log("Starting on " .. prototype.name)
         for i, condition in pairs(prototype.surface_conditions) do
             if condition.property == "rubia-wind-speed" then
                 prototype.surface_conditions[i] = rubia_condition()
@@ -115,4 +114,24 @@ function rubia_lib.technology_is_prerequisite(potential_parent, potential_depend
     end
 
     return false --No connection found
+end
+
+---Technology name goes in. Out comes an array of technology names that currently list that tech as a prerequisite.
+---@param tech_name string
+---@return string[] children
+function rubia_lib.get_child_technologies(tech_name)
+    assert(data.raw.technology[tech_name], "Invalid technology name: " .. tech_name)
+
+	local children = {}
+	for _, tech in pairs(data.raw.technology) do
+		if tech.prerequisites then
+			for _, prereq in ipairs(tech.prerequisites) do
+				if prereq == tech_name then
+					table.insert(children, tech.name)
+					break
+				end
+			end
+		end
+	end
+	return children
 end
