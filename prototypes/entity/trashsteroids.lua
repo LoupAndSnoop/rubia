@@ -77,6 +77,57 @@ data:extend {{
     cyclic = true
 }}
 
+--Shield prototype, to be able to change their armor at runtime
+data:extend({
+  {
+    type = "equipment-category",
+    name = "trashsteroid",
+    hidden = true, hidden_in_factoriopedia = true,
+  },
+  {
+    type = "equipment-grid",
+    name = "trashsteroid-grid",
+    height = 1, width = 1,
+    equipment_categories = {"trashsteroid"},
+    hidden = true, hidden_in_factoriopedia = true,
+  },
+  {
+    type = "item",
+    name = "trashsteroid-shield",
+    icon = "__base__/graphics/icons/energy-shield-equipment.png",
+    place_as_equipment_result = "trashsteroid-shield",
+    --subgroup = "military-equipment",
+    order = "a[shield]-a[energy-shield-equipment]",
+    --inventory_move_sound = item_sounds.energy_shield_inventory_move,
+    --pick_sound = item_sounds.energy_shield_inventory_pickup,
+    --drop_sound = item_sounds.energy_shield_inventory_move,
+    hidden = true, hidden_in_factoriopedia = true,
+    stack_size = 1,
+  },
+  {
+    type = "energy-shield-equipment",
+    name = "trashsteroid-shield",
+    sprite = {
+      filename = "__base__/graphics/equipment/energy-shield-mk2-equipment.png",
+      width = 128,
+      height = 128,
+      priority = "medium",
+      scale = 0.5,
+      tine = {r=1,b=1,g=0,a=1}
+    },
+    shape = {width = 1, height = 1, type = "full"},
+    max_shield_value = 100000000,
+    energy_source = {
+      type = "electric", buffer_capacity = "180kJ",
+      input_flow_limit = "360kW", usage_priority = "primary-input"
+    },
+    energy_per_shield = "30kJ",
+    categories = {"trashsteroid"},--{"armor"},
+    take_result = nil,
+    hidden = true, hidden_in_factoriopedia = true,
+  },
+})
+
 --------Defining the trashsteroid prototype(s)
 data:extend({
 {
@@ -86,6 +137,7 @@ data:extend({
     flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
+    equipment_grid = "trashsteroid-grid",
     max_health = 200,
     is_military_target = true,
     deliver_category = "vehicle",
@@ -141,52 +193,8 @@ data:extend({
         tint = transparency(0.5)
 })}]]
     stop_trigger_speed = 0.15,
-    --[[stop_trigger =
-    {
-      {
-        type = "play-sound",
-        sound = {filename = "__base__/sound/car-breaks.ogg", volume = 0.1 }
-      }
-    },]]
     impact_category = "metal",
     impact_speed_to_volume_ratio = 20.0,
-    --[[
-    working_sound =
-    {
-      main_sounds =
-      {
-        {
-          sound = {filename = "__base__/sound/car-engine-driving.ogg", volume = 0.67, modifiers = volume_multiplier("main-menu", 2.2)},
-          match_volume_to_activity = true,
-          activity_to_volume_modifiers =
-          {
-            multiplier = 1.8,
-            offset = 0.95,
-          },
-          match_speed_to_activity = true,
-          activity_to_speed_modifiers =
-          {
-            multiplier = 0.8,
-            minimum = 1.0,
-            maximum = 1.4,
-            offset = 0.1,
-          }
-        },
-        {
-          sound = { filename = "__base__/sound/car-engine.ogg", volume = 0.67 },
-          match_volume_to_activity = true,
-          fade_in_ticks = 22,
-          activity_to_volume_modifiers =
-          {
-            multiplier = 2.4,
-            offset = 1.5,
-            inverted = true
-          }
-        },
-      },
-      activate_sound = { filename = "__base__/sound/car-engine-start.ogg", volume = 0.67 },
-      deactivate_sound = { filename = "__base__/sound/car-engine-stop.ogg", volume = 0.67 },
-    },]]
     rotation_speed = 0.015,
     weight = 700,
     inventory_size = 0,

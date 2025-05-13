@@ -36,6 +36,10 @@ local trashsteroid_impact_radius = 4
 local trashsteroid_chunk_reach = prototypes.entity["garbo-grabber"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
 local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
+local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
+  ["character"] = 300
+}
+
 
 --Trashteroid data
 --storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
@@ -192,6 +196,9 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     snap_to_grid = false,
     create_build_effect_smoke = false
   })
+  assert(resulting_entity, "Null trashsteroid was made! How!?")
+  local shield = resulting_entity.grid.put{name="trashsteroid-shield"}
+  shield.shield = 100 --TODO Get health by difficulty script.
 
   --Add a rendering to be able to see it, as it moves somewhat independently
   local render = rendering.draw_animation({
@@ -453,7 +460,8 @@ trashsteroid_lib.trashsteroid_impact_update = function()
       --Deal damage
       local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
       for _,hit_entity in pairs(impacted_entities) do
-        hit_entity.damage(trashsteroid_impact_damage, game.forces["enemy"])
+        local damage = impact_damage_special[hit_entity.name] or trashsteroid_impact_damage
+        hit_entity.damage(damage, game.forces["enemy"])
       end
 
       local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,9)) --Number of unique explosions go here
