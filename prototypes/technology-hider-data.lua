@@ -39,8 +39,7 @@ return {
     icon_size = 256,
     effects = {},
     prerequisites = {},
-    --enabled = false,
-    research_trigger = {type="craft-item",  item = "rubia-unknown-technology", count = 10^9}
+    research_trigger = {type="craft-item",  item = "rubia-unknown-technology", count = 69},--10^9}
 }
 end
 --Uncraftable-item to make impossible triggers
