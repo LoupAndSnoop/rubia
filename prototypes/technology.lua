@@ -591,7 +591,7 @@ if mods["Moshine"] then
     local moshine_module_multiplier = 0.1
     local moshine_tech = {
             type = "technology",
-            name = "rubia-craptonite-cannister",
+            name = "rubia-craptonite-circlet",
             icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-circlet.png",
             icon_size = 256,
             essential = false,

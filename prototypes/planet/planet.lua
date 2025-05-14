@@ -209,7 +209,7 @@ if mods["corrundum"] then
     type = "space-connection",
     name = "corrundum-rubia",
     subgroup = "planet-connections",
-    from = "gleba",
+    from = "corrundum",
     to = "rubia",
     order = "f2",
     length = 5000,

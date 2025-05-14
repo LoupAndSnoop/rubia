@@ -26,6 +26,7 @@ for _, tech in pairs(data.raw["technology"]) do
     and rubia_lib.technology_is_prerequisite("planet-discovery-rubia", tech.name) then --And the tech depends on rubia
     table.insert(yeet_trigger_tech_items, string.sub(trigger.item,6,-1))
   end
+
 end
 rubia_lib.merge(internal_blacklist,yeet_trigger_tech_items)
 
@@ -164,8 +165,9 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   local local_item_name = rubia.get_item_localised_name(item_name)
 
   local item = data.raw.item[item_name] or data.raw.tool[item_name]
+    or data.raw.module[item_name]
   --If item doesn't exist, just skip it. Mostly for external mods/planets
-  if not item then log("No item found for " .. item_name); return end
+  assert(item, "No item found for " .. item_name)
 
   local icons = (icon and {{icon=icon, icon_size = icon_size}}) 
     or generate_crapapult_recipe_icons_from_item(item)
