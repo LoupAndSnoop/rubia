@@ -1,8 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.69.5
+Date: 3. 28. 2025
+  Balancing:
+    - Elec engine recipe made easier.
+  Minor Features:
+    - More lore
+    - I'm really just testing out FMTK's publish.
+---------------------------------------------------------------------------------------------------
 Version: 0.0.2
 Date: 3. 28. 2025
   Major Features:
-    - Test
+    - Test from early commit
   Bugfixes:
     - Also a test
       ► Bullet

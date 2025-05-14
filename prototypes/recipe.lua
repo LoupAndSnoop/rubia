@@ -543,8 +543,8 @@ data:extend({
   ingredients = {
     {type ="item", name ="rubia-bacteria-A", amount = 1},
     {type ="item", name ="rubia-bacteria-B", amount = 3},
-    {type ="item", name ="engine-unit", amount = 2},
-    {type ="item", name ="processing-unit", amount = 3},
+    {type ="item", name ="engine-unit", amount = 3},
+    {type ="item", name ="processing-unit", amount = 5},
     {type ="item", name ="firearm-magazine", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
@@ -686,26 +686,6 @@ data:extend({
   allow_productivity = false,
 },
 
---[[
-{
-  type = "recipe",
-  name = "alt-gun-turret",
-  icon_size = 64,
-  subgroup = "defensive-structure",
-  order = "b[turret]-a[gun-turret]",
-  enabled = false,
-  energy_required = 10,
-  ingredients = {
-      { type = "item", name = "iron-plate", amount = 10},
-      { type = "item", name = "steel-plate", amount = 10}, 
-      { type = "item", name = "iron-gear-wheel", amount = 10}, 
-  },
-  results = {{
-      type = "item", name = "gun-turret", amount = 1
-  }},
-  allow_productivity = false,
-  auto_recycle = false,
-},]]
 {
   type = "recipe",
   name = "rubia-wind-turbine",
