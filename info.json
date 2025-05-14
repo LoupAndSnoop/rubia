@@ -13,6 +13,6 @@
     "description": "🌐 Discover the wind planet Rubia. Your whole factory must go with the wind as a never-ending barrage of waste is hurled at your base. Belts and inserters work differently on Rubia, leading to unique building challenges not seen on any other planet.",
     "homepage": "https://discord.gg/CaDJzEj557",
     "package":{
-        "ignore":[ "*.mp3", "*.xcf" , "deprecated*" , ".vscode*"]
+        "ignore":[ "*.mp3", "*.xcf", ".vscode*", "deprecated*"]
     }
 }

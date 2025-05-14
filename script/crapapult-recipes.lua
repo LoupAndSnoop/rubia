@@ -226,7 +226,8 @@ end
 
 --Actually make the items and recipes
 for _, item in pairs(yeet_trigger_tech_items) do
-  data.extend(special_yeet_recipe(item))
+  local recipe = special_yeet_recipe(item)
+  if recipe then data.extend(recipe) end
 end
 
 
