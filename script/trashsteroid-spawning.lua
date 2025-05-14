@@ -1,5 +1,7 @@
 --This file has the base functions and parameters for spawning and maintaining trashsteroids.
 
+local difficulty_scaling = require("__rubia__.script.trashsteroid-difficulty-scaling")
+
 --Functions will be stored onto this global variable:
 _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 
@@ -180,6 +182,11 @@ trashsteroid_lib.log_chunk_for_trashsteroids = function(surface, position, area)
   end
 end
 
+--Pass along info to update difficulty scaling information.
+trashsteroid_lib.update_difficulty_scaling = function()
+  difficulty_scaling.update_difficulty_scaling()
+end
+
 --Make trashsteroid in that chunk. Assume everything is initialized.
 local function generate_trashsteroid(trashsteroid_name, chunk)
   if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroid
@@ -197,8 +204,13 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     create_build_effect_smoke = false
   })
   assert(resulting_entity, "Null trashsteroid was made! How!?")
-  local shield = resulting_entity.grid.put{name="trashsteroid-shield"}
-  shield.shield = 100 --TODO Get health by difficulty script.
+
+  --Difficulty scaling
+  local shield_val, shield_name = difficulty_scaling.get_current_shield()
+  local shield = resulting_entity.grid.put{name=shield_name}
+  shield.shield = shield_val
+  --local shield = resulting_entity.grid.put{name="trashsteroid-shield"}
+  --shield.shield = 100
 
   --Add a rendering to be able to see it, as it moves somewhat independently
   local render = rendering.draw_animation({
@@ -312,7 +324,7 @@ trashsteroid_lib.hard_refresh = function()
     end
   end
   try_initialize_RNG()
-  --
+  difficulty_scaling.initialize()
   --local trashsteroids = storage.rubia_surface.find_entities_filtered({filter="name",name="medium-trashsteroid"})
 end
 

@@ -36,6 +36,7 @@ end]]
 
 script.on_event(defines.events.on_technology_effects_reset, function(event)
   technology_scripts.on_startup()
+  trashsteroid_lib.update_difficulty_scaling()
 end)
 
 --check_disable_temporary_science_recipes() --One check at startup
@@ -43,6 +44,7 @@ script.on_event(defines.events.on_research_finished, function(event)
   --Do a correction based on the current state, not on the research which has completed.
   --rubia.check_disable_temporary_science_recipes()
   technology_scripts.on_research_update(event.research)
+  trashsteroid_lib.update_difficulty_scaling()
 end)
 
 
@@ -242,11 +244,13 @@ script.on_init(function()
   init_functions.hard_initialize()
   init_functions.on_every_load()
   technology_scripts.on_startup()
+  trashsteroid_lib.update_difficulty_scaling()
 end)
 
 script.on_configuration_changed(function()
   init_functions.hard_initialize()
   technology_scripts.on_startup()
+  trashsteroid_lib.update_difficulty_scaling()
 end)
 
 script.on_load(function()

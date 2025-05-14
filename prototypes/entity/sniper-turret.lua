@@ -38,7 +38,7 @@ data:extend({{
     type = "ammo-turret",
     name = "rubia-sniper-turret",
     icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
-    icon_size = 32,
+    icon_size = 64,
     flags = {"placeable-player", "player-creation"},
     minable = {
         mining_time = 0.5,

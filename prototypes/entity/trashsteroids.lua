@@ -91,22 +91,13 @@ data:extend({
     equipment_categories = {"trashsteroid"},
     hidden = true, hidden_in_factoriopedia = true,
   },
-  {
-    type = "item",
-    name = "trashsteroid-shield",
-    icon = "__base__/graphics/icons/energy-shield-equipment.png",
-    place_as_equipment_result = "trashsteroid-shield",
-    --subgroup = "military-equipment",
-    order = "a[shield]-a[energy-shield-equipment]",
-    --inventory_move_sound = item_sounds.energy_shield_inventory_move,
-    --pick_sound = item_sounds.energy_shield_inventory_pickup,
-    --drop_sound = item_sounds.energy_shield_inventory_move,
-    hidden = true, hidden_in_factoriopedia = true,
-    stack_size = 1,
-  },
+})
+
+local function make_shield(shield_id, shield_value) 
+  data:extend({
   {
     type = "energy-shield-equipment",
-    name = "trashsteroid-shield",
+    name = "trashsteroid-shield-" .. tostring(shield_id),
     sprite = {
       filename = "__base__/graphics/equipment/energy-shield-mk2-equipment.png",
       width = 128,
@@ -116,7 +107,7 @@ data:extend({
       tine = {r=1,b=1,g=0,a=1}
     },
     shape = {width = 1, height = 1, type = "full"},
-    max_shield_value = 100000000,
+    max_shield_value = shield_value,
     energy_source = {
       type = "electric", buffer_capacity = "180kJ",
       input_flow_limit = "360kW", usage_priority = "primary-input"
@@ -126,7 +117,32 @@ data:extend({
     take_result = nil,
     hidden = true, hidden_in_factoriopedia = true,
   },
-})
+    {
+    type = "item",
+    name = "trashsteroid-shield-" .. tostring(shield_id),
+    icon = "__base__/graphics/icons/energy-shield-equipment.png",
+    place_as_equipment_result = "trashsteroid-shield-" .. tostring(shield_id),
+    order = "a[shield]-a[energy-shield-equipment]",
+    hidden = true, hidden_in_factoriopedia = true,
+    stack_size = 1,
+  },
+  })
+end
+
+--We need to make several tiers of shield so that the health bar looks half decent.
+--Make shields with each of these values:
+local shield_values = {}
+for i = 50, 500, 50 do table.insert(shield_values, i) end
+for i = 600, 2000, 100 do table.insert(shield_values, i) end
+for i = 2100, 5000, 200 do table.insert(shield_values, i) end
+for i = 5100, 10000, 400 do table.insert(shield_values, i) end
+for i = 10100, 100000, 1500 do table.insert(shield_values, i) end
+for i = 101000, 1000000, 20000 do table.insert(shield_values, i) end
+table.insert(shield_values, 10000000000)
+for index, shield in pairs(shield_values) do
+  make_shield(index, shield)
+end
+
 
 --------Defining the trashsteroid prototype(s)
 data:extend({

@@ -18,7 +18,9 @@ for _, index in pairs({1,2,3,4,5,6,7,8,9}) do
         table.insert(data.raw.technology["physical-projectile-damage-" .. tostring(index)].effects, {
             type = "turret-attack",
             turret_id = "rubia-sniper-turret",
-            modifier = 0.1
+            modifier = 0.30, --Should be stronger than gun turrets
+            icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
+            icon_size = 64,
           })
     end
 end
