@@ -326,7 +326,7 @@ rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, char
 end)
 
 
-local PLANNED_BIG_DAMAGE = 460 + 50
+local PLANNED_BIG_DAMAGE = 510 + 100 --510 = 8 shield Mk1
 --End of cutscene
 rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
     player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
@@ -493,6 +493,7 @@ end)]]
 
 
 ------
+local WARNING_COOLDOWN = 10 * 60 --Number of ticks to wait before sending another warning
 --Give warning when initially going to rubia. For an on_space_platform_changed_state event
 landing_cutscene.check_initial_journey_warning = function(event)
     local platform = event.platform
@@ -500,7 +501,9 @@ landing_cutscene.check_initial_journey_warning = function(event)
     --Check if space platform is headed to rubia
     if not (platform and platform.state == defines.space_platform_state.on_the_path
         and platform.space_connection
-        and (platform.space_connection.to.name == "rubia" or platform.space_connection.from.name == "rubia")) then
+        and (platform.space_connection.to.name == "rubia" or platform.space_connection.from.name == "rubia"))
+        and platform.last_visited_space_location
+        and platform.last_visited_space_location.name ~= "rubia" then
         --game.print("cancel due to space connection: " .. serpent.block(platform.space_connection))
         return
     end
@@ -510,18 +513,20 @@ landing_cutscene.check_initial_journey_warning = function(event)
     storage.rubia_initial_journey_warned = storage.rubia_initial_journey_warned or {}
     for _, player in pairs(game.players) do
         local char = player.character
+        local last_warned_tick = storage.rubia_initial_journey_warned[player.index] or -WARNING_COOLDOWN
         --If character is riding, not already warned, and project iron man no researched
         if char and char.surface and char.surface.index == platform.surface.index 
-            and not storage.rubia_initial_journey_warned[player.index]
+            and (last_warned_tick + WARNING_COOLDOWN) < game.tick--not storage.rubia_initial_journey_warned[player.index]
             and not player.force.technologies["planetslib-rubia-cargo-drops"].researched then
             table.insert(characters, {character = char, player = player})
-            storage.rubia_initial_journey_warned[player.index] = true
+            storage.rubia_initial_journey_warned[player.index] = game.tick
         end
     end
     
     --if #characters == 0 then game.print("No characters to check") end
 
     --Evaluate type of warning for each
+    local warning_message = "alert.pre-rubia-cutscene-unprepared-naked"; --Changes based on how severe it is.
     for _, entry in pairs(characters) do
         local issue_warning = false
 
@@ -537,8 +542,17 @@ landing_cutscene.check_initial_journey_warning = function(event)
 
             expected_regen = math.min(300, expected_regen * 6 * 0.5) --How much healing we expect max
             --If shields, then issue warning if total eff health too small
-            if effective_health + expected_regen < PLANNED_BIG_DAMAGE + 300 then
-                issue_warning = true
+            local planned_total_dmg = PLANNED_BIG_DAMAGE + 300
+            issue_warning = effective_health + expected_regen < planned_total_dmg
+
+            --Shield ratio = fraction of shield you need / total
+            local needed_shield = planned_total_dmg - char.max_health
+            if needed_shield == 0 then needed_shield = 0.1 end
+            local shield_ratio = (char.grid.max_shield + expected_regen) / needed_shield     
+            if shield_ratio == 0        then warning_message = "alert.pre-rubia-cutscene-unprepared-naked"
+            elseif shield_ratio < 0.4  then warning_message = "alert.pre-rubia-cutscene-unprepared-low-shield"
+            elseif shield_ratio < 0.8  then warning_message = "alert.pre-rubia-cutscene-unprepared-medium-shield"
+            else warning_message = "alert.pre-rubia-cutscene-unprepared-almost-shield"
             end
 
         else issue_warning = true -- no shields => definitely issue warning
@@ -547,7 +561,7 @@ landing_cutscene.check_initial_journey_warning = function(event)
         if issue_warning then 
             entry.player.print({"alert.pre-rubia-cutscene-unprepared"}, CUTSCENE_TEXT_SETTINGS)
             rubia.timing_manager.wait_then_do(60*5, "delayed-text-print",
-             {entry.player, {"alert.pre-rubia-cutscene-unprepared-part2"}, CUTSCENE_TEXT_SETTINGS})
+             {entry.player, {warning_message}, CUTSCENE_TEXT_SETTINGS})
         else entry.player.print({"alert.pre-rubia-cutscene-prepared"}, CUTSCENE_TEXT_SETTINGS)
         end
     end
