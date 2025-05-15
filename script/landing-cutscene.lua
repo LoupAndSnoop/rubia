@@ -326,13 +326,12 @@ rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, char
 end)
 
 
-local PLANNED_BIG_DAMAGE = 510 + 100 --510 = 8 shield Mk1
+local PLANNED_BIG_DAMAGE = 510 --510 = 8 shield Mk1
 --End of cutscene
 rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
     player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
 
     character.surface.create_entity({name = "nuclear-reactor-explosion", position = {x=0,y=0}})
-
 
     cargo_pod.force_finish_descending()
     cargo_pod.destroy()
@@ -501,9 +500,9 @@ landing_cutscene.check_initial_journey_warning = function(event)
     --Check if space platform is headed to rubia
     if not (platform and platform.state == defines.space_platform_state.on_the_path
         and platform.space_connection
-        and (platform.space_connection.to.name == "rubia" or platform.space_connection.from.name == "rubia"))
-        and platform.last_visited_space_location
-        and platform.last_visited_space_location.name ~= "rubia" then
+        and (platform.space_connection.to.name == "rubia" or platform.space_connection.from.name == "rubia")
+        and not (platform.last_visited_space_location and platform.last_visited_space_location.name == "rubia")
+        and not (platform.space_location and platform.space_location.name == "rubia")) then
         --game.print("cancel due to space connection: " .. serpent.block(platform.space_connection))
         return
     end
@@ -542,7 +541,7 @@ landing_cutscene.check_initial_journey_warning = function(event)
 
             expected_regen = math.min(300, expected_regen * 6 * 0.5) --How much healing we expect max
             --If shields, then issue warning if total eff health too small
-            local planned_total_dmg = PLANNED_BIG_DAMAGE + 300
+            local planned_total_dmg = PLANNED_BIG_DAMAGE + 300 + 30 --fudge factor
             issue_warning = effective_health + expected_regen < planned_total_dmg
 
             --Shield ratio = fraction of shield you need / total
