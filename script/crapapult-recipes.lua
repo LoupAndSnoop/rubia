@@ -146,6 +146,7 @@ local crapapult_category_list =
   "mining-tool",
   "repair-tool",
   "rail-planner",
+  "item-with-data",
 }
 for _, c in pairs(crapapult_category_list) do
   if data.raw[c] then

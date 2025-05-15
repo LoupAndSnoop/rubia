@@ -39,7 +39,7 @@ local trashsteroid_chunk_reach = prototypes.entity["garbo-grabber"].radius_visua
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
 local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
 local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
-  ["character"] = 300
+  ["character"] = 280
 }
 
 

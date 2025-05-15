@@ -78,7 +78,9 @@ local wind_prototype_dic = {
     ["underground-belt"] = {wind_type = "force-not", orient=defines.direction.west},
     ["mining-drill"] = {wind_type = "force-not", orient=defines.direction.west},
     ["splitter"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
+    ["lane-splitter"] = {wind_type = "force-not", orient=defines.direction.west},
     ["loader"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
+    ["loader-1x1"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
 }
 
 --Special cases for compatibility
@@ -126,16 +128,16 @@ local function force_splitter_like_orientation_to(entity, player_index, directio
     if entity.direction == direction then return end
 
     --If one rotation gets this entity to the right state, then we're good to just give notice.
-    entity.rotate() --Do not raise event, because that causes an infinite loop
+    entity.rotate{by_player=player_index} --Do not raise event, because that causes an infinite loop
     if entity.direction == direction then
         wind_correction_notification(entity, player_index)
         return
     end
 
     --otherwise, we can't reconcile it, and must mine it!
+    wind_block_notification(entity, player_index)
     if entity.type == "entity-ghost" then entity.mine()
-    else 
-        wind_block_notification(entity, player_index)
+    else --Must mine real entity
         if player_index then game.get_player(player_index).mine_entity(entity, true) 
         else error("Splitter-like entity going down wouldn't get mined!")
         end
@@ -187,9 +189,18 @@ rubia_wind.wind_rotation = function(entity, player_index)
     local entity_type = entity.type;
     if entity.type == "entity-ghost" then entity_type = entity.ghost_type end
 
+    --Put a lock on responding to repeat rotation event callbacks.
+    if storage.rubia_wind_callback_lock then return 
+    else storage.rubia_wind_callback_lock = true
+    end
+
     --Check wind behaviors. Prioritize specific entity, then prototype if relevant
     local behavior = wind_entity_functions[entity.prototype.name] or wind_prototype_functions[entity_type]    
-    if behavior then behavior(entity, player_index); return end
+    if behavior then
+        behavior(entity, player_index); 
+        storage.rubia_wind_callback_lock = false
+        return
+    end
 
     --Inserters are their own beast.
     --Rotate relevant items to not conflict with wind
@@ -201,6 +212,9 @@ rubia_wind.wind_rotation = function(entity, player_index)
         else force_orientation_to(entity, player_index, defines.direction.west)
         end
     end
+
+    --Undo the lock
+    storage.rubia_wind_callback_lock = false
 end
 
 --[[Wind mechanic: Restricting the directions of specific items. Entity passed in could be invalid.

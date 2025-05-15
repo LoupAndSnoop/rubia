@@ -287,10 +287,10 @@ local function start_cutscene(player, cargo_pod)
 end
 
 --Do the cutscene/congrats for the first win
-local first_blast_off_cutscene = function()
-    rubia.timing_manager.wait_then_do(1, "delayed-text-print", {{"rubia-taunt.rubia-first-blast-off-part1"}})
-    rubia.timing_manager.wait_then_do(5 * 60, "delayed-text-print", {{"rubia-taunt.rubia-first-blast-off-part2"}})
-    rubia.timing_manager.wait_then_do(10 * 60, "delayed-text-print", {{"rubia-taunt.rubia-first-blast-off-part3"}})
+local first_blast_off_cutscene = function(player)
+    rubia.timing_manager.wait_then_do(1, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part1"}})
+    rubia.timing_manager.wait_then_do(5 * 60, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part2"}})
+    rubia.timing_manager.wait_then_do(10 * 60, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part3"}})
 end
 
 
@@ -410,9 +410,9 @@ rubia.timing_manager.register("cutscene-roboport-failsafe-part2", function(playe
     character.health = 1
 end)
 
-rubia.timing_manager.register("delayed-text-print", function(player, local_string) 
-    if player then player.print(local_string)
-    else game.print(local_string)
+rubia.timing_manager.register("delayed-text-print", function(player, local_string, print_settings) 
+    if player then player.print(local_string, print_settings)
+    else game.print(local_string, print_settings)
     end
 end)
 --#endregion
@@ -443,8 +443,7 @@ landing_cutscene.try_start_cutscene = function(event)
         and cargo_pod.cargo_pod_origin.surface
         and cargo_pod.cargo_pod_origin.surface.name == "rubia") then
             storage.rubia_first_blastoff_complete = true
-            first_blast_off_cutscene()
-            
+            first_blast_off_cutscene(player)
             return
     end
 
@@ -545,7 +544,10 @@ landing_cutscene.check_initial_journey_warning = function(event)
         else issue_warning = true -- no shields => definitely issue warning
         end
 
-        if issue_warning then entry.player.print({"alert.pre-rubia-cutscene-unprepared"}, CUTSCENE_TEXT_SETTINGS)
+        if issue_warning then 
+            entry.player.print({"alert.pre-rubia-cutscene-unprepared"}, CUTSCENE_TEXT_SETTINGS)
+            rubia.timing_manager.wait_then_do(60*5, "delayed-text-print",
+             {entry.player, {"alert.pre-rubia-cutscene-unprepared-part2"}, CUTSCENE_TEXT_SETTINGS})
         else entry.player.print({"alert.pre-rubia-cutscene-prepared"}, CUTSCENE_TEXT_SETTINGS)
         end
     end
