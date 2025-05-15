@@ -2,6 +2,10 @@
 Version: 0.69.9
 Date: ????
   Changes:
+---------------------------------------------------------------------------------------------------
+Version: 0.69.9
+Date: ????
+  Changes:
     - Loader compatibility
     - Minor lore change.
     - Fixed error messaging for splitter ghosts.
