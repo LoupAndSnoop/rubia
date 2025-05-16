@@ -21,10 +21,14 @@ local technology_dic = {
 
     --Unique techs
     ["rubia-craptonite-lamp"] = {
+        --To test: /c game.planets["maraxsis-trench"].create_surface(); game.players[1].character.teleport( {x=0,y=0}, "maraxsis-trench")
+        -- /c game.forces["player"].technologies["rubia-craptonite-lamp"].research_recursive()
+        -- /c remote.call("maraxsis-character-modifier","set_light_radius_modifier","rubia-craptonite-lamp", 10)
         on_startup = true,
         execute = function(force) 
-            if script.active_mods["maraxsis"] then 
-                remote.call("maraxsis-character-modifier","set_light_radius_modifier","rubia-craptonite-lamp",2)
+            if script.active_mods["maraxsis"] and remote.interfaces["maraxsis-character-modifier"] then 
+                local modifier = (force.technologies["rubia-craptonite-lamp"].researched and 1) or 0
+                remote.call("maraxsis-character-modifier","set_light_radius_modifier","rubia-craptonite-lamp", modifier)
             end
         end
     },
