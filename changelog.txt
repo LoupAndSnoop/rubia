@@ -2,6 +2,7 @@
 Version: 0.69.13
 Date: ????
   Changes:
+    - Yeeting recipes were not functioning properly. Now they are. :)
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.12
 Date: 2025-05-16

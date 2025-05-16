@@ -26,9 +26,9 @@ for _, tech in pairs(data.raw["technology"]) do
     and rubia_lib.technology_is_prerequisite("planet-discovery-rubia", tech.name) then --And the tech depends on rubia
     table.insert(yeet_trigger_tech_items, string.sub(trigger.item,6,-1))
   end
-
 end
-rubia_lib.merge(internal_blacklist,yeet_trigger_tech_items)
+
+internal_blacklist = rubia_lib.merge(internal_blacklist,yeet_trigger_tech_items)
 
 
 --Make the yeet- variants of everything in the blacklist
@@ -100,6 +100,7 @@ function crapapult.yeet_recipe(item, category, craft_category)
   --local newicons = crapapult.get_icons(item)
   table.insert(newicons, no_icon)
   local local_item_name = rubia.get_item_localised_name(item.name)
+
   data:extend({
     {
       type = "recipe",

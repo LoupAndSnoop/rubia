@@ -2,7 +2,7 @@
 data:extend({
     {
         type = "bool-setting",
-        name = "disable-ai-music",
+        name = "disable-lyrical-music",
         setting_type = "startup",
         default_value = false
     },
@@ -18,6 +18,21 @@ data:extend({
         setting_type = "startup",
         default_value = false
     },
+    --[[{
+        type = "int-setting",
+        name = "rubia-megabasing-density-mode",
+        setting_type = "startup",
+        default_value = 1,
+        minimum_value = 1,
+        maximum_value = 20,
+    },
+    {
+        type = "string-setting",
+        name = "rubia-difficulty-setting",
+        setting_type = "startup",
+        default_value = "normal",
+        allowed_values = {"easy","normal","hard","very-hard"}
+    },]]
 })
 
 --data:extend({

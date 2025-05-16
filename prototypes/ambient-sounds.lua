@@ -1,6 +1,6 @@
 
 --Accessibility options for people with a disability.
-local bad_taste_mode = settings.startup["disable-ai-music"].value
+local bad_taste_mode = settings.startup["disable-lyrical-music"].value
 local recycle_track
 if bad_taste_mode then recycle_track = {filename = "__rubia-assets__/sounds/ambient/JunkyardTribe.ogg", volume = 1}
 else recycle_track = {filename = "__rubia-assets__/sounds/ambient/RecycleThatCrap-v2.ogg", volume=0.8} end
