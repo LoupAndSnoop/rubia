@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.14
-Date: ????
+Date: 2025-05-17
   Balancing:
     - Added intermediate trigger tech to try to teach crapapult better.
     - Returned some recipe costs for rubia-specific things.
