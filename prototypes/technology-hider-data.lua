@@ -19,6 +19,7 @@ local hiding_base_list = rubia_lib.array_to_hashset({
 local hiding_parent_list = rubia_lib.array_to_hashset({
     "craptonite-axe",
     "rubia-progression-stage1",
+    "rubia-progression-stage1B",
     "rubia-progression-stage2",
     "craptonite-processing",
     "rubia-biofusion-science-pack",

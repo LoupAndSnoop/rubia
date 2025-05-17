@@ -44,6 +44,20 @@ for _, silo in pairs(data.raw["rocket-silo"]) do
   end
 end]]
 
+--Balance existing recipe(s)
+--[[
+data.raw.recipe["locomotive"].ingredients = { --Base = 30 steel, 20 eng, 10 circ
+  {type ="item", name ="steel-plate", amount = 30},
+  {type ="item", name ="engine-unit", amount = 20},
+  {type ="fluid", name ="electronic-circuit", amount = 10}
+}]]
+for _, entry in pairs(data.raw.recipe["locomotive"].ingredients) do
+  --Base = 30 steel, 20 eng, 10 circ
+  if entry.name == "steel-plate" then entry.amount = 25; end 
+  --if entry.name == "engine-unit" then entry.amount = 20; end
+  if entry.name == "electronic-circuit" then entry.amount = 8; end
+end
+
 
 data:extend({
 --#region Science
@@ -612,10 +626,9 @@ data:extend({
     surface_conditions = rubia.surface_conditions(),
     energy_required = 10,
     ingredients = {
-        --{ type = "item", name = "chemical-plant", amount = 1},
         { type = "item", name = "electronic-circuit", amount = 10}, 
         { type = "item", name = "steel-plate", amount = 8}, 
-        { type = "item", name = "iron-gear-wheel", amount = 10}, 
+        { type = "item", name = "iron-gear-wheel", amount = 12}, 
     },
     results = {{
         type = "item", name = "biorecycling-plant", amount = 1
@@ -654,7 +667,7 @@ data:extend({
   category = "crafting",
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 10,
+  energy_required = 8,
   ingredients = {
       { type = "item", name = "copper-cable", amount = 50},
       { type = "item", name = "steel-plate", amount = 60}, 
@@ -772,7 +785,7 @@ data:extend({
 
 --#endregion
 
---#region Optional mid-clear recipes
+--#region Optional recipes
 {
   type ="recipe",
   name ="biorecycle-scrapapalooza",
@@ -802,6 +815,27 @@ data:extend({
   allow_productivity = false,
   --allow_quality = false,
   crafting_machine_tint = crafting_machine_tint_purple,
+},
+
+{
+  type ="recipe",
+  name ="biorecycle-bacteria-B-ferric-scrap",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-battery+lube.png",
+  category ="biorecycling",
+  subgroup = "rubia-biorecycling", order = "f[rubia stage4]-e",
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="rubia-bacteria-B", amount = 2},
+    {type ="item", name ="rubia-ferric-scrap", amount = 1},
+  },
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 5,
+  results = {
+    {type = "item", name = "battery", amount = 2},
+    {type = "item", name = "low-density-structure", amount = 1},
+    {type = "fluid", name = "lubricant", amount = 10},
+  },
+  crafting_machine_tint = crafting_machine_tint_blue,
 },
 
 

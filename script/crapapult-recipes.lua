@@ -30,20 +30,17 @@ end
 
 internal_blacklist = rubia_lib.merge(internal_blacklist,yeet_trigger_tech_items)
 
-
 --Make the yeet- variants of everything in the blacklist
 local yeet_variants = {}
 for _, entry in pairs(internal_blacklist) do table.insert(yeet_variants, "yeet-" .. entry) end
 rubia_lib.merge(internal_blacklist,yeet_variants)
 
 
-local total_blacklist = rubia_lib.merge(internal_blacklist, crapapult.external_blacklist)
+local total_blacklist_raw = rubia_lib.merge(internal_blacklist, crapapult.external_blacklist)
 --Make this a dictionary, like a hashset to quickly check.
 local crapapult_blacklist = {}
-if (total_blacklist) then 
-    for _, v in pairs(total_blacklist) do crapapult_blacklist[v] = 1 end
-end
-
+for _, v in pairs(total_blacklist_raw) do crapapult_blacklist[v] = 1 end
+log("Crapapult blacklist = " .. serpent.block(crapapult_blacklist))
 
 --#region Generic crapapult recipes
 -- returns icon/icons always in the form of a table of icons
@@ -100,6 +97,8 @@ function crapapult.yeet_recipe(item, category, craft_category)
   --local newicons = crapapult.get_icons(item)
   table.insert(newicons, no_icon)
   local local_item_name = rubia.get_item_localised_name(item.name)
+  
+  log("Making normal yeet void recipe for: " .. item.name)
 
   data:extend({
     {
@@ -129,30 +128,35 @@ function crapapult.yeet_recipe(item, category, craft_category)
   })
 end
 
--- create Yeet recipe for any item that is not blacklisted
-for _, vi in pairs(data.raw.item) do
-    if (not crapapult_blacklist[vi.name]) then
-        crapapult.yeet_recipe(vi, "item", "crapapult")
-    end
-end
+
 
 -- non-item categories to yeet too
 local crapapult_category_list =
 {
+  "item",
+  "tool",
+  "module",
   "capsule",
   "ammo",
   "gun",
-  "module",
   "armor",
   "mining-tool",
   "repair-tool",
   "rail-planner",
   "item-with-data",
 }
-for _, c in pairs(crapapult_category_list) do
-  if data.raw[c] then
-    for _, i in pairs(data.raw[c]) do
-      crapapult.yeet_recipe(i, c, "crapapult")
+--[[create Yeet recipe for any item that is not blacklisted
+for _, vi in pairs(data.raw.item) do
+    if (not crapapult_blacklist[vi.name]) then
+        crapapult.yeet_recipe(vi, "item", "crapapult")
+    end
+end]]
+for _, categ in pairs(crapapult_category_list) do
+  if data.raw[categ] then
+    for _, item in pairs(data.raw[categ]) do
+      if not crapapult_blacklist[item.name] then
+        crapapult.yeet_recipe(item, categ, "crapapult")
+      end
     end
   end
 end
@@ -166,10 +170,16 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   icon_size = icon_size or 64
   local local_item_name = rubia.get_item_localised_name(item_name)
 
-  local item = data.raw.item[item_name] or data.raw.tool[item_name]
-    or data.raw.module[item_name]
+  local item
+  for _, category in pairs(crapapult_category_list) do
+    item = data.raw[category] and data.raw[category][item_name]
+    if item then break end
+  end
+  --local item = data.raw.item[item_name] or data.raw.tool[item_name]
+  --  or data.raw.module[item_name]
   --If item doesn't exist, just skip it. Mostly for external mods/planets
   assert(item, "No item found for " .. item_name)
+  log("Making special yeet recipe for: " .. item_name)
 
   local icons = (icon and {{icon=icon, icon_size = icon_size}}) 
     or generate_crapapult_recipe_icons_from_item(item)

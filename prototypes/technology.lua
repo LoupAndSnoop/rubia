@@ -82,17 +82,29 @@ data:extend({
         {
             {type = "unlock-recipe", recipe = "biorecycling-plant"},
             {type = "unlock-recipe", recipe = "crapapult"},
-            --{type = "unlock-recipe", recipe = "alt-gun-turret"},
-            --{type = "unlock-recipe", recipe = "rubia-sniper-turret"}, -- TODO Shift?
             {type = "unlock-recipe", recipe = "rubia-wind-turbine"},
 
             {type = "unlock-recipe", recipe = "rubia-bacteria-A"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-ferric-scrap"},
-            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-firearm-magazine"},
-            {type = "unlock-recipe", recipe = "makeshift-biorecycling-science-pack"},
+            --{type = "unlock-recipe", recipe = "biorecycle-bacteria-A-firearm-magazine"},
+            --{type = "unlock-recipe", recipe = "makeshift-biorecycling-science-pack"},
         },
         prerequisites = { "planet-discovery-rubia"},
         research_trigger = {type = "mine-entity", entity="rubia-spidertron-remnants"},  --"rubia-junk-pile"
+    },
+        {
+        type = "technology",
+        name = "rubia-progression-stage1B",
+        icon = "__rubia-assets__/graphics/technology/makeshift-biorecycling-science.png",
+        icon_size = 256,
+        essential = false,
+        effects =
+        {
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-firearm-magazine"},
+            {type = "unlock-recipe", recipe = "makeshift-biorecycling-science-pack"},
+        },
+        prerequisites = { "rubia-progression-stage1"},
+        research_trigger = {type = "craft-item", item="yeet-firearm-magazine", count=400},
     },
 --[[    {
         type = "technology",
@@ -120,41 +132,15 @@ data:extend({
         essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "rubia-bacteria-B"},
-            --{type = "unlock-recipe", recipe = "biorecycle-bacteria-AB-cupric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-cupric-scrap"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-cupric-scrap"},
-            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-engine"}, --OPTIONAL
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-engine"},
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-processing-unit"},
             
             {type = "unlock-recipe", recipe = "ghetto-biorecycling-science-pack"},
         },
-        prerequisites = { "rubia-progression-stage1"},
+        prerequisites = { "rubia-progression-stage1B"},
         research_trigger = {type = "craft-item", item="yeet-makeshift-biorecycling-science-pack", count=1000},
-    },
-
-    {
-        type = "technology",
-        name = "rubia-scrapapalooza",
-        icon = "__rubia-assets__/graphics/technology/scrapapalooza.png",
-        icon_size = 256,
-        essential = false,
-        effects = {
-            {type = "unlock-recipe", recipe = "biorecycle-scrapapalooza"},
-        },
-        prerequisites = { "rubia-progression-stage2"},
-        research_trigger = {type = "craft-item", item="yeet-spoilage", count=3},
-    },
-    {
-        type = "technology",
-        name = "rubia-sniper-turret",
-        icon = "__rubia-assets__/graphics/technology/sniper-turret.png",
-        icon_size = 256,
-        essential = false,
-        effects = {
-            {type = "unlock-recipe", recipe = "rubia-sniper-turret"},
-        },
-        prerequisites = { "rubia-progression-stage2"},
-        research_trigger = {type = "craft-item", item="yeet-gun-turret", count=1000},
     },
 
     --[[{
@@ -194,8 +180,6 @@ data:extend({
         },
         prerequisites = { "rubia-progression-stage2"},
         research_trigger = {type = "craft-item", item="yeet-ghetto-biorecycling-science-pack", count=500},
-        --prerequisites = {"rubia-progression-stage3"},
-        --research_trigger = {type = "build-entity", entity="garbo-grabber"},
     },
 
     {
@@ -232,6 +216,48 @@ data:extend({
         research_trigger = {type = "craft-item", item="yeet-biorecycling-science-pack", count=1000},
         order = "ea[trashdragon]",
     },
+
+--#endregion
+
+--#region Optional Recipes
+    {
+        type = "technology",
+        name = "rubia-scrapapalooza",
+        icon = "__rubia-assets__/graphics/technology/scrapapalooza.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "unlock-recipe", recipe = "biorecycle-scrapapalooza"},
+        },
+        prerequisites = { "rubia-progression-stage2"},
+        research_trigger = {type = "craft-item", item="yeet-spoilage", count=3},
+    },
+    {
+        type = "technology",
+        name = "rubia-sniper-turret",
+        icon = "__rubia-assets__/graphics/technology/sniper-turret.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "unlock-recipe", recipe = "rubia-sniper-turret"},
+        },
+        prerequisites = { "rubia-progression-stage2"},
+        research_trigger = {type = "craft-item", item="yeet-gun-turret", count=1000},
+    },
+
+    {
+        type = "technology",
+        name = "rubia-postgame-biorecycle-part1",
+        icon = "__rubia-assets__/graphics/technology/biorecycling-batteries.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-ferric-scrap"},
+        },
+        prerequisites = {"planetslib-rubia-cargo-drops"},
+        research_trigger = {type = "craft-item", item="yeet-light-oil-barrel", count=100},
+    },
+
 
 --#endregion
 

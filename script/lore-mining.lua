@@ -22,20 +22,22 @@ end
 --execute = function to execute when this entity is mined.
 local lore_drop_table ={
     ["rubia-spidertron-remnants"] = {
-        {count = 3, string = "rubia-lore.spidertron-mine-part1"},
-        {count = 8, string = "rubia-lore.spidertron-mine-part2"},
+        {count = 1, string = "rubia-lore.spidertron-mine-hint-part1"},
+        {count = 5, string = "rubia-lore.spidertron-mine-part1"},
+        {count = 13, string = "rubia-lore.spidertron-mine-part2"},
         {count = 23, string = "rubia-lore.spidertron-mine-part3"},
-        {count = 46, string = "rubia-lore.spidertron-mine-part4"},
+        {count = 41, string = "rubia-lore.spidertron-mine-part4"},
         {count = 50, execute = spoilage_failsafe}
     },
     ["rubia-pole-remnants"] = {
         {count = 3, string = "rubia-lore.train-stop-mine-part1"},
-        {count = 8, string = "rubia-lore.train-stop-mine-part2"},
+        {count = 12, string = "rubia-lore.train-stop-mine-part2"},
         {count = 23, string = "rubia-lore.train-stop-mine-part3"},
         {count = 32, string = "rubia-lore.train-stop-mine-part4"},
     },
     ["rubia-junk-pile"] = {
-        {count = 3, string = "rubia-lore.junk-mine-part1"},
+        {count = 1, string = "rubia-lore.junk-mine-hint-part1"},
+        {count = 5, string = "rubia-lore.junk-mine-part1"},
         {count = 12, string = "rubia-lore.junk-mine-part2"},
         {count = 21, string = "rubia-lore.junk-mine-part3"},
         {count = 31, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1)},
@@ -43,6 +45,15 @@ local lore_drop_table ={
         {count = 54, string = "rubia-lore.junk-mine-part6-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(4)) or 1)},
     }
 }
+
+--Code for testing. Comment in/out as needed.
+--[[log("Lore test code is active. Remove before release.")
+for _, entry in pairs(lore_drop_table) do
+    for i, lore in pairs(entry) do
+        lore.count = i
+    end
+end]]
+
 
 --When we just got a lore drop, check if we need an achievement for it
 local try_lore_achievement = function()

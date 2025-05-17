@@ -177,7 +177,7 @@ data:extend({
     {
       type = "burner",
       fuel_categories = {"chemical"},
-      effectivity = 2,--1,
+      effectivity = 1.5,--1,
       fuel_inventory_size = 5,--3,
       smoke =
       {
