@@ -28,6 +28,7 @@ data:extend({rubia_lib.merge(cargo_drops_base, {
         time = 60,
     },
     allows_productivity = true,
+    essential = true,
 })})
 
 

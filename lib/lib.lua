@@ -26,7 +26,7 @@ _G.rubia_lib = _G.rubia_lib or {}
 
 ---#region Basic table manipulation
 
---Concatenate all the sub-arrays in a table
+--Concatenate all the sub-arrays in a table. Return the new table as a new entity.
 rubia_lib.array_concat = function(big_table)
   local function table_concat_pair(t1,t2)
         for i=1,#t2 do
@@ -42,7 +42,11 @@ rubia_lib.array_concat = function(big_table)
     return result
 end
 
---Merge 2 tables, making a new table that gives priority to entries in the new table.
+---Merge 2 tables, making a new table that gives priority to entries in the new table. DOES NOT
+---modify existing tables. Any values of "nil" in the new table will delete entries in the final result.
+---@param old any[] Initial table
+---@param new any[] Merge into old table, taking priority over existing values in old.
+---@return any[] A new merged table.
 rubia_lib.merge = function(old, new)
 	old = util.table.deepcopy(old)
 

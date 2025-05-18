@@ -27,6 +27,13 @@ local hiding_parent_list = rubia_lib.array_to_hashset({
     "planetslib-rubia-cargo-drops",
 })
 
+--[[Mostly disable the tech hiding feature.
+log("WARNING: Rubia Tech hiding feature currently disabled for techs in the middle of the tree.")
+for _, tech in pairs(data.raw["technology"]) do
+    if rubia_lib.get_child_technologies(tech.name) then hiding_blacklist[tech.name] = true end
+end]]
+
+
 
 
 --Return a prototype for an unknown technology
@@ -79,7 +86,8 @@ local function make_unknown_tech_of(technology_name)
 
     unk_tech.name = tech_lib.get_unknown_tech_name(technology_name)
     assert(not data.raw["technology"][unk_tech.name], "Making duplicate unknown technology for tech: " .. technology_name)
-    
+    unk_tech.essential = orig_tech.essential
+
     local children = rubia_lib.get_child_technologies(technology_name)
 
     --Tie the children

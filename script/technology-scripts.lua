@@ -84,6 +84,7 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
     --local orig_tech = force.technologies[tech_lib.get_known_tech_name(tech_name)]
     local unknown_tech = force.technologies[tech_lib.get_unknown_tech_name(tech_name)]
 
+
     --TODO: unhiding doesn't work well on current engine.
     log("Rubia unhiding behavior might need a mod interface request or a bugfix to have proper unhiding behavior")
     --This is the current workaround kind of
@@ -93,6 +94,8 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
     --Intended line I want to end on.
     --unknown_tech.researched = orig_tech.researched --This needs to be done because disabled techs are still enforced prereqs.
     --unknown_tech.researched = false --Should always be false, because researched techs are forced visible.
+
+
 
     orig_tech.visible_when_disabled = false
     unknown_tech.visible_when_disabled = false
