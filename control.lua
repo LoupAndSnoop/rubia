@@ -13,7 +13,7 @@ local trashdragon = require("__rubia__.script.project-trashdragon")
 local lore_mining = require("__rubia__.script.lore-mining")
 local entity_swap = require("__rubia__.script.entity-swap")
 local technology_scripts = require("__rubia__.script.technology-scripts")
-
+local entity_modifier = require("__rubia__.lib.entity-modifier")
 --#region Technology/Sci related
 --[[
 local trashdragon = require("__rubia__.script.project-trashdragon")
@@ -118,8 +118,9 @@ local function do_on_built_changes(event)
     player_index = owner and owner.is_player() and owner.player.player_index
   end
 
-  rubia_wind.wind_rotation(event.entity, player_index)  
+  rubia_wind.wind_rotation(event.entity, player_index)
   quality_correct_wind_turbine(event.entity)
+  entity_modifier.update_on_build(event.entity)
   chunk_checker.register_new_entity(event.entity)
 end
 
@@ -131,6 +132,7 @@ end)
 
 script.on_event(defines.events.on_object_destroyed, function(event)
   chunk_checker.delist_entity(event.registration_number)
+  entity_modifier.update_on_object_destroyed(event.registration_number)
 end)
 
 -- Special cases for mods that do adjustment events for adjustable inserters

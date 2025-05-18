@@ -15,8 +15,8 @@ rubia.timing_manager = {}
 --Dictionary of "function_name" => function
 local function_register = {}
 
---Add a key to the table, so function_register[function_name] => function_to_invoke
--- The function should be of the form function(arguments[1], arguments[2]...)
+---Add a key to the table, so function_register[function_name] => function_to_invoke
+--- The function should be of the form function(arguments[1], arguments[2]...)
 ---@param function_to_invoke function
 ---@param function_name string
 rubia.timing_manager.register = function(function_name, function_to_invoke)

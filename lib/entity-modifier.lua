@@ -1,11 +1,66 @@
 --This file controls the runtime modification of entities in a generic way.
-
 local entity_modifier = {}
 
 --Maintain a global cache stored of that specific entity
 --string that corresponds to a handle of a specific sort of entity to store => array of that LuaEntity.
-storage.modified_entity_registry = storage.modified_entity_registry or {}
+--storage.modified_entity_registry = storage.modified_entity_registry or {}
 
+
+--#region Modifier function registration and invocation
+--Dictionary of "function_name" => function. Must be populated on each session,
+--as functions cannot be serialized.
+local function_register = {}
+---Add a key to the table, so function_register[function_name] => function_to_invoke
+--- The function should be of the form function(arguments[1], arguments[2]...)
+---@param function_to_invoke function
+---@param function_name string
+entity_modifier.register_function = function(function_name, function_to_invoke)
+  assert(not game, "Cannot register a function outside the main chunk")
+  assert(not function_register[function_name], "This function name has been added twice to the function lookup register: " .. function_name)
+  function_register[function_name] = function_to_invoke
+end
+
+
+---Assign a function to automatically call on every entity that enters
+---the cache associated with that entity_handler.
+---@param entity_handler string string that represents the ID associated with that entity category.
+---@param auto_modifier string string to associate with a function of LuaEntity to apply to every entity that enters this cache.
+entity_modifier.assign_modifier = function(entity_handler, auto_modifier)
+    assert(function_register[auto_modifier], "Function register has no function listed for the name: " .. auto_modifier)
+    local entity_register = storage.modified_entity_registry and storage.modified_entity_registry[entity_handler]
+    assert(entity_register, "There is currently no entity cache associated with the handler: " .. entity_handler)
+    entity_register.auto_modifier = auto_modifier
+end
+
+---Apply the auto-modifier currently assigned to that entity handler, if it has an auto-modifier at all.
+---If the argument is nil, then do it for ALL things in the registry.
+---@param entity_handler string string that represents the ID associated with that entity category.
+entity_modifier.apply_auto_modifier = function(entity_handler)
+    --Apply the modifier for one specific entry of the registry
+    local function try_apply_modifier(entry)
+        if not entry.auto_modifier then return end
+        to_call = function_register[entry.auto_modifier]
+        assert(to_call, "There was no registered function found under the modifier ID: " .. entry.auto_modifier)
+        for _, entity in pairs(entry.entity_hashset) do
+            if entity.valid then to_call(entity) end
+        end
+    end
+
+    --Full registry case
+    if not entity_handler then
+        for _, entry in pairs(storage.modified_entity_registry) do
+            try_apply_modifier(entry)
+        end
+    --Partial registry case
+    else
+        local entity_register = storage.modified_entity_registry and storage.modified_entity_registry[entity_handler]
+        assert(entity_register, "There is currently no entity cache associated with the handler: " .. entity_handler)
+        try_apply_modifier(entity_register)
+    end
+end
+--#endregion
+
+--#region Standard make/maintain cache
 ---Find ALL entities across ALL surfaces that satisfy a specific filter.
 ---This function can be used to either create a new cache from scratch OR
 ---for hard refreshing a given cache.
@@ -20,7 +75,7 @@ entity_modifier.create_entity_cache = function(entity_handler, entity_filter)
 
     --Make a hashset
     local entity_hashset = {}
-    for i, surface in pairs(game.surfaces) do
+    for _, surface in pairs(game.surfaces) do
         local surface_entities = surface.find_entities_filtered(entity_filter)
         for _, entity in surface_entities do
             entity_hashset[entity] = true
@@ -33,6 +88,7 @@ entity_modifier.create_entity_cache = function(entity_handler, entity_filter)
         entity_filter = entity_filter,
     }
 end
+
 
 ---Return true if the LuaEntity satisfies the given EntitySearchFilters.
 ---Don't check every possible part of the filter--just key parts.
@@ -98,16 +154,24 @@ local function entity_satisfies_filter(entity, filter)
     return true
 end
 
-
----LuaEntity was just built. Add it to the cache.
+---LuaEntity was just built. Add it to caches as may be applicable.
 ---@param entity LuaEntity add this entity to the cache.
-entity_modifier.on_build_update_cache = function(entity)
+entity_modifier.update_on_build = function(entity)
     if not entity.valid then return end
+
     local to_deregister = false
     for _, entry in pairs(storage.modified_entity_registry) do
         if entity_satisfies_filter(entity, entry.entity_filter) then
             entry.entity_hashset[entity] = true
             to_deregister = true
+
+            --Auto-modify
+            if entry.auto_modifier then
+                local to_invoke = function_register[entry.auto_modifier]
+                assert(to_invoke, "We need to invoke an auto-modifier for an entity being added to the registry, "
+                .. "but its function isn't registered yet! Current auto-register key = " .. tostring(entry.auto_modifier))
+                to_invoke(entry)
+            end
         end
     end
 
@@ -121,7 +185,7 @@ end
 
 ---LuaEntity was just destroyed. Delist it.
 ---@param entity_reg_ID uint Entity registration ID
-entity_modifier.on_destroy_update_cache = function(entity_reg_ID)
+entity_modifier.update_on_object_destroyed = function(entity_reg_ID)
     local entity = storage.modified_entity_deregistry 
         and storage.modified_entity_deregistry[entity_reg_ID]
 
@@ -133,7 +197,7 @@ entity_modifier.on_destroy_update_cache = function(entity_reg_ID)
 end
 
 
----Call this function on each LuaEntity
+---Call this function on each LuaEntity. This function does not need to be registered.
 ---@param entity_handler string string that represents the ID associated with that entity category.
 ---@param execute function function of LuaEntity to invoke on LuaEntity connected to that entity handler.
 entity_modifier.apply_to_all_entities = function(entity_handler, execute)
@@ -143,6 +207,7 @@ entity_modifier.apply_to_all_entities = function(entity_handler, execute)
         if entity.valid then execute(entity) end
     end
 end
+--#endregion
 
 
 return entity_modifier
