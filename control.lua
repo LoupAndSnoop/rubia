@@ -120,7 +120,7 @@ local function do_on_built_changes(event)
 
   rubia_wind.wind_rotation(event.entity, player_index)
   quality_correct_wind_turbine(event.entity)
-  entity_modifier.update_on_build(event.entity)
+  --entity_modifier.update_on_build(event.entity)
   chunk_checker.register_new_entity(event.entity)
 end
 
@@ -132,7 +132,7 @@ end)
 
 script.on_event(defines.events.on_object_destroyed, function(event)
   chunk_checker.delist_entity(event.registration_number)
-  entity_modifier.update_on_object_destroyed(event.registration_number)
+  --entity_modifier.update_on_object_destroyed(event.registration_number)
 end)
 
 -- Special cases for mods that do adjustment events for adjustable inserters

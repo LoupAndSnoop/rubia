@@ -3,7 +3,7 @@ require ("circuit-connector-sprites")
 require ("util")
 require ("__space-age__.prototypes.entity.circuit-network")
 require ("__space-age__.prototypes.entity.space-platform-hub-cockpit")
-require("lib.lib")
+require("__rubia__.lib.lib")
 
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")

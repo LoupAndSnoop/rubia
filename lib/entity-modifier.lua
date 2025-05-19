@@ -12,7 +12,7 @@ local entity_modifier = {}
 local function_register = {}
 ---Add a key to the table, so function_register[function_name] => function_to_invoke
 --- The function should be of the form function(arguments[1], arguments[2]...)
----@param function_to_invoke function
+---@param function_to_invoke function A function of LuaEntity
 ---@param function_name string
 entity_modifier.register_function = function(function_name, function_to_invoke)
   assert(not game, "Cannot register a function outside the main chunk")
@@ -160,7 +160,7 @@ entity_modifier.update_on_build = function(entity)
     if not entity.valid then return end
 
     local to_deregister = false
-    for _, entry in pairs(storage.modified_entity_registry) do
+    for _, entry in pairs(storage.modified_entity_registry or {}) do
         if entity_satisfies_filter(entity, entry.entity_filter) then
             entry.entity_hashset[entity] = true
             to_deregister = true
@@ -191,7 +191,7 @@ entity_modifier.update_on_object_destroyed = function(entity_reg_ID)
 
     if not entity then return end --Was never registered
     --Then go delist
-    for _, entry in pairs(storage.modified_entity_registry) do
+    for _, entry in pairs(storage.modified_entity_registry or {}) do
         entry.entity_hashset[entity] = nil
     end
 end

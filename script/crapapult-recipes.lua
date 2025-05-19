@@ -40,7 +40,7 @@ local total_blacklist_raw = rubia_lib.merge(internal_blacklist, crapapult.extern
 --Make this a dictionary, like a hashset to quickly check.
 local crapapult_blacklist = {}
 for _, v in pairs(total_blacklist_raw) do crapapult_blacklist[v] = 1 end
-log("Crapapult blacklist = " .. serpent.block(crapapult_blacklist))
+--log("Crapapult blacklist = " .. serpent.block(crapapult_blacklist))
 
 --#region Generic crapapult recipes
 -- returns icon/icons always in the form of a table of icons
@@ -98,7 +98,7 @@ function crapapult.yeet_recipe(item, category, craft_category)
   table.insert(newicons, no_icon)
   local local_item_name = rubia.get_item_localised_name(item.name)
   
-  log("Making normal yeet void recipe for: " .. item.name)
+  --log("Making normal yeet void recipe for: " .. item.name)
 
   data:extend({
     {
@@ -129,10 +129,13 @@ function crapapult.yeet_recipe(item, category, craft_category)
 end
 
 
+--Prototype categories to yeet
+local crapapult_category_list = {}
+for subtype in pairs(defines.prototypes.item) do
+  table.insert(crapapult_category_list, subtype)
+end
 
--- non-item categories to yeet too
-local crapapult_category_list =
-{
+--[[local crapapult_category_list = {
   "item",
   "tool",
   "module",
@@ -144,7 +147,12 @@ local crapapult_category_list =
   "repair-tool",
   "rail-planner",
   "item-with-data",
-}
+  "item-with-entity-data",
+  "item-with-label",
+  "item-with-inventory",
+  "item-with-tags",
+}]]
+
 --[[create Yeet recipe for any item that is not blacklisted
 for _, vi in pairs(data.raw.item) do
     if (not crapapult_blacklist[vi.name]) then
@@ -179,7 +187,7 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   --  or data.raw.module[item_name]
   --If item doesn't exist, just skip it. Mostly for external mods/planets
   assert(item, "No item found for " .. item_name)
-  log("Making special yeet recipe for: " .. item_name)
+  --log("Making special yeet recipe for: " .. item_name)
 
   local icons = (icon and {{icon=icon, icon_size = icon_size}}) 
     or generate_crapapult_recipe_icons_from_item(item)

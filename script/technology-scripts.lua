@@ -1,6 +1,6 @@
 --This file focuses on control-stage scripts to do various things in response to technologies.
 
-tech_lib = require("__rubia__/lib/technology-lib")
+local tech_lib = require("__rubia__.lib.technology-lib")
 
 
 local technology_scripts = {}
@@ -85,15 +85,15 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
     local unknown_tech = force.technologies[tech_lib.get_unknown_tech_name(tech_name)]
 
 
-    --TODO: unhiding doesn't work well on current engine.
+    --[[TODO: unhiding doesn't work well on current engine.
     log("Rubia unhiding behavior might need a mod interface request or a bugfix to have proper unhiding behavior")
     --This is the current workaround kind of
     if _ENV.table_size(unknown_tech.successors) == 0 then unknown_tech.researched = false
     else unknown_tech.researched = orig_tech.researched
-    end
+    end]]
     --Intended line I want to end on.
     --unknown_tech.researched = orig_tech.researched --This needs to be done because disabled techs are still enforced prereqs.
-    --unknown_tech.researched = false --Should always be false, because researched techs are forced visible.
+    unknown_tech.researched = false --Should always be false, because researched techs are forced visible.
 
 
 
@@ -116,7 +116,7 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
 
     --Apply the hiding to this tech
     orig_tech.enabled = not should_hide
-    --unknown_tech.enabled = should_hide --TODO: This should be uncommented after a bugfix
+    unknown_tech.enabled = should_hide --TODO: This should be uncommented after a bugfix
     
     --log("do sync of: " .. tech_name .. ". Should hide = " .. tostring(should_hide))
 
@@ -127,8 +127,23 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
     end]]
 end
 
+--Go enable all Rubia techs. This is used for when disabling the tech hiding.
+local function enable_all_rubia_techs()
+    for _, force in pairs(game.forces) do
+        for tech_name, tech in pairs(force.technologies) do
+            local history = prototypes.get_history("technology", tech_name)
+            if history.created == "rubia" then
+                tech.enabled = true
+            end
+        end
+    end
+end
+
 --Go sync ALL unknown techs for all forces
 local function sync_all_unknown_techs()
+    --For the case of tech hiding, just enable all the techs in case of migrations
+    if rubia.DISABLE_TECH_HIDING then enable_all_rubia_techs(); end
+
     --Array of all unknown tech placeholders
     local unknown_techs = {}
     for tech_name in pairs(prototypes.technology) do

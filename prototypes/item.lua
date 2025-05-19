@@ -312,7 +312,7 @@ data:extend(
       type = "item",
       name = "garbo-grabber",
       icon = "__rubia-assets__/graphics/icons/garbo-grabber.png",
-      order = "z[platinum]",
+      order = "zf[biorecycling]-e",
       subgroup = "production-machine",
       color_hint = { text = "T" },
 
@@ -340,7 +340,7 @@ data:extend(
     type = "item",
     name = "biorecycling-plant",
     icon = "__rubia-assets__/graphics/icons/biorecycling-plant.png",
-    order = "z[platinum]",
+    order = "zf[biorecycling]-c",
     subgroup = "production-machine",
     color_hint = { text = "T" },
 
@@ -358,7 +358,7 @@ data:extend(
   icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
   icon_size = 64,
   subgroup = "production-machine",
-  order = "b[turret]-a[gun-turret]",
+  order = "zf[biorecycling]-d",
   place_result = "crapapult",
   stack_size = 10
 },

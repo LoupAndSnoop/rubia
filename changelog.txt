@@ -2,6 +2,7 @@
 Version: 0.69.15
 Date: ????
   Changes:
+    - Tech hiding is now implemented in a safe way. It doesn't hide all the techs I want to hide, but it at least handles them properly... for now.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.14
 Date: 2025-05-17

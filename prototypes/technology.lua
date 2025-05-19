@@ -1,5 +1,5 @@
 require("util")
-require("lib.lib")
+require("__rubia__.lib.lib")
 
 --Cargo drop restriction
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(

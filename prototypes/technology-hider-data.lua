@@ -1,6 +1,6 @@
 --Data stage for making hidden technologies.
 --The goal here is to make the prototypes for "unknown" technology placeholders.
-local tech_lib = require("__rubia__/lib/technology-lib")
+local tech_lib = require("__rubia__.lib.technology-lib")
 
 --List of techs to never hide.
 local hiding_blacklist = rubia_lib.array_to_hashset({
@@ -27,13 +27,15 @@ local hiding_parent_list = rubia_lib.array_to_hashset({
     "planetslib-rubia-cargo-drops",
 })
 
---[[Mostly disable the tech hiding feature.
-log("WARNING: Rubia Tech hiding feature currently disabled for techs in the middle of the tree.")
-for _, tech in pairs(data.raw["technology"]) do
-    if rubia_lib.get_child_technologies(tech.name) then hiding_blacklist[tech.name] = true end
-end]]
-
-
+--Mostly disable the tech hiding feature.
+if rubia.DISABLE_TECH_HIDING then
+    --hiding_parent_list = {}
+    --hiding_base_list = {}
+    log("WARNING: Rubia Tech hiding feature currently disabled for techs in the middle of the tree.")
+    for _, tech in pairs(data.raw["technology"]) do
+        if #rubia_lib.get_child_technologies(tech.name) > 0 then hiding_blacklist[tech.name] = true end
+    end
+end
 
 
 --Return a prototype for an unknown technology
