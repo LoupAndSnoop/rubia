@@ -5,6 +5,8 @@ Date: ????
     - Fixed turbine description.
     - Improved compatibility with Bob's inserters
     - Prepared rocket silos for the next factorio base update.
+    - Banned linked chests/belts
+    - Added car prototype compatibility.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.15
 Date: 2025-05-19

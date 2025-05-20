@@ -24,6 +24,7 @@ local function wind_block_notification(entity, player_index)
 end
 --#endregion
 
+--#region Inserters
 --Given a valid adjustable inserter entity, apply adjustments that will work with adjustable inserter mods.
 --Return true if an edit was made.
 local function try_adjust_inserter(entity)
@@ -56,8 +57,15 @@ local function try_adjust_inserter(entity)
     return true
 end
 
+---Return true if the given unadjustable inserter is in a valid orientation.
+---@param entity LuaEntity
+---@return boolean
+local function is_unadj_inserter_valid_orientation(entity)
+    return entity.drop_position.x >= entity.pickup_position.x
+end
+--#endregion
 
----TODO: Not implemented yet.
+
 --Dictionary of special cases to send different entity prototypes to specific wind behaviors.
 --This takes priority over any prototype-type based calculations
 local wind_entity_dic = {
@@ -72,7 +80,6 @@ local wind_entity_dic = {
     ["RTRicochetPanel"] ={wind_type = "force-not-hashset", orient={[defines.direction.west]=true, [defines.direction.east]=true}},
     ["RTMergingChute"] ={wind_type = "force-not-hashset", orient={[defines.direction.west]=true, [defines.direction.south]=true}},
     ["RTItemCannon"] ={wind_type = "force-not-hashset", orient={[defines.direction.west]=true, [defines.direction.north]=true}},
-    
     
     --{wind_type = "custom", custom = function(entity, player_index) ... end},
 }

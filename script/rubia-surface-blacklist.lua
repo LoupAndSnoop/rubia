@@ -18,7 +18,7 @@ local internal_blacklist = {
     {type="artillery-wagon", name ="artillery-wagon"},
 
     --Logistic cheese
-    {type="car", name ="tank"},
+    --{type="car", name ="tank"},
 }
 --Specific mods blacklisting
 local mod_item_blacklist = {
@@ -46,7 +46,8 @@ local internal_whitelist = {
 --All entities in these prototype type will be blacklisted automatically, unless explicitly whitelisted.
 --This accounts for mods adding variants in these prototypes.
 local prototype_type_blacklist = {"logistic-container",
-    "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon"
+    "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon",
+    "linked-container", "linked-belt"
 }
 --prototype_type_blacklist = rubia_lib.array_to_hashset(prototype_type_blacklist)
 

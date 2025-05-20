@@ -45,16 +45,9 @@ data:extend({
     max_health = 350,
     corpse = "rubia-long-bulk-inserter-remnants",
     dying_explosion = "bulk-inserter-explosion",
-    resistances =
-    {
-      {
-        type = "fire",
-        percent = 90
-      },
-      {
-        type = "impact",
-        percent = 50
-      }
+    resistances = {
+      {type = "fire", percent = 90},
+      {type = "impact", percent = 50}
     },
     collision_box = {{-0.15, -0.15}, {0.15, 0.15}},
     selection_box = {{-0.4, -0.35}, {0.4, 0.45}},

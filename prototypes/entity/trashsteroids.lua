@@ -150,7 +150,7 @@ data:extend({
     type = "car",
     name = "medium-trashsteroid",
     icon = "__rubia-assets__/graphics/icons/trashsteroid-chunk-icon.png",--"__base__/graphics/icons/car.png",
-    flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
+    flags = {"placeable-neutral", "placeable-off-grid", "not-flammable", "get-by-unit-number"},--get-by-unit-number is a very important flag
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
     equipment_grid = "trashsteroid-grid",

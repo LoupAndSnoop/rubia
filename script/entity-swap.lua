@@ -6,6 +6,15 @@ local entity_swap = {}
 local swap_target_rubia = {
     ["rocket-silo"] = "rubia-rocket-silo",
 }
+--Find auto-generated prototypes
+local prefix = rubia.RUBIA_AUTO_ENTITY_PREFIX
+for name, _ in pairs(prototypes.entity) do
+    if string.sub(name, 1, string.len(prefix)) == prefix then
+        local orig_name = string.sub(name, string.len(prefix) + 1, -1)
+        swap_target_rubia[orig_name] = prefix .. orig_name
+    end
+end
+
 local swap_target_outside_rubia={}
 for key, value in pairs(swap_target_rubia) do
     swap_target_outside_rubia[value] = key
@@ -55,8 +64,10 @@ entity_swap.try_entity_swap = function(event)
     new_entity.mirroring = entity.mirroring
     new_entity.copy_settings(entity)
 
-    if not is_ghost then
-        local modules = entity.get_module_inventory().get_contents()
+    --Transfer modules, but only if the entity has them!
+    local module_inventory = entity.get_module_inventory() 
+    if not is_ghost and module_inventory then
+        local modules = module_inventory.get_contents()
         for _, item in pairs(modules) do
             local inserted_count = new_entity.insert(item)
             if inserted_count < item.count then

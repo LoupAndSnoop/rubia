@@ -1,6 +1,7 @@
 require("__rubia__.script.crapapult-recipes")
 require("__rubia__.script.rubia-surface-blacklist")
 
+
 --Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
 local function remove_science_pack_from_tech(science_pack_name, technology_name)
     local tech = data.raw["technology"][technology_name]
