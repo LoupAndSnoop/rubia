@@ -70,6 +70,69 @@ for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) d
     end
 end
 
+--#region Inserters
+--I need to check for inserters that naturally violate my rules
+--Differences less than this should be registered as zero for inserter position rounding
+local MIN_INSERTER_LENGTH_THRESHOLD = 0.5
+
+--Standardize the format of a vector to x/y
+local function vector_to_xy(vector)
+    if vector.x then return {x=vector.x, y=vector.y}
+    else return {x=vector[1], y=vector[2]} end
+end
+
+---Return TRUE if the given inserter can be compatible with rubia.
+---@param prototype data.InserterPrototype
+---@return boolean
+local function inserter_is_rubia_compatible(prototype)
+    if prototype.allow_custom_vectors then return true end
+    local pickup = vector_to_xy(prototype.pickup_position)
+    local dropoff = vector_to_xy(prototype.insert_position)
+    
+    --Standardize
+    --if not pickup.x then pickup = {pickup[1], pickup[2]} end
+    --if not dropoff.x then dropoff = {dropoff[1], dropoff[2]} end
+
+    local dot_product = pickup.x * dropoff.x + pickup.y * dropoff.y
+    local pickup_length = math.sqrt(pickup.x ^2 + pickup.y ^2)
+    local dropoff_length = math.sqrt(dropoff.x ^2 + dropoff.y ^2)
+
+    --Reject any diagonal inserters. I have no reference, so if someone wants to complain,
+    -- then I'll have to handle on a case-by-case basis
+    if math.abs(pickup.x * pickup.y) > 0.5
+        or math.abs(dropoff.x * dropoff.y) > 0.5 then return false end
+
+    --If either vector is individually very small, then it is effectively inserting on its own spot
+    --=> all OK
+    if pickup_length < MIN_INSERTER_LENGTH_THRESHOLD
+    or dropoff_length < MIN_INSERTER_LENGTH_THRESHOLD then return true end
+
+    --log("Pickup = " .. serpent.block(pickup) .. ", dropoff = " .. serpent.block(dropoff)
+    --    .. ", dot = " .. tostring(dot_product) .. ", pick length = " .. tostring(pickup_length) .. ", drop length = " .. tostring(dropoff_length))
+
+    --The inserter has ample distance being covered. So we need to know its angle
+    local cos_angle = dot_product / (pickup_length * dropoff_length)
+    --Preprocess so acos doesn't throw an error
+    cos_angle = math.max(math.min(cos_angle, 1), -1)
+    local angle = math.acos(cos_angle) * 180 / 3.14159 --rad to degrees
+
+    --log("angle = " .. tostring(angle) .. ", cos angle = " .. cos_angle)
+
+    if angle > 170 then return true end --Angle is straight across => auto OK
+    if angle > 10 then return false end --Angle is crooked => auto reject
+
+    --Angle is now very shallow along a straight line => definitely OK
+    return true
+end
+--Add all invalid inserters to the blacklist.
+for _, prototype in pairs(data.raw.inserter) do
+    if not inserter_is_rubia_compatible(prototype) then
+        table.insert(internal_blacklist, prototype)
+        log("Banning this inserter prototype from Rubia, because it looks incompatible: " .. prototype.name)
+    end
+end
+--#endregion
+
 
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.
 rubia.surface_blacklist = rubia_lib.array_concat({rubia.surface_blacklist, internal_blacklist})

@@ -74,16 +74,35 @@ entity_swap.try_entity_swap = function(event)
 
     entity.destroy()
 
-
     --Special case for new entity is a rubian silo to disable requester
     if swap_target == "rubia-rocket-silo" then
         req_point = new_entity.get_requester_point()
         --There is no point if it is a ghost
         if req_point then req_point.enabled = false end
+
+        --new_entity.use_transitional_requests = false --TODO: On experimental released
     end
 end
 
 --Some swapped entities need special GUI
+
+
+
+---When an entity UI is updated, check and correct the given Rubia rocket silo settings.
+---@param entity LuaEntity
+---@param player_index uint
+entity_swap.rocket_silo_update = function(entity, player_index)
+    if not entity.valid or entity.name ~= "rubia-rocket-silo" then return end
+    --No need to fix if it is already configured right.
+    if not entity.use_transitional_requests then return end
+
+    --We do need to fix and issue a warning
+    local print_target = (player_index and game.players[player_index]) or game
+
+    print_target.print({"alert.rubia-rocket-silo-setting-warning"})
+    print_target.play_sound{path="utility/cannot_build"}--, position=player.position, volume_modifier=1}
+end
+
 
 --[[
 --When a GUI is opened, check if it belongs to a relevant entity, and modify if needed.

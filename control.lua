@@ -101,10 +101,6 @@ script.on_event(defines.events.on_entity_settings_pasted, function(event)
   rubia_wind.wind_rotation(event.destination, event.player_index)
 end)
 
---script.on_event(defines.events.on_player_flipped_entity, function(event)
---    rubia.wind_rotation(event.entity, event.player_index)
---end)
-
 local function do_on_built_changes(event)
   --trashdragon.on_built_rocket_silo(event)
   entity_swap.try_entity_swap(event)
@@ -135,15 +131,50 @@ script.on_event(defines.events.on_object_destroyed, function(event)
   --entity_modifier.update_on_object_destroyed(event.registration_number)
 end)
 
--- Special cases for mods that do adjustment events for adjustable inserters
+
+---------
+
+
+--#region UI
+
+---Combine calls that happen on any gui updating event.
+---@param player_index uint
+local function on_entity_gui_update(entity, player_index)
+  if entity.valid then 
+      --For adjustable inserters
+      rubia_wind.wind_rotation(entity, player_index)
+      --entity_swap.rocket_silo_update(entity, player_index) --TODO: On experimental released
+  end
+end
+
 script.on_event(defines.events.on_gui_closed, function(event)
+  --Entity UI
   if event.gui_type == defines.gui_type.entity and event.entity
     and event.entity.valid then 
-      rubia_wind.wind_rotation(event.entity, event.player_index) 
-    end
-
-
+    on_entity_gui_update(event.entity, event.player_index)
+  end
 end)
+
+script.on_event(defines.events.on_gui_checked_state_changed, function(event)
+  local player = game.players[event.player_index]
+  if player.opened_gui_type == defines.gui_type.entity 
+    and player.opened.object_name == "LuaEntity" then
+      on_entity_gui_update(player.opened, event.player_index)
+  end
+end)
+
+--[[
+  if event.gui_type == defines.gui_type.entity and event.entity
+    and event.entity.valid then 
+      --For adjustable inserters
+      rubia_wind.wind_rotation(event.entity, event.player_index) 
+  end
+]]
+
+--#endregion
+
+
+-- Special cases for mods that do adjustment events for adjustable inserters
 
 --QAI events
 if script.active_mods["quick-adjustable-inserters"] then
@@ -159,16 +190,6 @@ if script.active_mods["simpleadjustableinserters"] then
 end
 
 
-
---[[  local function adjustable_inserter_check(entity)
-  --if entity and entity.valid 
-    --entity.
-
-end
-script.on_event({"qai_adjust", "qai-rotate", "qai-reverse-rotate"}, function(event)
-  game.print(serpent.block(event))
-  --adjustable_inserter_check)
-end)]]
 
 --------------------
 

@@ -1,7 +1,6 @@
 
 require("__rubia__.lib.lib")
 require("util")
---require("__rubia__.script.rubia-surface-blacklist")
 require("__rubia__.prototypes.technology-updates")
 
 --Add quality information to factoriopedia.
@@ -31,16 +30,17 @@ local function add_quality_factoriopedia_info(entity, factoriopedia_info)
   entity.factoriopedia_description = rubia.shorten_localised_string(factoriopedia_description)
 end
 
-
 --Add quality info for the wind turbine. Janky but functional.
-add_quality_factoriopedia_info(data.raw["electric-energy-interface"]["rubia-wind-turbine"], {
-  {{"quality-tooltip.atmosphere-consumption"}, function(entity, quality_level)
+local turbine_prototype = data.raw["electric-energy-interface"]["rubia-wind-turbine"]
+add_quality_factoriopedia_info(turbine_prototype, {
+  {{"entity-description.rubia-wind-turbine"}, function(entity, quality_level)
       local base_wind_turbine_power = util.parse_energy(data.raw["electric-energy-interface"]["rubia-wind-turbine"].energy_production)
       local quality_mult = 1 + 0.3 * quality_level.level
       local power_kW_per_nondim = 100/ util.parse_energy("100 kW") --constant to convert between kW and nondimensional power
       return tostring(base_wind_turbine_power * power_kW_per_nondim * quality_mult) .. "kW" --empirically, 50/3 nondimensional power = 1 kW
   end}
 })
+turbine_prototype.localised_description = turbine_prototype.factoriopedia_description
 
 --#region Science/tech related updates
 --Science pack management

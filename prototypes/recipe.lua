@@ -838,6 +838,27 @@ data:extend({
   crafting_machine_tint = crafting_machine_tint_blue,
 },
 
+--[[
+{
+  type ="recipe",
+  name ="biorecycle-XXXXX",
+  icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-iron-plate-to-green-circuit.png",
+  category ="biorecycling",
+  subgroup = "rubia-biorecycling", order = "f[rubia stage4]-e",--XXXXXX
+  enabled = false,
+  ingredients = {
+    {type ="item", name ="piercing-rounds-magazine", amount = 2},
+    {type ="item", name ="iron-plate", amount = 1},
+  },
+  surface_conditions = rubia.surface_conditions(),
+  energy_required = 5,
+  results = {
+    {type = "item", name = "firearm-magazine", amount = 2, ignored_by_productivity = 2},
+    {type = "item", name = "electronic-circuit", amount = 1},
+  },
+  allow_productivity = true,
+  --crafting_machine_tint = crafting_machine_tint_red,
+},]]
 
 
 --#endregion

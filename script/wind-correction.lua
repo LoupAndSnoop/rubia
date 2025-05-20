@@ -30,14 +30,19 @@ local function try_adjust_inserter(entity)
     local old_pickup_vector = {x=entity.pickup_position.x - entity.position.x, y=entity.pickup_position.y - entity.position.y}
     local old_drop_vector = {x=entity.drop_position.x - entity.position.x, y=entity.drop_position.y - entity.position.y}
 
-    entity.orientation = defines.direction.west --If I don't fix the orientation, we get weird behavior when uninstalling
-
+    --If I don't fix the orientation, we get weird behavior when uninstalling
+    entity.orientation = defines.direction.west
+    entity.direction = defines.direction.west
     --First determine if any edit needs to be made:
     if old_pickup_vector.y == 0 and old_drop_vector.y ==0
         and old_pickup_vector.x <= 0 and old_drop_vector.x >= 0 then return false end
 
+    --[[Show the issue
+    game.print("Adjusting inserter with old pickup = (" .. old_pickup_vector.x .. "," .. old_pickup_vector.y
+        .. "), old dropoff = (" .. old_drop_vector.x .. "," .. old_drop_vector.y .. ")"
+        .. ". Checks: " .. serpent.block({old_pickup_vector.y == 0, old_drop_vector.y ==0 , old_pickup_vector.x <= 0 , old_drop_vector.x >= 0}))]]
+
     --keep the vector the same, but rotate it about the center of the inserter to make sure it goes left.
-    --log(serpent.block(entity) .. "\npickup = " .. serpent.block(old_pickup_vector) .. "\ndropoff = " .. serpent.block(old_drop_vector) )
     entity.pickup_position = {x = entity.position.x - math.max(math.abs(old_pickup_vector.x), math.abs(old_pickup_vector.y)),
         y = entity.position.y}
     entity.drop_position = {x = entity.position.x + math.max(math.abs(old_drop_vector.x), math.abs(old_drop_vector.y)),
@@ -184,7 +189,8 @@ end
 --Thanks to CodeGreen, for help sorting out horizontal splitters
 --Warning: Player index could be nil
 rubia_wind.wind_rotation = function(entity, player_index)
-    if  not entity or not entity.valid or entity.surface.name ~= "rubia" then return end
+    if  not entity or not entity.valid
+        or entity.surface.name ~= "rubia" then return end
 
     local entity_type = entity.type;
     if entity.type == "entity-ghost" then entity_type = entity.ghost_type end
