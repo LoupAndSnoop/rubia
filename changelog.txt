@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.16
-Date: ????
+Date: 2025-05-20
   Changes:
     - Fixed turbine description.
     - Improved compatibility with Bob's inserters
