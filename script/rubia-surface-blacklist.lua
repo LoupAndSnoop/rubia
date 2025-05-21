@@ -98,10 +98,10 @@ local function inserter_is_rubia_compatible(prototype)
     local pickup_length = math.sqrt(pickup.x ^2 + pickup.y ^2)
     local dropoff_length = math.sqrt(dropoff.x ^2 + dropoff.y ^2)
 
-    --Reject any diagonal inserters. I have no reference, so if someone wants to complain,
+    --[[Reject any diagonal inserters. I have no reference, so if someone wants to complain,
     -- then I'll have to handle on a case-by-case basis
     if math.abs(pickup.x * pickup.y) > 0.5
-        or math.abs(dropoff.x * dropoff.y) > 0.5 then return false end
+        or math.abs(dropoff.x * dropoff.y) > 0.5 then return false end]]
 
     --If either vector is individually very small, then it is effectively inserting on its own spot
     --=> all OK

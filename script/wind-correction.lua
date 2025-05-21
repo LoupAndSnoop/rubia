@@ -61,7 +61,7 @@ end
 ---@param entity LuaEntity
 ---@return boolean
 local function is_unadj_inserter_valid_orientation(entity)
-    return entity.drop_position.x >= entity.pickup_position.x
+    return entity.drop_position.x > entity.pickup_position.x + 0.5
 end
 --#endregion
 
@@ -121,7 +121,7 @@ local function force_orientation_not(entity, player_index, direction)
     end
 end
 
---Force this entity to any orientation except any of those in the hashset
+--[[Force this entity to any orientation except any of those in the hashset
 local function force_orientation_not_hashset(entity, player_index, directions)
     if not directions[entity.direction] then return end --Done without issues
     wind_correction_notification(entity, player_index)
@@ -132,7 +132,37 @@ local function force_orientation_not_hashset(entity, player_index, directions)
     end
     
     error("Could not find an allowed orientation for an entity of type: " .. entity.prototype.name)
+end]]
+
+---Force this entity to any orientation until the input function returns TRUE on the entity.
+---@param entity LuaEntity
+---@param player_index any
+---@param orientation_validator function Takes in a LuaEntity, and returns TRUE if the orientation is valid.
+local function force_orientation_condition(entity, player_index, orientation_validator)
+    if orientation_validator(entity) then return end --Done without issues
+    
+    for _ = 1,12,1 do
+        if orientation_validator(entity) then 
+            wind_correction_notification(entity, player_index);
+            return end --Happy
+        entity.rotate{by_player=player_index}
+    end
+    
+    error("Could not find an allowed orientation for an entity of type: " .. entity.prototype.name)
 end
+
+--Force this entity to any orientation except any of those in the hashset
+local function force_orientation_not_hashset(entity, player_index, directions)
+    force_orientation_condition(entity, player_index, function(input_entity)
+        return not directions[input_entity.direction] end)
+end
+
+--[[Force this unadjustable inserter to a valid orientation
+local function force_orientation_unadj_inserter(entity, player_index)
+    force_orientation_condition(entity, player_index, is_unadj_inserter_valid_orientation)
+end]]
+
+    
 
 --Force this entity to a specific orientation, but if it is placed orthogonal to the wind,
 --then block its placement.
@@ -222,7 +252,8 @@ rubia_wind.wind_rotation = function(entity, player_index)
             if try_adjust_inserter(entity) then 
                 wind_correction_notification(entity, player_index)
             end
-        else force_orientation_to(entity, player_index, defines.direction.west)
+        else force_orientation_condition(entity, player_index, is_unadj_inserter_valid_orientation)
+            --force_orientation_to(entity, player_index, defines.direction.west)
         end
     end
 
