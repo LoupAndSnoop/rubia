@@ -570,9 +570,6 @@ data:extend{
   },
 
   ---- RESOURCES
-  -- metals in lowlands lava rivers
-  -- sulfuric acid, and calcite on highlands mountains.
-  -- sulfur and lichen/trees on petrol_lands_biome deserts.
 
   {
     type = "noise-expression",
@@ -584,35 +581,7 @@ data:extend{
     name = "rubia_resource_wobble_y",
     expression = "rubia_wobble_y + 0.25 * rubia_wobble_large_y"
   },
-  --[[
-  {
-    type = "noise-expression",
-    name = "rubia_starting_platinum", -- don't use the slider for radius becuase it can make platinum in the safe area
-    expression = "starting_spot_at_angle{ angle = rubia_basalts_angle - 10 * rubia_starting_direction,\z
-                                          distance = 450 * rubia_starting_area_radius,\z
-                                          radius = 30 / 1.5,\z
-                                          x_distortion = 0.5 * rubia_resource_wobble_x,\z
-                                          y_distortion = 0.5 * rubia_resource_wobble_y}"
-  },
-  {
-    type = "noise-expression",
-    name = "rubia_starting_sulfur_ore",
-    expression = "starting_spot_at_angle{ angle = rubia_petrol_lands_angle + 15 * rubia_starting_direction,\z
-                                          distance = 180 * rubia_starting_area_radius,\z
-                                          radius = 30 * rubia_sulfur_ore_size,\z
-                                          x_distortion = 0.5 * rubia_resource_wobble_x,\z
-                                          y_distortion = 0.5 * rubia_resource_wobble_y}"
-  },
-  {
-    type = "noise-expression",
-    name = "rubia_starting_calcite",
-    expression = "starting_spot_at_angle{ angle = rubia_mountains_angle - 20 * rubia_starting_direction,\z
-                                          distance = 350 * rubia_starting_area_radius,\z
-                                          radius = 35 / 1.5 * rubia_calcite_size,\z
-                                          x_distortion = 0.5 * rubia_resource_wobble_x,\z
-                                          y_distortion = 0.5 * rubia_resource_wobble_y}"
-  },]]
- 
+
   {
     type = "noise-function",
     name = "rubia_spot_noise",
@@ -675,6 +644,7 @@ data:extend{
       contrast = 2
     }
   },
+  --[[
   {
     type = "noise-function",
     name = "rubia_place_metal_spots",
@@ -723,7 +693,7 @@ data:extend{
                                                                quantity = size * size,\z
                                                                radius = size,\z
                                                                favorability = favor_biome > 0.9})"
-  },
+  },]]
 
   --[[
   {
@@ -848,7 +818,7 @@ data:extend{
     expression = "max(1, distance / 4000)"
   },
 
-  -- DECORATIVES - Inherited from Vulcanus. TODO REFINE.
+  -- DECORATIVES - Inherited from Vulcanus.
   {
     type = "noise-expression",
     name = "rubia_decorative_knockout", -- small wavelength noise (5 tiles-ish) to make decoratives patchy
@@ -868,14 +838,5 @@ data:extend{
                                     output_scale = 0.4}"
     -- 0.1 / slider_rescale(var('control:rocks:frequency'), 2),\z
   },
-
---[[
-  {
-    type = "noise-expression",
-    name = "rubia_tree",
-    expression = "min(10 * (rubia_petrol_lands_biome - 0.9),\z
-                      -1.5 + 1.5 * moisture + 0.5 * (moisture > 0.9) - 0.5 * aux + 0.5 * rubia_decorative_knockout)"
-  }
---]]
 }
 

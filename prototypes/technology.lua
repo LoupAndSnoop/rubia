@@ -3,8 +3,7 @@ require("__rubia__.lib.lib")
 
 --Cargo drop restriction
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
-    "rubia", "__rubia-assets__/graphics/planet/rubia-discovery.png", 256) --TODO Icon
-    --TODO: Custom whitelist, because construction bots are allowed
+    "rubia", "__rubia-assets__/graphics/planet/rubia-discovery.png", 256)
 --cargo_drops_base.name = "operation-iron-man"
 --Internal tech name must remain planetslib-rubia-cargo-drops
 cargo_drops_base.icons = nil
@@ -708,50 +707,3 @@ if mods["planet-muluna"] then  --TODO
 end
 
 --#endregion
-
---[[
-if mods["maraxsis"] then
-    data:extend(
-    {
-        {
-            type = "technology",
-            name = "petrol-dehydrogenation-and-combustion",
-            icon_size = 64,
-            icon = "__rubia-assets__/graphics/icons/catalytic-chemical-plant.png",
-            essential = false,
-            effects =
-            {
-                {
-                    type = "unlock-recipe",
-                    recipe = "petrol-dehydrogenation-and-combustion",
-                },
-                {
-                    type = "unlock-recipe",
-                    recipe = "petrol-dehydrogenation-and-combustion-maraxsis",
-                },
-
-    
-    
-            },
-    
-            prerequisites = { "planet-discovery-rubia","platinum-processing","catalytic-chemical-plant","biorecycling-science-pack","sulfur-redox1","sulfur-redox2","sulfate-processing-1","sulfate-processing-2","hydraulic-science-pack"},
-            unit =
-            {
-                count = 1000,
-                ingredients =
-                {
-                    { "automation-science-pack",      1 },
-                    { "logistic-science-pack",        1 },
-                    { "chemical-science-pack",        1 }, 
-                    { "biorecycling-science-pack", 1 },
-                    { "space-science-pack", 1 },
-                    {"hydraulic-science-pack", 1}
-                    
-                },
-                time = 60
-            }
-        }
-    }
-    )
-end
-]]
