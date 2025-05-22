@@ -13,12 +13,16 @@ local function remove_science_pack_from_tech(science_pack_name, technology_name)
             break
         end
     end
-
 end
 
---Conditionally remove rubia science from promethium science costs
+--Conditionally add/remove rubia science from promethium science costs
 if settings.startup["remove-rubia-from-promethium_sci"].value then
     remove_science_pack_from_tech("biorecycling-science-pack", "research-productivity")
+else 
+  local inf_research_tech = data.raw["technology"]["research-productivity"]
+  if inf_research_tech then
+    table.insert(inf_research_tech.unit.ingredients, {"biorecycling-science-pack", 1 })
+  end
 end
 
 --Remove biofusion from anywhere it accidentally got into.
