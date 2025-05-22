@@ -5,6 +5,7 @@ Date: ????
     - Added support for inserters with hard-coded unique angles!
     - Added credits to the readme as well.
     - Holmium string fix.
+    - Added space view of Rubia to readme.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.16
 Date: 2025-05-20

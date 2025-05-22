@@ -4,11 +4,11 @@
 
 # Rubia
 
-You find yourself on a planet with perpetual hurricane-force winds that have erroded all life. It is a hostile junkyard where the elements constantly hurl large masses of garbage at anything that dares peek above the ground. But on this planet, there is something *living* under the debris--something microscopic. It don't just survive the barrage, but feasts on it! Will you master the art of biorecycling and become the king of the crapheap? Or will the winds blow you back to Nauvis?
+You find yourself on a planet with perpetual hurricane-force winds that have erroded all life. It is a hostile junkyard where the elements constantly hurl large masses of garbage at anything that dares peek above the ground. But on this planet, there is something *living* under the debris--something microscopic. It doesn't just survive the barrage, but feasts on it! Will you master the art of biorecycling and become the king of the crapheap? Or will the winds blow you back to Nauvis?
 
 
 ---
-![Rubia as viewed from above](https://raw.githubusercontent.com/LoupAndSnoop/rubia-linked-images/refs/heads/main/screenshot-round-rubia-view.png)
+![Rubia as viewed from above](https://raw.githubusercontent.com/LoupAndSnoop/rubia-linked-images/refs/heads/main/screenshot-round-rubia-view-512.png)
 Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Small-Space-Age).
 ---
 
@@ -47,7 +47,7 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 
 Special thanks to everyone who helped, or from whom I got assets or code:
 
-- Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid
+- Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, osmo
 - raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work.
 - ZarSasha: Wind turbine forked.
 - Velaanix: Code for infinite braking force.
@@ -56,5 +56,5 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Snowdoe: Sprite of a rocket artillery turret.
 - pandamiami80s: Armored train sprite
 - billnguyen1411: Art used for Operation Iron Man.
-- Yuoki: I recolored some of his wagon sprites for trains in this mod. Derrivatives of his trains are distributed under CC license.
+- Yuoki: I recolored some of his wagon sprites for trains in this mod. Derrivatives of his wagons are distributed under CC license.
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
