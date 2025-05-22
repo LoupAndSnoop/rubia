@@ -2,6 +2,8 @@
 Version: 0.69.19
 Date: ????
   Changes:
+    - More Megabasing info added to tips.
+    - Spidertron lore updated.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.18
 Date: 2025-05-22

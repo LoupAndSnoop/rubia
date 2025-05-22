@@ -22,7 +22,8 @@ end
 --execute = function to execute when this entity is mined.
 local lore_drop_table ={
     ["rubia-spidertron-remnants"] = {
-        {count = 1, string = "rubia-lore.spidertron-mine-hint-part1"},
+        {count = 1, string = "rubia-lore.spidertron-mine-hint-part1",
+                    string2 = "rubia-lore.spidertron-mine-hint-part2", string2_delay = 30*60},
         {count = 5, string = "rubia-lore.spidertron-mine-part1"},
         {count = 13, string = "rubia-lore.spidertron-mine-part2"},
         {count = 23, string = "rubia-lore.spidertron-mine-part3"},
@@ -36,7 +37,7 @@ local lore_drop_table ={
         {count = 32, string = "rubia-lore.train-stop-mine-part4"},
     },
     ["rubia-junk-pile"] = {
-        {count = 1, string = "rubia-lore.junk-mine-hint-part1"},
+        --{count = 1, string = "rubia-lore.junk-mine-hint-part1"},
         {count = 5, string = "rubia-lore.junk-mine-part1"},
         {count = 12, string = "rubia-lore.junk-mine-part2"},
         {count = 21, string = "rubia-lore.junk-mine-part3"},
@@ -46,8 +47,8 @@ local lore_drop_table ={
     }
 }
 
---Code for testing. Comment in/out as needed.
---[[log("Lore test code is active. Remove before release.")
+--[[Code for testing. Comment in/out as needed.
+log("Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
@@ -86,6 +87,10 @@ lore_mining.try_lore_when_mined = function(entity)
         if new_count == entry.count then --Time to trigger
             if entry.string then 
                 game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string}},{color=lore_color})
+            end
+            if entry.string2 then 
+                rubia.timing_manager.wait_then_do(entry.string2_delay or (5*60), "delayed-text-print", {game, 
+                    {"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string2}}, {color=lore_color}})
             end
             if entry.execute then entry.execute(entity) end
             try_lore_achievement()

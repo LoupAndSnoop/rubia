@@ -1,4 +1,4 @@
-require("lib.timing-manager")
+require("__rubia__.lib.timing-manager")
 local util = require("util")
 
 --Variable to store exposed cutscene functions
