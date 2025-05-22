@@ -23,6 +23,11 @@ else
   if inf_research_tech then
     table.insert(inf_research_tech.unit.ingredients, {"biorecycling-science-pack", 1 })
   end
+  local promethium_tech = data.raw["technology"]["promethium-science-pack"]
+  if promethium_tech then 
+    table.insert(promethium_tech.prerequisites, "planetslib-rubia-cargo-drops")
+    table.insert(promethium_tech.unit.ingredients, {"biorecycling-science-pack", 1 })
+  end
 end
 
 --Remove biofusion from anywhere it accidentally got into.

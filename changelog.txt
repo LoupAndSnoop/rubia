@@ -2,6 +2,7 @@
 Version: 0.69.18
 Date: ????
   Changes:
+    - Fixed promethium science prerequisites.
     - Rubia science is again added automatically to infinite research prod (unless you toggle it off in the mod settings).
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.17
