@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.17
-Date: ????
+Date: 2025-05-22
   Changes:
     - Added support for inserters with hard-coded unique angles!
     - Added credits to the readme as well.
