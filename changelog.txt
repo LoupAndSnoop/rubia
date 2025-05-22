@@ -3,6 +3,8 @@ Version: 0.69.17
 Date: ????
   Changes:
     - Added support for inserters with hard-coded unique angles!
+    - Added credits to the readme as well.
+    - Holmium string fix.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.16
 Date: 2025-05-20

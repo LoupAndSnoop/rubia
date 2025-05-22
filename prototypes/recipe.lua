@@ -937,8 +937,8 @@ data:extend({
     type = "recipe",
     name = "rubia-holmium-craptalysis",
     icon = "__rubia-assets__/graphics/icons/recipes/holmium-craptalysis.png",
-    --order = "b[new-fluid]-c[fulgora]-a[holmium]-b",
     subgroup = "fulgora-processes", order = "b[holmium]-b[holmium-solution]-b",
+    localised_description = {"technology-description.rubia-holmium-craptalysis"},
 
     enabled = false,
     category ="organic-or-chemistry",
