@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.18
-Date: ????
+Date: 2025-05-22
   Changes:
     - Fixed promethium science prerequisites.
     - Moving forward required version of Rubia-assets.
