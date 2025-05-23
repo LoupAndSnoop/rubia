@@ -33,7 +33,9 @@ local trashsteroid_max_opacity = 0.8 --As opaque as it will get.
 local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 
 --Trashsteroid ranges, damages, etc
-local trashsteroid_impact_damage = 75 --Raw damage done
+local impact_base_damage = 75 --Raw damage done
+local impact_crit_damage = 300
+local impact_crit_chance = 10 --As a %
 local trashsteroid_impact_radius = 4
 local trashsteroid_chunk_reach = prototypes.entity["garbo-grabber"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
@@ -455,7 +457,7 @@ trashsteroid_lib.trashsteroid_impact_update = function()
 
   --Make a temporary array of all trashsteroid entities that need to go through their impact, so we can delete them without changing our iteration.
   local trashsteroids_impacting = {}
-  for i, trashsteroid in pairs(storage.active_trashsteroids) do
+  for _, trashsteroid in pairs(storage.active_trashsteroids) do
     if (trashsteroid.death_tick < game.tick) then
       local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
       --If valid, log it to delete
@@ -471,8 +473,13 @@ trashsteroid_lib.trashsteroid_impact_update = function()
       local entity = trashsteroid.entity
       --Deal damage
       local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
+      local default_damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
       for _,hit_entity in pairs(impacted_entities) do
-        local damage = impact_damage_special[hit_entity.name] or trashsteroid_impact_damage
+        local damage = impact_damage_special[hit_entity.name] or default_damage
+        --This version calculates crit chance separately on each thing hit of 1 trashsteroid.
+        --if not damage then --Not special case
+        --  damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
+        --end
         hit_entity.damage(damage, game.forces["enemy"])
       end
 

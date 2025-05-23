@@ -2,6 +2,9 @@
 Version: 0.69.24
 Date: ????
   Changes:
+    - First biorecycling recipe nerfed to give -25% copper.
+    - Updated trashsteroid factoriopedia entry.
+    - Some people were just placing repair kits with no turrets! Can you believe that? So now trashsteroid damage is RNG'd to have a small chance of landing a CRITICAL HIT! Now Rubia is just like a real RPG! :) :) :) A trashsteroid rolls for a critical hit ONCE to damage anything in its range--it does not roll separately.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.23
 Date: 2025-05-23

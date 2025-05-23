@@ -278,15 +278,15 @@ data:extend({
     enabled = false,
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-b",
 
-    ingredients = {
-      {type ="item", name ="rubia-bacteria-A", amount = 1},
-      {type ="item", name ="rubia-ferric-scrap", amount = 2},
+    ingredients = {--Was 1:2=>6:2 at 3 energy. Now nerfed to 25% less copper
+      {type ="item", name ="rubia-bacteria-A", amount = 2},
+      {type ="item", name ="rubia-ferric-scrap", amount = 4},
     },
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 3,
+    energy_required = 6,
     results = {
-      {type ="item", name ="firearm-magazine", amount = 6},
-      {type ="item", name ="copper-cable", amount = 2},--, probability=0.5},
+      {type ="item", name ="firearm-magazine", amount = 12},
+      {type ="item", name ="copper-cable", amount = 3},
     },
     allow_productivity = true,
     crafting_machine_tint = crafting_machine_tint_red,
