@@ -227,7 +227,7 @@ data:extend
   ---
   ------- Decorative entities for forage
   ---
-  ---
+  --[[
   {
     name = "rubia-med-rock",
     type = "simple-entity",
@@ -409,7 +409,7 @@ data:extend
         shift = {0.148438, 0.03125}
       }
     }
-  },
+  },]]
 
     {
     type = "simple-entity",
@@ -533,7 +533,7 @@ data:extend
       {
         {type = "item", name = "iron-stick", amount_min = 4, amount_max = 8},
         {type = "item", name = "iron-plate", probability=0.7, amount_min = 5, amount_max = 10},
-        {type = "item", name = "steel-plate", probability=0.5, amount_min = 3, amount_max = 6},
+        {type = "item", name = "steel-plate", probability=0.5, amount_min = 4, amount_max = 8},
         {type = "item", name = "copper-cable", probability=0.5, amount_min = 8, amount_max = 12},
         {type = "item", name = "electronic-circuit", probability=0.5, amount_min = 4, amount_max = 8}
       },
@@ -645,7 +645,7 @@ data:extend
         {type = "item", name = "iron-plate", probability=0.4, amount_min = 30, amount_max = 50},
         {type = "item", name = "firearm-magazine", probability=0.5, amount_min = 20, amount_max = 40},
         {type = "item", name = "copper-cable", probability=0.7, amount_min = 20, amount_max = 40},
-        {type = "item", name = "steel-plate", probability=0.1, amount_min = 30, amount_max = 40},
+        {type = "item", name = "steel-plate", probability=0.15, amount_min = 30, amount_max = 40},
         --{type = "item", name = "pipe", probability=0.1, amount_min = 30, amount_max = 40},
         --{type = "item", name = "stone-brick", probability=0.3, amount_min = 20, amount_max = 40},
       }

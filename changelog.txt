@@ -2,6 +2,9 @@
 Version: 0.69.23
 Date: ????
   Changes:
+    - Fixed compatibility issue with ruins mods placing splitters on Rubia.
+  Balancing:
+    - Buffed pole steel yield.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.22
 Date: 2025-05-23

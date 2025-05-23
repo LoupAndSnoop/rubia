@@ -181,7 +181,19 @@ local function force_splitter_like_orientation_to(entity, player_index, directio
     if entity.type == "entity-ghost" then entity.mine()
     else --Must mine real entity
         if player_index then game.get_player(player_index).mine_entity(entity, true) 
-        else error("Splitter-like entity going down wouldn't get mined!")
+        else --Not placed by a player, so try to spill on the floor.
+            local item = entity.prototype.items_to_place_this and entity.prototype.items_to_place_this[1]
+            if item then --Only spill if something actually places this item.
+                entity.surface.spill_item_stack {
+                    position = entity.position,
+                    stack = item,
+                    enable_looted = true,
+                    force = entity.force_index,
+                    allow_belts = false
+                }
+            end
+            entity.destroy()
+            --error("Splitter-like entity going down wouldn't get mined!")
         end
     end
 end

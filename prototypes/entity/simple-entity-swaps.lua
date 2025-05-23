@@ -76,7 +76,7 @@ local function make_rubia_variant(prototype)
   end
 
   --Some things aren't placeable. Example: gunship-flying from MeteorSwarms Aircraft space age. Work out more later!
-  if not new_prototype.placeable_by then
+  if not new_prototype.placeable_by then --TODO: Permanent fix!
     log("WARNING: There is nothing for placeable_by for this prototype: " .. prototype.name)
   end
   return new_prototype
