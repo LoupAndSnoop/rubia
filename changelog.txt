@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.23
-Date: ????
+Date: 2025-05-23
   Changes:
     - Fixed compatibility issue with ruins mods placing splitters on Rubia.
   Balancing:
