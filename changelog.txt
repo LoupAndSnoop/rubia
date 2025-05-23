@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.24
-Date: ????
+Date: 2025-05-23
   Changes:
     - First biorecycling recipe nerfed to give -25% copper.
     - Updated trashsteroid factoriopedia entry.
