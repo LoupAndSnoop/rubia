@@ -2,6 +2,8 @@
 Version: 0.69.21
 Date: ????
   Changes:
+    - Banned Quantum Fabricator's dedigitizer reactor, for teleporting items.
+    - Fixed compatibility with mods that affect promethium science.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.20
 Date: 2025-05-23

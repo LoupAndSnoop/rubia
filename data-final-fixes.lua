@@ -14,19 +14,26 @@ local function remove_science_pack_from_tech(science_pack_name, technology_name)
         end
     end
 end
+--Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
+local function try_add_science_pack_to_tech(science_pack_name, technology_name)
+    local tech = data.raw["technology"][technology_name]
+    if (not tech or not tech.unit) then return end --Tech not found
+
+    for i,entry in pairs(tech.unit.ingredients) do
+        if (entry and entry[1] == science_pack_name) then return end
+    end
+    table.insert(tech.unit.ingredients, {science_pack_name, 1 })
+end
 
 --Conditionally add/remove rubia science from promethium science costs
 if settings.startup["remove-rubia-from-promethium_sci"].value then
-    remove_science_pack_from_tech("biorecycling-science-pack", "research-productivity")
+  remove_science_pack_from_tech("biorecycling-science-pack", "research-productivity")
 else 
-  local inf_research_tech = data.raw["technology"]["research-productivity"]
-  if inf_research_tech then
-    table.insert(inf_research_tech.unit.ingredients, {"biorecycling-science-pack", 1 })
-  end
+  try_add_science_pack_to_tech("research-productivity", "biorecycling-science-pack")
   local promethium_tech = data.raw["technology"]["promethium-science-pack"]
   if promethium_tech then 
     table.insert(promethium_tech.prerequisites, "planetslib-rubia-cargo-drops")
-    table.insert(promethium_tech.unit.ingredients, {"biorecycling-science-pack", 1 })
+    try_add_science_pack_to_tech("promethium-science-pack", "biorecycling-science-pack")
   end
 end
 

@@ -25,7 +25,7 @@ local mod_item_blacklist = {
     {mod="SpidertronPatrols", type="proxy-container", name ="sp-spidertron-dock"},
     {mod="RenaiTransportation", type="constant-combinator", name ="DirectorBouncePlate"},
     {mod="RenaiTransportation", type="electric-energy-interface", name ="RTDivergingChute"},
-
+    {mod="quantum-fabricator", type = "reactor", name = "dedigitizer-reactor"}, --Lets you teleport items in
 }
 for _, entry in pairs(mod_item_blacklist) do
     if mods[entry.mod] then table.insert(internal_blacklist, entry) end
