@@ -2,6 +2,10 @@
 Version: 0.69.22
 Date: ????
   Changes:
+    - Aircraft space age mod compatibility.
+  Balancing:
+    - Crapapult cheaper.
+    - First Rubia tech is cheaper.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.21
 Date: 2025-05-23

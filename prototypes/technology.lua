@@ -104,7 +104,7 @@ data:extend({
             {type = "unlock-recipe", recipe = "makeshift-biorecycling-science-pack"},
         },
         prerequisites = { "rubia-progression-stage1"},
-        research_trigger = {type = "craft-item", item="yeet-firearm-magazine", count=400},
+        research_trigger = {type = "craft-item", item="yeet-firearm-magazine", count=200},
     },
 --[[    {
         type = "technology",

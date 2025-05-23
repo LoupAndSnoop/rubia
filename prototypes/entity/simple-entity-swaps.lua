@@ -65,7 +65,7 @@ local function make_rubia_variant(prototype)
   new_prototype.placeable_by = util.table.deepcopy(prototype.placeable_by)
   if not new_prototype.placeable_by then
     for subtype in pairs(defines.prototypes.item) do
-      for item_name, item in pairs(data.raw[subtype]) do
+      for item_name, item in pairs(data.raw[subtype] or {}) do
         if item.place_result == prototype.name then
           new_prototype.placeable_by = {{item = item_name, count = 1}}
           goto break_loop
@@ -75,6 +75,10 @@ local function make_rubia_variant(prototype)
     ::break_loop::
   end
 
+  --Some things aren't placeable. Example: gunship-flying from MeteorSwarms Aircraft space age. Work out more later!
+  if not new_prototype.placeable_by then
+    log("WARNING: There is nothing for placeable_by for this prototype: " .. prototype.name)
+  end
   return new_prototype
 end
 
@@ -96,7 +100,6 @@ local function make_car_prototypes()
     log(i .. " - " .. tostring(prototype.name))
     local new_prototype = make_rubia_variant(prototype)
     new_prototype.trash_inventory_size = 0
-    assert(new_prototype.placeable_by, "There is nothing for placeable_by for this prototype: " .. prototype.name)
     data:extend({new_prototype})
   end
 end

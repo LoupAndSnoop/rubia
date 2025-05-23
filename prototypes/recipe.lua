@@ -670,7 +670,7 @@ data:extend({
   energy_required = 8,
   ingredients = {
       { type = "item", name = "copper-cable", amount = 50},
-      { type = "item", name = "steel-plate", amount = 60}, 
+      { type = "item", name = "steel-plate", amount = 40}, 
       { type = "item", name = "gun-turret", amount = 1}, 
   },
   results = {{
