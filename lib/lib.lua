@@ -131,7 +131,7 @@ end]]
 --#endregion
 
 --From FLIB, ty to raiguard.
-flib_table = {}
+rubia.flib_table = {}
 --- Call the given function on a set number of items in a table, returning the next starting key.
 ---
 --- Calls `callback(value, key)` over `n` items from `tbl` or until the end is reached, starting after `from_k`.
@@ -172,7 +172,7 @@ flib_table = {}
 --- @return K? next_key Where the iteration ended. Can be any valid table key, or `nil`. Pass this as `from_k` in the next call to `for_n_of` for `tbl`.
 --- @return table<K, C> results The results compiled from the first return of `callback`.
 --- @return boolean reached_end Whether or not the end of the table was reached on this iteration.
-function flib_table.for_n_of(tbl, from_k, n, callback, _next)
+function rubia.flib_table.for_n_of(tbl, from_k, n, callback, _next)
   -- Bypass if a custom `next` function was provided
   if not _next then
     -- Verify start key exists, else start from scratch

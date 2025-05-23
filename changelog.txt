@@ -2,6 +2,7 @@
 Version: 0.69.20
 Date: ????
   Changes:
+    - Fixed incompatibility with Factoriolib and Tiberium dawn.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.19
 Date: 2025-05-22
