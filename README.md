@@ -58,3 +58,5 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - billnguyen1411: Art used for Operation Iron Man.
 - Yuoki: I recolored some of his wagon sprites for trains in this mod. Derrivatives of his wagons are distributed under CC license.
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
+- Localization: Thanks to everyone who helped provide localization.
+    - rlcyyg1108: Chinese localization
