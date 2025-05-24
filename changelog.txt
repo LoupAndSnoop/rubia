@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.30
-Date: ????
+Date: 2025-05-24
   Changes:
     - Nerfed armored train to be more of a gas-guzzler to distinguish it more.
     - Fixed Cerys incompatibility due to temperature nonsense.
