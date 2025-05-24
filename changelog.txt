@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.26
-Date: ????
+Date: 2025-05-24
   Changes:
     - Fixed a MAJOR bug that stopped trashsteroids from spawning. I also added a failsafe to hopefully stop it from happening again, and fix anyone's save files.
     - Added some public debugging functions for trashsteroids.
