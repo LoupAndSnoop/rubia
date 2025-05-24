@@ -28,7 +28,9 @@ local lore_drop_table ={
         {count = 13, string = "rubia-lore.spidertron-mine-part2"},
         {count = 23, string = "rubia-lore.spidertron-mine-part3"},
         {count = 41, string = "rubia-lore.spidertron-mine-part4"},
-        {count = 50, execute = spoilage_failsafe}
+        {count = 50, execute = spoilage_failsafe},
+        {count = 60, execute = spoilage_failsafe},
+        {count = 70, execute = spoilage_failsafe},
     },
     ["rubia-pole-remnants"] = {
         {count = 3, string = "rubia-lore.train-stop-mine-part1"},

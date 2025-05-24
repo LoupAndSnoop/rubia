@@ -161,9 +161,10 @@ local function clear_all_trashsteroids()
   for _, tname in pairs(trashsteroid_names) do
     local trashsteroids = find_all_entity_of_name(tname)
     for _, entity in pairs(trashsteroids) do
-      if entity.valid then entity.destroy() end
+      if entity.valid then entity.destroy() end 
     end
   end
+  storage.active_trashsteroids = {}
   storage.active_trashsteroid_count = 0
 end
 
@@ -192,7 +193,7 @@ end
 --Make trashsteroid in that chunk. Assume everything is initialized.
 local function generate_trashsteroid(trashsteroid_name, chunk)
   if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroid
-
+  
   --First get a random coord in the chunk
   local x = storage.rubia_asteroid_rng(chunk.area.left_top.x, chunk.area.right_bottom.x)
   local y = storage.rubia_asteroid_rng(chunk.area.left_top.y, chunk.area.right_bottom.y)
@@ -444,9 +445,22 @@ local function on_trashsteroid_removed(trashsteroid)
     trashsteroid.render_shadow.destroy()
 
     --Delist before destruction.
+    --assert(storage.active_trashsteroids[tostring(trashsteroid.unit_number)] , "Trashsteroid not found!")
     storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
     storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
 end
+
+--On game startup, clear anything already existing.
+local function clear_logged_trashsteroids()
+  -- Clear all existing trashsteroids
+  for _, trashsteroid in pairs(storage.active_trashsteroids or {}) do
+    on_trashsteroid_removed(trashsteroid)
+    if trashsteroid.entity.valid then trashsteroid.entity.destroy() end
+  end
+  storage.active_trashsteroids = {}
+  storage.active_trashsteroid_count = 0
+end
+
 
 --Trashsteroid Impact checks
 --{unit_number=resulting_entity.unit_number, death_tick=game.tick, name=trashsteroid_name, chunk_data=chunk}
@@ -459,19 +473,26 @@ trashsteroid_lib.trashsteroid_impact_update = function()
   local trashsteroids_impacting = {}
   for _, trashsteroid in pairs(storage.active_trashsteroids) do
     if (trashsteroid.death_tick < game.tick) then
-      local entity = game.get_entity_by_unit_number(trashsteroid.unit_number)
+      table.insert(trashsteroids_impacting, trashsteroid)
       --If valid, log it to delete
-      if entity and entity.valid then 
-        table.insert(trashsteroids_impacting, trashsteroid)
-
-      end
+      --local entity = trashsteroid.entity--game.get_entity_by_unit_number(trashsteroid.unit_number)
+      --if entity and entity.valid then 
+      --  table.insert(trashsteroids_impacting, trashsteroid)
+      --end
     end
   end
 
   --Now we go through and actually DO the impacts
   for _,trashsteroid in pairs(trashsteroids_impacting) do
       local entity = trashsteroid.entity
-      --Deal damage
+
+      --Stale reference. Just delist it
+      if not entity.valid then 
+        on_trashsteroid_removed(trashsteroid)
+        goto continue
+      end
+
+      --Real roid. Deal damage
       local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
       local default_damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
       for _,hit_entity in pairs(impacted_entities) do
@@ -491,14 +512,9 @@ trashsteroid_lib.trashsteroid_impact_update = function()
       })
 
       on_trashsteroid_removed(trashsteroid) --Perform common cleanup
-      --[[Destroy the renders
-      trashsteroid.render_solid.destroy()
-      trashsteroid.render_shadow.destroy()
-
-      --Delist before destruction.
-      storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
-      storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1]]
       entity.destroy()
+
+      ::continue::
   end  
 end
 
@@ -513,6 +529,7 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
 
 
   local trashsteroid = storage.active_trashsteroids[tostring(entity.unit_number)]
+  assert(trashsteroid, "Trashsteroid not found!")
 
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
   local collector = find_closest_collector(trashsteroid)
@@ -529,8 +546,45 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
     })
   end
 
-
-  --TODO
-  
+  --TODO???
   on_trashsteroid_removed(trashsteroid) --Common cleanup
+end
+
+
+--Debugging function
+trashsteroid_lib.print_pending_trashsteroid_data = function()
+  local string = "Total pending trashsteroids = " .. tostring(storage.pending_trashsteroid_data and #storage.pending_trashsteroid_data or 0) 
+  string = string .. ". Tick = " .. game.tick .. ":\n"
+  for key, tick in pairs(storage.pending_trashsteroid_data) do
+    string = string .. key .. ":" .. tick .. ", "
+  end
+  game.print(string)
+  log(string)
+end
+trashsteroid_lib.print_active_trashsteroid_data = function()
+  local string = "Total active trashsteroids = " .. tostring(storage.active_trashsteroid_count or 0)
+  string = string .. ". Tick = " .. game.tick .. ". Key-death ticks:\n"
+  for key, roid in pairs(storage.active_trashsteroids) do
+    string = string .. key .. ":" .. roid.death_tick .. ", "
+  end
+  game.print(string)
+  log(string)
+end
+
+--If trashsteroids are extremely old, then reset!
+trashsteroid_lib.reset_failsafe = function ()
+  if not storage.active_trashsteroids then return end
+  local trashsteroid = nil
+  for _, trashsteroid_iter in pairs(storage.active_trashsteroids or {}) do
+    trashsteroid = trashsteroid_iter; break
+  end
+  --If the first trashstroid we find is very stale, then RESET!
+  if trashsteroid and (trashsteroid.death_tick + 60*60 < game.tick) then
+    log("Activating trashsteroid reset failsafe. If this happens repeatedly, report to the mod creator."
+    .. " Resetting with Death tick = " .. trashsteroid.death_tick .. ", game.tick = " 
+    .. game.tick .. ", Valid = " .. tostring(trashsteroid.entity.valid))
+    trashsteroid_lib.hard_refresh()
+    --clear_logged_trashsteroids()
+    trashsteroid_lib.print_active_trashsteroid_data()
+  end
 end

@@ -238,7 +238,9 @@ end)
 script.on_nth_tick(10, function()
   wind_speed_lib.fluctuate_wind_speed(10)
 end)
-
+script.on_nth_tick(60 * 10, function()
+  trashsteroid_lib.reset_failsafe()
+end)
 
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)
