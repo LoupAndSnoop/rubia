@@ -144,8 +144,8 @@ end
 local function find_all_entity_of_name(input_name)
   local out_entity_table = {}
   local surface_array = game.surfaces
-  for k,q in pairs(surface_array) do --names of surfaces are in keys
-      local current_surface = game.get_surface(k)
+  for key, _ in pairs(surface_array or {}) do --names of surfaces are in keys
+      local current_surface = game.get_surface(key)
       local entity_array = current_surface.find_entities_filtered{name = input_name} --input_name
 
       if(table_size(entity_array) == 0) then -- That entity is not on this surface
@@ -159,13 +159,19 @@ end
 
 --On game startup, clear anything already existing.
 local function clear_all_trashsteroids()
+  storage.active_trashsteroids = storage.active_trashsteroids or {}
   -- Clear all existing trashsteroids
   for _, tname in pairs(trashsteroid_names) do
     local trashsteroids = find_all_entity_of_name(tname)
-    for _, entity in pairs(trashsteroids) do
-      if entity.valid then entity.destroy() end 
+    for _, entity_list in pairs(trashsteroids) do
+      for _, entity in pairs(entity_list) do
+        if not entity.unit_number then log(serpent.block(entity)) end
+        storage.active_trashsteroids[tostring(entity.unit_number)] = nil
+        if entity.valid then entity.destroy() end 
+      end
     end
   end
+  assert(table_size(storage.active_trashsteroids) == 0, "There are still some active trashsteroids! Report to the mod author.")
   storage.active_trashsteroids = {}
   storage.active_trashsteroid_count = 0
 end

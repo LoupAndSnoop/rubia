@@ -3,7 +3,6 @@ _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
 wind_speed_lib = require("__rubia__.script.wind-speed-visuals")
 require("__rubia__.script.chunk-checker")
---require("__rubia__.lib.function-serializer")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
@@ -15,6 +14,12 @@ local entity_swap = require("__rubia__.script.entity-swap")
 local technology_scripts = require("__rubia__.script.technology-scripts")
 local entity_modifier = require("__rubia__.lib.entity-modifier")
 require("__rubia__.script.emergency-failsafes")
+
+
+--Compatibility calls
+require("__rubia__.compat.simple-adjustable-inserters")
+
+
 --#region Technology/Sci related
 --[[
 local trashdragon = require("__rubia__.script.project-trashdragon")
@@ -185,6 +190,9 @@ if script.active_mods["quick-adjustable-inserters"] then
   end)
 end
 if script.active_mods["simpleadjustableinserters"] then
+
+  --local sai_events = {"sai_set_drop_forwards", "sai_set_drop_backwards",
+  --    "sai_rotate_pickup_clockwise","sai_rotate_pickup_anti_clockwise"}
   --script.on_event({"sai_set_drop_forwards", "sai_set_drop_backwards", "sai_rotate_pickup_"}, function(event)
   --  rubia_wind.wind_rotation(event.inserter, event.player_index) 
   --end)

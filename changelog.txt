@@ -2,6 +2,9 @@
 Version: 0.69.32
 Date: ????
   Changes:
+    - Simple Adjustable inserter compatibility
+    - Smart inserters compatibility
+    - Fixed a bug that caused some trashsteroids to hover in place... menacingly! It affected some users, primarily when loading new mod configurations.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.31
 Date: 2025-05-24
