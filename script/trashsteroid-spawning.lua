@@ -94,6 +94,8 @@ end
 --Return the closerst garbo collector in range (LuaEntity) that is in range of an impact to make a chunk projectiles, and is valid to collect.
 --If no valid collector found, return nil.
 local function find_closest_collector(trashsteroid)
+  if not trashsteroid or not trashsteroid.entity or not trashsteroid.entity.valid then return end
+
   local start = trashsteroid.entity.position
   local collectors = storage.rubia_surface.find_entities_filtered({
     position = start,
@@ -440,6 +442,7 @@ end]]
 --What to do when this trashsteroid is removed. Takes care of maintaining caches.
 --Includes cleanup common to any mode of death (impact/shot/etc).
 local function on_trashsteroid_removed(trashsteroid)
+    if not trashsteroid then return end
     --Destroy the renders
     trashsteroid.render_solid.destroy()
     trashsteroid.render_shadow.destroy()
@@ -529,7 +532,7 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
 
 
   local trashsteroid = storage.active_trashsteroids[tostring(entity.unit_number)]
-  assert(trashsteroid, "Trashsteroid not found!")
+  --assert(trashsteroid, "Trashsteroid not found!")
 
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
   local collector = find_closest_collector(trashsteroid)
