@@ -2,6 +2,7 @@
 Version: 0.69.34
 Date: ????
   Changes:
+    - Fixed a technology bug from the last patch.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.33
 Date: 2025-05-24
