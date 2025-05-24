@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.33
-Date: ????
+Date: 2025-05-24
   Balancing:
     - Eff4 mods nerfed from -1% speed to -2% speed.
     - Trashsteroid laser resistance 60%=>85%.
