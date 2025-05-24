@@ -2,6 +2,10 @@
 Version: 0.69.25
 Date: ????
   Changes:
+    - Alien Biomes compatibility
+    - Fixed promethium sci techs.... again again!
+    - Added rubia sci to corrundum's infinite research speed.
+    - Added emergency failsafe to un-fuck save files messed up by alien biomes before. Use this console command: /c __rubia__ rubia.emergency_failsafes.clear_rubia_entities_from_nauvis()
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.24
 Date: 2025-05-23

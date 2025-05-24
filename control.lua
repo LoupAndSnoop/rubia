@@ -14,6 +14,7 @@ local lore_mining = require("__rubia__.script.lore-mining")
 local entity_swap = require("__rubia__.script.entity-swap")
 local technology_scripts = require("__rubia__.script.technology-scripts")
 local entity_modifier = require("__rubia__.lib.entity-modifier")
+require("__rubia__.script.emergency-failsafes")
 --#region Technology/Sci related
 --[[
 local trashdragon = require("__rubia__.script.project-trashdragon")

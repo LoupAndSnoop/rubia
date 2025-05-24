@@ -6,7 +6,6 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local simulations = require("__rubia__.prototypes.factoriopedia-simulations")
 local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 
-
 --Their resource function. Not sure how call theirs without copying it, but this should work
 local function resource(resource_graphic,resource_parameters, autoplace_parameters)
   return

@@ -541,7 +541,7 @@ data:extend
     
     autoplace = -- medium rocks
     {
-      control = "rocks",
+      --control = "rocks",
       order = "a[doodad]-a[rock]-c[medium]",
       probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
       local_expressions =
@@ -844,7 +844,7 @@ data:extend
   ),
     autoplace = 
     { -- Mimic medium rock
-      control = "rocks",
+      --control = "rocks",
       order = "a[doodad]-a[rock]-c[medium]",
       probability_expression = "multiplier * control * (region_box + rock_density - penalty)",
       local_expressions =
