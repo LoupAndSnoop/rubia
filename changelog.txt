@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.32
-Date: ????
+Date: 2025-05-24
   Changes:
     - Simple Adjustable inserter compatibility
     - Smart inserters compatibility
