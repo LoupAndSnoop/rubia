@@ -45,7 +45,7 @@ local internal_whitelist = {
 
 --All entities in these prototype type will be blacklisted automatically, unless explicitly whitelisted.
 --This accounts for mods adding variants in these prototypes.
-local prototype_type_blacklist = {"logistic-container",
+local prototype_type_blacklist = {--"logistic-container",
     "locomotive", "cargo-wagon", "fluid-wagon", "artillery-wagon",
     "linked-container", "linked-belt"
 }
@@ -66,7 +66,26 @@ end
 for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) do
     for _, prototype in pairs(data.raw[type_to_check]) do
         if prototype.crafting_categories and rubia_lib.array_find(prototype.crafting_categories, "recycling") then
-            table.insert(internal_blacklist, {type = "furnace", name= prototype.name})
+            table.insert(internal_blacklist, {type = type_to_check, name= prototype.name})
+        end
+    end
+end
+
+
+--Banning logistic containers EXCEPT storage and passive providers. If not defined, ban it
+--[[local banned_modes = rubia_lib.array_to_hashset({ --Both string and enum forms
+    "buffer", "active-provider", "requester",
+    defines.logistic_mode.buffer, defines.logistic_mode.requester, defines.logistic_mode.active_provider})
+]]
+local allowed_modes = rubia_lib.array_to_hashset({ --Both string and enum forms
+    "none", "passive-provider", "storage",
+    defines.logistic_mode.none, defines.logistic_mode.passive_provider, defines.logistic_mode.storage})
+for _, type_to_check in pairs({"logistic-container"}) do
+    for _, prototype in pairs(data.raw[type_to_check] or {}) do
+        --log("Checking: " .. prototype.name .. " - " .. tostring(prototype.logistic_mode))
+        if not allowed_modes[prototype.logistic_mode or "blank"] then
+            table.insert(internal_blacklist, {type = type_to_check, name= prototype.name})
+        --else log("Not banning: " .. prototype.name .. " - " .. tostring(prototype.logistic_mode))--.. ": " .. serpent.block(prototype))
         end
     end
 end
@@ -151,13 +170,12 @@ for _, entry in pairs(rubia.surface_blacklist) do
 end
 
 --Now go through all the blacklist
-local ban_string = ""
+log("Banning these entities from Rubia: " .. serpent.block(dictionary_blacklist))
 for category, sub_blacklist in pairs(dictionary_blacklist) do
     for _, prototype in pairs(data.raw[category]) do
         if rubia_lib.array_find(sub_blacklist, prototype.name) then
             rubia.ban_from_rubia(prototype)
-            ban_string = ban_string .. prototype.name .. ", "
         end
+        --log("Rail conditions = " .. serpent.block(data.raw["straight-rail"]["straight-rail"].surface_conditions))
     end
 end
-log("Banning from rubia: " .. ban_string)

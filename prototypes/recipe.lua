@@ -619,8 +619,8 @@ data:extend({
     name = "biorecycling-plant",
     icon = "__rubia-assets__/graphics/icons/biorecycling-plant.png",
     icon_size = 64,
-    subgroup = "production-machine",
-    order = "b[turret]-a[gun-turret]",
+    --subgroup = "production-machine",
+    --order = "c[assembling-machine-3]-ag[rubia]-a",
     category = "crafting",
     enabled = false,
     surface_conditions = rubia.surface_conditions(),
@@ -640,8 +640,8 @@ data:extend({
   name = "garbo-grabber",
   icon = "__rubia-assets__/graphics/icons/garbo-grabber.png",
   icon_size = 64,
-  subgroup = "production-machine",
-  order = "b[turret]-a[gun-turret]",
+  --subgroup = "production-machine",
+  --order = "c[assembling-machine-3]-ag[rubia]-c",
   category = "crafting",
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
@@ -662,8 +662,8 @@ data:extend({
   name = "crapapult",
   icon = "__rubia-assets__/graphics/icons/crapapult-icon.png",
   icon_size = 64,
-  subgroup = "production-machine",
-  order = "b[turret]-a[gun-turret]",
+  --subgroup = "production-machine",
+  --order = "c[assembling-machine-3]-ag[rubia]-b",
   category = "crafting",
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
@@ -684,7 +684,7 @@ data:extend({
   icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
   icon_size = 64,
   subgroup = "defensive-structure",
-  order = "b[turret]-a[gun-turret]-b",
+  --order = "b[turret]-a[gun-turret]-b",
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
@@ -768,8 +768,8 @@ data:extend({
   energy_required = 10,
   ingredients = {
       {type = "item", name = "craptonite-frame", amount = 10},
-      {type = "item", name = "steel-plate",           amount = 10},
-      {type = "item", name = "cargo-wagon",       amount = 1}
+      {type = "item", name = "steel-plate",      amount = 10},
+      {type = "item", name = "fluid-wagon",      amount = 1}
   },
   results = {
       {type = "item", name = "rubia-armored-fluid-wagon",      amount = 1}

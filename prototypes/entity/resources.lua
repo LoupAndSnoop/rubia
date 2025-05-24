@@ -94,7 +94,8 @@ data:extend({
   {
     type = "resource",
     name = "rubia-bacterial-sludge",
-    icon = "__rubia-assets__/graphics/entity/bacterial-sludge/sludge-well-icon.png",--"__base__/graphics/icons/crude-oil-resource.png",
+    icon = "__rubia-assets__/graphics/icons/bacterial-sludge-well-icon.png",
+    icon_size = 64,
     flags = {"placeable-neutral"},
     category = "basic-fluid",
     subgroup = "mineable-fluids",

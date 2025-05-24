@@ -2,6 +2,11 @@
 Version: 0.69.31
 Date: ????
   Changes:
+    - Armored fluid wagon now takes fluid wagons instead of cargo wagons.
+    - Reordered recipe/items of several rubia recipes and items.
+    - Fixed a big bug where Muluna would cause all rail materials to be automatically banned.
+    - Broadened compatibility for logistic containers, including Bob's Logistics and AAI containers.
+    - Rubia assets version up, because new bacterial sludge icon.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.30
 Date: 2025-05-24

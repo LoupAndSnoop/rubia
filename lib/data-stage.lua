@@ -17,11 +17,15 @@ rubia.ban_from_rubia = function(prototype)
     local function rubia_condition()
         return {property = "rubia-wind-speed", min = 0, max = 100,}
     end
+    --log("Banning from Rubia: " .. prototype.name)
+    --This needs to be made separately, because different prototypes might refer to the same object.
 
     if (not prototype.surface_conditions or #prototype.surface_conditions == 0) then
         prototype.surface_conditions = {rubia_condition()}
-
     else
+        --We need to make a brand new object this because some prototypes all refer to one common object.
+        prototype.surface_conditions = util.table.deepcopy(prototype.surface_conditions)
+
         --Check if the prototype has wind speed already defined. If it does, update it
         for i, condition in pairs(prototype.surface_conditions) do
             if condition.property == "rubia-wind-speed" then
@@ -30,8 +34,8 @@ rubia.ban_from_rubia = function(prototype)
             end
         end
         --No dupes found, just add it in.
-        --prototype.surface_conditions[#prototype.surface_conditions + 1] = rubia_condition()
-        table.insert(prototype.surface_conditions, rubia_condition())
+        prototype.surface_conditions[#prototype.surface_conditions + 1] = rubia_condition()
+        --table.insert(prototype.surface_conditions, rubia_condition())
         --log("added manually" .. prototype.name)
     end
 end
@@ -125,7 +129,7 @@ function rubia_lib.get_child_technologies(tech_name)
 	local children = {}
 	for _, tech in pairs(data.raw.technology) do
 		if tech.prerequisites then
-			for _, prereq in ipairs(tech.prerequisites) do
+			for _, prereq in ipairs(tech.prerequisites or {}) do
 				if prereq == tech_name then
 					table.insert(children, tech.name)
 					break
