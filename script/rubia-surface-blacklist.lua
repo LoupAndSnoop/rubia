@@ -151,10 +151,13 @@ for _, entry in pairs(rubia.surface_blacklist) do
 end
 
 --Now go through all the blacklist
+local ban_string = ""
 for category, sub_blacklist in pairs(dictionary_blacklist) do
     for _, prototype in pairs(data.raw[category]) do
         if rubia_lib.array_find(sub_blacklist, prototype.name) then
             rubia.ban_from_rubia(prototype)
+            ban_string = ban_string .. prototype.name .. ", "
         end
     end
 end
+log("Banning from rubia: " .. ban_string)

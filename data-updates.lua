@@ -114,3 +114,11 @@ end
 --Make biofusion science possible
 local bacteria_recipe = data.raw.recipe["iron-bacteria-cultivation"]
 if bacteria_recipe then bacteria_recipe.surface_conditions = nil end
+
+
+--------
+---Other mods add surface properties
+
+if data.raw["surface-property"].temperature then
+  data.raw.planet.rubia.surface_properties["temperature"] = 324
+end
