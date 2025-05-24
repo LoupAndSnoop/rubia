@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.25
-Date: ????
+Date: 2025-05-24
   Changes:
     - Alien Biomes compatibility
     - Fixed promethium sci techs.... again again!
