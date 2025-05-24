@@ -16,7 +16,7 @@ data:extend({
         drop_sound = item_sounds.module_inventory_move,
         stack_size = 50,
         weight = 20 * kg,
-        effect =  {consumption = -1, speed=-0.01},--{consumption = -0.5},
+        effect =  {consumption = -1, speed=-0.02},--{consumption = -0.5},
         beacon_tint =
         {
           primary = {0, 1, 0},

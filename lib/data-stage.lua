@@ -128,7 +128,10 @@ function rubia_lib.get_child_technologies(tech_name)
 
 	local children = {}
 	for _, tech in pairs(data.raw.technology) do
-		if tech.prerequisites then
+        --log("Checking to hide: " .. serpent.block(tech))
+        if type(tech.prerequisites) ~= type({}) then return {} end --RJDunlap didn't fix his Tapatrion mod >:(
+		
+        if tech.prerequisites then
 			for _, prereq in ipairs(tech.prerequisites or {}) do
 				if prereq == tech_name then
 					table.insert(children, tech.name)

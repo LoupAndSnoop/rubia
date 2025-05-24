@@ -12,7 +12,7 @@ local function trashsteroid_resistances()
     return     {
         {type = "fire", percent = 80},
         {type = "impact", percent = 100}, --decrease = 50
-        {type = "laser", percent = 60},
+        {type = "laser", percent = 85},
         {type = "electric", percent = 100},
         {type = "poison", percent = 100},
       }

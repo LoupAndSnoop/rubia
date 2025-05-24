@@ -1,7 +1,12 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.33
 Date: ????
-  Changes:
+  Balancing:
+    - Eff4 mods nerfed from -1% speed to -2% speed.
+    - Trashsteroid laser resistance 60%=>85%.
+  Bugfixes:
+    - My mod no longer crashes with Tapatrion. Tapatrion now crashes all by itself.
+    - Fixed a bug that would stop you from loading the map due to stale trashsteroid data.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.32
 Date: 2025-05-24

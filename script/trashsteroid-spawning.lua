@@ -156,7 +156,8 @@ local function find_all_entity_of_name(input_name)
   return out_entity_table
 end
 
-
+--Function to call to clean up trashsteroid data
+local on_trashsteroid_removed
 --On game startup, clear anything already existing.
 local function clear_all_trashsteroids()
   storage.active_trashsteroids = storage.active_trashsteroids or {}
@@ -171,6 +172,14 @@ local function clear_all_trashsteroids()
       end
     end
   end
+
+  --We may have gotten rid of all the actual rocks, but we still need to clear the data fully.
+  local old_trash_data_to_clear = util.table.deepcopy(storage.active_trashsteroids or {})
+  for _, trashsteroid in pairs(old_trash_data_to_clear) do
+    on_trashsteroid_removed(trashsteroid)
+    if trashsteroid.entity.valid then trashsteroid.entity.destroy() end
+  end
+
   assert(table_size(storage.active_trashsteroids) == 0, "There are still some active trashsteroids! Report to the mod author.")
   storage.active_trashsteroids = {}
   storage.active_trashsteroid_count = 0
@@ -447,7 +456,7 @@ end]]
 
 --What to do when this trashsteroid is removed. Takes care of maintaining caches.
 --Includes cleanup common to any mode of death (impact/shot/etc).
-local function on_trashsteroid_removed(trashsteroid)
+function on_trashsteroid_removed(trashsteroid)
     if not trashsteroid then return end
     --Destroy the renders
     trashsteroid.render_solid.destroy()
