@@ -38,7 +38,7 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 - **Can be added to existing Space Age saves.**
 - Rubia science being added to infinite research productivity research can be toggled.
 - Despite the junk theme, this mod does NOT play like Fulgora at all.
-- Rubia is explicitly compatible with several adjustasble inserter mods: Bob's inserters, JanSharp's quick adjustable inserters, Renai Transportation.
+- Rubia is explicitly compatible with several adjustasble inserter mods: Bob's inserters, JanSharp's quick adjustable inserters, Renai Transportation, Smart inserters, Therenas' simple adjustable inserters, Diagonal inserters.
 - Rubia has special cameo technologies that appear when certain other planet mods are installed.
 
 ---
