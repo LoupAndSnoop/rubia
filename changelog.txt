@@ -2,6 +2,7 @@
 Version: 0.69.29
 Date: ????
   Changes:
+    - Fixed the addition of the Chinese locale file.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.28
 Date: 2025-05-24
