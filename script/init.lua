@@ -1,4 +1,5 @@
 local picker_dollies = require("__rubia__.compat.pickier-dollies")
+local discovery_tree = require("__rubia__.compat.discovery-tree")
 
 local init_functions = {}
 
@@ -45,6 +46,7 @@ end
 --Everything to be done every time we boot up the game, via init OR load
 function init_functions.on_every_load()
     picker_dollies.add_picker_dollies_blacklists()
+    if discovery_tree.update_tech_discovery_blacklist then discovery_tree.update_tech_discovery_blacklist() end
 end
 
 return init_functions

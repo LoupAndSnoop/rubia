@@ -706,4 +706,25 @@ if mods["planet-muluna"] then  --TODO
     })
 end
 
+if mods["cubium"] then 
+    local reach_modifier_cubium = 2
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-bracer",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-cube-bracelet.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = 'character-build-distance', modifier = reach_modifier_cubium, hidden=true},
+                {type = 'character-item-drop-distance', modifier = reach_modifier_cubium, hidden=true},
+                {type = 'character-resource-reach-distance', modifier = reach_modifier_cubium, hidden=true},
+                {type = 'character-reach-distance', modifier = reach_modifier_cubium},
+            },
+            prerequisites = {"craptonite-axe", "cube-mastery-4"},
+            research_trigger = {type = "craft-item", item="yeet-dream-concentrate-barrel", count=100},
+        },
+    })
+end
+
 --#endregion

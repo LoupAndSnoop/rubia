@@ -60,3 +60,38 @@ remote.add_interface("maraxsis-character-modifier",{
     set_light_radius_modifier = function(source_key, modifier) set_modifier(source_key, "light_radius", modifier) end,
     set_swim_speed_modifier =   function(source_key, modifier) set_modifier(source_key, "swim_speed", modifier) end,
 })
+
+--------
+
+
+local blacklist = {}
+local function set_blacklisted_tech(technology_name, to_blacklist)
+    if to_blacklist then blacklist[technology_name] = true
+    elseif blacklist[technology_name] then blacklist[technology_name] = nil end
+end
+
+--Define the interface to modify underwater parameters
+remote.add_interface("discovery-tree-blacklist",{
+    blacklist_technology = function(technology_name) blacklist[technology_name] = true end,
+    unblacklist_technology = function(technology_name) blacklist[technology_name] = nil end,
+})
+
+
+local function check_techs(force)
+    local mode = settings.global["discovery-tree-mode"].value
+    local do_essential = settings.global["discovery-tree-require-essential"].value
+
+    local evaluated = evaluate_state(force)
+
+    for id, t in pairs(force.technologies) do
+        if t.valid and t.prototype.enabled then
+            evaluated[id] = evaluated[id] or { pre = 0, dst = 10, ess = false }
+            local required = 0
+            for _, _ in pairs(t.prerequisites) do
+                required = required + 1
+            end
+            t.enabled = blacklist[t] or
+                should_show(required, evaluated[id].pre, evaluated[id].dst, evaluated[id].ess, mode, do_essential)
+        end
+    end
+end

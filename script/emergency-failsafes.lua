@@ -45,3 +45,20 @@ rubia.emergency_failsafes.clear_rubia_entities_from_nauvis = function()
         nauvis.destroy_decoratives{position = entity.position}
     end
 end
+
+
+
+--[[
+--Testing scripts
+
+--To reach rubia with blank research.
+/c game.planets["rubia"].create_surface();
+game.players[1].teleport({x=0,y=0},game.surfaces["rubia"])
+game.forces["player"].technologies["planet-discovery-rubia"].research_recursive()
+
+
+/c game.planets["rubia"].create_surface();
+game.players[1].character.teleport( {x=0,y=0}, "rubia");
+game.forces["player"].technologies["planet-discovery-rubia"].research_recursive()
+
+]]

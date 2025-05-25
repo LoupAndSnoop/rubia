@@ -2,11 +2,14 @@
 Version: 0.69.35
 Date: ????
   Changes:
+    - Fixed weird save bug.
+    - Added cross-tech with Cubium.
+    - Rubia assets version+ to match with the asset for the Cubium tech.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.34
 Date: 2025-05-24
   Changes:
-    - Fixed a technology bug from the last patch.
+    - Fixed a technology bug from the last patch. Sorry!
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.33
 Date: 2025-05-24

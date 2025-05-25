@@ -91,7 +91,7 @@ lore_mining.try_lore_when_mined = function(entity)
                 game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string}},{color=lore_color})
             end
             if entry.string2 then 
-                rubia.timing_manager.wait_then_do(entry.string2_delay or (5*60), "delayed-text-print", {game, 
+                rubia.timing_manager.wait_then_do(entry.string2_delay or (5*60), "delayed-text-print", {"game", 
                     {"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string2}}, {color=lore_color}})
             end
             if entry.execute then entry.execute(entity) end
