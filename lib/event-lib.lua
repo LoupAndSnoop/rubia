@@ -2,6 +2,8 @@
 --This file manages events more centrally than my horrible spaghetti.
 
 local lib = {}
+
+--#region General event management
 ---@type table<defines.events, fun(event: EventData)[]>
 local events = {}
 ---@type table<defines.events, string[]>
@@ -151,6 +153,76 @@ function lib.on_nth_tick(ticks, handle, func)
     end)
 end
 
+--#endregion
+
+--#region Compound event managment
+
+
+---@type fun(entity : LuaEntity, player_index? : uint)[], fun(entity : LuaEntity, player_index? : uint)[]
+local on_built, on_built_early = {}, {}
+---@type string[], string[]
+local on_built_names, on_built_early_names = {}, {}
+local on_built_events = {defines.events.on_built_entity, defines.events.on_robot_built_entity,
+  defines.events.script_raised_built, defines.events.script_raised_revive}
+
+
+---@param event EventData.on_built_entity | EventData.on_robot_built_entity | EventData.script_raised_built | EventData.script_raised_revive | 
+local function do_on_built(event)
+    local entity = event.entity
+    local player_index = event.player_index
+    --Consolidate robot/player events, if possible. player index may stil be nil
+    if not player_index and event.robot and event.robot.valid then
+        local cell = event.robot.logistic_cell
+        local owner = cell and cell.owner
+        if owner and owner.is_player() then player_index = owner.player.index end
+    end
+
+    for _, fun in pairs(on_built_early) do 
+        if not entity.valid then return end
+        fun(entity, player_index)
+    end
+    for _, fun in pairs(on_built) do 
+        if not entity.valid then return end
+        fun(entity, player_index)
+    end
+end
+
+---Assert that all normal events for the passed in event defines are blank.
+---@param event_defines_array uint[]
+local function assert_events_empty(event_defines_array)
+    for _, define in pairs(event_defines_array) do
+        if events[define] and (#events[define] > 0) then
+            error("Cannot use this function if we already have separated defines for this event index: " 
+                .. define .. ", Handlers: " .. serpent.block(events_names[define]))
+        end
+    end
+end
+
+---Subscribe the given function to build events under the given handle.
+---Input nil for a function to unsubscribe whatever is on that handle.
+---@param handle string Unique identifier for this function.
+---@param func fun(entity:LuaEntity, player_index?:uint) | nil To subscribe, or nil to unsubscribe
+function lib.on_built(handle, func)
+    assign_function(handle, func, on_built_names, on_built)
+    --This function is incompatible with assigning separate functions to each define. Check
+    assert_events_empty(on_built_events)
+    script.on_event(on_built_events, do_on_built)
+end
+---Subscribe the given function to build events under the given handle.
+---Execute these functions BEFORE the normal priority functions.
+---@param handle string Unique identifier for this function.
+---@param func fun(entity:LuaEntity, player_index?:uint) | nil To subscribe, or nil to unsubscribe
+function lib.on_built_early(handle, func)
+    assign_function(handle, func, on_built_early_names, on_built_early)
+    --This function is incompatible with assigning separate functions to each define. Check
+    assert_events_empty(on_built_events)
+    script.on_event(on_built_events, do_on_built)
+end
+
+--#endregion
+
+
+--#region Debug
 ---Print a string representation of everything that is currently subscribed.
 ---@return string
 function lib.to_string()
@@ -180,6 +252,9 @@ function lib.to_string()
         end
     end
 
+    str = str .. "On built early. " .. array_to_string(on_built_early_names)
+    str = str .. "On built. " .. array_to_string(on_built_names)
+
     --For Nth tick
     for tick_count, handler_array in pairs(on_nth_ticks_names) do
         if handler_array and (#handler_array) > 0 then
@@ -191,7 +266,6 @@ function lib.to_string()
     return str
 end
 
-
 --Give a global function call to print events.
 _G.rubia = rubia or {}
 --Print all event handlers, to see what is currently subscribed.
@@ -200,5 +274,6 @@ function rubia.print_events()
     log("Rubia event log:")
     log(lib.to_string())
 end
+--#endregion
 
 return lib

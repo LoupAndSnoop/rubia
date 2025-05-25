@@ -57,11 +57,11 @@ end
 
 --Cutscene and surface-change related things
 
-script.on_event(defines.events.on_player_changed_surface, function(event)
+--[[script.on_event(defines.events.on_player_changed_surface, function(event)
   if game.get_surface("rubia") then
     chunk_checker.try_update_player_pos(game.get_player(event.player_index), game.get_surface("rubia"))
   end
-end)
+end)]]
 
 script.on_event(defines.events.on_player_died, function(event)
   landing_cutscene.cancel_on_player_death(event)
@@ -96,8 +96,9 @@ event_lib.on_event(defines.events.on_entity_settings_pasted,
   "wind-rotation",
   function(event) rubia_wind.wind_rotation(event.destination, event.player_index) end)
 
+
+--[[
 local function do_on_built_changes(event)
-  --trashdragon.on_built_rocket_silo(event)
   entity_swap.try_entity_swap(event)
   if not event.entity.valid or event.entity.surface.name ~= "rubia" then return end
 
@@ -114,18 +115,25 @@ local function do_on_built_changes(event)
   --entity_modifier.update_on_build(event.entity)
   chunk_checker.register_new_entity(event.entity)
 end
-
 event_lib.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
   defines.events.script_raised_built, defines.events.script_raised_revive}, 
   "general-on-built", function(event) 
   do_on_built_changes(event)
-end)
+end)]]
 
 
+event_lib.on_built_early("entity-swap", entity_swap.try_entity_swap)
+event_lib.on_built("wind-rotation", rubia_wind.wind_rotation)
+event_lib.on_built("wind-turbine-quality", quality_correct_wind_turbine)
+--event_lib.on_built("chunk-checker-register", function(entity)
+--  if entity.surface.name == "rubia" then chunk_checker.register_new_entity(entity) end end)
+
+--[[
 script.on_event(defines.events.on_object_destroyed, function(event)
   chunk_checker.delist_entity(event.registration_number)
   --entity_modifier.update_on_object_destroyed(event.registration_number)
 end)
+]]
 
 
 ---------
@@ -159,13 +167,6 @@ script.on_event(defines.events.on_gui_checked_state_changed, function(event)
   end
 end)
 
---[[
-  if event.gui_type == defines.gui_type.entity and event.entity
-    and event.entity.valid then 
-      --For adjustable inserters
-      rubia_wind.wind_rotation(event.entity, event.player_index) 
-  end
-]]
 
 --#endregion
 
@@ -196,11 +197,12 @@ script.on_event(defines.events.on_chunk_charted, function(event)
   trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
 end)
 
+--[[
 script.on_event(defines.events.on_player_changed_position, function(event)
   chunk_checker.try_update_player_pos(game.get_player(event.player_index), storage.rubia_surface)
 end)
 
---[[
+
 script.on_nth_tick(1,function()
   rubia.timing_manager.update()
   trashsteroid_lib.try_spawn_trashsteroids()
@@ -225,12 +227,13 @@ script.on_nth_tick(60 * 10, function()
   trashsteroid_lib.reset_failsafe()
 end)]]
 
-event_lib.on_nth_tick(1, "timing-manager", rubia.timing_manager.update)
+--event_lib.on_nth_tick(1, "timing-manager", rubia.timing_manager.update)
 event_lib.on_nth_tick(1, "trashsteroid-spawn", trashsteroid_lib.try_spawn_trashsteroids)
 event_lib.on_nth_tick(3, "trashsteroid-render-update", trashsteroid_lib.update_trashsteroid_rendering)
 event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
 event_lib.on_nth_tick(10, "wind-fluctuation", function() wind_speed_lib.fluctuate_wind_speed(10) end)
 event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)
+
 
 
 script.on_event(defines.events.on_entity_died, function(event)
@@ -241,7 +244,6 @@ end, {{filter = "name", name = "medium-trashsteroid"}})
 ----Mining item checks
 script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
   lore_mining.try_lore_when_mined(event.entity)
-
 end)
 
 --Start of rubia

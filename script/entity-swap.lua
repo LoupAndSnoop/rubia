@@ -27,8 +27,8 @@ local function is_swappable_entity(entity)
 end
 
 --On an event triggered by a building action, check to see if we need to do an entity swap. If so, then do it!
-entity_swap.try_entity_swap = function(event)
-    local entity = event.entity
+entity_swap.try_entity_swap = function(entity, player_index)
+    --local entity = event.entity; local player_index = event.player_index
     if not entity.valid then return end
 
     if not is_swappable_entity(entity) then return end
@@ -46,7 +46,7 @@ entity_swap.try_entity_swap = function(event)
     --game.print("Is rubia = " .. tostring(is_rubia) .. ", swap target = " .. (swap_target or "nil") .. ", name = " .. name)
     if not swap_target then return end --It is swappable, but it already matches the surface
 
-    local player = event.player_index and game.get_player(event.player_index)
+    local player = player_index and game.get_player(player_index)
 
     local new_entity = surface.create_entity {
         name = is_ghost and "entity-ghost" or swap_target,

@@ -92,16 +92,6 @@ rubia.timing_manager.update = function()
 end
 
 
---[[script.on_nth_tick(1,function()
-    if not storage.timing_queue then return end --Nothing is queued
-
-    local events_completed = {}
-    for event_id, event in pairs(storage.timing_queue) do
-        if (event and event.tick_to_execute <= game.tick) then --it is time!
-            event.to_call()
-            table.insert(events_completed, event_id)
-        end
-    end
-    if #events_completed > 0 then game.print("done:" .. serpent.block(events_completed)) end
-    rubia.timing_manager.dequeue_events(events_completed)
-end)]]
+--Event subscription
+local event_lib = require("__rubia__.lib.event-lib")
+event_lib.on_nth_tick(1, "timing-manager", rubia.timing_manager.update)

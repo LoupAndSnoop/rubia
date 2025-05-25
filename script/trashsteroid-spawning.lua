@@ -1,6 +1,7 @@
 --This file has the base functions and parameters for spawning and maintaining trashsteroids.
 
 local difficulty_scaling = require("__rubia__.script.trashsteroid-difficulty-scaling")
+local chunk_checker = require("__rubia__.script.chunk-checker")
 
 --Functions will be stored onto this global variable:
 _G.trashsteroid_lib = _G.trashsteroid_lib or {}

@@ -2,7 +2,7 @@
 --This file assume the surface is locked to rubia, and will not ask 
 --questions about whether or not the surface is relevant.
 
-_G.chunk_checker = {}
+local chunk_checker = {}
 
 local chunk_key_scale = 2^24
 --Take in the x and Y coord of a chunk, and output a key for tables
@@ -315,7 +315,34 @@ chunk_checker.try_update_player_pos = function(player, surface)
     storage.viewed_chunks[surface] = chunk_checker.currently_viewed_chunks(surface)]]
 end
 
+--#endregion
 
 
+--#region Event registration
+local event_lib = require("__rubia__.lib.event-lib")
+
+
+event_lib.on_event({defines.events.on_player_changed_surface,
+    defines.events.on_player_changed_position,
+    defines.events.on_player_left_game,
+    defines.events.on_player_joined_game,
+    defines.events.on_player_banned,
+    defines.events.on_player_kicked,},
+    "chunk-checker-player-pos",
+    function(event)
+        local surface = game.get_surface("rubia")
+        local player = game.get_player(event.player_index)
+        if surface then chunk_checker.try_update_player_pos(player, surface) end
+    end)
+
+event_lib.on_event(defines.events.on_object_destroyed, "chunk-checker-delist",
+    function(event) chunk_checker.delist_entity(event.registration_number) end)
+
+event_lib.on_built("chunk-checker-register", function(entity)
+  if entity.surface.name == "rubia" then
+    chunk_checker.register_new_entity(entity) end end)
 
 --#endregion
+
+
+return chunk_checker

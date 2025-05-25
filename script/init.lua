@@ -1,5 +1,6 @@
 local picker_dollies = require("__rubia__.compat.pickier-dollies")
 local discovery_tree = require("__rubia__.compat.discovery-tree")
+local chunk_checker = require("__rubia__.script.chunk-checker")
 
 local init_functions = {}
 
