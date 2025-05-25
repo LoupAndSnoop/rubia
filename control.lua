@@ -1,6 +1,8 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
+local event_lib = require("__rubia__.lib.event-lib")
+
 wind_speed_lib = require("__rubia__.script.wind-speed-visuals")
 require("__rubia__.script.chunk-checker")
 require("__rubia__.script.trashsteroid-blacklist")
@@ -19,26 +21,6 @@ require("__rubia__.script.emergency-failsafes")
 --Compatibility calls
 require("__rubia__.compat.simple-adjustable-inserters")
 
-
---#region Technology/Sci related
---[[
-local trashdragon = require("__rubia__.script.project-trashdragon")
-script.on_event(defines.events.on_built_entity, function(event)
-    trashdragon.on_built_rocket_silo(event)
-end)]]
-
---[[Disable makeshift/ghetto sci if the progression techs for which they are required are done.
-rubia.check_disable_temporary_science_recipes = function()
-  for _, force in pairs(game.forces) do
-    if force.technologies["rubia-progression-stage2"].researched then
-      force.recipes["makeshift-biorecycling-science-pack"].enabled = false
-    end
-    if force.technologies["craptonite-processing"].researched then
-    --if force.technologies["rubia-progression-stage3"].researched then
-      force.recipes["ghetto-biorecycling-science-pack"].enabled = false
-    end
-  end
-end]]
 
 script.on_event(defines.events.on_technology_effects_reset, function(event)
   technology_scripts.on_startup()
@@ -99,13 +81,20 @@ end)
 
 -------Scripts to subscribe functions to events tied to building/modifying
 
--- Scripts to execute rotation-corrections
+--[[ Scripts to execute rotation-corrections
 script.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity}, function(event)
   rubia_wind.wind_rotation(event.entity, event.player_index)
 end)
 script.on_event(defines.events.on_entity_settings_pasted, function(event)
   rubia_wind.wind_rotation(event.destination, event.player_index)
-end)
+end)]]
+
+event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity},
+  "wind-rotation",
+  function(event) rubia_wind.wind_rotation(event.entity, event.player_index) end)
+event_lib.on_event(defines.events.on_entity_settings_pasted,
+  "wind-rotation",
+  function(event) rubia_wind.wind_rotation(event.destination, event.player_index) end)
 
 local function do_on_built_changes(event)
   --trashdragon.on_built_rocket_silo(event)
@@ -126,8 +115,9 @@ local function do_on_built_changes(event)
   chunk_checker.register_new_entity(event.entity)
 end
 
-script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
-  defines.events.script_raised_built, defines.events.script_raised_revive}, function(event) 
+event_lib.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity,
+  defines.events.script_raised_built, defines.events.script_raised_revive}, 
+  "general-on-built", function(event) 
   do_on_built_changes(event)
 end)
 
@@ -189,16 +179,6 @@ if script.active_mods["quick-adjustable-inserters"] then
     rubia_wind.wind_rotation(event.inserter, event.player_index) 
   end)
 end
-if script.active_mods["simpleadjustableinserters"] then
-
-  --local sai_events = {"sai_set_drop_forwards", "sai_set_drop_backwards",
-  --    "sai_rotate_pickup_clockwise","sai_rotate_pickup_anti_clockwise"}
-  --script.on_event({"sai_set_drop_forwards", "sai_set_drop_backwards", "sai_rotate_pickup_"}, function(event)
-  --  rubia_wind.wind_rotation(event.inserter, event.player_index) 
-  --end)
-end
-
-
 
 --------------------
 
@@ -220,15 +200,10 @@ script.on_event(defines.events.on_player_changed_position, function(event)
   chunk_checker.try_update_player_pos(game.get_player(event.player_index), storage.rubia_surface)
 end)
 
-
+--[[
 script.on_nth_tick(1,function()
   rubia.timing_manager.update()
   trashsteroid_lib.try_spawn_trashsteroids()
-end)
-
-
-script.on_nth_tick(2, function()
-
 end)
 
 script.on_nth_tick(3, function()
@@ -248,7 +223,15 @@ script.on_nth_tick(10, function()
 end)
 script.on_nth_tick(60 * 10, function()
   trashsteroid_lib.reset_failsafe()
-end)
+end)]]
+
+event_lib.on_nth_tick(1, "timing-manager", rubia.timing_manager.update)
+event_lib.on_nth_tick(1, "trashsteroid-spawn", trashsteroid_lib.try_spawn_trashsteroids)
+event_lib.on_nth_tick(3, "trashsteroid-render-update", trashsteroid_lib.update_trashsteroid_rendering)
+event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
+event_lib.on_nth_tick(10, "wind-fluctuation", function() wind_speed_lib.fluctuate_wind_speed(10) end)
+event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)
+
 
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)
