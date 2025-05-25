@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.36
-Date: ????
+Date: 2025-05-25
   Changes:
     - Rubia productivity per tech level 10% => 5%
     - I did a big rework of the event handling for Rubia. This should make it much easier to expand Rubia the future. You should not notice any differences, but if bugs start showing up, please report them. If you have a problem, revert to the previous version of the mod while I fix whatever issue you might have.
