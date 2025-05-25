@@ -50,6 +50,17 @@ function init_functions.on_every_load()
     if discovery_tree.update_tech_discovery_blacklist then discovery_tree.update_tech_discovery_blacklist() end
 end
 
+
+--#region Event subscription
+local event_lib = require("__rubia__.lib.event-lib")
+
+event_lib.on_init("hard-initialize", init_functions.hard_initialize)
+event_lib.on_init("every-load", init_functions.on_every_load)
+event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initialize)
+event_lib.on_load("every-load", init_functions.on_every_load)
+
+--#endregion
+
 return init_functions
 
 

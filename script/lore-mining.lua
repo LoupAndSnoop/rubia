@@ -101,4 +101,12 @@ lore_mining.try_lore_when_mined = function(entity)
     end
 end
 
+--#region Event subscription
+local event_lib = require("__rubia__.lib.event-lib")
+event_lib.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity},
+  "lore-mining", function(event)
+  lore_mining.try_lore_when_mined(event.entity)
+end)
+--#endregion
+
 return lore_mining

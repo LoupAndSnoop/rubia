@@ -10,7 +10,7 @@ local wind_fluctuation_magnitude = 0.1 / 60 --Wind speed fluctuation per tick, t
 
 --Assign basic wind speed parameters to the surface, if possible.
 wind_speed_lib.try_set_wind_speed = function()
-    local surface = storage.rubia_surface
+    local surface = game.get_surface("rubia")--storage.rubia_surface
     if not surface then return end
 
     surface.wind_speed = base_wind_speed;
@@ -31,5 +31,14 @@ wind_speed_lib.fluctuate_wind_speed = function(tick_period)
     surface.wind_orientation = 0.25;
     surface.wind_orientation_change = 0;
 end
+
+--#region Events
+local event_lib = require("__rubia__.lib.event-lib")
+event_lib.on_event(defines.events.on_surface_created, 
+    "initial-wind-speed", wind_speed_lib.try_set_wind_speed)
+
+event_lib.on_nth_tick(10, "wind-fluctuation", function() wind_speed_lib.fluctuate_wind_speed(10) end)
+
+--#endregion
 
 return wind_speed_lib

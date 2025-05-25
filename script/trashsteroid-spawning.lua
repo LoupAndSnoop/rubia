@@ -607,3 +607,30 @@ trashsteroid_lib.reset_failsafe = function ()
     trashsteroid_lib.print_active_trashsteroid_data()
   end
 end
+
+--#region Event management
+local event_lib = require("__rubia__.lib.event-lib")
+
+event_lib.on_event({defines.events.on_research_finished, defines.events.on_technology_effects_reset},
+  "trashsteroid-difficulty-update", trashsteroid_lib.update_difficulty_scaling)
+
+event_lib.on_event(defines.events.on_chunk_charted, "trashsteroid-chunk-log",
+  function(event)
+    local surface = game.get_surface(event.surface_index)
+    trashsteroid_lib.log_chunk_for_trashsteroids(surface, event.position, event.area)
+end)
+
+event_lib.on_nth_tick(1, "trashsteroid-spawn", trashsteroid_lib.try_spawn_trashsteroids)
+event_lib.on_nth_tick(3, "trashsteroid-render-update", trashsteroid_lib.update_trashsteroid_rendering)
+event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
+event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)
+
+
+event_lib.on_init("trashsteroid-difficulty", trashsteroid_lib.update_difficulty_scaling)
+event_lib.on_configuration_changed("trashsteroid-difficulty", trashsteroid_lib.update_difficulty_scaling)
+
+script.on_event(defines.events.on_entity_died, function(event)
+  trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)
+end, {{filter = "name", name = "medium-trashsteroid"}})
+
+--#endregion

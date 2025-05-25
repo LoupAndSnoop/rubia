@@ -181,8 +181,20 @@ technology_scripts.on_startup = function()
 end
 
 --Testing tech hiding sync
-_G.rubia.testing.test_sync_tech_hiding = sync_all_unknown_techs
+_G.rubia.testing = rubia.testing or {}
+rubia.testing.test_sync_tech_hiding = sync_all_unknown_techs
 
+--#region Events
+local event_lib = require("__rubia__.lib.event-lib")
+
+event_lib.on_event(defines.events.on_technology_effects_reset, 
+  "tech-startup", technology_scripts.on_startup)
+event_lib.on_event(defines.events.on_research_finished, "tech-updates", function(event)
+  technology_scripts.on_research_update(event.research) end)
+event_lib.on_init("technology-start", technology_scripts.on_startup)
+event_lib.on_configuration_changed("technology-start", technology_scripts.on_startup)
+
+--#endregion
 
 
 return technology_scripts

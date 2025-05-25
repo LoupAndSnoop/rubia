@@ -576,4 +576,19 @@ rubia.testing.test_cutscene_cancel = function() cancel_cutscene(game.get_player(
 
 --#endregion
 
+
+--#region Event subscription
+local event_lib = require("__rubia__.lib.event-lib")
+
+event_lib.on_event(defines.events.on_cargo_pod_finished_ascending, "start-cutscene",
+  landing_cutscene.try_start_cutscene)
+event_lib.on_event(defines.events.on_player_respawned, "check-respawn",
+  landing_cutscene.check_respawn_off_rubia)
+event_lib.on_event(defines.events.on_space_platform_changed_state, "initial-journey-warning",
+  landing_cutscene.check_initial_journey_warning)
+event_lib.on_event(defines.events.on_player_died, "cancel-cutscene-death",
+  landing_cutscene.cancel_on_player_death)
+--#endregion
+
+
 return landing_cutscene

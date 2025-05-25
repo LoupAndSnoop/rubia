@@ -138,5 +138,13 @@ entity_swap.try_modified_gui = function(event)
 
 end]]
 
+--#region Events
+local event_lib = require("__rubia__.lib.event-lib")
+event_lib.on_built_early("entity-swap", entity_swap.try_entity_swap)
+
+log("WHEN EXPERIMENTAL RELEASED, ENABLE FOR RUBIA ROCKET SILOS")
+--event_lib.on_entity_gui_update("silo-update", entity_swap.rocket_silo_update) --TODO: On experimental released
+
+--#endregion
 
 return entity_swap
