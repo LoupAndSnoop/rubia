@@ -131,7 +131,7 @@ end
 
 --We need to make several tiers of shield so that the health bar looks half decent.
 --Make shields with each of these values:
-local shield_values = {1}
+local shield_values = {}
 for i = 50, 500, 50 do table.insert(shield_values, i) end
 for i = 600, 2000, 100 do table.insert(shield_values, i) end
 for i = 2100, 5000, 200 do table.insert(shield_values, i) end

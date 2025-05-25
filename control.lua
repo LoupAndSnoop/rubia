@@ -63,7 +63,7 @@ end
   end
 end)]]
 
-script.on_event(defines.events.on_player_died, function(event)
+--[[script.on_event(defines.events.on_player_died, function(event)
   landing_cutscene.cancel_on_player_death(event)
 end)
 
@@ -77,7 +77,16 @@ end)
 
 script.on_event(defines.events.on_space_platform_changed_state, function(event)
   landing_cutscene.check_initial_journey_warning(event)
-end)
+end)]]
+
+event_lib.on_event(defines.events.on_cargo_pod_finished_ascending, "start-cutscene",
+  landing_cutscene.try_start_cutscene)
+event_lib.on_event(defines.events.on_player_respawned, "check-respawn",
+  landing_cutscene.check_respawn_off_rubia)
+event_lib.on_event(defines.events.on_space_platform_changed_state, "initial-journey-warning",
+  landing_cutscene.check_initial_journey_warning)
+event_lib.on_event(defines.events.on_player_died, "cancel-cutscene-death",
+  landing_cutscene.cancel_on_player_death)
 
 -------Scripts to subscribe functions to events tied to building/modifying
 
@@ -141,6 +150,13 @@ end)
 
 --#region UI
 
+
+--entity_swap.rocket_silo_update(entity, player_index) --TODO: On experimental released
+
+
+event_lib.on_entity_gui_update("wind-rotation", rubia_wind.wind_rotation)
+event_lib.on_entity_gui_update("silo-update", entity_swap.rocket_silo_update) --TODO: On experimental released
+--[[
 ---Combine calls that happen on any gui updating event.
 ---@param player_index uint
 local function on_entity_gui_update(entity, player_index)
@@ -165,7 +181,7 @@ script.on_event(defines.events.on_gui_checked_state_changed, function(event)
     and player.opened.object_name == "LuaEntity" then
       on_entity_gui_update(player.opened, event.player_index)
   end
-end)
+end)]]
 
 
 --#endregion
@@ -242,12 +258,13 @@ end, {{filter = "name", name = "medium-trashsteroid"}})
 
 
 ----Mining item checks
-script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity}, function(event)
+event_lib.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity},
+  "lore-mining", function(event)
   lore_mining.try_lore_when_mined(event.entity)
 end)
 
 --Start of rubia
-script.on_event(defines.events.on_surface_created, function(event)
+event_lib.on_event(defines.events.on_surface_created, "rubia-created", function(event)
   if not storage.rubia_surface then
     local surface = game.get_surface(event.surface_index)
     if surface and surface.name == "rubia" then storage.rubia_surface = surface end
@@ -258,7 +275,19 @@ end)
 
 -----------
 
---Initialization/loadup
+--Initialization
+event_lib.on_init("hard-initialize", init_functions.hard_initialize)
+event_lib.on_init("every-load", init_functions.on_every_load)
+event_lib.on_init("technology-start", technology_scripts.on_startup)
+event_lib.on_init("trashsteroid-difficulty", trashsteroid_lib.update_difficulty_scaling)
+
+event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initialize)
+event_lib.on_configuration_changed("technology-start", technology_scripts.on_startup)
+event_lib.on_configuration_changed("trashsteroid-difficulty", trashsteroid_lib.update_difficulty_scaling)
+
+event_lib.on_load("every-load", init_functions.on_every_load)
+
+--[[Initialization/loadup
 script.on_init(function()
   init_functions.hard_initialize()
   init_functions.on_every_load()
@@ -274,7 +303,7 @@ end)
 
 script.on_load(function()
   init_functions.on_every_load()
-end)
+end)]]
 
 
 --[[Protect collectors from having items added to them

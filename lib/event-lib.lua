@@ -221,6 +221,35 @@ end
 
 --#endregion
 
+--#region Register event with non-event args
+
+
+---Invoke a function of entity,player_index whenever an entity UI is updated
+---@param handle string
+---@param func fun(entity:LuaEntity, player_index:uint) | nil
+lib.on_entity_gui_update = function(handle, func)
+    lib.on_event(defines.events.on_gui_closed, handle,
+        func and function(event)
+        local entity = event.entity
+        if event.gui_type == defines.gui_type.entity and entity
+            and entity.valid then 
+            func(entity, event.player_index)
+        end
+    end)
+
+    lib.on_event(defines.events.on_gui_checked_state_changed, handle, 
+        func and function(event)
+        local player = game.players[event.player_index]
+        if player.opened_gui_type == defines.gui_type.entity 
+            and player.opened.object_name == "LuaEntity" then
+            func(player.opened, event.player_index)
+        end
+    end)
+end
+
+
+
+--#endregion
 
 --#region Debug
 ---Print a string representation of everything that is currently subscribed.
