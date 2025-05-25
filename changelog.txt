@@ -2,6 +2,8 @@
 Version: 0.69.36
 Date: ????
   Changes:
+    - Rubia productivity per tech level 10% => 5%
+    - I did a big rework of the event handler for Rubia. This should make it much easier to expand in the future. You should not notice any differences, but if bugs start showing up, please report them.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.35
 Date: 2025-05-25

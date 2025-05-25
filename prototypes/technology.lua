@@ -481,8 +481,8 @@ data:extend({
         "__rubia-assets__/graphics/technology/craptonite-frame.png"),
     icon_size = 256,
     effects = {
-        {type = "change-recipe-productivity", recipe = "craptonite-casting", change = 0.1},
-        {type = "change-recipe-productivity", recipe = "assisted-frothing", change = 0.1},
+        {type = "change-recipe-productivity", recipe = "craptonite-casting", change = 0.05},
+        {type = "change-recipe-productivity", recipe = "assisted-frothing", change = 0.05},
     },
     prerequisites = {"planetslib-rubia-cargo-drops"},
     unit = {
