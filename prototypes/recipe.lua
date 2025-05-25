@@ -953,6 +953,7 @@ data:extend({
     results = {{type="fluid", name="holmium-solution", amount=250},
               {type = "item", name = "craptonite-frame", amount = 3, probability = 0.95, ignored_by_productivity=4}},
     allow_productivity = true,
+    auto_recycle=false,
   },
 
 --#endregion

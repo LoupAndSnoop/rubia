@@ -3,8 +3,12 @@ Version: 0.69.35
 Date: ????
   Changes:
     - Fixed weird save bug.
+    - Fixed cutscene crash.
+    - Fixed craptonite recycling into... holmium!?
     - Added cross-tech with Cubium.
     - Rubia assets version+ to match with the asset for the Cubium tech.
+    - Discovery tree compatibility.
+    - Found incompatibility with "Remove All Cargo Drop Technologies". I need to investigate further for a permanent fix. For now, I am marking this mod as an incompatiblity, as it causes crashes upon trying to leave Rubia. I'll consider removing this incompatibility when that is resolved, which requires edits from that mod's creator.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.34
 Date: 2025-05-24

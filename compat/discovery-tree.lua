@@ -15,14 +15,14 @@ end
 local compatibility = {}
 function compatibility.update_tech_discovery_blacklist()
     if not script.active_mods["discovery_tree"] 
-        or not remote.interfaces["discovery-tree-blacklist"] then return end
+        or not remote.interfaces["discovery-tree"] then return end
 
     local rubia_techs = find_all_rubia_techs()
     for _, tech in pairs(rubia_techs) do
-        remote.call("discovery-tree-blacklist", "blacklist_technology", tech)
+        remote.call("discovery-tree", "blacklist_technology", tech)
         log("Blacklisting: " .. tech)
     end
-    remote.call("discovery-tree-blacklist", "force_update")
+    remote.call("discovery-tree", "force_update")
 end
 
 return compatibility
