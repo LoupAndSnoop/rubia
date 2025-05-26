@@ -11,7 +11,7 @@
         "! disable-cargo-drops-techs"
     ],
     "space_travel_required": true,
-    "description": "🌐 Discover the wind planet Rubia. Belts and inserters work differently on Rubia, leading to unique building challenges not seen on any other planet. Your whole factory must go with the wind as a never-ending barrage of waste is hurled at your base.",
+    "description": "Discover the wind planet Rubia. Belts and inserters work differently on Rubia, leading to unique building challenges not seen on any other planet. Your whole factory must go with the wind as a never-ending barrage of waste is hurled at your base.",
     "homepage": "https://discord.gg/CaDJzEj557",
     "package":{
         "ignore":[ "**/*.mp3", "**/*.xcf", ".vscode/*", "deprecated/*"]

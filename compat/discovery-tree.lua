@@ -25,6 +25,12 @@ function compatibility.update_tech_discovery_blacklist()
     remote.call("discovery-tree", "force_update")
 end
 
+--Events
+local event_lib = require("__rubia__.lib.event-lib")
+event_lib.on_init("discovery-tree", compatibility.update_tech_discovery_blacklist)
+event_lib.on_configuration_changed("discovery-tree", compatibility.update_tech_discovery_blacklist)
+-----
+
 return compatibility
 
 --[[

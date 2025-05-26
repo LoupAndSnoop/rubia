@@ -727,4 +727,27 @@ if mods["cubium"] then
     })
 end
 
+--[[
+----TODO: When Jahtra launches
+if mods["jahtra"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-hip-replacement",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-hip-replacement.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "character-inventory-slots-bonus", modifier = 10},
+                --{type = "character-running-speed", modifier = -0.1,
+                --    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-slow-speed-icon.png", icon_size=64},
+                {type = "character-health-bonus", modifier = -50, 
+                    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
+            },
+            prerequisites = {"craptonite-axe", "jahtra-advanced-materials-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-jahtra-high-performance-alloy", count=1000},
+        },
+    })
+end]]
+
 --#endregion

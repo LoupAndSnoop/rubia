@@ -20,6 +20,8 @@ require("__rubia__.script.emergency-failsafes")
 
 --Compatibility calls
 require("__rubia__.compat.simple-adjustable-inserters")
+require("__rubia__.compat.pickier-dollies")
+require("__rubia__.compat.discovery-tree")
 
 
 ---Fake quality scaling onto the wind turbine.

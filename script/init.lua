@@ -1,5 +1,4 @@
-local picker_dollies = require("__rubia__.compat.pickier-dollies")
-local discovery_tree = require("__rubia__.compat.discovery-tree")
+--local discovery_tree = require("__rubia__.compat.discovery-tree")
 local chunk_checker = require("__rubia__.script.chunk-checker")
 
 local init_functions = {}
@@ -35,8 +34,6 @@ local function promethium_warning()
 end
 
 
-
-
 --Hard re-initialize. Nuke data, and recalculate everything the mod needs. Helpful for when everything is fucked.
 function init_functions.hard_initialize()
     promethium_warning()
@@ -46,8 +43,8 @@ end
 
 --Everything to be done every time we boot up the game, via init OR load
 function init_functions.on_every_load()
-    picker_dollies.add_picker_dollies_blacklists()
-    if discovery_tree.update_tech_discovery_blacklist then discovery_tree.update_tech_discovery_blacklist() end
+    --picker_dollies.add_picker_dollies_blacklists()
+    --if discovery_tree.update_tech_discovery_blacklist then discovery_tree.update_tech_discovery_blacklist() end
 end
 
 
@@ -62,7 +59,3 @@ event_lib.on_load("every-load", init_functions.on_every_load)
 --#endregion
 
 return init_functions
-
-
---picker_dollies.add_picker_dollies_blacklists()
---game.forces["player"].technologies["rubia-progression-stage2"].enabled = false
