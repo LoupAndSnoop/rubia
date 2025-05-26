@@ -28,20 +28,18 @@ end
 
 --Cerys
 if mods["Cerys-Moon-of-Fulgora"] then
-    if data.raw.technology["holmium-plate-productivity-1"] then
-        table.insert(data.raw.technology["holmium-plate-productivity-1"].effects, {
+    if data.raw.technology["cerys-holmium-plate-productivity-1"] then
+        table.insert(data.raw.technology["cerys-holmium-plate-productivity-1"].effects, {
             type = "change-recipe-productivity",
-            recipe = "holmium-craptalysis",
+            recipe = "rubia-holmium-craptalysis",
             change = 0.1,
-            hidden = true
         })
     end
-    if data.raw.technology["holmium-plate-productivity-2"] then
-        table.insert(data.raw.technology["holmium-plate-productivity-2"].effects, {
+    if data.raw.technology["cerys-holmium-plate-productivity-2"] then
+        table.insert(data.raw.technology["cerys-holmium-plate-productivity-2"].effects, {
             type = "change-recipe-productivity",
-            recipe = "holmium-craptalysis",
+            recipe = "rubia-holmium-craptalysis",
             change = 0.1,
-            hidden = true
         })
     end
 end

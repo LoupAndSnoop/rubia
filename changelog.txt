@@ -2,6 +2,9 @@
 Version: 0.69.37
 Date: ????
   Changes:
+    - Lyrical music -50% nerf
+    - Compatibility fix of Holmium craptalysis with Prod tech limits mod.
+    - Holmium prod from Cerys now properly affects holmium craptalysis.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.36
 Date: 2025-05-25

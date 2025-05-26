@@ -98,7 +98,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound =  recycle_track,
-        weight = 2
+        weight = 1
     },
     {
         type = "ambient-sound",
