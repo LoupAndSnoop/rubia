@@ -41,20 +41,21 @@ function init_functions.hard_initialize()
     trashsteroid_lib.hard_refresh()
 end
 
---Everything to be done every time we boot up the game, via init OR load
+--[[Everything to be done every time we boot up the game, via init OR load
 function init_functions.on_every_load()
     --picker_dollies.add_picker_dollies_blacklists()
     --if discovery_tree.update_tech_discovery_blacklist then discovery_tree.update_tech_discovery_blacklist() end
-end
+end]]
 
 
 --#region Event subscription
 local event_lib = require("__rubia__.lib.event-lib")
 
 event_lib.on_init("hard-initialize", init_functions.hard_initialize)
-event_lib.on_init("every-load", init_functions.on_every_load)
 event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initialize)
-event_lib.on_load("every-load", init_functions.on_every_load)
+
+--event_lib.on_init("every-load", init_functions.on_every_load)
+--event_lib.on_load("every-load", init_functions.on_every_load)
 
 --#endregion
 
