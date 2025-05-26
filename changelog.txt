@@ -2,6 +2,7 @@
 Version: 0.69.38
 Date: ????
   Changes:
+    - Fixed desync issues with EvenPickierDollies and DiscoveryTree. :) Thanks Villfuk for testing.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.37
 Date: 2025-05-26
