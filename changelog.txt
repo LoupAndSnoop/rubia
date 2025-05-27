@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.39
-Date: ????
+Date: 2025-05-27
   Balancing:
     - Scrap patch richness x3
     - Biofusion science packs can now be exported from Rubia.
