@@ -1,7 +1,16 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.39
 Date: ????
-  Changes:
+  Balancing:
+    - Scrap patch richness x3
+    - Biofusion science packs can now be exported from Rubia.
+    - Biorecycling science pack rocket capacity 1000 => 2000
+    - Armored trains no longer go zoom in reverse lol.
+    - Spidertron remnants now give 0-4 => 3-7 steel, red circuits 0.25%=>0.3 and 8-12 => 8-15
+    - It is currently not possible to automatically export Craptonite Frame from Rubia. This is not intended, and I'm working on it. In the meantime, please download "Rocket Cargo Insertion" from the lovely S6X if you need a workaround (https://mods.factorio.com/mod/RocketCargoInsertion?from=search).
+  Compatibility:
+    - Incompatibility with "Remove All Cargo Drop Technologies" has been resolved. It is no longer an incompatibility because it no longer causes Rubia to crash. However, the current 1.0.5 version of that mod currently does NOT work to allow you to drop items to Rubia. That is not something that I did, but something MeteorSwarm needs to figure out from his mod side.
+    - Impact wagon is now allowed on planet Rubia, and are immune to trashsteroids. Praise Kiplacon-sama
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.38
 Date: 2025-05-26

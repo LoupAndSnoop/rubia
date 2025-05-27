@@ -695,6 +695,9 @@ data:extend
     },]]
   },
 
+  --TODO Asteroid collector remnant as junk heap
+  --TODO train stop remnant as junk heap
+
 
   ----- Decorative remnants, no forage
   {
@@ -706,7 +709,7 @@ data:extend
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
     tile_width = 3,
     tile_height = 3,
-    --selectable_in_game = false,
+    selectable_in_game = false,
     --subgroup = "remnants",
     order="d[remnants]-a[generic]-a[small]",
     final_render_layer = "remnants",

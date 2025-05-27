@@ -2,7 +2,7 @@
 
 --Array of entity prototypes to ban from only rubia's surface.
 --This array can also just be defined and populated at some other stage.
-rubia.trashsteroid_pre_blacklist = rubia.trashsteroid_pre_blacklist or {}
+storage.trashsteroid_pre_blacklist = storage.trashsteroid_pre_blacklist or {}
 local internal_blacklist = {
     --Rails
     "straight-rail","half-diagonal-rail","curved-rail-a","curved-rail-b",
@@ -44,9 +44,19 @@ if script.active_mods["EditorExtensions"] then
 end
 
 
+--Misc mods. This is more specific because names are more likely to conflict.
+local mod_item_blacklist = {
+    {mod = "RenaiTransportation", name = "RTImpactWagon"},
+
+
+}
+for _, entry in pairs(mod_item_blacklist) do
+   if script.active_mods[entry.mod] then table.insert(internal_blacklist, entry.name) end
+end
+
 
 --Merge with any existing blacklist in case other mods want to add to this blacklist variable.
-rubia.trashsteroid_pre_blacklist = rubia_lib.array_concat({rubia.trashsteroid_pre_blacklist, internal_blacklist})
+storage.trashsteroid_pre_blacklist = rubia_lib.array_concat({storage.trashsteroid_pre_blacklist, internal_blacklist})
 
 --The actual working blacklist, which is a dictionary of hashsets.
 rubia.trashsteroid_blacklist = {}
@@ -54,7 +64,7 @@ rubia.trashsteroid_blacklist = {}
 --On command, make a fast-access blacklist: hashset of all names of all entities that are blacklisted.
 rubia.generate_trashsteroid_blacklist = function()
     local trashsteroid_blacklist = {}
-    for _, entry in pairs(rubia.trashsteroid_pre_blacklist) do
+    for _, entry in pairs(storage.trashsteroid_pre_blacklist or {}) do
         assert(prototypes["entity"][entry], "In trashsteroid blacklist, Did not find " .. entry)
 
         if not trashsteroid_blacklist then 
@@ -65,21 +75,6 @@ rubia.generate_trashsteroid_blacklist = function()
     rubia.trashsteroid_blacklist = trashsteroid_blacklist
 end
 
---[[On command, make a fast-access blacklist: dictionary of hashsets.
---dictionary[prototype type] = hashset of names of everything in it.
-rubia.generate_trashsteroid_blacklist = function()
-    local trashsteroid_blacklist = {}
-    for _, entry in pairs(rubia.trashsteroid_pre_blacklist) do
-        assert(prototypes[entry.type][entry.name], 
-            "In trashsteroid blacklist Did not find " .. entry.name .. " of type " .. entry.type)
-
-        if not trashsteroid_blacklist[entry.type] then 
-            trashsteroid_blacklist[entry.type] = {[entry.name] = 1}
-        else trashsteroid_blacklist[entry.type][entry.name] = 1
-        end
-    end
-    rubia.trashsteroid_blacklist = trashsteroid_blacklist
-end]]
 --Invoke at least once in control phase to make that runtime blacklist.
 rubia.generate_trashsteroid_blacklist()
 
@@ -88,7 +83,8 @@ rubia.generate_trashsteroid_blacklist()
 --immune to trashsteroid damage. Input an array of {type="type",name="entity-name"}
 remote.add_interface("add-to-trashsteroid-blacklist", {
     trashsteroid_blacklist = function(additional_blacklist) 
-        rubia.trashsteroid_pre_blacklist = rubia_lib.merge(rubia.trashsteroid_pre_blacklist, additional_blacklist)
+        storage.trashsteroid_pre_blacklist = rubia_lib.merge(
+            storage.trashsteroid_pre_blacklist or {}, additional_blacklist)
         rubia.generate_trashsteroid_blacklist()
     end
   })

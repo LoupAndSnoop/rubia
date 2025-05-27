@@ -40,6 +40,9 @@ local internal_whitelist = {
     {type="fluid-wagon", name ="rubia-armored-fluid-wagon"},
     {type="logistic-container", name="passive-provider-chest"},
     {type="logistic-container", name="storage-chest"},
+
+    --Modded items
+    {type="cargo-wagon", name ="RTImpactWagon"},
 }
 --internal_whitelist = rubia_lib.array_to_dictionary(internal_whitelist,"type")
 

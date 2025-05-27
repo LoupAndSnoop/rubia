@@ -154,7 +154,7 @@ data:extend({
     weight = 2000 * 4,
     max_speed = 1.2 * max_speed_mult,
     max_power = "12MW",--"600kW",
-    reversing_power_modifier = 0.6,
+    reversing_power_modifier = 0.6 / 20,--0.6,
     braking_force = 10 * 6,
     friction_force = 0.50,
     vertical_selection_shift = -0.5,

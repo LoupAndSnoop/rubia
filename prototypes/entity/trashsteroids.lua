@@ -122,7 +122,7 @@ local function make_shield(shield_id, shield_value)
     name = "trashsteroid-shield-" .. tostring(shield_id),
     icon = "__base__/graphics/icons/energy-shield-equipment.png",
     place_as_equipment_result = "trashsteroid-shield-" .. tostring(shield_id),
-    order = "a[shield]-a[energy-shield-equipment]",
+    order = "zzzzzz[hidden]-ra",--"a[shield]-a[energy-shield-equipment]",
     hidden = true, hidden_in_factoriopedia = true,
     stack_size = 1,
   },

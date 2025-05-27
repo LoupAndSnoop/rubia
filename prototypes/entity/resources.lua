@@ -229,7 +229,7 @@ data:extend({
       regular_rq_factor_multiplier = 1,--1.10,
       starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = false,
-      additional_richness = 20000 * 5, --20k gives ore patches in the 3-6M range
+      additional_richness = 20000 * 5 * 3, --20k gives ore patches in the 3-6M range
       --autoplace_set_name="rubia_cupric_scrap",
     }
   ),
@@ -258,7 +258,7 @@ data:extend({
       regular_rq_factor_multiplier = 1,--1.10,
       starting_rq_factor_multiplier = 1,--1.5,
       has_starting_area_placement = true,
-      additional_richness = 20000 * 5,
+      additional_richness = 20000 * 5 * 3,
       --autoplace_set_name="rubia_ferric_scrap",
     }
   ),
