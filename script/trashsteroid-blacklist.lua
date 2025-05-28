@@ -17,8 +17,12 @@ local internal_blacklist = {
     "rubia-armored-fluid-wagon",
     "rubia-long-bulk-inserter", "rubia-long-stack-inserter",
     --Other
-    "character-corpse", "rci-rocketizer",
+    "character-corpse",
 }
+
+--Rocketizer is immune to trashsteroids, but only if made with craptonite.
+if not settings.startup["rubia-rocketizer-early-unlock"].value then
+    table.insert(internal_blacklist, "rci-rocketizer") end
 
 if script.active_mods["elevated-rails"] then
     local elev_blacklist = {"rail-ramp","rail-support","elevated-straight-rail",

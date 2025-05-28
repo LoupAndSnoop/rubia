@@ -795,6 +795,7 @@ data:extend({
     {type = "item", name = "craptonite-frame", amount = 1},
   },
 	results = {{type="item", name="rci-rocketizer", amount=1}},
+  auto_recycle = false,
 },
 
 

@@ -7,10 +7,16 @@ original_rocketizer_recipe.localised_description = rocketizer_description
 data.raw["proxy-container"]["rci-rocketizer"].localised_description = rocketizer_description
 data.raw["item"]["rci-rocketizer"].localised_description = rocketizer_description
 
---We DO want to auto-unlock it
+--We DO want to early unlock it
 if settings.startup["rubia-rocketizer-early-unlock"].value then
-    rubia_rocketizer_recipe.auto_recycle = false
-
+    local trashdragon_effects = data.raw.technology["rubia-project-trashdragon"].effects
+    for index, effect in pairs(trashdragon_effects) do
+        if (effect.type == "unlock-recipe" and effect.recipe == rubia_rocketizer_recipe.name) then 
+            table.remove(trashdragon_effects, index)
+            break
+        end
+    end
+    table.insert(trashdragon_effects,{type = "unlock-recipe", recipe = "rci-rocketizer"})
 
 else --We DON'T want to auto-unlock it
     local silo_effects = data.raw.technology["rocket-silo"].effects
