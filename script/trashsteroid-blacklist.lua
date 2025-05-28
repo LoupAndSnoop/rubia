@@ -15,9 +15,9 @@ local internal_blacklist = {
     --Anything made with craptonite
     "craptonite-wall","rubia-armored-locomotive","rubia-armored-cargo-wagon",
     "rubia-armored-fluid-wagon",
-    "rubia-long-bulk-inserter", "rubia-long-stack-inserter", 
+    "rubia-long-bulk-inserter", "rubia-long-stack-inserter",
     --Other
-    "character-corpse",
+    "character-corpse", "rci-rocketizer",
 }
 
 if script.active_mods["elevated-rails"] then

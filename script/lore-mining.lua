@@ -37,6 +37,8 @@ local lore_drop_table ={
         {count = 12, string = "rubia-lore.train-stop-mine-part2"},
         {count = 23, string = "rubia-lore.train-stop-mine-part3"},
         {count = 32, string = "rubia-lore.train-stop-mine-part4"},
+        {count = 47, string = "rubia-lore.train-stop-mine-part5",
+                    string2 = "rubia-lore.train-stop-mine-part5-2", string2_delay = 5*60},
     },
     ["rubia-junk-pile"] = {
         --{count = 1, string = "rubia-lore.junk-mine-hint-part1"},

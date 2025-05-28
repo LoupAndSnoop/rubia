@@ -18,6 +18,13 @@ data:extend({
         setting_type = "startup",
         default_value = false
     },
+    {
+        type = "bool-setting",
+        name = "rubia-rocketizer-early-unlock",
+        setting_type = "startup",
+        default_value = false
+    },
+
     --[[{
         type = "int-setting",
         name = "rubia-megabasing-density-mode",

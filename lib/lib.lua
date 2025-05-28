@@ -1,4 +1,6 @@
 require("util")
+--Helper functions
+_G.rubia_lib = _G.rubia_lib or {}
 
 --[[require "table"
 require "string"
@@ -17,8 +19,7 @@ else
     error("Could not determine load order stage.")
 end
 
---Helper functions
-_G.rubia_lib = _G.rubia_lib or {}
+
 
 
 

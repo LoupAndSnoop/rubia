@@ -1,6 +1,7 @@
 --Global var declaration
 _G.rubia = require "__rubia__.lib.constants"
 require("__rubia__.lib.lib")
+require("__rubia__.lib.control-stage")
 local event_lib = require("__rubia__.lib.event-lib")
 
 local wind_speed_lib = require("__rubia__.script.wind-speed-visuals")

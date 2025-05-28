@@ -141,7 +141,7 @@ local function remove_from_cache(unit_number,cache)
   cache[unit_number] = nil
 end
 
---Output a map of "surface-name" = {array of entities with that name on that surface}
+--[[Output a map of "surface-name" = {array of entities with that name on that surface}
 local function find_all_entity_of_name(input_name)
   local out_entity_table = {}
   local surface_array = game.surfaces
@@ -155,7 +155,7 @@ local function find_all_entity_of_name(input_name)
       end
   end
   return out_entity_table
-end
+end]]
 
 --Function to call to clean up trashsteroid data
 local on_trashsteroid_removed
@@ -164,7 +164,7 @@ local function clear_all_trashsteroids()
   storage.active_trashsteroids = storage.active_trashsteroids or {}
   -- Clear all existing trashsteroids
   for _, tname in pairs(trashsteroid_names) do
-    local trashsteroids = find_all_entity_of_name(tname)
+    local trashsteroids = rubia_lib.find_all_entity_of_name(tname)
     for _, entity_list in pairs(trashsteroids) do
       for _, entity in pairs(entity_list) do
         if not entity.unit_number then log(serpent.block(entity)) end

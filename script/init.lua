@@ -3,20 +3,24 @@ local chunk_checker = require("__rubia__.script.chunk-checker")
 
 local init_functions = {}
 
+--#region Warnings
 --Give a warning if Rubia is not removed from promethium sci, when 
 --you just downloaded the mod, and you DO have some ranks of it.
 storage.promethium_warning_done = storage.promethium_warning_done or false
+storage.rocketizer_warning_done = storage.rocketizer_warning_done or false
 
 --Warning functions to queue up
+local WARNING_PRINT_SETTINGS = {color={r=1,g=0.4,b=0.4,a=1}}
+
 rubia.timing_manager.register("promethium-warning-part1", function(player)
     if (not storage.promethium_warning_done) then
-        game.print({"alert.promethium_warning"},{color={r=0.9,g=0.2,b=0.2,a=1}})
+        game.print({"alert.promethium_warning"},WARNING_PRINT_SETTINGS)
         storage.promethium_warning_done = true
         player.play_sound({path = "utility/console_message"})
     end
 end)
 rubia.timing_manager.register("promethium-warning-part2", function(player)
-    game.print({"alert.promethium_warning-part2"},{color={r=0.9,g=0.2,b=0.2,a=1}})
+    game.print({"alert.promethium_warning-part2"},WARNING_PRINT_SETTINGS)
 end)
 
 local function promethium_warning()
@@ -32,11 +36,43 @@ local function promethium_warning()
         rubia.timing_manager.wait_then_do(90, "promethium-warning-part2", {player})
     end
 end
+---------
+
+--Warning functions to queue up
+rubia.timing_manager.register("rubia-rocketizer-warning", function(player)
+    if (not storage.rocketizer_warning_done) then
+        game.print({"alert.rocketizer-warning"},WARNING_PRINT_SETTINGS)
+        storage.rocketizer_warning_done = true
+        player.play_sound({path = "utility/console_message"})
+    end
+end)
+
+local function rocketizer_warning()
+    local player = game.forces["player"]
+
+    --Check for the relevant entity on all surfaces:
+    local entity_dic = rubia_lib.find_all_entity_of_name("rci-rocketizer")
+    local has_rocketizer = false
+    for _, list in pairs(entity_dic) do
+        if #list > 0 then
+            has_rocketizer = true
+            break
+        end
+    end
+
+    if not settings.startup["rubia-rocketizer-early-unlock"].value
+        and has_rocketizer
+        and not storage.rocketizer_warning_done then
+
+        --We need to give a warning, but game is not open yet.
+        rubia.timing_manager.wait_then_do(120, "rubia-rocketizer-warning", {player})
+    end
+end
+--#endregion
 
 
 --Hard re-initialize. Nuke data, and recalculate everything the mod needs. Helpful for when everything is fucked.
 function init_functions.hard_initialize()
-    promethium_warning()
     chunk_checker.init()
     trashsteroid_lib.hard_refresh()
 end
@@ -53,6 +89,10 @@ local event_lib = require("__rubia__.lib.event-lib")
 
 event_lib.on_init("hard-initialize", init_functions.hard_initialize)
 event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initialize)
+
+event_lib.on_init("initial-warning-promethium", promethium_warning)
+event_lib.on_init("initial-warning-rocketizer", rocketizer_warning)
+
 
 --event_lib.on_init("every-load", init_functions.on_every_load)
 --event_lib.on_load("every-load", init_functions.on_every_load)

@@ -2,6 +2,11 @@
 Version: 0.69.40
 Date: ????
   Changes:
+    - Garbo grabber recipe description updated.
+    - Fixed issue of craptonite frames not being exportable from Rubia: RocketCargoInsertion is now a required dependency. This adds a machine called the "Rocketizer" that allows rocket parts to be added to it to put rocket parts into a silo's cargo. Support was added to merge.
+    - Rocketizer is now immune to trashsteroids.
+    - Added warning about new rocketizer settings if you already have a rocketizer in your base upon installing Rubia.
+    - Distant Misfires marked as an incompatibility, until I can find a way to make it not cause the mod to be impossible, lol.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.39
 Date: 2025-05-27
