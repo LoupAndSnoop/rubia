@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.40
-Date: ????
+Date: 2025-05-28
   Changes:
     - Garbo grabber recipe description updated.
     - Fixed issue of craptonite frames not being exportable from Rubia: RocketCargoInsertion is now a required dependency. This adds a machine called the "Rocketizer" that allows rocket parts to be added to it to put rocket parts into a silo's cargo. Support was added to merge.
