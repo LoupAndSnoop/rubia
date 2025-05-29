@@ -10,6 +10,7 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
 local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to spawn in one tick.
 local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
+local max_render_checks_per_update = 20 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 200 + 40 --Number of ticks that a trashsteroid can live
@@ -29,7 +30,7 @@ local temp_shadow_unit_vec = {x=0.707, y=0.707} --unit vector for the direction 
 local trashsteroid_shadow_min_vec = {x=temp_shadow_unit_vec.x * temp_shadow_dist_min, y = temp_shadow_unit_vec.y * temp_shadow_dist_min}
 local trashsteroid_shadow_max_vec = {x=temp_shadow_unit_vec.x * temp_shadow_dist_max, y = temp_shadow_unit_vec.y * temp_shadow_dist_max}
 --Give a color that tints something just to transparency.
-local function transparency(value) return {r = value, g = value, b = value, a = value} end
+local function transparency(value) return {value, value, value, value} end --{r = value, g = value, b = value, a = value} 
 local trashsteroid_max_opacity = 0.8 --As opaque as it will get.
 local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 
@@ -181,7 +182,8 @@ local function clear_all_trashsteroids()
     if trashsteroid.entity.valid then trashsteroid.entity.destroy() end
   end
 
-  assert(table_size(storage.active_trashsteroids) == 0, "There are still some active trashsteroids! Report to the mod author.")
+  assert(table_size(storage.active_trashsteroids) == 0, 
+    "There are still some active trashsteroids! Report to the mod author.")
   storage.active_trashsteroids = {}
   storage.active_trashsteroid_count = 0
 end
@@ -328,7 +330,7 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
 
   --Index of the last chunk where we ended iteration
   storage.trash_gen_index = rubia.flib_table.for_n_of(storage.developed_chunks, storage.trash_gen_index,
-    max_gen_checks_per_update, do_on_valid_chunk)-- ,_next)
+    max_gen_checks_per_update, do_on_valid_chunk)
   --game.print(check_string)
 end
 
@@ -402,9 +404,52 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
 
 ]]
 
+local mathfmod, mathmin = math.fmod, math.min
 
---Go through all trashsteroids, and update their rendering.
-trashsteroid_lib.update_trashsteroid_rendering = function()
+--Update the rendering for this one trashsteroid.
+local function update_trashsteroid_rendering(trashsteroid)
+  local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
+  local render_solid = trashsteroid.render_solid
+  local render_shadow = trashsteroid.render_shadow
+
+  local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
+  render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
+  render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
+  render_shadow.x_scale = scale--trashsteroid.render_solid.x_scale
+  render_shadow.y_scale = scale--trashsteroid.render_solid.x_scale
+
+  local orient = mathfmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
+  render_solid.orientation = orient
+  render_shadow.orientation = orient
+  
+  --Transparency comes in quickly with fractional age.
+  local transparency_scale = mathmin(1, 1-(1-fractional_age)^6)--3)
+  
+  render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
+  render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
+  --[[local sol_col_ref, sol_col = render_solid.color, trashsteroid_max_opacity * transparency_scale
+  sol_col_ref.r, sol_col_ref.g, sol_col_ref.b, sol_col_ref.a = sol_col, sol_col, sol_col, sol_col
+  local sh_col_ref, sh_color = render_shadow.color, trashsteroid_shadow_max_opacity * transparency_scale
+  sh_col_ref.r, sh_col_ref.g, sh_col_ref.b, sh_col_ref.a = sh_color, sh_color, sh_color, sh_color]]
+
+
+  --Now get shift between shadow and solid
+  --game.print(serpent.block(trashsteroid.render_solid.target.entity.position))
+  local pos = trashsteroid.entity.position
+  render_shadow.target = {
+    x = fractional_age * trashsteroid_shadow_min_vec.x + (1-fractional_age) * trashsteroid_shadow_max_vec.x + pos.x,
+    y = fractional_age * trashsteroid_shadow_min_vec.y + (1-fractional_age) * trashsteroid_shadow_max_vec.y + pos.y
+  }
+  
+  --[[Make it vulnetable if it is big enough
+  if (trashsteroid.entity and trashsteroid.entity.valid and fractional_age > 0.2) then
+    trashsteroid.entity.is_military_target = false
+  end]]
+end
+
+
+--[[Go through all trashsteroids, and update their rendering.
+trashsteroid_lib.rendering_update = function()
   if not storage.active_trashsteroids then return end
 
   local viewed_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
@@ -415,45 +460,33 @@ trashsteroid_lib.update_trashsteroid_rendering = function()
     if (viewed_chunks[trashsteroid.chunk_key]--[chunk_checker.chunk_position_to_key(trashsteroid.chunk_data.x,trashsteroid.chunk_data.y)]
       and trashsteroid.render_solid and trashsteroid.render_solid.valid
       and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
-      local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
-
-      local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
-      trashsteroid.render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
-      trashsteroid.render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
-      trashsteroid.render_shadow.x_scale = scale--trashsteroid.render_solid.x_scale
-      trashsteroid.render_shadow.y_scale = scale--trashsteroid.render_solid.x_scale
-
-      local orient = math.fmod(fractional_age * trashsteroid.orient_initial + (1 - fractional_age) * trashsteroid.orient_final,1)
-      trashsteroid.render_solid.orientation = orient
-      trashsteroid.render_shadow.orientation = orient
-      
-      --Transparency comes in quickly with fractional age.
-      local transparency_scale = math.min(1, 1-(1-fractional_age)^6)--3)
-      trashsteroid.render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
-      trashsteroid.render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
-      
-      --Now get shift between shadow and solid
-      --game.print(serpent.block(trashsteroid.render_solid.target.entity.position))
-      local pos = trashsteroid.entity.position
-      trashsteroid.render_shadow.target = {
-        x = fractional_age * trashsteroid_shadow_min_vec.x + (1-fractional_age) * trashsteroid_shadow_max_vec.x + pos.x,
-        y = fractional_age * trashsteroid_shadow_min_vec.y + (1-fractional_age) * trashsteroid_shadow_max_vec.y + pos.y
-      }
-      
-      --[[Make it vulnetable if it is big enough
-      if (trashsteroid.entity and trashsteroid.entity.valid and fractional_age > 0.2) then
-        trashsteroid.entity.is_military_target = false
-      end]]
+        update_trashsteroid_rendering(trashsteroid)
     end
   end
+end]]
+
+storage.trash_render_index = storage.trash_render_index or 0
+
+--Go through all trashsteroids, and update their rendering.
+local rendering_update = function()
+  if not storage.active_trashsteroids then return end
+
+  local viewed_chunks = chunk_checker.get_currently_viewed_chunks(storage.rubia_surface)
+  --chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+  if not viewed_chunks or table_size(viewed_chunks) == 0 then return end
+
+  local function single_render_update(trashsteroid)
+    if (viewed_chunks[trashsteroid.chunk_key]--[chunk_checker.chunk_position_to_key(trashsteroid.chunk_data.x,trashsteroid.chunk_data.y)]
+      and trashsteroid.render_solid and trashsteroid.render_solid.valid
+      and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
+        update_trashsteroid_rendering(trashsteroid)
+    end
+  end
+
+  storage.trash_render_index = rubia.flib_table.for_n_of(storage.active_trashsteroids,
+    storage.trash_render_index, max_render_checks_per_update + 9999, single_render_update)
 end
 
-
---[[function tablelength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
-end]]
 
 --What to do when this trashsteroid is removed. Takes care of maintaining caches.
 --Includes cleanup common to any mode of death (impact/shot/etc).
@@ -616,7 +649,8 @@ event_lib.on_event(defines.events.on_chunk_charted, "trashsteroid-chunk-log",
 end)
 
 event_lib.on_nth_tick(1, "trashsteroid-spawn", trashsteroid_lib.try_spawn_trashsteroids)
-event_lib.on_nth_tick(3, "trashsteroid-render-update", trashsteroid_lib.update_trashsteroid_rendering)
+--event_lib.on_nth_tick(3, "trashsteroid-render-update", rendering_update)
+event_lib.on_nth_tick(1, "trashsteroid-render-update", rendering_update)
 event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
 event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)
 

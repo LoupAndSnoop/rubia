@@ -251,7 +251,7 @@ end)]]
 
 --event_lib.on_nth_tick(1, "timing-manager", rubia.timing_manager.update)
 event_lib.on_nth_tick(1, "trashsteroid-spawn", trashsteroid_lib.try_spawn_trashsteroids)
-event_lib.on_nth_tick(3, "trashsteroid-render-update", trashsteroid_lib.update_trashsteroid_rendering)
+event_lib.on_nth_tick(3, "trashsteroid-render-update", trashsteroid_lib.rendering_update)
 event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
 event_lib.on_nth_tick(10, "wind-fluctuation", function() wind_speed_lib.fluctuate_wind_speed(10) end)
 event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)

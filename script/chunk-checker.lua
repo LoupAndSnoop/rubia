@@ -42,11 +42,11 @@ chunk_checker.init = function()
     --dic[player_index] = nil if no player, or player not looking here.
     storage.last_player_chunk = storage.last_player_chunk or {}
 
-    --[[A dictionary of surface => hashset of currently viewed chunk position keys on that surface
-    storage.viewed_chunks = storage.viewed_chunks or {}
-    if storage.rubia_surface then
-        storage.viewed_chunks[storage.rubia_surface] = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
-    end]]
+    --A dictionary of surface => hashset of currently viewed chunk position keys on that surface
+    --storage.viewed_chunks = storage.viewed_chunks or {}
+    --if storage.rubia_surface then
+    --    storage.viewed_chunks[storage.rubia_surface] = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+    --end
 end
 
 --#region Tracking Development by buildable entities
@@ -210,15 +210,17 @@ local function visible_chunk_range(position)
 end]]
 
 --Return a hashset of all chunk position keys that are currently visible for that specific surface.
+--This version manually generates on each call.
 ---@param surface LuaSurface
 chunk_checker.currently_viewed_chunks = function(surface)
     if not surface then return {} end
 
-    viewed_chunks = {}
+    local viewed_chunks = {}
     for _, player in pairs(game.players) do
         if player.surface.name == surface.name then 
-            for key in iterate_visible_chunk_keys_from(chunk_checker.map_pos_to_chunk_pos(player.position.x,player.position.y)) do
-                viewed_chunks[key]=1
+            for key in iterate_visible_chunk_keys_from(
+                  chunk_checker.map_pos_to_chunk_pos(player.position.x,player.position.y)) do
+                viewed_chunks[key]=true
             end
 
             --[[Chunk coordinate for the center of the viewing window for that player
@@ -234,14 +236,14 @@ chunk_checker.currently_viewed_chunks = function(surface)
     return viewed_chunks
 end
 
---Note: Dueto how optimized the iteration is, caching the result is somehow slower.
---[[Return a hashset of all chunk position keys that are currently visible for that specific surface.
+--Note: Due to how optimized the iteration is, caching the result is somehow slower.
+--Return a hashset of all chunk position keys that are currently visible for that specific surface.
 --Just fetches a running cache.
 ---@param surface LuaSurface
 chunk_checker.get_currently_viewed_chunks = function(surface)
     if not storage.viewed_chunks then return end
-    return storage.viewed_chunks[surface] or {}
-end]]
+    return storage.viewed_chunks[surface.index] or {}
+end
 
 --This is worse. Function is too expensive per each to beat making a hashset.
 --[[Return TRUE if the current chunk is visible to someone
@@ -256,6 +258,7 @@ end]]
 ---@param surface LuaSurface surface that we are tracking
 chunk_checker.try_update_player_pos = function(player, surface)
     if not surface then return end --No surface (yet?)
+
     chunk_checker.init()
     local track_needed, delist_needed = false, false --Check if we need to (un)register
     --Player's current chunk coordinate
@@ -310,9 +313,10 @@ chunk_checker.try_update_player_pos = function(player, surface)
         storage.last_player_chunk[player.index] = {key=new_key, position=new_chunk_pos}
     end
 
-    --[[Update a running cache of which chunks are currently visible
+    --Update a running cache of which chunks are currently visible
+    --if not storage.viewed_chunks then storage.viewed_chunks = {} end
     storage.viewed_chunks = storage.viewed_chunks or {}
-    storage.viewed_chunks[surface] = chunk_checker.currently_viewed_chunks(surface)]]
+    storage.viewed_chunks[surface.index] = chunk_checker.currently_viewed_chunks(surface)
 end
 
 --#endregion
