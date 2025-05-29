@@ -47,11 +47,12 @@ local impact_damage_special = {--Dictionary of entity=>impact damage for special
 
 
 --Trashteroid data
---storage.active_trashsteroids = {} --active_trashsteroids[tostring(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
+--storage.active_trashsteroids = {} --active_trashsteroids[(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
 storage.active_trashsteroids = storage.active_trashsteroids or {}
 storage.active_trashsteroid_count = storage.active_trashsteroid_count or 0
 --Trashsteroid queue for chunks that currently don't have an active trashsteroid
 --storage.pending_trashsteroid_data = {}--[chunk_data=chunk] = (next_spawn_tick=tick) --has the next tick where we expect a trashsteroid spawn
+----@type table<ChunkData, uint>
 storage.pending_trashsteroid_data = storage.pending_trashsteroid_data or {}
 
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
@@ -92,14 +93,13 @@ local function find_impact_targets(position, radius) --TODO: Iterator
   return impacted
 end
 
---Return the closerst garbo collector in range (LuaEntity) that is in range of an impact to make a chunk projectiles, and is valid to collect.
---If no valid collector found, return nil.
-local function find_closest_collector(trashsteroid)
-  if not trashsteroid or not trashsteroid.entity or not trashsteroid.entity.valid then return end
-
-  local start = trashsteroid.entity.position
+---Return the closerst garbo collector in range (LuaEntity) that is in range of an impact to make a chunk projectiles, and is valid to collect.
+---If no valid collector found, return nil.
+---@param search_start_point MapPosition
+---@return LuaEntity | nil
+local function find_closest_collector(search_start_point)
   local collectors = storage.rubia_surface.find_entities_filtered({
-    position = start,
+    position = search_start_point,
     radius = trashsteroid_chunk_reach,
     name = "garbo-grabber"
   })
@@ -112,7 +112,7 @@ local function find_closest_collector(trashsteroid)
     if (not entity or not entity.valid) then goto continue end --It just isn't valid
     --Check that there is enough space for at least one item.
     if (entity.get_inventory(defines.inventory.chest).can_insert({name="craptonite-chunk",count=1})) then
-      local current_range = (entity.position.x - start.x)^2 + (entity.position.y - start.y)^2
+      local current_range = (entity.position.x - search_start_point.x)^2 + (entity.position.y - search_start_point.y)^2
       if (current_range < closest_range) then --TODO: Electricity check?
         best_collector = entity
         closest_range = current_range
@@ -168,7 +168,7 @@ local function clear_all_trashsteroids()
     for _, entity_list in pairs(trashsteroids) do
       for _, entity in pairs(entity_list) do
         if not entity.unit_number then log(serpent.block(entity)) end
-        storage.active_trashsteroids[tostring(entity.unit_number)] = nil
+        storage.active_trashsteroids[(entity.unit_number)] = nil
         if entity.valid then entity.destroy() end 
       end
     end
@@ -265,7 +265,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   local next_trashsteroid_tick = game.tick + 1 + storage.rubia_asteroid_rng(trashsteroid_cooldown_min, trashsteroid_cooldown_max)-- + trashsteroid_lifetime
   storage.pending_trashsteroid_data[chunk_checker.chunk_position_to_key(chunk.x,chunk.y)] = next_trashsteroid_tick -- queue up next trashsteroid
 
-  storage.active_trashsteroids[tostring(resulting_entity.unit_number)] = {
+  storage.active_trashsteroids[(resulting_entity.unit_number)] = {
     unit_number = resulting_entity.unit_number,
     entity = resulting_entity,
     death_tick = game.tick + trashsteroid_lifetime,
@@ -464,8 +464,8 @@ function on_trashsteroid_removed(trashsteroid)
     trashsteroid.render_shadow.destroy()
 
     --Delist before destruction.
-    --assert(storage.active_trashsteroids[tostring(trashsteroid.unit_number)] , "Trashsteroid not found!")
-    storage.active_trashsteroids[tostring(trashsteroid.unit_number)] = nil
+    --assert(storage.active_trashsteroids[(trashsteroid.unit_number)] , "Trashsteroid not found!")
+    storage.active_trashsteroids[(trashsteroid.unit_number)] = nil
     storage.active_trashsteroid_count = storage.active_trashsteroid_count - 1
 end
 
@@ -538,7 +538,7 @@ trashsteroid_lib.trashsteroid_impact_update = function()
 end
 
 --These damage types will lead to spawning a trashsteroid chunk, if possible. Hashset
-local trash_spawn_dmg_types = {["physical"] = 1, ["explosion"] = 1}
+local trash_spawn_dmg_types = {["physical"] = true, ["explosion"] = true}
 
 --What to do when a medium trashsteroid is killed. Assume it is valid, and the right type.
 trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
@@ -546,12 +546,8 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
   if (not entity.valid or not damage_type
     or not trash_spawn_dmg_types[damage_type.name]) then return end
 
-
-  local trashsteroid = storage.active_trashsteroids[tostring(entity.unit_number)]
-  --assert(trashsteroid, "Trashsteroid not found!")
-
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
-  local collector = find_closest_collector(trashsteroid)
+  local collector = find_closest_collector(entity.position)
   if (collector) then --We have a valid collector. Spawn a chunk.
     --local chunk_entity = 
     storage.rubia_surface.create_entity({
@@ -565,7 +561,8 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
     })
   end
 
-  on_trashsteroid_removed(trashsteroid) --Common cleanup
+  local trashsteroid = storage.active_trashsteroids[(entity.unit_number)]
+  if trashsteroid then on_trashsteroid_removed(trashsteroid) end --Common cleanup
 end
 
 
@@ -602,7 +599,6 @@ trashsteroid_lib.reset_failsafe = function ()
     .. " Resetting with Death tick = " .. trashsteroid.death_tick .. ", game.tick = " 
     .. game.tick .. ", Valid = " .. tostring(trashsteroid.entity.valid))
     trashsteroid_lib.hard_refresh()
-    --clear_logged_trashsteroids()
     trashsteroid_lib.print_active_trashsteroid_data()
   end
 end
