@@ -24,6 +24,12 @@ data:extend({
         setting_type = "startup",
         default_value = false
     },
+    {
+        type = "bool-setting",
+        name = "invert-trashsteroid-scaling",
+        setting_type = "startup",
+        default_value = false
+    },
 
     --[[{
         type = "int-setting",

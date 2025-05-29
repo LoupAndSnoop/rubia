@@ -10,10 +10,13 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
 local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to spawn in one tick.
 local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
-local max_render_checks_per_update = 20 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 200 + 40 --Number of ticks that a trashsteroid can live
+
+local max_render_checks_per_update = 60 --Max # of trashsteroids to sift through when finding ones to render
+local max_renders_per_update = 30 --Max # of trashsteroid renderings to actually update per tick
+local transparency_delta = 0.05 --If transparency change is less than this much, don't update it.
 
 local trashsteroid_names = {"medium-trashsteroid"}
 
@@ -351,68 +354,23 @@ trashsteroid_lib.hard_refresh = function()
   --local trashsteroids = storage.rubia_surface.find_entities_filtered({filter="name",name="medium-trashsteroid"})
 end
 
---[[
---Go through one round of going through all chunks and trying to spawn trashsteroids
-trashsteroid_lib.try_spawn_trashsteroids = function()
-    --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
-    try_initialize_RNG()
-    if not storage.rubia_chunks then return end --No chunks to worry about
 
-    --Index of the last chunk where we ended iteration
-    storage.trash_gen_index = (storage.trash_gen_index) or 1
-
-    local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
-    local spawned_trashsteroids = 0 --Total spawned this cycle
-    local key = 0
-    for i = storage.trash_gen_index, #storage.rubia_chunks, 1 do
-      local chunk = storage.rubia_chunks[i]
-      storage.trash_gen_index = i
-
-    --for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
-      --Check chunk exists and its cooldown time is done.
-      key = chunk_position_to_key(chunk.x,chunk.y)
-      if (storage.pending_trashsteroid_data[key] < game.tick)
-        and (chunk_checker.is_chunk_developed_by_key(key) or (visible_chunks and visible_chunks[key])) then
-      --and (storage.rubia_surface.is_chunk_generated(chunk)) then --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
-      --and (storage.rubia_surface.count_entities_filtered{area = chunk.area, force = "player"} > 0)  --testing: and there is player stuff there
-        
-        generate_trashsteroid("medium-trashsteroid", chunk)
-
-        spawned_trashsteroids = spawned_trashsteroids + 1
-        if spawned_trashsteroids >= max_trashsteroids_per_update then break end
-
-      --Otherwise put that chunk on cooldown
-      --else storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = 
-      --    game.tick + trashsteroid_cooldown_max
-      end
-    end
-    --Loop the partial iteration index if applicable
-    if storage.trash_gen_index >=  #storage.rubia_chunks then storage.trash_gen_index = 1 end
-
-    --if spawned_trashsteroids > 0 then --If we did spawn, then let's sort the list so we have the most stale chunks at the start
-    --  table.sort(storage.rubia_chunks, chunk_spawn_order)
-    --end
-  end
-]]
-
---[[
---This version checks through ALL visible area
-  local force = game.forces["player"]
-  for _, trashsteroid in pairs(storage.active_trashsteroids) do
-    if (force.is_chunk_visible(storage.rubia_surface, {x=trashsteroid.chunk_data.x, y = trashsteroid.chunk_data.y})
-      
-
-]]
+--Trashsteroid scaling: allow it to be flipped
+local trashsteroid_scale = function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
+if settings.startup["invert-trashsteroid-scaling"].value then
+  trashsteroid_min_size = 0.5
+  trashsteroid_scale = function(fractional_age) return 2*(1 - fractional_age) + (fractional_age) * trashsteroid_min_size end
+end
 
 local mathfmod, mathmin = math.fmod, math.min
-
 --Update the rendering for this one trashsteroid.
 local function update_trashsteroid_rendering(trashsteroid)
   local fractional_age = 1 - (trashsteroid.death_tick - game.tick)/trashsteroid_lifetime
   local render_solid = trashsteroid.render_solid
   local render_shadow = trashsteroid.render_shadow
 
-  local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
+  local scale = trashsteroid_scale(fractional_age)
+  --local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
   render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
   render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
   render_shadow.x_scale = scale--trashsteroid.render_solid.x_scale
@@ -424,14 +382,16 @@ local function update_trashsteroid_rendering(trashsteroid)
   
   --Transparency comes in quickly with fractional age.
   local transparency_scale = mathmin(1, 1-(1-fractional_age)^6)--3)
-  
-  render_solid.color = transparency(trashsteroid_max_opacity * transparency_scale)
-  render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
-  --[[local sol_col_ref, sol_col = render_solid.color, trashsteroid_max_opacity * transparency_scale
-  sol_col_ref.r, sol_col_ref.g, sol_col_ref.b, sol_col_ref.a = sol_col, sol_col, sol_col, sol_col
-  local sh_col_ref, sh_color = render_shadow.color, trashsteroid_shadow_max_opacity * transparency_scale
-  sh_col_ref.r, sh_col_ref.g, sh_col_ref.b, sh_col_ref.a = sh_color, sh_color, sh_color, sh_color]]
-
+  local solid_tranparency = trashsteroid_max_opacity * transparency_scale
+  --Transparency update is weirdly expensive. Update this less frequently.
+  if (solid_tranparency - render_solid.color.r >= transparency_delta) then
+    render_solid.color = transparency(solid_tranparency)
+    render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
+    --[[local sol_col_ref, sol_col = render_solid.color, trashsteroid_max_opacity * transparency_scale
+    sol_col_ref.r, sol_col_ref.g, sol_col_ref.b, sol_col_ref.a = sol_col, sol_col, sol_col, sol_col
+    local sh_col_ref, sh_color = render_shadow.color, trashsteroid_shadow_max_opacity * transparency_scale
+    sh_col_ref.r, sh_col_ref.g, sh_col_ref.b, sh_col_ref.a = sh_color, sh_color, sh_color, sh_color]]
+  end
 
   --Now get shift between shadow and solid
   --game.print(serpent.block(trashsteroid.render_solid.target.entity.position))
@@ -475,16 +435,19 @@ local rendering_update = function()
   --chunk_checker.currently_viewed_chunks(storage.rubia_surface)
   if not viewed_chunks or table_size(viewed_chunks) == 0 then return end
 
+  local total_renders = 0
   local function single_render_update(trashsteroid)
     if (viewed_chunks[trashsteroid.chunk_key]--[chunk_checker.chunk_position_to_key(trashsteroid.chunk_data.x,trashsteroid.chunk_data.y)]
       and trashsteroid.render_solid and trashsteroid.render_solid.valid
       and trashsteroid.render_shadow and trashsteroid.render_shadow.valid) then
         update_trashsteroid_rendering(trashsteroid)
+        total_renders = total_renders + 1
+        return nil, nil, (total_renders >= max_renders_per_update)
     end
   end
 
   storage.trash_render_index = rubia.flib_table.for_n_of(storage.active_trashsteroids,
-    storage.trash_render_index, max_render_checks_per_update + 9999, single_render_update)
+    storage.trash_render_index, max_render_checks_per_update, single_render_update)
 end
 
 
@@ -663,3 +626,67 @@ script.on_event(defines.events.on_entity_died, function(event)
 end, {{filter = "name", name = "medium-trashsteroid"}})
 
 --#endregion
+
+
+
+
+
+
+
+
+
+
+
+
+--[[
+--Go through one round of going through all chunks and trying to spawn trashsteroids
+trashsteroid_lib.try_spawn_trashsteroids = function()
+    --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
+    try_initialize_RNG()
+    if not storage.rubia_chunks then return end --No chunks to worry about
+
+    --Index of the last chunk where we ended iteration
+    storage.trash_gen_index = (storage.trash_gen_index) or 1
+
+    local visible_chunks = chunk_checker.currently_viewed_chunks(storage.rubia_surface)
+    local spawned_trashsteroids = 0 --Total spawned this cycle
+    local key = 0
+    for i = storage.trash_gen_index, #storage.rubia_chunks, 1 do
+      local chunk = storage.rubia_chunks[i]
+      storage.trash_gen_index = i
+
+    --for i,chunk in pairs(storage.rubia_chunks) do --_iterator do
+      --Check chunk exists and its cooldown time is done.
+      key = chunk_position_to_key(chunk.x,chunk.y)
+      if (storage.pending_trashsteroid_data[key] < game.tick)
+        and (chunk_checker.is_chunk_developed_by_key(key) or (visible_chunks and visible_chunks[key])) then
+      --and (storage.rubia_surface.is_chunk_generated(chunk)) then --game.player and game.player.force.is_chunk_charted(storage.rubia_surface, chunk)
+      --and (storage.rubia_surface.count_entities_filtered{area = chunk.area, force = "player"} > 0)  --testing: and there is player stuff there
+        
+        generate_trashsteroid("medium-trashsteroid", chunk)
+
+        spawned_trashsteroids = spawned_trashsteroids + 1
+        if spawned_trashsteroids >= max_trashsteroids_per_update then break end
+
+      --Otherwise put that chunk on cooldown
+      --else storage.pending_trashsteroid_data[chunk_position_to_key(chunk.x,chunk.y)] = 
+      --    game.tick + trashsteroid_cooldown_max
+      end
+    end
+    --Loop the partial iteration index if applicable
+    if storage.trash_gen_index >=  #storage.rubia_chunks then storage.trash_gen_index = 1 end
+
+    --if spawned_trashsteroids > 0 then --If we did spawn, then let's sort the list so we have the most stale chunks at the start
+    --  table.sort(storage.rubia_chunks, chunk_spawn_order)
+    --end
+  end
+]]
+
+--[[
+--This version checks through ALL visible area
+  local force = game.forces["player"]
+  for _, trashsteroid in pairs(storage.active_trashsteroids) do
+    if (force.is_chunk_visible(storage.rubia_surface, {x=trashsteroid.chunk_data.x, y = trashsteroid.chunk_data.y})
+      
+
+]]
