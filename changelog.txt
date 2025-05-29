@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.42
-Date: ????
+Date: 2025-05-29
   Changes:
     - Further optimization to trashsteroid rendering. Lower Rubia time usage.
     - Added a setting to invert how trashsteroids become bigger/smaller as they approach the surface.
