@@ -237,7 +237,7 @@ data:extend({
         type = "technology",
         name = "rubia-sniper-turret",
         icon = "__rubia-assets__/graphics/technology/sniper-turret.png",
-        icon_size = 256,
+        icon_size = 128,
         essential = false,
         effects = {
             {type = "unlock-recipe", recipe = "rubia-sniper-turret"},

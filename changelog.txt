@@ -2,6 +2,7 @@
 Version: 0.69.41
 Date: ????
   Changes:
+    - Sniper turret technology icon size did not match. Some users could not load the game.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.40
 Date: 2025-05-28

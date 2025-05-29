@@ -565,7 +565,6 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
     })
   end
 
-  --TODO???
   on_trashsteroid_removed(trashsteroid) --Common cleanup
 end
 
