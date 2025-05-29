@@ -34,7 +34,7 @@ local function find_all_shield_prototypes()
 end
 
 
-difficulty_scaling.initialize = function()
+function difficulty_scaling.initialize()
     find_all_shield_prototypes()
 end
 
@@ -78,5 +78,6 @@ rubia.testing.show_difficulty_scaling = function()
     game.print("Current damage multiplier = " .. tostring(damage_multiplier())
         .. ". Curent shielding amount = " .. tostring(shielding_amount))
 end
+
 
 return difficulty_scaling

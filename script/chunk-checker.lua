@@ -241,7 +241,7 @@ end
 --Just fetches a running cache.
 ---@param surface LuaSurface
 chunk_checker.get_currently_viewed_chunks = function(surface)
-    if not storage.viewed_chunks then return end
+    if not storage.viewed_chunks or not surface then return end
     return storage.viewed_chunks[surface.index] or {}
 end
 

@@ -2,6 +2,7 @@
 Version: 0.69.43
 Date: ????
   Changes:
+    - Fixed horrible crash from chunk checker in the new update. Sorry!
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.42
 Date: 2025-05-29
