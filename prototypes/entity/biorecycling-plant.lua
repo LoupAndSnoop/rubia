@@ -36,12 +36,13 @@ data:extend({
         max_health = 400,
         corpse = "medium-remnants",
         dying_explosion = "biochamber-explosion",
-        icon_draw_specification = {shift = {0, -0.25}},
+        icon_draw_specification = {shift = {0, -0.25 -0.35}},
+        icons_positioning = {{inventory_index = defines.inventory.assembling_machine_modules,
+          shift = {0, 0.25 + 0.1}, max_icons_per_row = 4}},
         circuit_wire_max_distance = assembling_machine_circuit_wire_max_distance,
         circuit_connector = circuit_connector_definitions["recycler"],
         heating_energy = "100kW",
         --effect_receiver = { base_effect = { productivity = 0.5 }},
-
 
         collision_box = {{-width/2 +inset, -height/2 +inset}, {width/2 - inset, height/2 - inset}},
         selection_box = {{-width/2, -height/2}, {width/2, height/2}},
@@ -140,14 +141,9 @@ data:extend({
         },
         energy_usage = "500kW",
         module_slots = 4,
-        icons_positioning =
-        {
-          {inventory_index = defines.inventory.furnace_modules, shift = {0, 1}}
-        },
         allowed_effects = {"consumption", "speed", "productivity", "pollution", "quality"},
         water_reflection = require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").water_reflection,
-      }
-    
+      },   
 
 })
 
