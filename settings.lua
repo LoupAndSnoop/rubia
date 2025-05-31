@@ -45,7 +45,7 @@ data:extend({
         setting_type = "runtime-global",
         default_value = "normal",
         allowed_values = {"easy","normal","hard","very-hard","very-very-hard"},
-        hidden = true, --STIL WIP
+        --hidden = true,
     },
 })
 

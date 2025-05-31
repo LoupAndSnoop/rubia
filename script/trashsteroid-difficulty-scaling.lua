@@ -2,21 +2,33 @@
 
 local difficulty_scaling = {}
 
+
+--Notes on typical values of dmg multipliers:
+--start of the game = 1
+--Phys4, shooting4 (needs only blue+mil sci)=  4.608
+--Phys5, shooting5 (needs only blue+mil sci)=  6.804
+--Phys6, shooting6 (needs yellow sci) = 19.6
+--Phys18, shooting6 (postgame) = 44.1
+local DIFFICULTY_EXPONENT = 0.69 + 0.02 --Bigger exponent = techs give less benefit
+
 --Difficulty settings
 --Notes:
 ----Normal Mech armor with many normal shield Mk2 = 2700  shield
 ---Leg Mech armor + many leg shield Mk2 = 12k shield
+---Tune trashsteroid HP based on my original testing, which was done with no gun tech.
+---General formula is: health_multiplier = (DPS ratio of a given tech level) ^ (1 - difficulty exponent) 
+---makes difficulty at that tech level match.
 local difficulty_settings = {
-    ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 7,
-        trashsteroid_impact_radius = 4, character_damage = 150, health_multiplier = 0.6},
+    ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 5,
+        trashsteroid_impact_radius = 3.5, character_damage = 150, health_multiplier = 0.5},
     ["normal"] = {impact_base_damage = 75, impact_crit_damage = 300, impact_crit_chance = 10,
         trashsteroid_impact_radius = 4, character_damage = 280, health_multiplier = 1},
-    ["hard"] = {impact_base_damage = 150, impact_crit_damage = 350, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 2},
+    ["hard"] = {impact_base_damage = 150, impact_crit_damage = 400, impact_crit_chance = 10,
+        trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 6.8^(1-DIFFICULTY_EXPONENT)},
     ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4, character_damage = 2000, health_multiplier = 4},
+        trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 19.6^(1-DIFFICULTY_EXPONENT)},
     ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20,
-        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 8},
+        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.5 * 44^(1-DIFFICULTY_EXPONENT)},
 }
 difficulty_scaling.settings = function() return difficulty_settings[
     settings.global["rubia-difficulty-setting"].value] end
@@ -33,12 +45,7 @@ local function damage_multiplier()
         * (1 + force.get_turret_attack_modifier("gun-turret"))
 end
 
---Notes on typical values of dmg multipliers:
---start of the game = 1
---Phys4, shooting4 (needs only blue+mil sci)=  4.608
---Phys5, shooting5 (needs only blue+mil sci)=  6.804
---Phys6, shooting6 (needs yellow sci) = 19.6
---Phys18, shooting6 (postgame) = 44.1
+
 
 local shield_prototypes = {}
 local function find_all_shield_prototypes()
@@ -64,7 +71,7 @@ local shielding_amount = 0
 local current_shield_prototype = "trashsteroid-shield-1"
 --Note: Since I clear checked the mod with the absolute shittiest techs,
 --I know this is reasonable with maxed out difficulty settings.
-local DIFFICULTY_EXPONENT = 0.69 + 0.02 --Bigger exponent = techs give less benefit
+
 assert(0 < DIFFICULTY_EXPONENT and DIFFICULTY_EXPONENT < 1, "Difficulty scaling is out of bounds")
 --Call to update caches for difficulty scaling.
 difficulty_scaling.update_difficulty_scaling = function ()

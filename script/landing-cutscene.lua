@@ -167,7 +167,21 @@ landing_cutscene.check_respawn_off_rubia = function(event)
     storage.rubia_respawn_blocked_players[event.player_index] = nil
 end
 
---I need to make a script to go through the player's equipment grid, and change the shield.
+--For troubleshooting. Get the character's current total shield.
+local function get_character_shields(character)
+    if (not character.grid or not character.grid.valid) then return 0 end --Nothing to do
+    local total_shield = 0
+    for _, equip in pairs(character.grid.equipment) do 
+        if (equip.valid and (equip.type ~= "equipment-ghost") 
+        and equip.max_shield > 0) then
+            total_shield = total_shield + equip.shield
+        end
+    end
+    return total_shield
+end
+
+
+--Go through the player's equipment grid, and change the shield to that total value
 local function set_character_shields(character, new_total_shield_value)
     if (not character.grid or not character.grid.valid) then return end --Nothing to do
     local remaining_total_shield = new_total_shield_value
@@ -326,7 +340,33 @@ rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, char
 end)
 
 
-local PLANNED_BIG_DAMAGE = 510 --510 = 8 shield Mk1
+--local PLANNED_BIG_DAMAGE = 510 --510 = 8 shield Mk1
+--For reference:
+--510 = 8 shield Mk1
+--These benchmarks are not with a totally full armor, but has a few bits and bobs, while being unreasonably full.
+--8 shield1 = 400 shield
+--Power armor2 + lots of shield1 = 750 shield
+--Power Armor2 + 10 Shield2 = 1500 shield
+--Rare Power armor2 + rare shield1 = 1600 shield
+--Rare Power Armor2 + Shield2 = 3150 shield
+--Normal Mech armor with many normal shield Mk2 = 2700  shield
+--Normal mech armor + many Leg shield2 = 5.6k shield
+--Epic Mech armor + many epic shield Mk2 = 7.6k shield
+--Leg Mech armor + many leg shield Mk2 = 12k shield
+--
+--2400 shield and 2310 big dmg => 165.8 HP left
+local planned_big_damage_dic = {
+    ["easy"] = 400,
+    ["normal"] = 510,
+    ["hard"] = 510 -400 + 750, --Does not need quality
+    ["very-hard"] = 510 -400 + 2200,
+    ["very-very-hard"] = 6300,
+} 
+--Return the amount of burst damage the player will be taking as they land at the end
+local function get_planned_big_damage() return planned_big_damage_dic[
+        settings.global["rubia-difficulty-setting"].value] end
+
+
 --End of cutscene
 rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, character)
     player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
@@ -342,11 +382,12 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     if (not character.grid) or character.grid.max_shield == 0 then bonus_damage = 400 end
 
     --Main damage check here. Empirically, 460 = need 6 shields with no health upgrades.
-    cutscene_damage(character, player, PLANNED_BIG_DAMAGE + bonus_damage)
+    cutscene_damage(character, player, get_planned_big_damage() + bonus_damage)
 
     --Make sure a surviving player is damaged at least a little to their base HP, without killing
     if (character and character.valid) then 
-        character.health = math.min(math.random(3, 150), character.health)
+        game.print("TESTING: Character health = " .. tostring(character.health) .. ", shield = " .. tostring(get_character_shields(character))) --Testing
+        character.health = math.min(math.random(3, 150), character.health)        
         set_character_shields(character, 0)
     end
 
@@ -558,7 +599,7 @@ landing_cutscene.check_initial_journey_warning = function(event)
 
             expected_regen = math.min(300, expected_regen * 6 * 0.5) --How much healing we expect max
             --If shields, then issue warning if total eff health too small
-            local planned_total_dmg = PLANNED_BIG_DAMAGE + 300 + 30 --fudge factor
+            local planned_total_dmg = get_planned_big_damage() + 300 + 30 --fudge factor
             issue_warning = effective_health + expected_regen < planned_total_dmg
 
             --Shield ratio = fraction of shield you need / total
@@ -591,6 +632,46 @@ rubia.testing.test_cutscene = function() start_cutscene(game.get_player(1)) end
 rubia.testing.test_cutscene_cancel = function() cancel_cutscene(game.get_player(1)) end
 --Copy this: /c __rubia__ rubia.test_cutscene()
 
+--Shield value testing:
+rubia.timing_manager.register("shield-value-testing", function(character, 
+        shield_before_regen, start_tick, damage)
+    local regen = get_character_shields(character) - shield_before_regen
+    local regen_per_sec = (regen) / ((game.tick - start_tick) / 60)
+    
+    local string = "Shield regen test. Regen/s = " .. tostring(regen_per_sec) 
+    string = string .. ". Ticks = " .. tostring(game.tick - start_tick)
+    string = string .. ". Total regen = " .. tostring(regen)
+    string = string .. ".   Final shield = " .. tostring(get_character_shields(character))
+
+    if math.abs(regen - damage) < 0.1 then --Shield was maxed
+        string = "\n   Regen stopped mid-test due to hitting max shield.\n"
+    end
+
+    game.print(string)
+end)
+---Deal damage to the player, then calculate the regenerated shield amount.
+---@param damage_to_try int?
+rubia.testing.test_shield_regen = function(damage_to_try)
+    local character = game.players[1].character
+    if not character then game.print("No character found") return end
+
+    local pre_damage_shield = get_character_shields(character)
+    if not damage_to_try then damage_to_try = pre_damage_shield * 0.9 end
+
+    character.damage(damage_to_try, game.forces["player"])
+    local shield_damage = pre_damage_shield - get_character_shields(character)
+    game.print("Initial shield: Pre damage = " .. tostring(pre_damage_shield)
+        .. ", Post-damage = " .. tostring(get_character_shields(character)))
+
+    for _, test_ticks in pairs({1, 5,10,50,120}) do
+        rubia.timing_manager.wait_then_do(test_ticks, "shield-value-testing",
+            {character, get_character_shields(character), game.tick, shield_damage})
+    end
+end
+--call: /c __rubia__ rubia.testing.test_shield_regen()
+--Or call with a specific damage argument
+
+
 --#endregion
 
 
@@ -606,6 +687,11 @@ event_lib.on_event(defines.events.on_space_platform_changed_state, "initial-jour
 event_lib.on_event(defines.events.on_player_died, "cancel-cutscene-death",
   landing_cutscene.cancel_on_player_death)
 --#endregion
+
+
+
+
+
 
 
 return landing_cutscene
