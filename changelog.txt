@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.46
-Date: ????
+Date: 2025-05-31
   Changes:
     - So... don't be mad, but I fixed a bug that made trashsteroid health not scale as much as it needed when you got high physical damage technology... A totally understandable mistake! But on the bright side, I also added difficulty settings under Mod Settings => Map Settings. If your Rubia base starts suddenly exploding, you should use that! Good luck!
     - Difficulty settings added.
