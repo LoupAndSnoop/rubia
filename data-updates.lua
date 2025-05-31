@@ -5,7 +5,6 @@ require("__rubia__.prototypes.technology-updates")
 local entity_swaps = require("__rubia__.prototypes.entity.simple-entity-swaps")
 entity_swaps.make_auto_generated_prototypes()
 
-
 --Add quality information to factoriopedia.
 local function add_quality_factoriopedia_info(entity, factoriopedia_info)
   local factoriopedia_description

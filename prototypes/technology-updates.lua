@@ -1,6 +1,9 @@
 --This file focuses on making edits to technologies in a later stage,
 --primarily for productivity techs.
 
+--K2SO for some reason nukes this, but it needs to also be done at 
+--data stage to capture for maraxsis.
+rubia.try_add_science_packs_to_labs() 
 
 if data.raw.technology["rocket-part-productivity"] then
     table.insert(data.raw.technology["rocket-part-productivity"].effects, {

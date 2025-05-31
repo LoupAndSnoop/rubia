@@ -87,6 +87,11 @@ rubia_lib.array_find_condition = function(array, condition)
   return false
 end
 
+--[[Add that entry to the array, but only if nothing in the array is already == to it.
+function rubia_lib.add_nonduplicate_to_array(array, entry)
+  if not rubia_lib.array_find(array, entry) then table.insert(array, entry) end
+end]]
+
 --Array goes in, out comes a hashset where hashset[value]=1 
 --for all entries in the old array. Naturally combines duplicates.
 rubia_lib.array_to_hashset = function(array)
@@ -130,6 +135,7 @@ rubia_lib.operate_on_filtered_table = function(input_table, filter_condition, op
   end
 end]]
 --#endregion
+
 
 --From FLIB, ty to raiguard.
 rubia.flib_table = {}
