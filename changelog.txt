@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.45
-Date: ????
+Date: 2025-05-31
   Changes:
     - Compatibility for blueprint shotgun.
     - Marked Krastorio 2 spaced out as an INcompatibility. I made it not crash, but the problem is that it messes with crafting to the point where Rubia is really unplayable. This needs more time dedicated to give specific support, otherwise you just get trapped on the planet.
