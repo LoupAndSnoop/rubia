@@ -48,6 +48,35 @@ end
 
 
 
+--#region Testing scripts
+
+--[[
+---Test to see if the achievement unlocks look good.
+---@param event EventData.on_console_chat
+local function achievement_testing(event)
+    local achievements = {
+        ["land"] = "land-on-rubia",
+        ["lore"] = "rubia-lore-complete",
+        ["science"] = "research-with-biorecycling",
+        ["fish"] = "so-long-and-thanks-for-all-the-fish",
+    }
+    for index, achievement in pairs(achievements) do
+        if string.find(event.message, "achievement " .. index) then
+            game.players[event.player_index].unlock_achievement(achievement)
+            game.print("unlocked")
+        end
+    end
+end
+
+log("WARNING: Rubia achievement test code is active")
+script.on_event(defines.events.on_console_chat, function(event)
+    achievement_testing(event)
+end)
+]]
+
+
+
+
 --[[
 --Testing scripts
 
@@ -62,3 +91,5 @@ game.players[1].character.teleport( {x=0,y=0}, "rubia");
 game.forces["player"].technologies["planet-discovery-rubia"].research_recursive()
 
 ]]
+
+--#endregion

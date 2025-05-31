@@ -1,3 +1,5 @@
+**Rubia is in OPEN-BETA:** Please give feedback and/or report issues. I will be checking the forum and Github regularly, but *I respond fastest on Discord*. Upon beating Rubia, please message me your thoughts, as it will guide the development and balance. I am excited to see the bases of people who clear the planet. ^.^
+
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/CaDJzEj557)[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LoupAndSnoop/rubia)
 
 ---
@@ -47,16 +49,16 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 
 Special thanks to everyone who helped, or from whom I got assets or code:
 
-- Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, osmo
-- raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work.
-- ZarSasha: Wind turbine forked.
-- Velaanix: Code for infinite braking force.
-- MadClown: An ore sprite.
-- Touhma/xX_Reckless_Xx: Sprites for the sniper turret (originally cannon turret)
-- Snowdoe: Sprite of a rocket artillery turret.
-- pandamiami80s: Armored train sprite
+- Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, bilka
+- raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work. [Link](https://mods.factorio.com/mod/Krastorio2Assets)
+- ZarSasha: Wind turbine forked. [Link](https://mods.factorio.com/mod/k2-wind-turbine-zars-fork)
+- Velaanix: Code for infinite braking force. [Link](https://mods.factorio.com/mod/InfiniteBraking)
+- MadClown: An ore sprite. [Link](https://github.com/Pezzawinkle/MadClowns)
+- Touhma/xX_Reckless_Xx: Sprites for the sniper turret (originally [cannon turret mod](https://mods.factorio.com/mod/adjustable_cannon_turret)).
+- Snowdoe: Sprite of a rocket artillery turret. [Link](https://mods.factorio.com/mod/doeworks-deer)
+- pandamiami80s: Armored train sprite. [Link](https://mods.factorio.com/mod/Armored-train)
 - billnguyen1411: Art used for Operation Iron Man.
-- Yuoki: I recolored some of his wagon sprites for trains in this mod. Derrivatives of his wagons are distributed under CC license.
+- Yuoki: I recolored some of his wagon sprites for trains in this mod. Derivatives of his wagons are distributed under CC license. [Link](https://mods.factorio.com/mod/yi_railway)
+- Hornwitser: Science sprites are derived from his beautiful [quality glassware mod](https://mods.factorio.com/mod/quality_glassware). These derrivatives are shared under a CC-BY-SA license.
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
-- Localization: Thanks to everyone who helped provide localization.
-    - rlcyyg1108: Chinese localization
+- Localization: Thanks to rlcyyg1108 for generously providing a Chinese localization!

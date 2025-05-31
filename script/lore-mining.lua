@@ -51,14 +51,14 @@ local lore_drop_table ={
     }
 }
 
---Code for testing. Comment in/out as needed.
+--[[Code for testing. Comment in/out as needed.
 log("Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
 end
-
+]]
 
 --When we just got a lore drop, check if we need an achievement for it
 local try_lore_achievement = function()
