@@ -26,9 +26,9 @@ local difficulty_settings = {
     ["hard"] = {impact_base_damage = 150, impact_crit_damage = 400, impact_crit_chance = 10,
         trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 6.8^(1-DIFFICULTY_EXPONENT)},
     ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 19.6^(1-DIFFICULTY_EXPONENT)},
+        trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 1.25 * 19.6^(1-DIFFICULTY_EXPONENT)},
     ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20,
-        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.5 * 44^(1-DIFFICULTY_EXPONENT)},
+        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.75 * 44^(1-DIFFICULTY_EXPONENT)},
 }
 difficulty_scaling.settings = function() return difficulty_settings[
     settings.global["rubia-difficulty-setting"].value] end
@@ -47,7 +47,7 @@ end
 
 
 
-local shield_prototypes = {}
+local shield_prototypes
 local function find_all_shield_prototypes()
     shield_prototypes = {}
     for _, entry in pairs(prototypes.equipment) do
@@ -59,6 +59,12 @@ local function find_all_shield_prototypes()
     --Sort for fast access by shield value
     local function sorter(entry1, entry2) return entry1.shield < entry2.shield end
     table.sort(shield_prototypes, sorter)
+
+    --Lock in the minimum, so we can know for sure where we are.
+    for i = 2,(#shield_prototypes),1 do
+        shield_prototypes[i].min = shield_prototypes[i-1].shield
+    end
+    shield_prototypes[1].min = 0
 end
 
 
@@ -90,9 +96,11 @@ difficulty_scaling.update_difficulty_scaling = function ()
     
     --Find the right shield
     if not shield_prototypes then find_all_shield_prototypes() end
+    --log(serpent.block(shield_prototypes))
     for _, entry in ipairs(shield_prototypes) do
-        if entry.shield <= shielding_amount then
+        if entry.shield >= shielding_amount and shielding_amount >= entry.min then
             current_shield_prototype = entry.name
+            break
         end
     end
 end

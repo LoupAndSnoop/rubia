@@ -355,8 +355,11 @@ end)
 --Leg Mech armor + many leg shield Mk2 = 12k shield
 --
 --2400 shield and 2310 big dmg => 165.8 HP left
+--200 => need 2 Mk1 shield.
+--510 => need 8 Mk1 shield
+--860 => need 700 shield
 local planned_big_damage_dic = {
-    ["easy"] = 400,
+    ["easy"] = 200,
     ["normal"] = 510,
     ["hard"] = 510 -400 + 750, --Does not need quality
     ["very-hard"] = 510 -400 + 2200,
@@ -381,12 +384,16 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     local bonus_damage = 0
     if (not character.grid) or character.grid.max_shield == 0 then bonus_damage = 400 end
 
+    --log("RUBIA TEST CODE NOT TO BE SHOWN")
+    --game.print("TESTING: Expected eff health after = " .. tostring(character.health + get_character_shields(character) - get_planned_big_damage() + bonus_damage)
+    --    .. ".  Character health = " .. tostring(character.health) .. ", shield = " .. tostring(get_character_shields(character))) --Testing
+        
     --Main damage check here. Empirically, 460 = need 6 shields with no health upgrades.
     cutscene_damage(character, player, get_planned_big_damage() + bonus_damage)
 
     --Make sure a surviving player is damaged at least a little to their base HP, without killing
     if (character and character.valid) then 
-        game.print("TESTING: Character health = " .. tostring(character.health) .. ", shield = " .. tostring(get_character_shields(character))) --Testing
+        --game.print("TESTING: Character health = " .. tostring(character.health) .. ", shield = " .. tostring(get_character_shields(character))) --Testing
         character.health = math.min(math.random(3, 150), character.health)        
         set_character_shields(character, 0)
     end
@@ -597,10 +604,10 @@ landing_cutscene.check_initial_journey_warning = function(event)
                 12 * char.grid.count("energy-shield-mk2-equipment")
                 + 12 * char.grid.count("energy-shield-equipment")
 
-            expected_regen = math.min(300, expected_regen * 6 * 0.5) --How much healing we expect max
+            expected_regen = math.min(300, expected_regen * 6) --How much healing we expect max
             --If shields, then issue warning if total eff health too small
             local planned_total_dmg = get_planned_big_damage() + 300 + 30 --fudge factor
-            issue_warning = effective_health + expected_regen < planned_total_dmg
+            issue_warning = effective_health + expected_regen < planned_total_dmg * 1.15 --Fudge factor
 
             --Shield ratio = fraction of shield you need / total
             local needed_shield = planned_total_dmg - char.max_health
@@ -608,9 +615,11 @@ landing_cutscene.check_initial_journey_warning = function(event)
             local shield_ratio = (char.grid.max_shield + expected_regen) / needed_shield     
             if shield_ratio == 0        then warning_message = "alert.pre-rubia-cutscene-unprepared-naked"
             elseif shield_ratio < 0.4  then warning_message = "alert.pre-rubia-cutscene-unprepared-low-shield"
-            elseif shield_ratio < 0.8  then warning_message = "alert.pre-rubia-cutscene-unprepared-medium-shield"
-            else warning_message = "alert.pre-rubia-cutscene-unprepared-almost-shield"
+            elseif shield_ratio < 0.7  then warning_message = "alert.pre-rubia-cutscene-unprepared-medium-shield"
+            elseif shield_ratio < 0.9 then warning_message = "alert.pre-rubia-cutscene-unprepared-almost-shield"
+            else warning_message = "alert.pre-rubia-cutscene-unprepared-too-close"
             end
+            --game.print("shield_ratio = " .. tostring(shield_ratio))
 
         else issue_warning = true -- no shields => definitely issue warning
         end

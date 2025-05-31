@@ -32,7 +32,7 @@ local function promethium_warning()
         and not storage.promethium_warning_done then
 
         --We need to give a warning, but game is not open yet.
-        rubia.timing_manager.wait_then_do(10, "promethium-warning-part1", {player})
+        rubia.timing_manager.wait_then_do(30, "promethium-warning-part1", {player})
         rubia.timing_manager.wait_then_do(90, "promethium-warning-part2", {player})
     end
 end
@@ -92,7 +92,6 @@ event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initia
 
 event_lib.on_init("initial-warning-promethium", promethium_warning)
 event_lib.on_init("initial-warning-rocketizer", rocketizer_warning)
-
 
 --event_lib.on_init("every-load", init_functions.on_every_load)
 --event_lib.on_load("every-load", init_functions.on_every_load)

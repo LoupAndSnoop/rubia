@@ -211,6 +211,8 @@ end
 --Pass along info to update difficulty scaling information.
 local update_difficulty_scaling = function()
   difficulty_scaling.update_difficulty_scaling()
+  --local shield_val, shield_name = difficulty_scaling.get_current_shield()
+  --game.print("New shield value = " .. tostring(shield_val) .. ", shield name = " .. shield_name)
 
   local settings = difficulty_scaling.settings()
   impact_base_damage = settings.impact_base_damage

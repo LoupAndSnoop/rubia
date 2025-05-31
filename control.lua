@@ -17,6 +17,7 @@ local entity_swap = require("__rubia__.script.entity-swap")
 local technology_scripts = require("__rubia__.script.technology-scripts")
 local entity_modifier = require("__rubia__.lib.entity-modifier")
 require("__rubia__.script.emergency-failsafes")
+require("__rubia__.script.version-change-warnings")
 
 
 --Compatibility calls
