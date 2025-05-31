@@ -53,8 +53,8 @@ rubia.try_add_science_packs_to_labs = function()
         try_add_science_pack_to_lab(lab, "biorecycling-science-pack")
     end
     if data.raw.lab.biolab then --Add biofusion science only to biolab
-        table.insert(data.raw.lab.biolab.inputs,"rubia-biofusion-science-pack")
-    else --We have no biolab
+        try_add_science_pack_to_lab(data.raw.lab.biolab,"rubia-biofusion-science-pack")
+    else --We have no biolab. Must be some freaky other mod
         for _,lab in pairs(all_lab_types) do
             try_add_science_pack_to_lab(lab, "rubia-biofusion-science-pack")
         end
