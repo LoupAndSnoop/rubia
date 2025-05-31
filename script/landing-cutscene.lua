@@ -347,22 +347,32 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     --Make sure a surviving player is damaged at least a little to their base HP, without killing
     if (character and character.valid) then 
         character.health = math.min(math.random(3, 150), character.health)
+        set_character_shields(character, 0)
     end
+
     cancel_cutscene(player)
 
     --Check if they forgot a roboport in their armor before queuing failsafe
     --No grid = they did forget a roboport
+    local need_roboport = true
     if character and character.valid and character.grid then 
         --Check if failsafe must activate
         for _, entry in pairs(character.grid.get_contents()) do
             local prototype = prototypes.equipment[entry.name]
             --Found a roboport of some type. No failsafe needed
             if prototype and prototype.name and string.find(prototype.name, "roboport") then
-                return
+                need_roboport = false; break
             end
         end
     end
-    rubia.timing_manager.wait_then_do(600, "cutscene-roboport-failsafe", {player, character})
+    if need_roboport then 
+        rubia.timing_manager.wait_then_do(600, "cutscene-roboport-failsafe", {player, character})
+    end
+
+    --Survival achievement
+    if character and character.valid then
+        rubia.timing_manager.wait_then_do(300, "landing-survival-achievement", {player, character})
+    end
 end)
 
 --Give the player a roboport if they forgot to bring one
@@ -412,6 +422,13 @@ end)
 rubia.timing_manager.register("delayed-text-print", function(player, local_string, print_settings) 
     if player and player ~= "game" then player.print(local_string, print_settings)
     else game.print(local_string, print_settings)
+    end
+end)
+
+rubia.timing_manager.register("landing-survival-achievement", function(player, character) 
+    if player and character and character.valid and player.character == character
+        and character.surface.name == "rubia" then
+        player.unlock_achievement("land-on-rubia")
     end
 end)
 --#endregion

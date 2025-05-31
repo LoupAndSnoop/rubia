@@ -209,8 +209,15 @@ trashsteroid_lib.log_chunk_for_trashsteroids = function(surface, position, area)
 end
 
 --Pass along info to update difficulty scaling information.
-trashsteroid_lib.update_difficulty_scaling = function()
+local update_difficulty_scaling = function()
   difficulty_scaling.update_difficulty_scaling()
+
+  local settings = difficulty_scaling.settings()
+  impact_base_damage = settings.impact_base_damage
+  impact_crit_damage = settings.impact_crit_damage
+  impact_crit_chance = settings.impact_crit_chance
+  trashsteroid_impact_radius = settings.trashsteroid_impact_radius
+  impact_damage_special["character"] = settings.character_damage
 end
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
@@ -356,11 +363,15 @@ end
 
 
 --Trashsteroid scaling: allow it to be flipped
-local trashsteroid_scale = function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
-if settings.startup["invert-trashsteroid-scaling"].value then
-  trashsteroid_min_size = 0.5
-  trashsteroid_scale = function(fractional_age) return 2*(1 - fractional_age) + (fractional_age) * trashsteroid_min_size end
+local trashsteroid_scale;--= function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
+local function update_trashsteroid_size_scaling()
+  trashsteroid_scale = function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
+  if settings.global["invert-trashsteroid-scaling"].value then
+    trashsteroid_min_size = 0.5
+    trashsteroid_scale = function(fractional_age) return (1 - fractional_age) + (fractional_age) * trashsteroid_min_size end
+  end
 end
+update_trashsteroid_size_scaling()
 
 local mathfmod, mathmin = math.fmod, math.min
 --Update the rendering for this one trashsteroid.
@@ -603,7 +614,7 @@ end
 local event_lib = require("__rubia__.lib.event-lib")
 
 event_lib.on_event({defines.events.on_research_finished, defines.events.on_technology_effects_reset},
-  "trashsteroid-difficulty-update", trashsteroid_lib.update_difficulty_scaling)
+  "trashsteroid-difficulty-update", update_difficulty_scaling)
 
 event_lib.on_event(defines.events.on_chunk_charted, "trashsteroid-chunk-log",
   function(event)
@@ -612,18 +623,27 @@ event_lib.on_event(defines.events.on_chunk_charted, "trashsteroid-chunk-log",
 end)
 
 event_lib.on_nth_tick(1, "trashsteroid-spawn", trashsteroid_lib.try_spawn_trashsteroids)
---event_lib.on_nth_tick(3, "trashsteroid-render-update", rendering_update)
 event_lib.on_nth_tick(1, "trashsteroid-render-update", rendering_update)
 event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
 event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)
 
 
-event_lib.on_init("trashsteroid-difficulty", trashsteroid_lib.update_difficulty_scaling)
-event_lib.on_configuration_changed("trashsteroid-difficulty", trashsteroid_lib.update_difficulty_scaling)
+event_lib.on_init("trashsteroid-difficulty", update_difficulty_scaling)
+event_lib.on_configuration_changed("trashsteroid-difficulty", update_difficulty_scaling)
 
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)
 end, {{filter = "name", name = "medium-trashsteroid"}})
+
+--Settings
+event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-size-scaling", function(event)
+  if event.setting == "invert-trashsteroid-scaling" then update_trashsteroid_size_scaling() end
+end)
+event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-size-scaling", function(event)
+  if event.setting == "rubia-difficulty-setting" then update_difficulty_scaling() end
+end)
+
+
 
 --#endregion
 

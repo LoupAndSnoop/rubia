@@ -51,13 +51,13 @@ local lore_drop_table ={
     }
 }
 
---[[Code for testing. Comment in/out as needed.
+--Code for testing. Comment in/out as needed.
 log("Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
-end]]
+end
 
 
 --When we just got a lore drop, check if we need an achievement for it
@@ -66,13 +66,17 @@ local try_lore_achievement = function()
         for _, entry in pairs(drop_table) do
             --Haven't even mined one => NO
             if (not storage.rubia_mined_lore_entities[entity_name]) then return end
-            --There is one lore drop we haven't seen in that category
-            if (entry.count > storage.rubia_mined_lore_entities[entity_name]) then return end
+            --There is one lore drop we haven't seen in that category, with actual lore
+            if (entry.count > storage.rubia_mined_lore_entities[entity_name])
+                and entry.string then return end
         end
     end
 
     --We made it past all the lore checks. Give achievement.
     game.print({"rubia-lore.all-lore-done"})
+    for _, player in pairs(game.players) do
+        player.unlock_achievement("rubia-lore-complete")
+    end
 end
 
 

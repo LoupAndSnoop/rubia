@@ -2,6 +2,12 @@
 Version: 0.69.44
 Date: ????
   Changes:
+    - Trashsteroid scale inverting settings can now be changed without rebooting the game. So much more convenient!
+    - Module icons for biorecycler no longer obscure other machines. Thanks, Bilka.
+    - Difficulty options added.
+    - New achievements
+    - Maraxsis can now make research vessels with Rubia science.
+    - Forgot to credit Hornwitser, who made the quality glassware from which science sprites are derived. Licenses also updated.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.43
 Date: 2025-05-29

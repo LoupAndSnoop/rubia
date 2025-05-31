@@ -40,6 +40,17 @@ local function unlock_recipes(recipe_names)
     end
 end
 
+--Science pack management
+--Add my science pack to all labs. Needs to be done in data-stage for Maraxsis
+local all_lab_types = data.raw['lab']
+for _,lab in pairs(all_lab_types) do
+  table.insert(lab.inputs,"biorecycling-science-pack")
+end
+--Add biofusion science only to biolab
+if data.raw.lab.biolab then 
+  table.insert(data.raw.lab.biolab.inputs,"rubia-biofusion-science-pack")
+end
+
 
 data:extend({
 --#region MARK: Core Rubia Progression

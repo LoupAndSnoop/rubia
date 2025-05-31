@@ -25,10 +25,18 @@ set_wind_speed("vulcanus", 80)
 set_wind_speed("gleba", 5)
 set_wind_speed("aquilo", 30)
 
-    --data.raw["planet-nauvis"].surface_properties["wind-speed"] = 5
---rubia.surface_conditions() = function () {}end
+--Others
+set_wind_speed("maraxsis", 0)
+set_wind_speed("corrundum", 30)
+set_wind_speed("moshine", 40)
+set_wind_speed("cubium", 10)
+set_wind_speed("muluna", 0)
+set_wind_speed("cerys", 5)
+set_wind_speed("jahtra", 25)
+
+
+
 local fog = effects.default_fog_effect_properties()
---fog.tick_factor = -fog.tick_factor
 --------Basic Map generation
 
 local planet = {

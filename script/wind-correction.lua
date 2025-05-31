@@ -1,4 +1,5 @@
---_G.rubia = _G.rubia or {}
+--Code was originally spun off and greatly expanded from Nancy B + Exfret the wise, providing the original structure.
+--Thanks CodeGreen for help sorting out horizontal splitters
 
 local rubia_wind = {}
 
@@ -162,7 +163,6 @@ local function force_orientation_unadj_inserter(entity, player_index)
     force_orientation_condition(entity, player_index, is_unadj_inserter_valid_orientation)
 end]]
 
-    
 
 --Force this entity to a specific orientation, but if it is placed orthogonal to the wind,
 --then block its placement.
@@ -273,7 +273,40 @@ rubia_wind.wind_rotation = function(entity, player_index)
     storage.rubia_wind_callback_lock = false
 end
 
---[[Wind mechanic: Restricting the directions of specific items. Entity passed in could be invalid.
+
+--#region Events
+local event_lib = require("__rubia__.lib.event-lib")
+
+event_lib.on_built("wind-rotation", rubia_wind.wind_rotation)
+event_lib.on_entity_gui_update("wind-rotation", rubia_wind.wind_rotation)
+
+event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity},
+  "wind-rotation",
+  function(event) rubia_wind.wind_rotation(event.entity, event.player_index) end)
+event_lib.on_event(defines.events.on_entity_settings_pasted,
+  "wind-rotation",
+  function(event) rubia_wind.wind_rotation(event.destination, event.player_index) end)
+
+
+--Special events for weird mods, especially adjustable inserters
+
+--QAI events
+if script.active_mods["quick-adjustable-inserters"] then
+  script.on_event({defines.events.on_qai_inserter_direction_changed,  --defines.events.on_qai_inserter_vectors_changed, 
+      defines.events.on_qai_inserter_adjustment_finished}, function(event)
+    rubia_wind.wind_rotation(event.inserter, event.player_index) 
+  end)
+end
+
+--#endregion
+
+
+return rubia_wind
+
+
+
+--[[This is the previous version of the wind mechanic, for posterity.
+--Restricting the directions of specific items. Entity passed in could be invalid.
 --Code modified from Nancy B + Exfret the wise.
 --Thanks to CodeGreen, for help sorting out horizontal splitters
 --Warning: Player index could be nil
@@ -323,33 +356,3 @@ rubia_wind.wind_rotation = function(entity, player_index)
         end
     end
 end]]
-
---#region Events
-local event_lib = require("__rubia__.lib.event-lib")
-
-event_lib.on_built("wind-rotation", rubia_wind.wind_rotation)
-event_lib.on_entity_gui_update("wind-rotation", rubia_wind.wind_rotation)
-
-event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity},
-  "wind-rotation",
-  function(event) rubia_wind.wind_rotation(event.entity, event.player_index) end)
-event_lib.on_event(defines.events.on_entity_settings_pasted,
-  "wind-rotation",
-  function(event) rubia_wind.wind_rotation(event.destination, event.player_index) end)
-
-  
---Special events for weird mods, especially adjustable inserters
-
---QAI events
-if script.active_mods["quick-adjustable-inserters"] then
-  script.on_event({defines.events.on_qai_inserter_direction_changed,  --defines.events.on_qai_inserter_vectors_changed, 
-      defines.events.on_qai_inserter_adjustment_finished}, function(event)
-    rubia_wind.wind_rotation(event.inserter, event.player_index) 
-  end)
-end
-
-
---#endregion
-
-
-return rubia_wind

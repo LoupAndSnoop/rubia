@@ -2,6 +2,27 @@
 
 local difficulty_scaling = {}
 
+--Difficulty settings
+--Notes:
+----Normal Mech armor with many normal shield Mk2 = 2700  shield
+---Leg Mech armor + many leg shield Mk2 = 12k shield
+local difficulty_settings = {
+    ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 7,
+        trashsteroid_impact_radius = 4, character_damage = 150, health_multiplier = 0.6},
+    ["normal"] = {impact_base_damage = 75, impact_crit_damage = 300, impact_crit_chance = 10,
+        trashsteroid_impact_radius = 4, character_damage = 280, health_multiplier = 1},
+    ["hard"] = {impact_base_damage = 150, impact_crit_damage = 350, impact_crit_chance = 10,
+        trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 2},
+    ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10,
+        trashsteroid_impact_radius = 4, character_damage = 2000, health_multiplier = 4},
+    ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20,
+        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 8},
+}
+difficulty_scaling.settings = function() return difficulty_settings[
+    settings.global["rubia-difficulty-setting"].value] end
+
+
+
 --Estimate the damage potential of a gun-turret with yellow ammo, as a ratio
 --of the base damage. 1 = normal damage with no bells and whistles.
 local function damage_multiplier()
@@ -52,7 +73,10 @@ difficulty_scaling.update_difficulty_scaling = function ()
     local damage_multiplier = damage_multiplier()
     local health_multiplier = damage_multiplier ^ DIFFICULTY_EXPONENT
     health_multiplier = math.max(1,math.min(health_multiplier, damage_multiplier))
-    
+
+    --Player difficulty settings
+    health_multiplier = health_multiplier * (difficulty_scaling.settings()["health_multiplier"])
+
     --Now convert that into an amount to shield.
     shielding_amount = base_HP * (health_multiplier - 1)
     shielding_amount = math.max(0, shielding_amount)

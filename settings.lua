@@ -27,7 +27,7 @@ data:extend({
     {
         type = "bool-setting",
         name = "invert-trashsteroid-scaling",
-        setting_type = "startup",
+        setting_type = "runtime-global",
         default_value = false
     },
 
@@ -38,14 +38,14 @@ data:extend({
         default_value = 1,
         minimum_value = 1,
         maximum_value = 20,
-    },
+    },]]
     {
         type = "string-setting",
         name = "rubia-difficulty-setting",
-        setting_type = "startup",
+        setting_type = "runtime-global",
         default_value = "normal",
-        allowed_values = {"easy","normal","hard","very-hard"}
-    },]]
+        allowed_values = {"easy","normal","hard","very-hard","very-very-hard"}
+    },
 })
 
 --data:extend({
