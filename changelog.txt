@@ -5,7 +5,7 @@ Date: ????
     - Trashsteroid scale inverting settings can now be changed without rebooting the game. So much more convenient!
     - Module icons for biorecycler no longer obscure other machines. Thanks, Bilka.
     - Difficulty options have been implemented, but not yet available. You will be able to change difficulty once I can properly balance the actual difficulty.
-    - New achievements
+    - New achievements, but I'm still working on being able to even test it properly.
     - Maraxsis can now make research vessels with Rubia science.
     - Forgot to credit Hornwitser, who made the quality glassware from which science sprites are derived. Licenses also updated.
 ---------------------------------------------------------------------------------------------------
