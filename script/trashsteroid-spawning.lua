@@ -341,7 +341,7 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
   --if math.fmod(game.tick,30) == 0 then log(serpent.block(storage.pending_trashsteroid_data)) end
 
   --Index of the last chunk where we ended iteration
-  storage.trash_gen_index = rubia.flib_table.for_n_of(storage.developed_chunks, storage.trash_gen_index,
+  storage.trash_gen_index = rubia.flib.for_n_of(storage.developed_chunks, storage.trash_gen_index,
     max_gen_checks_per_update, do_on_valid_chunk)
   --game.print(check_string)
 end
@@ -459,7 +459,7 @@ local rendering_update = function()
     end
   end
 
-  storage.trash_render_index = rubia.flib_table.for_n_of(storage.active_trashsteroids,
+  storage.trash_render_index = rubia.flib.for_n_of(storage.active_trashsteroids,
     storage.trash_render_index, max_render_checks_per_update, single_render_update)
 end
 

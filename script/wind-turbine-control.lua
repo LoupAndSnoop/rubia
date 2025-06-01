@@ -1,5 +1,5 @@
 --This file is for runtime-controls of the wind turbine.
-
+local wind_turbine = {}
 local event_lib = require("__rubia__.lib.event-lib")
 
 
@@ -23,3 +23,17 @@ local function quality_correct_wind_turbine(entity)
     end
 end
 event_lib.on_built("wind-turbine-quality", quality_correct_wind_turbine)
+
+
+--Refresh the quality correction etc on all turbines
+function wind_turbine.hard_refresh_all_turbines()
+    local all_entity = rubia_lib.find_all_entity_of_name("rubia-wind-turbine")
+    for _, entity_list in pairs(all_entity or {}) do
+        for _, entity in pairs(entity_list or {}) do
+            quality_correct_wind_turbine(entity)
+        end
+    end
+end
+
+
+return wind_turbine

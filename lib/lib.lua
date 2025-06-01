@@ -11,10 +11,10 @@ if data and data.raw and not data.raw.item["iron-plate"] then
     rubia.stage = "settings"
 elseif data and data.raw then
     rubia.stage = "data"
-    require "data-stage"
+    require "__rubia__/lib/data-stage"
 elseif script then
     rubia.stage = "control"
-    require "control-stage"
+    require "__rubia__/lib/control-stage"
 else
     error("Could not determine load order stage.")
 end
@@ -136,9 +136,60 @@ rubia_lib.operate_on_filtered_table = function(input_table, filter_condition, op
 end]]
 --#endregion
 
+--#region Version assistance
+--From FLIB, thanks to raiguard and friends
+rubia.flib = {}
 
---From FLIB, ty to raiguard.
-rubia.flib_table = {}
+local version_pattern = "%d+"
+local version_format = "%02d"
+
+--- Normalize version strings for easy comparison.
+---
+--- ### Examples
+---
+--- ```lua
+--- migration.format_version("1.10.1234", "%04d")
+--- migration.format_version("3", "%02d")
+--- ```
+--- @param version string
+--- @param format string? default: `%02d`
+--- @return string?
+function rubia.flib.format_version(version, format)
+  if version then
+    format = format or version_format
+    local tbl = {}
+    for v in string.gmatch(version, version_pattern) do
+      tbl[#tbl + 1] = string.format(format, v)
+    end
+    if next(tbl) then
+      return table.concat(tbl, ".")
+    end
+  end
+  return nil
+end
+
+--- True if current_version is strictly newer than old_version.
+--- @param old_version string
+--- @param current_version string
+--- @param format string? default: `%02d`
+--- @return boolean?
+function rubia.flib.is_newer_version(old_version, current_version, format)
+  local v1 = rubia.flib.format_version(old_version, format)
+  local v2 = rubia.flib.format_version(current_version, format)
+  if v1 and v2 then
+    if v2 > v1 then
+      return true
+    end
+    return false
+  end
+  return nil
+end
+
+log("RUBIA: Setting constant should be removed once version is set stable.")
+rubia.DISABLE_TECH_HIDING = not rubia.flib.is_newer_version("2.0.53", script.active_mods["base"])
+--#endregion
+
+
 --- Call the given function on a set number of items in a table, returning the next starting key.
 ---
 --- Calls `callback(value, key)` over `n` items from `tbl` or until the end is reached, starting after `from_k`.
@@ -179,7 +230,7 @@ rubia.flib_table = {}
 --- @return K? next_key Where the iteration ended. Can be any valid table key, or `nil`. Pass this as `from_k` in the next call to `for_n_of` for `tbl`.
 --- @return table<K, C> results The results compiled from the first return of `callback`.
 --- @return boolean reached_end Whether or not the end of the table was reached on this iteration.
-function rubia.flib_table.for_n_of(tbl, from_k, n, callback, _next)
+function rubia.flib.for_n_of(tbl, from_k, n, callback, _next)
   -- Bypass if a custom `next` function was provided
   if not _next then
     -- Verify start key exists, else start from scratch

@@ -26,6 +26,9 @@ local mod_item_blacklist = {
     {mod="RenaiTransportation", type="constant-combinator", name ="DirectorBouncePlate"},
     {mod="RenaiTransportation", type="electric-energy-interface", name ="RTDivergingChute"},
     {mod="quantum-fabricator", type = "reactor", name = "dedigitizer-reactor"}, --Lets you teleport items in
+    
+    --Power
+    {mod="Krastorio2-spaced-out", type = "electric-energy-interface", name = "kr-wind-turbine"},
 }
 for _, entry in pairs(mod_item_blacklist) do
     if mods[entry.mod] then table.insert(internal_blacklist, entry) end

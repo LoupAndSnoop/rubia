@@ -91,7 +91,9 @@ entity_swap.try_entity_swap = function(entity, player_index)
         --There is no point if it is a ghost
         if req_point then req_point.enabled = false end
 
-        --new_entity.use_transitional_requests = false --TODO: On experimental released
+        log("RUBIA TODO: Remove experimental dependency when experimental is made stable.")
+        if rubia.flib.is_newer_version("2.0.53", script.active_mods["base"]) then
+            new_entity.use_transitional_requests = false end
     end
 end
 
@@ -108,9 +110,10 @@ entity_swap.rocket_silo_update = function(entity, player_index)
     if not entity.use_transitional_requests then return end
 
     --We do need to fix and issue a warning
+    entity.use_transitional_requests = false
     local print_target = (player_index and game.players[player_index]) or game
 
-    print_target.print({"alert.rubia-rocket-silo-setting-warning"})
+    print_target.print({"alert.rubia-rocket-silo-setting-warning"}, rubia.WARNING_PRINT_SETTINGS)
     print_target.play_sound{path="utility/cannot_build"}--, position=player.position, volume_modifier=1}
 end
 
@@ -143,8 +146,9 @@ local event_lib = require("__rubia__.lib.event-lib")
 event_lib.on_built_early("entity-swap", entity_swap.try_entity_swap)
 
 log("WHEN EXPERIMENTAL RELEASED, ENABLE FOR RUBIA ROCKET SILOS")
---event_lib.on_entity_gui_update("silo-update", entity_swap.rocket_silo_update) --TODO: On experimental released
-
+if rubia.flib.is_newer_version("2.0.53", script.active_mods["base"]) then
+    event_lib.on_entity_gui_update("silo-update", entity_swap.rocket_silo_update) --TODO: On experimental released
+end
 --#endregion
 
 return entity_swap
