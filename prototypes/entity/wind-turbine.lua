@@ -85,7 +85,7 @@ local entity = {
     type = "electric-energy-interface", -- special "cheat" prototype
     name = TURBINE_NAME,
     factoriopedia_description = "Converts wind power to electricity. Power scales with quality.",--{"factoriopedia-description."..TURBINE_NAME},
-    --gui_mode = "admins" -- gui contains sliders for energy parameters
+    --gui_mode = "admins", -- gui contains sliders for energy parameters
     icon = GRAPHICS_PATH .. "icons/k2-wind-turbine.png",
     icon_size = 64,
     drawing_box_vertical_extension = 1.8,
@@ -98,8 +98,6 @@ local entity = {
     dying_explosion = "assembling-machine-1-explosion",
     damaged_trigger_effect = HIT_EFFECTS.entity(),
     impact_category = "metal",
-    --collision_box = {{-1.15, -1.15}, {1.15, 1.15}},
-    --selection_box = {{-1.45, -1.45}, {1.45, 1.45}},
     collision_box = {{-0.95, -0.95}, {0.95, 0.95}}, -- modified to a 2x2
     selection_box = {{-0.95, -0.95}, {0.95, 0.95}},
     energy_production = SETTING.POWER_OUTPUT_kW .. "kW",
@@ -125,10 +123,9 @@ local entity = {
     }
 }
 -- Compatibility: Space Age DLC --
---if mods["space-age"] then
-    entity.surface_conditions = rubia.surface_conditions()
-    entity.heating_energy = "30kW"--SETTING.EXQUISITE and "0kW" or "30kW"
---end
+
+entity.surface_conditions = rubia.surface_conditions()
+entity.heating_energy = "30kW"--SETTING.EXQUISITE and "0kW" or "30kW"
 
 -- Note: Turbine cannot be build on Aquilo, unless this is allowed in the startup settings.
 

@@ -7,7 +7,6 @@ require("__rubia__.lib.lib")
 
 local hit_effects = require("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
-local simulations = require("__base__.prototypes.factoriopedia-simulations")
 
 local meld = require("__core__.lualib.meld")
 local surface_conditions = function() return {{property="gravity", min=0.1}} end
@@ -105,7 +104,51 @@ local locomotive_reflection = function()
     orientation_to_variation = false
   }
 end
+
+--Factoriopedia simulations
+local simulations = {}
+simulations.factoriopedia_locomotive =
+{
+  init =
+  [[
+    game.simulation.camera_position = {1, 0.5}
+    game.surfaces[1].create_entities_from_blueprint_string
+    {
+      string = "0eNqNk/GKgzAMxt8lf9cxnW6nr3IMqZq5cLUdbfVuDN/9ot3dBruDQqEk5vsF8zU3aNSIF0vaQ3UDao12UL3fwFGvpVpyWg4IFVhJCmYBpDv8giqdjwJQe/KEQbEG11qPQ4OWC8SP0nnW9mefrAgBF+NYZfQCZ1KSlgKuy830jiy24WM+ixdoFg89REN38dAiGpr/Qu3YkEykHYzFLlGmNYPxNOFf/GxzeGqBWjYKa2V6cp5aV3+eiePBTKR7qE5SORRgLHFvGTjbTcYA8jgEU6h7ttC0H+iT04jByVDFRbomPTHE2GtQPSK20XnZfqyOz3xef7WIn98uen77eGgaDT1EQ+Of5Fs0878XeVxGzNbUvHw6pO87uGTvFYtZ3OOxrQImtG5FFPuszMuy2BfbtNjm8/wN8mdH0g==",
+      position = {0, 0}
+    }
+  ]]
+}
+
+simulations.factoriopedia_cargo_wagon =
+{
+  init =
+  [[
+    game.simulation.camera_position = {1, 0.5}
+    game.surfaces[1].create_entities_from_blueprint_string
+    {
+      string = "0eNqN01FvgyAQB/Dvcs+41Cp2+lWWxaC90csQGkC7xvjdd9aue1iX8MjJ/wfEuxk6M+LZk43QzEC9swGatxkCaavMWrNqQGjAKzKwCCB7xC9o8uVdANpIkXBL3BbX1o5Dh543iJ9kiJzVp5jdCAFnFzjl7IqzlOW1gCs0kvEjeey3b+Ui/pj7dPOQahbppkw1y4fpx45UpvzgPB6zXnntsovSHHziFw8freoMtsZpCpH60F5OxOvBTWQ1NB/KBBTgPPHBajN2L3u5/p2JS86zY0djntxNpr+3SH1vlW7mqeYh2Uxun9dk8p/u4ZYP0fWfLY+J3cr3aVmr9x0UceAjfudKwIQ+3AhZ7euyrmUld7nclcvyDRkYLDE=",
+      position = {0, 0}
+    }
+  ]]
+}
+
+simulations.factoriopedia_fluid_wagon =
+{
+  init =
+  [[
+    game.simulation.camera_position = {1, 0.5}
+    game.surfaces[1].create_entities_from_blueprint_string
+    {
+      string = "0eNqV1c2OgjAQAOB3mTOatlAQXmWzIVUrThYKaUHXGN59i6zrQXS6R6DzQen8XGFbD7qzaHooroC71jgoPq7gsDKqnu4Z1WgowCqsYYwAzV5/Q8HHzwi06bFHPUfcLi6lGZqttn5BdI/ssNMQQdc6v7g1kzkBci0juEAh4rUcx+gJEBSQEUBMASkBJBSQE4CkgA0BpAQgGAFkD2BounensBi++Qt3vU+A6tivbnnw5OQzkvkE2aPVu/lRskDmoSTnwSZnwWgcjj4y2A5bVCtlm9bq/epQD7hfnVXlI5d+KIu5kI/XaKO2tS7rtkLX486V5yP666Y9oamgOKja6Qhai/79apbY2h/HwheJ4G3K8G3GwWgWjibBaHjmcBmKin+kTkpViLhXSL5UIZyssOx9/IYo8XuPidlyhfOcajKMEASjBE4JZLOPKYHs9oISyHafUEISOrJeCjJ05LwU0tCpNwt+CLu+3X2VfnCbOc9/5/d0dzq6aQn2uvHiY9RHcNLW3VSZijzJc5lKxiVLxvEHQLWYGg==",
+      position = {5, 0}
+    }
+  ]]
+}
 --#endregion
+
+
+
 
 --[[Differences between a standard locomotive and an armored one.
 local armored_locomotive_edits = {
@@ -843,6 +886,4 @@ if mods["elevated-rails"] then
       }
     }
     meld(data.raw["locomotive"]["rubia-armored-locomotive"], armored_loc_update)
-
-
 end

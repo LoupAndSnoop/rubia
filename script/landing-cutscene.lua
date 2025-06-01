@@ -485,9 +485,6 @@ end)
 --#region External handles to start/end cutscene via events.
 
 
-
-
-
 --See if we need to start a cutscene on a defines.events.on_cargo_pod_finished_ascending event.
 landing_cutscene.try_start_cutscene = function(event)
     if not event.player_index then return end --Cargo pod had no player riding
@@ -632,9 +629,9 @@ landing_cutscene.check_initial_journey_warning = function(event)
         end
     end
 end
+--#endregion
 
-
-------------Testing method
+--#region Testing methods
 _G.rubia = _G.rubia or {}
 rubia.testing = rubia.testing or {}
 rubia.testing.test_cutscene = function() start_cutscene(game.get_player(1)) end
@@ -696,11 +693,6 @@ event_lib.on_event(defines.events.on_space_platform_changed_state, "initial-jour
 event_lib.on_event(defines.events.on_player_died, "cancel-cutscene-death",
   landing_cutscene.cancel_on_player_death)
 --#endregion
-
-
-
-
-
 
 
 return landing_cutscene

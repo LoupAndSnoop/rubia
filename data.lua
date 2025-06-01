@@ -13,7 +13,7 @@ require("__rubia__.prototypes.technology")
 require("__rubia__.prototypes.technology-hider-data")
 
 require("__rubia__.prototypes.entity.resources")
-require("__rubia__.prototypes.entity.wind_turbine")
+require("__rubia__.prototypes.entity.wind-turbine")
 require("__rubia__.prototypes.entity.garbo-grabber")
 require("__rubia__.prototypes.entity.biorecycling-plant")
 require("__rubia__.prototypes.entity.trashsteroids")

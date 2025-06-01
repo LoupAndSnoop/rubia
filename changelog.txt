@@ -2,6 +2,9 @@
 Version: 0.69.47
 Date: ????
   Changes:
+    - Factoriopedia simulations for armored trains fixed.
+    - Added test functions for Wube for a bug report.
+    - Wind turbines no longer have a dumb useless UI when clicked on... usually!
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.46
 Date: 2025-05-31
