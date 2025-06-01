@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.47
-Date: ????
+Date: 2025-06-01
   Changes:
     - Factoriopedia simulations for armored trains fixed.
     - Added test functions for Wube for a bug report.
