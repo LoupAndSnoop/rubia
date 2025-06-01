@@ -186,7 +186,8 @@ function rubia.flib.is_newer_version(old_version, current_version, format)
 end
 
 log("RUBIA: Setting constant should be removed once version is set stable.")
-rubia.DISABLE_TECH_HIDING = not rubia.flib.is_newer_version("2.0.53", script.active_mods["base"])
+rubia.DISABLE_TECH_HIDING = not rubia.flib.is_newer_version("2.0.53", 
+  mods and mods["base"] or script.active_mods["base"])
 --#endregion
 
 

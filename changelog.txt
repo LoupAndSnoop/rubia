@@ -2,6 +2,9 @@
 Version: 0.69.48
 Date: ????
   Changes:
+    - (If you are on the stable branch, then you will not notice any differences until factorio updates next.)There are some changes in the experimental branch that are currently being controlled now, based on your version. Major changes:
+      ► Tech hiding is now more inclusive to give better hiding of technologies! Let me know if this messes with anyone's saves.
+      ► Rocket logistic requests now get properly set off, to not be misleading on Rubia.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.47
 Date: 2025-06-01
