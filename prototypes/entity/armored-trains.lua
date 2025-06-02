@@ -173,6 +173,8 @@ local armored_locomotive_edits = {
 }]]
 
 local max_speed_mult = 1.25
+local weight_mult = 5
+local health_mult = 2
 
 data:extend({
 {
@@ -184,7 +186,7 @@ data:extend({
     mined_sound = sounds.deconstruct_large(0.8),
     surface_conditions = surface_conditions(),
 
-    max_health = 1000 * 2,
+    max_health = 1000 * health_mult,
     deliver_category = "vehicle",
     corpse = "locomotive-remnants",
     dying_explosion = "locomotive-explosion",
@@ -194,7 +196,7 @@ data:extend({
     damaged_trigger_effect = hit_effects.entity(),
     drawing_box_vertical_extension = 1,
     alert_icon_shift = util.by_pixel(0, -24),
-    weight = 2000 * 4,
+    weight = 2000 * weight_mult,
     max_speed = 1.2 * max_speed_mult,
     max_power = "12MW",--"600kW",
     reversing_power_modifier = 0.6 / 20,--0.6,
@@ -537,7 +539,7 @@ data:extend({
     minable = {mining_time = 0.5, result = "rubia-armored-cargo-wagon"},
     mined_sound = sounds.deconstruct_large(0.8),
     surface_conditions = surface_conditions(),
-    max_health = 600,
+    max_health = 600 * health_mult,
     deliver_category = "vehicle",
     corpse = "cargo-wagon-remnants",
     dying_explosion = "cargo-wagon-explosion",
@@ -546,7 +548,7 @@ data:extend({
     selection_box = {{-1, -2.703125}, {1, 3.296875}},
     damaged_trigger_effect = hit_effects.entity(),
     vertical_selection_shift = -0.796875,
-    weight = 1000 * 4,
+    weight = 1000 * weight_mult,
     max_speed = 1.5 * max_speed_mult,
     braking_force = 3 * 4,
     friction_force = 0.50,
@@ -707,8 +709,8 @@ data:extend({
     minable = {mining_time = 0.5, result = "rubia-armored-fluid-wagon"},
     mined_sound = sounds.deconstruct_large(0.8),
     surface_conditions = surface_conditions(),
-    max_health = 600,
-    capacity = 50000*4,
+    max_health = 600 * health_mult,
+    capacity = 50000 * 4,
     deliver_category = "vehicle",
     corpse = "fluid-wagon-remnants",
     dying_explosion = "fluid-wagon-explosion",
@@ -718,7 +720,7 @@ data:extend({
     damaged_trigger_effect = hit_effects.entity(),
     vertical_selection_shift = -0.796875,
     icon_draw_specification = {scale = 1.25, shift = {0, -1}},
-    weight = 1000*4,
+    weight = 1000 * weight_mult,
     max_speed = 1.5 * max_speed_mult,
     braking_force = 3,
     friction_force = 0.50,

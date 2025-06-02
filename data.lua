@@ -39,4 +39,5 @@ require("__rubia__.prototypes.tips-and-tricks")
 --Late stage data updates
 require("__rubia__.prototypes.entity.rocketizer-merge")
 require("__rubia__.compat.blueprint-shotgun")
+require("__rubia__.compat.wood-logistics")
 require("__rubia__.script.recycling-fixes")

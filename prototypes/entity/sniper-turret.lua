@@ -50,7 +50,7 @@ data:extend({{
     fast_replaceable_group = "ammo-turret",
     collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
     selection_box = {{-1, -1}, {1, 1}},
-    rotation_speed = 0.01,
+    rotation_speed = 0.01 * 1.5,
     preparing_speed = 0.08,
     folding_speed = 0.08,
     dying_explosion = "medium-explosion",

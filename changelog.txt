@@ -2,9 +2,15 @@
 Version: 0.69.49
 Date: ????
   Changes:
+    - Added FAQ to mod page.
+    - Wooden Logistics Compatibility: If Wooden logistics is installed, then long handed inserters and repair packs are now available in mixed scrap sources.
+  Balancing:
     - Firearm mag tech cost now cost 200 => 300
     - Yellow ammmo => iron plates is now ~25% faster
     - Spidertron remnant fast inserter yield buffed: 10% 20-25 => 10% 20-40
+    - Armored locomotive/wagon: Nerf weight relative to vanilla 4x => 5x.
+    - Armored wagons: Buff HP relative to vanilla 1x => 2x
+    - Sniper turrets now rotate their head much faster (x1.5). This makes them even better for Rubia.
     - Lore was set forward, because too much of it would bombard you all at once. I set up migration to not replay lines.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.48
