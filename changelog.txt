@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.49
-Date: ????
+Date: 2025-06-02
   Changes:
     - Added FAQ to mod page.
     - Wooden Logistics Compatibility: If Wooden logistics is installed, then long handed inserters and repair packs are now available in mixed scrap sources.
