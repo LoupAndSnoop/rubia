@@ -142,3 +142,89 @@ function rubia_lib.get_child_technologies(tech_name)
 	end
 	return children
 end
+
+
+--#region Quick recipe/tech alterations for compatibility
+rubia_lib.compat = rubia_lib.compat or {}
+
+---Given a specific recipe name, set the given input item to the desired input count. 
+---Set 0 to remove the item, if it is there.
+---@param recipe_name string name of a recipe prototype
+---@param input_item string name of an item prototype (or related recipe input)
+---@param new_input_count int final quantity
+---@param is_fluid boolean? if true, then input this as a fluid. Optional
+function rubia_lib.compat.set_recipe_input_count(recipe_name, input_item, new_input_count, is_fluid)
+    local recipe = data.raw.recipe[recipe_name]
+    assert(recipe, "No recipe prototype found under the name: " .. recipe_name)
+
+    local found_index
+    for index, entry in pairs(recipe.ingredients) do
+        if entry.name == input_item then
+            found_index = index
+            break
+        end
+    end
+
+    --We need to remove it, AND it is there.
+    if new_input_count == 0 and found_index then 
+        table.remove(recipe.ingredients, found_index)
+    --Need to remove, but already absent
+    elseif new_input_count == 0 and not found_index then return 
+    --We found it, and it has a non-zero amount
+    elseif found_index then recipe.ingredients[found_index].amount = new_input_count
+    --We did not find it, and non-zero amount, so add it
+    else 
+        local type = is_fluid and "fluid" or "item"
+        table.insert(recipe.ingredients, {type = type, name = input_item, amount = new_input_count})
+    end
+end
+
+---Given a specific list of entries, find the index of the entry where the name matches the input item.
+---@param list any[] array of entries, where each entry has a .name field
+---@param input_item string name of an item prototype (or related recipe input)
+---@return int? index Index where that entry resides. nil = not found
+---@return any[]? entry The entry where the item was found
+function rubia_lib.compat.find_item_in_list(list, input_item)
+    local found_index
+    for index, entry in pairs(list) do
+        if entry.name == input_item then
+            return index, entry
+        end
+    end
+    return nil, nil
+end
+
+
+---Remove the effect of unlocking this recipe to the technology. Do not throw error if it is not already there.
+---@param technology_name string name of technology prototype
+---@param recipe_name string name of recipe prototype
+function rubia_lib.compat.remove_recipe_from_technology(technology_name, recipe_name)
+    local tech = data.raw["technology"][technology_name]
+    assert(tech, "Technology prototype not found: " .. technology_name)
+
+    for index, entry in pairs(tech.effects) do
+        if entry.type == "unlock-recipe" and entry.recipe and entry.recipe == recipe_name then
+            table.remove(tech.effects, index)
+            return
+        end
+    end
+end
+
+---Add the effect of unlocking this recipe to the technology. If it is already there, do not add it.
+---@param technology_name string name of technology prototype
+---@param recipe_name string name of recipe prototype
+function rubia_lib.compat.add_recipe_to_technology(technology_name, recipe_name)
+    local tech = data.raw["technology"][technology_name]
+    assert(tech, "Technology prototype not found: " .. technology_name)
+
+    for index, entry in pairs(tech.effects) do
+        if entry.type == "unlock-recipe" and entry.recipe and entry.recipe == recipe_name then
+            return --It is already there
+        end
+    end
+    --It is not already there
+    table.insert(tech.effects, {type = "unlock-recipe", recipe = recipe_name})
+end
+
+
+--#endregion

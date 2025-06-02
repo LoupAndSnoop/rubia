@@ -4,6 +4,7 @@ Date: ????
   Changes:
     - Added FAQ to mod page.
     - Wooden Logistics Compatibility: If Wooden logistics is installed, then long handed inserters and repair packs are now available in mixed scrap sources.
+    - Alloy smelting compatibility: If alloy-smelting has coke mode on, then Rubia now gives electric kilns, and has a new coke recipe.
   Balancing:
     - Firearm mag tech cost now cost 200 => 300
     - Yellow ammmo => iron plates is now ~25% faster

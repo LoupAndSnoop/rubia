@@ -40,4 +40,6 @@ require("__rubia__.prototypes.tips-and-tricks")
 require("__rubia__.prototypes.entity.rocketizer-merge")
 require("__rubia__.compat.blueprint-shotgun")
 require("__rubia__.compat.wood-logistics")
+require("__rubia__.compat.alloy-smelting")
+
 require("__rubia__.script.recycling-fixes")
