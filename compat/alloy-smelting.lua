@@ -29,6 +29,7 @@ if settings.startup["alloy-smelting-coke"].value then
         },
         allow_productivity = true,
         crafting_machine_tint = {r=0.1,g=0.1,b=0.1,a=1},
+        auto_recycle = false,
         },
     })
 
