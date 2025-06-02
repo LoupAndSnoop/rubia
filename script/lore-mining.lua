@@ -25,54 +25,77 @@ local lore_drop_table ={
         {count = 1, string = "rubia-lore.spidertron-mine-hint-part1",
                     string2 = "rubia-lore.spidertron-mine-hint-part2", string2_delay = 30*60},
         {count = 5, string = "rubia-lore.spidertron-mine-part1"},
-        {count = 13, string = "rubia-lore.spidertron-mine-part2"},
-        {count = 23, string = "rubia-lore.spidertron-mine-part3"},
-        {count = 41, string = "rubia-lore.spidertron-mine-part4"},
-        {count = 50, execute = spoilage_failsafe},
-        {count = 60, execute = spoilage_failsafe},
-        {count = 70, execute = spoilage_failsafe},
+        {count = 18, string = "rubia-lore.spidertron-mine-part2"},
+        {count = 35, string = "rubia-lore.spidertron-mine-part3"},
+        {count = 50, execute = spoilage_failsafe, extra_id = "spoil1"},
+        {count = 52, string = "rubia-lore.spidertron-mine-part4"},
+        {count = 60, execute = spoilage_failsafe, extra_id = "spoil2"},
+        {count = 70, execute = spoilage_failsafe, extra_id = "spoil3"},
     },
     ["rubia-pole-remnants"] = {
-        {count = 3, string = "rubia-lore.train-stop-mine-part1"},
-        {count = 12, string = "rubia-lore.train-stop-mine-part2"},
-        {count = 23, string = "rubia-lore.train-stop-mine-part3"},
-        {count = 32, string = "rubia-lore.train-stop-mine-part4"},
-        {count = 47, string = "rubia-lore.train-stop-mine-part5",
-                    string2 = "rubia-lore.train-stop-mine-part5-2", string2_delay = 5*60},
+        {count = 12, string = "rubia-lore.train-stop-mine-part1"},
+        {count = 34, string = "rubia-lore.train-stop-mine-part2"},
+        {count = 67, string = "rubia-lore.train-stop-mine-part3"},
+        {count = 112, string = "rubia-lore.train-stop-mine-part4"},
+        {count = 157, string = "rubia-lore.train-stop-mine-part5",
+                     string2 = "rubia-lore.train-stop-mine-part5-2", string2_delay = 5*60},
     },
     ["rubia-junk-pile"] = {
         --{count = 1, string = "rubia-lore.junk-mine-hint-part1"},
         {count = 5, string = "rubia-lore.junk-mine-part1"},
-        {count = 12, string = "rubia-lore.junk-mine-part2"},
-        {count = 21, string = "rubia-lore.junk-mine-part3"},
-        {count = 31, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1)},
-        {count = 39, string = "rubia-lore.junk-mine-part5"},
-        {count = 54, string = "rubia-lore.junk-mine-part6-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(4)) or 1)},
+        {count = 17, string = "rubia-lore.junk-mine-part2"},
+        {count = 31, string = "rubia-lore.junk-mine-part3"},
+        {count = 52, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1),
+                     extra_id = "rubia-lore.junk-mine-part4-rand"},
+        {count = 77, string = "rubia-lore.junk-mine-part5"},
+        {count = 105, string = "rubia-lore.junk-mine-part6-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(4)) or 1),
+                     extra_id = "rubia-lore.junk-mine-part6-rand"},
     }
 }
+--Give every entry a non-string ID in the lore table. This function gets invoked to give access for migrations.
+function lore_mining.assign_ids_to_lore(lore_table)
+    local id_duplicate_check = {}
+    for key, list in pairs(lore_table) do
+        for _, entry in pairs(list) do
+            local id =  entry.extra_id or entry.string
+            assert(id, "This entry has no identification to make sure we don't invoke multiple times: "
+                    .. key .. ": " .. serpent.block(entry))
+            assert(not id_duplicate_check[id], "This ID is duplicated, but should be unique: " .. tostring(id))
+            assert(not entry.unique_id, "Unique id should be set automatically, not in the lore definition. See: " .. serpent.block(entry))
+            id_duplicate_check[id] = true
+            entry.unique_id = id
+        end
+    end
+end
+lore_mining.assign_ids_to_lore(lore_drop_table)
+
+
 
 --[[Code for testing. Comment in/out as needed.
-log("Lore test code is active. Remove before release.")
+log("RUBIA: Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
-end
-]]
+end]]
+
 
 --When we just got a lore drop, check if we need an achievement for it
 local try_lore_achievement = function()
-    for entity_name, drop_table in pairs(lore_drop_table) do
-        for _, entry in pairs(drop_table) do
-            --Haven't even mined one => NO
-            if (not storage.rubia_mined_lore_entities[entity_name]) then return end
-            --There is one lore drop we haven't seen in that category, with actual lore
-            if (entry.count > storage.rubia_mined_lore_entities[entity_name])
+    for entity_name, drop_table in pairs(lore_drop_table or {}) do
+        --Haven't even mined one => NO
+        if (not storage.rubia_mined_lore_entities[entity_name]) then return end
+        for _, entry in pairs(drop_table or {}) do
+            --There is a lore drop we haven't seen in that category, with actual lore
+            if (not storage.rubia_lore_previously_played[entry.unique_id])
                 and entry.string then return end
         end
     end
 
     --We made it past all the lore checks. Give achievement.
+    local achievement_id = "rubia-lore.all-lore-done"
+    if storage.rubia_lore_previously_played[achievement_id] then return end --We already gave it
+    storage.rubia_lore_previously_played[achievement_id] = true
     game.print({"rubia-lore.all-lore-done"})
     for _, player in pairs(game.players) do
         player.unlock_achievement("rubia-lore-complete")
@@ -86,14 +109,18 @@ lore_mining.try_lore_when_mined = function(entity)
     local prototype_name = entity.prototype.name
     if not lore_drop_table[prototype_name] then return end --not on drop table
 
-    --Running count of everything we mined
+    ---@type table<string, uint> Running count of everything we mined
     storage.rubia_mined_lore_entities = storage.rubia_mined_lore_entities or {}
+    ---@type table<string, boolean> Hashset of previously played lore lines.
+    storage.rubia_lore_previously_played = storage.rubia_lore_previously_played or {}
     local new_count = (storage.rubia_mined_lore_entities[prototype_name] or 0)+1
     storage.rubia_mined_lore_entities[prototype_name] = new_count
     --Check to give lore
-    for _, entry in pairs(lore_drop_table[prototype_name]) do
-        if new_count == entry.count then --Time to trigger
-            if entry.string then 
+    for index, entry in pairs(lore_drop_table[prototype_name]) do
+        if new_count >= entry.count  --Time to trigger
+            and not storage.rubia_lore_previously_played[entry.unique_id] then --Not seen before
+            storage.rubia_lore_previously_played[entry.unique_id] = true
+            if entry.string then
                 game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string}},{color=lore_color})
             end
             if entry.string2 then 
@@ -102,6 +129,7 @@ lore_mining.try_lore_when_mined = function(entity)
             end
             if entry.execute then entry.execute(entity) end
             try_lore_achievement()
+            table.remove(lore_drop_table, index) --Remove because we've seen it.
             return
         end
     end

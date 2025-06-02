@@ -2,6 +2,10 @@
 Version: 0.69.49
 Date: ????
   Changes:
+    - Firearm mag tech cost now cost 200 => 300
+    - Yellow ammmo => iron plates is now ~25% faster
+    - Spidertron remnant fast inserter yield buffed: 10% 20-25 => 10% 20-40
+    - Lore was set forward, because too much of it would bombard you all at once. I set up migration to not replay lines.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.48
 Date: 2025-06-01

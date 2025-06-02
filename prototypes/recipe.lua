@@ -303,7 +303,7 @@ data:extend({
       {type ="item", name ="firearm-magazine", amount = 3},
     },
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 3 * 0.6 * 2,
+    energy_required = 3 * 0.6 *1.5,
     results = {
       {type ="item", name ="iron-plate", amount = 2},
     },
