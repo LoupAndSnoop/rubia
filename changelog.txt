@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.51
-Date: ????
+Date: 2025-06-03
   Changes:
     - Fixed many multiplayer desyncs. Now it should be multiplayer compatible. Thanks to Yenon for your help testing and bug reporting!
 ---------------------------------------------------------------------------------------------------
