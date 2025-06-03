@@ -338,13 +338,21 @@ trashsteroid_lib.hard_refresh = function()
 end
 
 
---Trashsteroid scaling: allow it to be flipped
-local trashsteroid_scale;--= function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
+--[[Trashsteroid scaling: allow it to be flipped
+local trashsteroid_scale = function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
 local function update_trashsteroid_size_scaling()
   trashsteroid_scale = function(fractional_age) return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size end
   if settings.global["invert-trashsteroid-scaling"].value then
     trashsteroid_min_size = 0.5
     trashsteroid_scale = function(fractional_age) return (1 - fractional_age) + (fractional_age) * trashsteroid_min_size end
+  end
+end
+update_trashsteroid_size_scaling()]]
+
+local function trashsteroid_size_scaling(fractional_age)
+  if settings.global["invert-trashsteroid-scaling"].value then
+    return (1 - fractional_age) + (fractional_age) * 0.5
+  else return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
   end
 end
 
@@ -355,7 +363,7 @@ local function update_trashsteroid_rendering(trashsteroid)
   local render_solid = trashsteroid.render_solid
   local render_shadow = trashsteroid.render_shadow
 
-  local scale = trashsteroid_scale(fractional_age)
+  local scale = trashsteroid_size_scaling(fractional_age)--trashsteroid_scale(fractional_age)
   --local scale = 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
   render_solid.x_scale = scale--fractional_age + (1 - fractional_age) * trashsteroid_min_size
   render_solid.y_scale = scale--trashsteroid.render_solid.x_scale
@@ -595,14 +603,11 @@ local function initialize()
   --Log and update chunk data
   storage.rubia_chunks = storage.rubia_chunks or {}
   storage.trash_render_index = storage.trash_render_index or 0
-
-  update_trashsteroid_size_scaling()
 end
 
 local event_lib = require("__rubia__.lib.event-lib")
 
-event_lib.on_event({defines.events.on_research_finished, defines.events.on_technology_effects_reset},
-  "trashsteroid-difficulty-update", update_difficulty_scaling)
+
 
 event_lib.on_event(defines.events.on_chunk_charted, "trashsteroid-chunk-log",
   function(event)
@@ -615,10 +620,6 @@ event_lib.on_nth_tick(1, "trashsteroid-render-update", rendering_update)
 event_lib.on_nth_tick(4, "trashsteroid-impact-update", trashsteroid_lib.trashsteroid_impact_update)
 event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.reset_failsafe)
 
-
-event_lib.on_init("trashsteroid-difficulty", update_difficulty_scaling)
-event_lib.on_configuration_changed("trashsteroid-difficulty", update_difficulty_scaling)
-
 event_lib.on_init("trashsteroid-spawn-initialize", initialize)
 event_lib.on_configuration_changed("trashsteroid-spawn-initialize", initialize)
 
@@ -627,13 +628,20 @@ script.on_event(defines.events.on_entity_died, function(event)
 end, {{filter = "name", name = "medium-trashsteroid"}})
 
 --Settings
+--[[
+event_lib.on_init("trashsteroid-difficulty", update_difficulty_scaling)
+event_lib.on_configuration_changed("trashsteroid-difficulty", update_difficulty_scaling)
 event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-size-scaling", function(event)
   if event.setting == "invert-trashsteroid-scaling" then update_trashsteroid_size_scaling() end
-end)
-event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-size-scaling", function(event)
+end)]]
+event_lib.on_event({defines.events.on_research_finished, defines.events.on_technology_effects_reset,
+  defines.events.on_player_joined_game},
+  "trashsteroid-difficulty-update", update_difficulty_scaling)
+event_lib.on_init("trashsteroid-difficulty-update", update_difficulty_scaling)
+event_lib.on_configuration_changed("trashsteroid-difficulty-update", update_difficulty_scaling)
+event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-difficulty-scaling", function(event)
   if event.setting == "rubia-difficulty-setting" then update_difficulty_scaling() end
 end)
-
 
 
 --#endregion
