@@ -49,16 +49,6 @@ local impact_damage_special = {--Dictionary of entity=>impact damage for special
   ["character"] = 280
 }
 
-
---Trashteroid data
---storage.active_trashsteroids = {} --active_trashsteroids[(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
-storage.active_trashsteroids = storage.active_trashsteroids or {}
-storage.active_trashsteroid_count = storage.active_trashsteroid_count or 0
---Trashsteroid queue for chunks that currently don't have an active trashsteroid
---storage.pending_trashsteroid_data = {}--[chunk_data=chunk] = (next_spawn_tick=tick) --has the next tick where we expect a trashsteroid spawn
-----@type table<ChunkData, uint>
-storage.pending_trashsteroid_data = storage.pending_trashsteroid_data or {}
-
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
 local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
 --local chunk_key_scale = 2^24
@@ -128,22 +118,7 @@ local function find_closest_collector(search_start_point)
   return best_collector
 end
 
-
 -----------------
-
-
-
--- Add entity to the working cache of that item to manage.
----@param entity LuaEntity
-local function add_to_cache(entity,cache)--,current_tick)
-  --log(serpent.block(entity.name))
-  if(entity.valid == true) then
-    cache[entity["unit_number"]] = {entity = entity, timestamp = game.tick}--current_tick}
-  end
-end
-local function remove_from_cache(unit_number,cache)
-  cache[unit_number] = nil
-end
 
 --[[Output a map of "surface-name" = {array of entities with that name on that surface}
 local function find_all_entity_of_name(input_name)
@@ -193,8 +168,7 @@ end
 
 
 
---Log and update chunk data
-storage.rubia_chunks = storage.rubia_chunks or {}
+
 --When a new chunk has to be added, log everything we need to start spawning entities there.
 trashsteroid_lib.log_chunk_for_trashsteroids = function(surface, position, area)
   if surface and (surface.name == "rubia") then 
@@ -373,7 +347,6 @@ local function update_trashsteroid_size_scaling()
     trashsteroid_scale = function(fractional_age) return (1 - fractional_age) + (fractional_age) * trashsteroid_min_size end
   end
 end
-update_trashsteroid_size_scaling()
 
 local mathfmod, mathmin = math.fmod, math.min
 --Update the rendering for this one trashsteroid.
@@ -434,7 +407,7 @@ trashsteroid_lib.rendering_update = function()
   end
 end]]
 
-storage.trash_render_index = storage.trash_render_index or 0
+
 
 --Go through all trashsteroids, and update their rendering.
 local rendering_update = function()
@@ -609,6 +582,23 @@ trashsteroid_lib.reset_failsafe = function ()
 end
 
 --#region Event management
+
+--Trashteroid data
+local function initialize()
+  --storage.active_trashsteroids = {} --active_trashsteroids[(unit_number)] = {unit_number=resulting_entity.unit_number, death_tick=tick, name=trashsteroid_name, chunk_data=chunk}
+  storage.active_trashsteroids = storage.active_trashsteroids or {}
+  storage.active_trashsteroid_count = storage.active_trashsteroid_count or 0
+  --Trashsteroid queue for chunks that currently don't have an active trashsteroid
+  --storage.pending_trashsteroid_data = {}--[chunk_data=chunk] = (next_spawn_tick=tick) --has the next tick where we expect a trashsteroid spawn
+  ----@type table<ChunkData, uint>
+  storage.pending_trashsteroid_data = storage.pending_trashsteroid_data or {}
+  --Log and update chunk data
+  storage.rubia_chunks = storage.rubia_chunks or {}
+  storage.trash_render_index = storage.trash_render_index or 0
+
+  update_trashsteroid_size_scaling()
+end
+
 local event_lib = require("__rubia__.lib.event-lib")
 
 event_lib.on_event({defines.events.on_research_finished, defines.events.on_technology_effects_reset},
@@ -628,6 +618,9 @@ event_lib.on_nth_tick(60 * 10, "trashsteroid-reset-failsafe", trashsteroid_lib.r
 
 event_lib.on_init("trashsteroid-difficulty", update_difficulty_scaling)
 event_lib.on_configuration_changed("trashsteroid-difficulty", update_difficulty_scaling)
+
+event_lib.on_init("trashsteroid-spawn-initialize", initialize)
+event_lib.on_configuration_changed("trashsteroid-spawn-initialize", initialize)
 
 script.on_event(defines.events.on_entity_died, function(event)
   trashsteroid_lib.on_med_trashsteroid_killed(event.entity, event.damage_type)

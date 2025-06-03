@@ -4,10 +4,6 @@ local util = require("util")
 --Variable to store exposed cutscene functions
 local landing_cutscene = {}
 
---Dictionary of ["player_index"] => array of event_id strings for the sub-cutscene events.
-storage.active_cutscenes = storage.active_cutscenes or {}
-
-
 --#region Permission-based immobilization for cutscene
 local function immobilize_for_cutscene(player)
     --Keep a dictionary of players currently immobilzed, mapped to their initial permission groups.
@@ -92,6 +88,9 @@ end
 --Cancel the cutscene currently playing for the player.
 ---@param player LuaPlayer
 local function cancel_cutscene(player)
+    --Dictionary of ["player_index"] => array of event_id strings for the sub-cutscene events.
+    storage.active_cutscenes = storage.active_cutscenes or {}
+
     --game.print("Cancelling: " .. serpent.block(storage.active_cutscenes[tostring(player.index)]))
     game.autosave_enabled = true
     remobilize_from_cutscene(player)
@@ -278,6 +277,7 @@ local function start_cutscene(player, cargo_pod)
             player.exit_cutscene() end
     end))]]
 
+    storage.active_cutscenes = storage.active_cutscenes or {}
     storage.active_cutscenes[tostring(player.index)] = event_ids--util.table.deepcopy(event_ids)--event_ids
     return event_ids
 end
@@ -518,6 +518,7 @@ end
 --Cancel if player dies. Feed in an event raise for event on_player_died
 landing_cutscene.cancel_on_player_death = function(event)
     --If no cutscene playing, don't do anything.
+    storage.active_cutscenes = storage.active_cutscenes or {}
     if not storage.active_cutscenes[tostring(event.player_index)] then return end
 
     local player = game.get_player(event.player_index)

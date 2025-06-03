@@ -2,7 +2,7 @@
 
 --Array of entity prototypes to ban from only rubia's surface.
 --This array can also just be defined and populated at some other stage.
-storage.trashsteroid_pre_blacklist = storage.trashsteroid_pre_blacklist or {}
+--storage.trashsteroid_pre_blacklist = storage.trashsteroid_pre_blacklist or {}
 local internal_blacklist = {
     --Rails
     "straight-rail","half-diagonal-rail","curved-rail-a","curved-rail-b",
@@ -58,25 +58,14 @@ for _, entry in pairs(mod_item_blacklist) do
    if script.active_mods[entry.mod] then table.insert(internal_blacklist, entry.name) end
 end
 
-
---Merge with any existing blacklist in case other mods want to add to this blacklist variable.
-storage.trashsteroid_pre_blacklist = rubia_lib.array_concat({storage.trashsteroid_pre_blacklist, internal_blacklist})
-
 --The actual working blacklist, which is a dictionary of hashsets.
 rubia.trashsteroid_blacklist = {}
 
 --On command, make a fast-access blacklist: hashset of all names of all entities that are blacklisted.
 rubia.generate_trashsteroid_blacklist = function()
-    local trashsteroid_blacklist = {}
-    for _, entry in pairs(storage.trashsteroid_pre_blacklist or {}) do
-        assert(prototypes["entity"][entry], "In trashsteroid blacklist, Did not find " .. entry)
-
-        if not trashsteroid_blacklist then 
-            trashsteroid_blacklist = {[entry] = 1}
-        else trashsteroid_blacklist[entry] = 1
-        end
-    end
-    rubia.trashsteroid_blacklist = trashsteroid_blacklist
+    local full_blacklist = rubia_lib.merge(internal_blacklist, 
+        storage.trashsteroid_external_blacklist or {})
+    rubia.trashsteroid_blacklist = rubia_lib.array_to_hashset(full_blacklist)
 end
 
 --Invoke at least once in control phase to make that runtime blacklist.
@@ -87,8 +76,9 @@ rubia.generate_trashsteroid_blacklist()
 --immune to trashsteroid damage. Input an array of {type="type",name="entity-name"}
 remote.add_interface("add-to-trashsteroid-blacklist", {
     trashsteroid_blacklist = function(additional_blacklist) 
-        storage.trashsteroid_pre_blacklist = rubia_lib.merge(
-            storage.trashsteroid_pre_blacklist or {}, additional_blacklist)
+        storage.trashsteroid_external_blacklist = storage.trashsteroid_external_blacklist or {}
+        storage.trashsteroid_external_blacklist = rubia_lib.merge(
+            storage.trashsteroid_external_blacklist or {}, additional_blacklist) or {}
         rubia.generate_trashsteroid_blacklist()
     end
   })

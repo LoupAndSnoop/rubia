@@ -4,10 +4,14 @@ local chunk_checker = require("__rubia__.script.chunk-checker")
 local init_functions = {}
 
 --#region Warnings
---Give a warning if Rubia is not removed from promethium sci, when 
---you just downloaded the mod, and you DO have some ranks of it.
-storage.promethium_warning_done = storage.promethium_warning_done or false
-storage.rocketizer_warning_done = storage.rocketizer_warning_done or false
+
+local function initialize_storage()
+    --Give a warning if Rubia is not removed from promethium sci, when 
+    --you just downloaded the mod, and you DO have some ranks of it.
+    storage.promethium_warning_done = storage.promethium_warning_done or false
+    storage.rocketizer_warning_done = storage.rocketizer_warning_done or false
+end
+
 
 --Warning functions to queue up
 local WARNING_PRINT_SETTINGS = {color={r=1,g=0.4,b=0.4,a=1}}
@@ -86,6 +90,9 @@ end]]
 
 --#region Event subscription
 local event_lib = require("__rubia__.lib.event-lib")
+
+event_lib.on_init("init-storage", initialize_storage)
+event_lib.on_configuration_changed("init-storage", initialize_storage)
 
 event_lib.on_init("hard-initialize", init_functions.hard_initialize)
 event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initialize)
