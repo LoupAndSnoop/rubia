@@ -32,29 +32,12 @@ local function immobilize_for_cutscene(player)
     local no_permissions = game.permissions.create_group("Rubia-cutscene-"..player.index)
     assert(no_permissions,"Rubia needs to be able to change permissions for the openning cutscene.")
     
-    --[[local to_disable = {defines.input_action.open_blueprint_library_gui,
-    defines.input_action.remote_view_entity, defines.input_action.remote_view_surface,
-    --Open Guis
-    defines.input_action.open_achievements_gui,
-    defines.input_action.open_blueprint_library_gui, defines.input_action.open_blueprint_record,
-    defines.input_action.open_bonus_gui, defines.input_action.open_character_gui,
-    defines.input_action.open_current_vehicle_gui, defines.input_action.open_equipment,
-    defines.input_action.open_global_electric_network_gui, defines.input_action.open_gui,
-    defines.input_action.open_item, defines.input_action.open_logistics_gui,
-    defines.input_action.open_mod_item, defines.input_action.open_new_platform_button_from_rocket_silo,
-    defines.input_action.open_opened_entity_grid, defines.input_action.open_parent_of_opened_item,
-    defines.input_action.open_production_gui, defines.input_action.open_train_gui,
-    defines.input_action.open_train_station_gui, defines.input_action.open_trains_gui,
-    }]]
-    --for _, input in pairs(to_disable) do
     for _, input in pairs(defines.input_action) do
         if input ~= defines.input_action.write_to_console then
             no_permissions.set_allows_action(input, false)
         end
     end
     no_permissions.set_allows_action(defines.input_action.remote_view_entity, false)
-    --no_permissions.set_allows_action(defines.input_action.remote_view_entity, false)
-    --no_permissions.set_allows_action(defines.input_action.remote_view_surface, false)
     no_permissions.add_player(player)
     player.permission_group = no_permissions
 end
@@ -232,7 +215,6 @@ local function start_cutscene(player, cargo_pod)
     immobilize_for_cutscene(player)
     player.zoom = 2
 
-    --game.print("start tick = " .. tostring(game.tick))
     local character = cargo_pod.get_passenger()
     assert(character, "Character not found.")
     

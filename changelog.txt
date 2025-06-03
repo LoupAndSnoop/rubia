@@ -2,6 +2,9 @@
 Version: 0.69.50
 Date: ????
   Changes:
+    - Armored trains/wagons: HP buffed 2x => 2.5x. 
+    - Armored trains/wagons: Braking force buffed 2-10x to be commensurate with their stats... and then a little bit more just to be safe.
+    - Armored locomotive fuel efficiency 25% => 20%.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.49
 Date: 2025-06-02
@@ -10,8 +13,8 @@ Date: 2025-06-02
     - Wooden Logistics Compatibility: If Wooden logistics is installed, then long handed inserters and repair packs are now available in mixed scrap sources.
     - Alloy smelting compatibility: If alloy-smelting has coke mode on, then Rubia now gives electric kilns, and has a new coke recipe.
   Balancing:
-    - Firearm mag tech cost now cost 200 => 300
-    - Yellow ammmo => iron plates is now ~25% faster
+    - Firearm mag tech cost 200 => 300
+    - Yellow ammo => iron plates is now ~25% faster
     - Spidertron remnant fast inserter yield buffed: 10% 20-25 => 10% 20-40
     - Armored locomotive/wagon: Nerf weight relative to vanilla 4x => 5x.
     - Armored wagons: Buff HP relative to vanilla 1x => 2x

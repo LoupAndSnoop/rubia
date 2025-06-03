@@ -172,9 +172,10 @@ local armored_locomotive_edits = {
     },
 }]]
 
-local max_speed_mult = 1.25
+local max_speed_mult = 1.25 + 0.25
 local weight_mult = 5
-local health_mult = 2
+local health_mult = 2.5
+local braking_force_mult = 20 + 5
 
 data:extend({
 {
@@ -200,7 +201,7 @@ data:extend({
     max_speed = 1.2 * max_speed_mult,
     max_power = "12MW",--"600kW",
     reversing_power_modifier = 0.6 / 20,--0.6,
-    braking_force = 10 * 6,
+    braking_force = 10 * braking_force_mult,
     friction_force = 0.50,
     vertical_selection_shift = -0.5,
     air_resistance = 0.0075, -- this is a percentage of current speed that will be subtracted
@@ -222,7 +223,7 @@ data:extend({
     {
       type = "burner",
       fuel_categories = {"chemical"},
-      effectivity = 0.25,--1.5,--1,
+      effectivity = 0.2,--1.5,--1,
       fuel_inventory_size = 5,--3,
       smoke =
       {
@@ -550,7 +551,7 @@ data:extend({
     vertical_selection_shift = -0.796875,
     weight = 1000 * weight_mult,
     max_speed = 1.5 * max_speed_mult,
-    braking_force = 3 * 4,
+    braking_force = 3 * braking_force_mult,
     friction_force = 0.50,
     air_resistance = 0.01,
     connection_distance = 3,
@@ -722,7 +723,7 @@ data:extend({
     icon_draw_specification = {scale = 1.25, shift = {0, -1}},
     weight = 1000 * weight_mult,
     max_speed = 1.5 * max_speed_mult,
-    braking_force = 3,
+    braking_force = 3 * braking_force_mult,
     friction_force = 0.50,
     air_resistance = 0.01,
     connection_distance = 3,

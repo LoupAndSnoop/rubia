@@ -400,10 +400,6 @@ local function update_trashsteroid_rendering(trashsteroid)
   if (solid_tranparency - render_solid.color.r >= transparency_delta) then
     render_solid.color = transparency(solid_tranparency)
     render_shadow.color = transparency(trashsteroid_shadow_max_opacity * transparency_scale)
-    --[[local sol_col_ref, sol_col = render_solid.color, trashsteroid_max_opacity * transparency_scale
-    sol_col_ref.r, sol_col_ref.g, sol_col_ref.b, sol_col_ref.a = sol_col, sol_col, sol_col, sol_col
-    local sh_col_ref, sh_color = render_shadow.color, trashsteroid_shadow_max_opacity * transparency_scale
-    sh_col_ref.r, sh_col_ref.g, sh_col_ref.b, sh_col_ref.a = sh_color, sh_color, sh_color, sh_color]]
   end
 
   --Now get shift between shadow and solid
