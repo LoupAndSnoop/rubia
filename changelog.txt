@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.52
-Date: ????
+Date: 2025-06-04
   Changes:
     - Thanks to MagistrDjo for a Russian localization!
     - Fixed even more multiplayer desyncs. Thanks Yenon.
