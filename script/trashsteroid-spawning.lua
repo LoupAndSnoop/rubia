@@ -333,7 +333,7 @@ trashsteroid_lib.hard_refresh = function()
     end
   end
   try_initialize_RNG()
-  difficulty_scaling.initialize()
+  --difficulty_scaling.initialize()
   --local trashsteroids = storage.rubia_surface.find_entities_filtered({filter="name",name="medium-trashsteroid"})
 end
 
