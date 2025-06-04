@@ -69,8 +69,8 @@ end
 find_all_shield_prototypes()
 
 --Cached values for how trashsteroids should be shielded.
-local shielding_amount = 0
-local current_shield_prototype = "trashsteroid-shield-1"
+--local shielding_amount = 0
+--local current_shield_prototype = "trashsteroid-shield-1"
 --Note: Since I clear checked the mod with the absolute shittiest techs,
 --I know this is reasonable with maxed out difficulty settings.
 
@@ -87,31 +87,32 @@ difficulty_scaling.update_difficulty_scaling = function ()
     health_multiplier = health_multiplier * (difficulty_scaling.settings()["health_multiplier"])
 
     --Now convert that into an amount to shield.
-    shielding_amount = base_HP * (health_multiplier - 1)
-    shielding_amount = math.max(0, shielding_amount)
+    local shielding_amount = base_HP * (health_multiplier - 1)
+    storage.shielding_amount = math.max(0, shielding_amount)
     
     --Find the right shield
-    if not shield_prototypes then find_all_shield_prototypes() end
+    assert(shield_prototypes, "Shield prototypes not yet defined.")
+    --if not shield_prototypes then find_all_shield_prototypes() end
     --log(serpent.block(shield_prototypes))
     for _, entry in ipairs(shield_prototypes) do
         if entry.shield >= shielding_amount and shielding_amount >= entry.min then
-            current_shield_prototype = entry.name
+            storage.current_shield_prototype = entry.name
             break
         end
     end
 end
 
 
---Fetch the amount we expect to shield, and the relevant shield prototype
+--[[Fetch the amount we expect to shield, and the relevant shield prototype
 difficulty_scaling.get_current_shield = function()
     return shielding_amount, current_shield_prototype
-end
+end]]
 
 --/c __rubia__ rubia.testing.show_difficulty_scaling ()
 rubia.testing = rubia.testing or {}
 rubia.testing.show_difficulty_scaling = function() 
     game.print("Current damage multiplier = " .. tostring(damage_multiplier())
-        .. ". Curent shielding amount = " .. tostring(shielding_amount))
+        .. ". Curent shielding amount = " .. tostring(storage.shielding_amount))
 end
 
 

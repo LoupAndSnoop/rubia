@@ -38,16 +38,16 @@ local trashsteroid_max_opacity = 0.8 --As opaque as it will get.
 local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 
 --Trashsteroid ranges, damages, etc
-local impact_base_damage = 75 --Raw damage done
-local impact_crit_damage = 300
-local impact_crit_chance = 10 --As a %
-local trashsteroid_impact_radius = 4
+--local impact_base_damage = 75 --Raw damage done
+--local impact_crit_damage = 300
+--local impact_crit_chance = 10 --As a %
+--local trashsteroid_impact_radius = 4
 local trashsteroid_chunk_reach = prototypes.entity["garbo-grabber"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
 local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
-local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
-  ["character"] = 280
-}
+--local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
+--  ["character"] = 280
+--}
 
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
 local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
@@ -189,11 +189,15 @@ local update_difficulty_scaling = function()
   --game.print("New shield value = " .. tostring(shield_val) .. ", shield name = " .. shield_name)
 
   local settings = difficulty_scaling.settings()
-  impact_base_damage = settings.impact_base_damage
-  impact_crit_damage = settings.impact_crit_damage
-  impact_crit_chance = settings.impact_crit_chance
-  trashsteroid_impact_radius = settings.trashsteroid_impact_radius
-  impact_damage_special["character"] = settings.character_damage
+  storage.impact_base_damage = settings.impact_base_damage
+  storage.impact_crit_damage = settings.impact_crit_damage
+  storage.impact_crit_chance = settings.impact_crit_chance
+  storage.trashsteroid_impact_radius = settings.trashsteroid_impact_radius
+
+  storage.impact_damage_special = {--Dictionary of entity=>impact damage for special cases
+    ["character"] = 280
+  }
+  storage.impact_damage_special["character"] = settings.character_damage
 end
 
 --Make trashsteroid in that chunk. Assume everything is initialized.
@@ -215,7 +219,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   assert(resulting_entity, "Null trashsteroid was made! How!?")
 
   --Difficulty scaling
-  local shield_val, shield_name = difficulty_scaling.get_current_shield()
+  local shield_val, shield_name = storage.shielding_amount, storage.current_shield_prototype--difficulty_scaling.get_current_shield()
   local shield = resulting_entity.grid.put{name=shield_name}
   shield.shield = shield_val
   --local shield = resulting_entity.grid.put{name="trashsteroid-shield"}
@@ -498,10 +502,10 @@ trashsteroid_lib.trashsteroid_impact_update = function()
       end
 
       --Real roid. Deal damage
-      local impacted_entities = find_impact_targets(entity.position, trashsteroid_impact_radius)
-      local default_damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
+      local impacted_entities = find_impact_targets(entity.position, storage.trashsteroid_impact_radius)
+      local default_damage = (storage.rubia_asteroid_rng(0,100) <= storage.impact_crit_chance) and storage.impact_crit_damage or storage.impact_base_damage
       for _,hit_entity in pairs(impacted_entities) do
-        local damage = impact_damage_special[hit_entity.name] or default_damage
+        local damage = storage.impact_damage_special[hit_entity.name] or default_damage
         --This version calculates crit chance separately on each thing hit of 1 trashsteroid.
         --if not damage then --Not special case
         --  damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
@@ -642,8 +646,6 @@ event_lib.on_configuration_changed("trashsteroid-difficulty-update", update_diff
 event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-difficulty-scaling", function(event)
   if event.setting == "rubia-difficulty-setting" then update_difficulty_scaling() end
 end)
-
-
 --#endregion
 
 
