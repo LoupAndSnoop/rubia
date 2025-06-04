@@ -66,11 +66,7 @@ local function find_all_shield_prototypes()
     end
     shield_prototypes[1].min = 0
 end
-
-
-function difficulty_scaling.initialize()
-    find_all_shield_prototypes()
-end
+find_all_shield_prototypes()
 
 --Cached values for how trashsteroids should be shielded.
 local shielding_amount = 0

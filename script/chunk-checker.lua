@@ -265,8 +265,8 @@ chunk_checker.try_update_player_pos = function(player, surface)
     local new_chunk_pos = chunk_checker.map_pos_to_chunk_pos(player.position.x, player.position.y)
     local new_key = chunk_checker.chunk_position_to_key(new_chunk_pos.x, new_chunk_pos.y)
 
-    --Player is NOT on the surface now
-    if (player.surface.name ~= surface.name) then
+    --Player is NOT on the surface now (includes player is not connected)
+    if (player.surface.name ~= surface.name or not player.connected) then
         --But they were also not on the surface before = no update
         if (not storage.last_player_chunk[player.index]) then return end
         --And trhey WERE on the surface before => delist, but no track
@@ -328,10 +328,12 @@ local event_lib = require("__rubia__.lib.event-lib")
 
 event_lib.on_event({defines.events.on_player_changed_surface,
     defines.events.on_player_changed_position,
-    defines.events.on_player_left_game,
     defines.events.on_player_joined_game,
+    defines.events.on_player_left_game,
     defines.events.on_player_banned,
-    defines.events.on_player_kicked,},
+    defines.events.on_player_kicked,
+    defines.events.on_player_removed
+},
     "chunk-checker-player-pos",
     function(event)
         local surface = game.get_surface("rubia")

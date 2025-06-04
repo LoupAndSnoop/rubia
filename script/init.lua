@@ -5,7 +5,7 @@ local init_functions = {}
 
 --#region Warnings
 
-local function initialize_storage()
+local function initialize_warning_storage()
     --Give a warning if Rubia is not removed from promethium sci, when 
     --you just downloaded the mod, and you DO have some ranks of it.
     storage.promethium_warning_done = storage.promethium_warning_done or false
@@ -91,8 +91,9 @@ end]]
 --#region Event subscription
 local event_lib = require("__rubia__.lib.event-lib")
 
-event_lib.on_init("init-storage", initialize_storage)
-event_lib.on_configuration_changed("init-storage", initialize_storage)
+event_lib.on_init("init-warning-storage", initialize_warning_storage)
+event_lib.on_configuration_changed("init-warning-storage", initialize_warning_storage)
+event_lib.on_event(defines.events.on_player_joined_game, "init-warning-storage", initialize_warning_storage)
 
 event_lib.on_init("hard-initialize", init_functions.hard_initialize)
 event_lib.on_configuration_changed("hard-initialize", init_functions.hard_initialize)

@@ -303,6 +303,7 @@ function rubia.print_events()
     log("Rubia event log:")
     log(lib.to_string())
 end
+--/c __rubia__ rubia.print_events()
 --#endregion
 
 return lib
