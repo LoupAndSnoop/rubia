@@ -2,6 +2,8 @@
 Version: 0.69.52
 Date: ????
   Changes:
+    - Thanks to MagistrDjo for a Russian localization!
+    - Multiplayer desyncs are not all resolved. I'm working on it.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.51
 Date: 2025-06-03

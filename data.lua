@@ -42,4 +42,4 @@ require("__rubia__.compat.blueprint-shotgun")
 require("__rubia__.compat.wood-logistics")
 require("__rubia__.compat.alloy-smelting")
 
-require("__rubia__.script.recycling-fixes")
+require("__rubia__.prototypes.data-script.recycling-fixes")

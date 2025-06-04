@@ -63,3 +63,4 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Hornwitser: Science sprites are derived from his beautiful [quality glassware mod](https://mods.factorio.com/mod/quality_glassware). These derrivatives are shared under a CC-BY-SA license.
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
 - Localization: Thanks to rlcyyg1108 for generously providing a Chinese localization!
+- Localization: Thanks to MagistrDjo for generously providing a Russian localization!
