@@ -525,16 +525,12 @@ data:extend({
 --Infinite braking force. Thanks to a mod by Velaanix
 {
     type = "technology",
-    name = "rubia-braking-force-8",
+    name = "braking-force-8",
     localised_name = {"technology-name.braking-force"},
     localised_description = {"technology-description.rubia-braking-force-8"},
     icons = util.technology_icon_constant_braking_force("__base__/graphics/technology/braking-force.png"),
-    effects =
-    {
-        {
-        type = "train-braking-force-bonus",
-        modifier = 0.2
-        }
+    effects = {
+        {type = "train-braking-force-bonus", modifier = 0.2}
     },
     prerequisites = {"braking-force-7","planetslib-rubia-cargo-drops"},--, "metallurgic-science-pack"},
     unit =

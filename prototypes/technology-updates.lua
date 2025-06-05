@@ -1,6 +1,55 @@
 --This file focuses on making edits to technologies in a later stage,
 --primarily for productivity techs.
 
+--#region Helper functions
+
+--Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
+local function remove_science_pack_from_tech(science_pack_name, technology_name)
+    local tech = data.raw["technology"][technology_name]
+    assert(data.raw.tool[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
+    --assert(tech, "Technology not found: " .. technology_name)
+    if (not tech) then return end --Tech not found
+
+    for i,entry in pairs(tech.unit.ingredients) do
+        if (entry and entry[1] == science_pack_name) then
+            table.remove(tech.unit.ingredients,i)
+            break
+        end
+    end
+end
+--Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
+local function try_add_science_pack_to_tech(science_pack_name, technology_name)
+    local tech = data.raw["technology"][technology_name]
+    assert(data.raw.tool[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
+    --assert(tech and tech.unit, "Technology not found: " .. technology_name)
+    if (not tech or not tech.unit) then return end --Tech not found
+
+    for _,entry in pairs(tech.unit.ingredients) do
+        if (entry and entry[1] == science_pack_name) then return end
+    end
+    table.insert(tech.unit.ingredients, {science_pack_name, 1 })
+end
+
+--Add this prerequisite to the given technology (if the tech exists, and if it is there). If it is already there, don't bother.
+local function try_add_prerequisite(technology_name, prerequisite)
+    local tech = data.raw["technology"][technology_name]
+    if not tech then return end
+    
+    if not tech.prerequisites then tech.prerequisites = {prerequisite}
+    else --There already exist prerequisites
+        for _, entry in pairs(tech.prerequisites) do
+            if entry == prerequisite then return end --It is already there            
+        end
+        --Not already in the list
+        table.insert(tech.prerequisites, prerequisite)
+    end
+end
+
+
+
+--#endregion
+
+
 --K2SO for some reason nukes this, but it needs to also be done at 
 --data stage to capture for maraxsis.
 rubia.try_add_science_packs_to_labs() 
@@ -53,32 +102,6 @@ end
 
 --#region Promethium sci updating
 
---Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
-local function remove_science_pack_from_tech(science_pack_name, technology_name)
-    local tech = data.raw["technology"][technology_name]
-    assert(data.raw.tool[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
-    --assert(tech, "Technology not found: " .. technology_name)
-    if (not tech) then return end --Tech not found
-
-    for i,entry in pairs(tech.unit.ingredients) do
-        if (entry and entry[1] == science_pack_name) then
-            table.remove(tech.unit.ingredients,i)
-            break
-        end
-    end
-end
---Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
-local function try_add_science_pack_to_tech(science_pack_name, technology_name)
-    local tech = data.raw["technology"][technology_name]
-    assert(data.raw.tool[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
-    --assert(tech and tech.unit, "Technology not found: " .. technology_name)
-    if (not tech or not tech.unit) then return end --Tech not found
-
-    for _,entry in pairs(tech.unit.ingredients) do
-        if (entry and entry[1] == science_pack_name) then return end
-    end
-    table.insert(tech.unit.ingredients, {science_pack_name, 1 })
-end
 
 --Conditionally add/remove rubia science from promethium science costs
 if settings.startup["remove-rubia-from-promethium_sci"].value then
@@ -166,3 +189,29 @@ if (settings.startup["require-rubia-for-endgame-planets"].value) then
   require_rubia_clear_for_tech("planet-discovery-aquilo", true)
   if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
 end
+
+
+
+--#region Merging techs with other mods
+
+--Making sure braking force is properly merged with other mods.
+local braking_force = data.raw.technology["braking-force-8"]
+try_add_science_pack_to_tech("automation-science-pack", "braking-force-8")
+try_add_science_pack_to_tech("logistic-science-pack", "braking-force-8")
+--try_add_science_pack_to_tech("chemical-science-pack", "braking-force-8")
+--try_add_science_pack_to_tech("production-science-pack", "braking-force-8")
+try_add_science_pack_to_tech("military-science-pack", "braking-force-8")
+try_add_science_pack_to_tech("biorecycling-science-pack", "braking-force-8")
+
+try_add_prerequisite("braking-force-8",  "braking-force-7")
+try_add_prerequisite("braking-force-8",  "planetslib-rubia-cargo-drops")
+--Make sure the potency is at least as good as Rubia's
+for _, entry in pairs(braking_force.effects) do
+    if entry.type == "train-braking-force-bonus" then
+        entry.modifier = math.max(0.2, entry.modifier)
+    end
+end
+data.raw.technology["braking-force-7"].max_level = nil
+
+
+--#endregion

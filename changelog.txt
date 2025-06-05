@@ -2,6 +2,8 @@
 Version: 0.69.54
 Date: ????
   Changes:
+    - Unknown techs no longer show a level.
+    - Merged train braking force with other mods.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.53
 Date: 2025-06-05

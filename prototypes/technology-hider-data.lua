@@ -50,6 +50,7 @@ return {
     effects = {},
     prerequisites = {},
     research_trigger = {type="craft-item",  item = "rubia-unknown-technology", count = 69},--10^9}
+    show_levels_info = false,
 }
 end
 --Uncraftable-item to make impossible triggers
