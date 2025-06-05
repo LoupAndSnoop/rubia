@@ -2,6 +2,8 @@
 Version: 0.69.53
 Date: ????
   Changes:
+    - Fixed crash on trashsteroid impact.
+    - Dragging everyone up to the most recent factorio version, because I need features from it!
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.52
 Date: 2025-06-04

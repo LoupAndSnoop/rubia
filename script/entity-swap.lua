@@ -90,10 +90,7 @@ entity_swap.try_entity_swap = function(entity, player_index)
         req_point = new_entity.get_requester_point()
         --There is no point if it is a ghost
         if req_point then req_point.enabled = false end
-
-        log("RUBIA TODO: Remove experimental dependency when experimental is made stable.")
-        if rubia.flib.is_newer_version("2.0.53", script.active_mods["base"]) then
-            new_entity.use_transitional_requests = false end
+        new_entity.use_transitional_requests = false
     end
 end
 
@@ -145,10 +142,7 @@ end]]
 local event_lib = require("__rubia__.lib.event-lib")
 event_lib.on_built_early("entity-swap", entity_swap.try_entity_swap)
 
-log("WHEN EXPERIMENTAL RELEASED, ENABLE FOR RUBIA ROCKET SILOS")
-if rubia.flib.is_newer_version("2.0.53", script.active_mods["base"]) then
-    event_lib.on_entity_gui_update("silo-update", entity_swap.rocket_silo_update) --TODO: On experimental released
-end
+event_lib.on_entity_gui_update("silo-update", entity_swap.rocket_silo_update)
 --#endregion
 
 return entity_swap

@@ -5,7 +5,7 @@
     "author": "Loup&Snoop, 2025",
     "factorio_version": "2.0",
     "dependencies": ["base >= 2.0",
-        "space-age >= 2.0.26",
+        "space-age >= 2.0.55",
         "PlanetsLib >= 1.4.1",
         "rubia-assets >= 0.69.8",
         "RocketCargoInsertion >= 1.1.0",

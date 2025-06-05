@@ -505,12 +505,14 @@ trashsteroid_lib.trashsteroid_impact_update = function()
       local impacted_entities = find_impact_targets(entity.position, storage.trashsteroid_impact_radius)
       local default_damage = (storage.rubia_asteroid_rng(0,100) <= storage.impact_crit_chance) and storage.impact_crit_damage or storage.impact_base_damage
       for _,hit_entity in pairs(impacted_entities) do
-        local damage = storage.impact_damage_special[hit_entity.name] or default_damage
-        --This version calculates crit chance separately on each thing hit of 1 trashsteroid.
-        --if not damage then --Not special case
-        --  damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
-        --end
-        hit_entity.damage(damage, game.forces["enemy"])
+        if hit_entity.valid then 
+          local damage = storage.impact_damage_special[hit_entity.name] or default_damage
+          --This version calculates crit chance separately on each thing hit of 1 trashsteroid.
+          --if not damage then --Not special case
+          --  damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
+          --end
+          hit_entity.damage(damage, game.forces["enemy"])
+        end
       end
 
       local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,9)) --Number of unique explosions go here
