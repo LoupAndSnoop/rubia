@@ -543,7 +543,6 @@ data:extend({
         {"chemical-science-pack", 1},
         {"production-science-pack", 1},
         {"military-science-pack", 1 },
-        --{"metallurgic-science-pack", 1},
         {"biorecycling-science-pack",    1 },
         },
         time = 60
