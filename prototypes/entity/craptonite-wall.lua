@@ -37,6 +37,7 @@ data:extend({
     open_sound = sounds.machine_open,
     close_sound = sounds.machine_close,
     impact_category = "stone",
+    alert_when_damaged = false,
 
     connected_gate_visualization =
     {

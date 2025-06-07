@@ -4,11 +4,12 @@ Date: ????
   Changes:
     - Made Rocketizer description clearer.
     - Resolved incompatibility with distant-misfires mod. Now that it is working, I can see that it makes Rubia vastly more difficult by making all your guns guzzle ammo. Highly unrecommended, but at least you can.
-    - Craptonite walls buffs:
-      ► Craptonite wall flat impact resistance 50 => 60. This is about to become relevant:
+    - Craptonite walls buffs.
       ► Craptonite walls now block trashsteroids.
       ► Craptonite wall now immune to poison.
       ► Craptonite wall tech cost 500 => 1000 to compensate.
+      ► Craptonite walls no longer make an alert when damaged.
+      ► Added info to Tips and Tricks, technology, and entity description. Also added version update message to notify people.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.55
 Date: 2025-06-07
