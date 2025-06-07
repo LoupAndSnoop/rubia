@@ -15,6 +15,7 @@ Date: ????
       ► Cargo pod containers now take fixed damage from trashsteroids to avoid awkward explosions at high difficulties.
       ► Gleba-Rubia distance 15k km => 10k km. I always thought it was 10k until I looked again XD
       ► (Cerys) Plutonium earing tech cost 1000 => 300. It was just far too much.
+      ► (Maraxsis) Craptonite lamp tech cost hydraulic science => maraxsis glass. This makes it less samey (and also cheaper). 
     - Nerfs: The goal isn't to weaken anything overpowered, but to incentivise you to make a greater variety of builds pop up across Rubia.
       ► Scrapophilic digestion of cupric scrap input scrapophilus 4 => 5 (+25%). I'm doing this to promote more unique designs here via machine ratios. I was always a little displeased with the middle leg of Ruibia because it felt a little weak/samey. This change should promote solutions with a little more variety. I'm not divulging my solution so you can figure it out.
       ► Scrapophilic digestion of cupric scrap speed -40%. Sorry--I had initially intended the ratio to line up nicely with metallo-coasphyxiation, but that change must have been lost. The newly nerfed recipe has better machine ratios.
