@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.56
-Date: ????
+Date: 2025-06-07
   Changes:
     - Made Rocketizer description clearer.
     - Resolved incompatibility with distant-misfires mod. Now that it is working, I can see that it makes Rubia vastly more difficult by making all your guns guzzle ammo. Highly unrecommended, but at least you can.
