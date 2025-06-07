@@ -4,6 +4,8 @@ Date: ????
   Changes:
     - Made Rocketizer description clearer.
     - Resolved incompatibility with distant-misfires mod. Now that it is working, I can see that it makes Rubia vastly more difficult by making all your guns guzzle ammo. Highly unrecommended, but at least you can.
+    - Trashsteroid initial speed +10%.
+    - Trashsteroid chunks now slightly more visible (less transparency, bigger size).
     - Craptonite walls buffs.
       ► Craptonite walls now block trashsteroids.
       ► Craptonite wall now immune to poison.

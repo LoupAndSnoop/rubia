@@ -253,8 +253,8 @@ local trash_chunk_anim_solid = rubia_lib.make_rotated_animation_variations_from_
     height = 50,
     direction_count = 1,
     shift = util.by_pixel(0, 3.5),
-    scale = 0.25,
-    tint = transparency(0.8)
+    scale = 0.4,--0.25,
+    tint = transparency(0.9),
 })
 local trash_chunk_anim_shadow = rubia_lib.make_rotated_animation_variations_from_sheet(7,{
     filename = "__rubia-assets__/graphics/entity/trashsteroids/trashsteroid-chunk-shadow.png",
