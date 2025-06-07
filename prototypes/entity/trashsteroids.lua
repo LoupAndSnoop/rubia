@@ -169,9 +169,9 @@ data:extend({
     },
     --crash_trigger = crash_trigger(),
     resistances = trashsteroid_resistances(),
-    collision_box = {{-0.75, -0.75}, {0.75, 0.75}},
+    collision_box = {{-1, -1}, {1, 1}},--{{-0.75, -0.75}, {0.75, 0.75}},
     selection_box = {{-0.75, -0.75}, {0.75, 0.75}},
-    collision_mask= {layers={}},
+    collision_mask= {layers={trashsteroid=true}},--{layers={}},
     damaged_trigger_effect = hit_effects.entity(),
     effectivity = 0,--0.6,
     braking_power = "200kW",
@@ -209,10 +209,10 @@ data:extend({
         tint = transparency(0.5)
 })}]]
     stop_trigger_speed = 0.15,
-    impact_category = "metal",
-    impact_speed_to_volume_ratio = 20.0,
+    impact_category = "stone",
+    impact_speed_to_volume_ratio = 100,--20.0,
     rotation_speed = 0.015,
-    weight = 700,
+    weight = 1,--700,
     inventory_size = 0,
   }
 })

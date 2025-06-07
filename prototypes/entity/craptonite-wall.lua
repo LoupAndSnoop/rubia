@@ -9,7 +9,14 @@ local sounds = require("__base__.prototypes.entity.sounds")
 --wall_prototype.name = "craptonite-wall"
 --data:extend({wall_prototype})
 
+local collision_mask = table.deepcopy(data.raw["utility-constants"].default["default_collision_masks"]["wall"])
+collision_mask.layers["trashsteroid"] = true
+
 data:extend({
+{
+  type = "collision-layer",
+  name = "trashsteroid",
+},
 {
     type = "wall",
     name = "craptonite-wall",
@@ -17,6 +24,7 @@ data:extend({
     flags = {"placeable-neutral", "player-creation"},
     collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+    collision_mask = collision_mask,
     damaged_trigger_effect = hit_effects.wall(),
     minable = {mining_time = 0.2, result = "craptonite-wall"},
     fast_replaceable_group = "wall",
@@ -40,33 +48,13 @@ data:extend({
     },
     resistances =
     {
-      {
-        type = "physical",
-        decrease = 30,
-        percent = 60
-      },
-      {
-        type = "impact",
-        decrease = 50,
-        percent = 85,
-      },
-      {
-        type = "explosion",
-        decrease = 50,
-        percent = 60
-      },
-      {
-        type = "fire",
-        percent = 100
-      },
-      {
-        type = "acid",
-        percent = 90
-      },
-      {
-        type = "laser",
-        percent = 85
-      }
+      {type = "physical", decrease = 30, percent = 60 },
+      {type = "impact", decrease = 50, percent = 85, },
+      {type = "explosion", decrease = 50, percent = 60},
+      {type = "fire", percent = 100},
+      {type = "acid", percent = 90},
+      {type = "laser", percent = 85},
+      {type = "poison", percent = 100},
     },
     visual_merge_group = 0, -- different walls will visually connect to each other if their merge group is same (defaults to 0)
     pictures =

@@ -1,6 +1,7 @@
 require("__rubia__.prototypes.data-script.crapapult-recipes")
 require("__rubia__.prototypes.data-script.rubia-surface-blacklist")
 require("__rubia__.prototypes.technology-final-fixes")
+require("__rubia__.compat.distant-misfires")
 
 --log(serpent.block(data.raw.planet.nauvis.map_gen_settings.autoplace_settings.entity.settings))
 

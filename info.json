@@ -9,7 +9,6 @@
         "PlanetsLib >= 1.4.1",
         "rubia-assets >= 0.69.8",
         "RocketCargoInsertion >= 1.1.0",
-        "! distant-misfires",
         "! Krastorio2-spaced-out"
     ],
     "space_travel_required": true,
