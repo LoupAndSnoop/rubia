@@ -21,7 +21,7 @@ local transparency_delta = 0.05 --If transparency change is less than this much,
 local trashsteroid_names = {"medium-trashsteroid"}
 
 --Medium Trashsteroid movement and rendering data
-local trashsteroid_speed = 0.04 --Speed given to trashsteroids upon spawning. 1 is too fast
+local trashsteroid_speed = 0.045--0.04 --Speed given to trashsteroids upon spawning. 1 is too fast
 local trashsteroid_speed_var = 40 --Speed is randomly up/down to this % faster
 --local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
 local trashsteroid_rotation_max = 2 -- How much a trashsteroid can rotate (max) over its lifetime.
