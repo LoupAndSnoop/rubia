@@ -1,7 +1,5 @@
-**Rubia is in OPEN-BETA:** Please give feedback and/or report issues. I will be checking the forum and Github regularly, but *I respond fastest on Discord*. Upon beating Rubia, please message me your thoughts, as it will guide the development and balance. I am excited to see the bases of people who clear the planet. ^.^
-
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/CaDJzEj557)[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LoupAndSnoop/rubia)
-
+Reach me fastest on Discord.
 ---
 
 # Rubia
@@ -17,12 +15,12 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 ## Features
 
 - Unique Mechanics:
-    - The wind mechanics *completely* change how you build a base on Rubia by altering how belts and inserters can work on the surface. 
+    - New wind mechanics *completely* change base-building. Belts and inserters cannot move items against the permanent eastward flow of Rubia's hurricane-force winds. Everything about Rubia is designed to push you to make unique wind-proof designs that you will not find anywhere else in factorio.
     - Trashsteroids will bombard your base. Plunder them with new machines to gain access to Rubia's most precious resource.
-    - Wind power is mostly free to let you focus on the above.
-- Rubian crafting is themed around recycling junk with bacteria. Recyclers are banned on Rubia to make way for totally different recycling chains focusing on highly customizable base designs.
+    - Wind power, building materials, and voiding are free to let you focus on the above.
+- Rubian crafting is themed around recycling junk with bacteria using the new Biorecycling Plant. Recyclers are banned on Rubia to make way for totally different recycling chains focusing on highly customizable base designs.
 - Custom music and a cutscene.
-- Rewards are balanced for a standard Space Age playthrough. Rewards include special inserters and trains, and several handy upgrades that make the planet worth clearing.
+- Rewards are balanced for a standard Space Age playthrough. Rewards include special inserters and trains, and several handy upgrades that make the planet worth clearing. Several mod planets will cause new optional rewards to appear.
 
 ---
 

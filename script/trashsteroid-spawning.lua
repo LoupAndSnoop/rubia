@@ -195,7 +195,8 @@ local update_difficulty_scaling = function()
   storage.trashsteroid_impact_radius = settings.trashsteroid_impact_radius
 
   storage.impact_damage_special = {--Dictionary of entity=>impact damage for special cases
-    ["character"] = 280
+    ["character"] = 280,
+    ["cargo-pod-container"] = 200,
   }
   storage.impact_damage_special["character"] = settings.character_damage
 end

@@ -236,7 +236,7 @@ data:extend(
       drop_sound = item_sounds.resource_inventory_move,
       stack_size = 10,
       default_import_location = "rubia",
-      weight = 1000*kg,
+      weight = 1000*kg * 1000,
       place_result = "garbo-grabber"
   },
   {

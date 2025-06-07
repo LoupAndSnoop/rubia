@@ -206,7 +206,7 @@ local planet = {
         from = "gleba",
         to = "rubia",
         order = "f2",
-        length = 15000,
+        length = 10000,
         asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.vulcanus_gleba)
       }
 }

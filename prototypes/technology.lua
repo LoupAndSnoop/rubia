@@ -683,7 +683,7 @@ if mods["Cerys-Moon-of-Fulgora"] then
                 {type = "change-recipe-productivity", recipe = "plutonium-fuel", change = 0.25},
             },
             prerequisites = {"craptonite-axe", "cerys-applications-of-radioactivity"},
-            research_trigger = {type = "craft-item", item="yeet-plutonium-239", count=1000},
+            research_trigger = {type = "craft-item", item="yeet-plutonium-239", count=300},
         },
     })
 end
@@ -702,7 +702,7 @@ if mods["maraxsis"] then
                 effect_description = {"modifier-description.rubia-craptonite-lamp"}},
             },
             prerequisites = {"craptonite-axe", "maraxsis-project-seadragon"},
-            research_trigger = {type = "craft-item", item="yeet-hydraulic-science-pack", count=1000},
+            research_trigger = {type = "craft-item", item="yeet-maraxsis-glass-panes", count=1000}, --"yeet-hydraulic-science-pack"
         },
     })
 end

@@ -2,6 +2,29 @@
 Version: 0.69.55
 Date: ????
   Changes:
+    - Generalized event library to work with space platforms too.
+    - Garbo grabbers now too heavy for a rocket, because why would you want them off of Rubia?
+  Balancing:
+    - Context: I just beat Rubia again, but on the newly added highest difficulty. I'm making a second pass of balance changes. They are mostly small tweaks that should not break anyone's base.
+    - Buffs:
+      ► Biorecycling Plant recipe time 10 => 6 (+66% speed)
+      ► Crapapult craft time 8 => 7 (+14% speed)
+      ► Wind turbine craft time 10 => 8 (+25% speed)
+      ► Assisted frothing recipe time 10 => 8 (+25% speed). The current tuning should already be enough to promote people to make some nice designs.
+      ► Assisted frothing: Light oil cost 30 => 25 (-17%). When voiding from Junkibacterial Metabolysis of blue chips, I want light oil to be the byproduct to manage.
+      ► Cargo pod containers now take fixed damage from trashsteroids to avoid awkward explosions at high difficulties.
+      ► Gleba-Rubia distance 15k km => 10k km. I always thought it was 10k until I looked again XD
+      ► (Cerys) Plutonium earing tech cost 1000 => 300. It was just far too much.
+    - Nerfs: The goal isn't to weaken anything overpowered, but to incentivise you to make a greater variety of builds pop up across Rubia.
+      ► Scrapophilic digestion of cupric scrap input scrapophilus 4 => 5 (+25%). I'm doing this to promote more unique designs here via machine ratios. I was always a little displeased with the middle leg of Ruibia because it felt a little weak/samey. This change should promote solutions with a little more variety. I'm not divulging my solution so you can figure it out.
+      ► Scrapophilic digestion of cupric scrap speed -40%. Sorry--I had initially intended the ratio to line up nicely with metallo-coasphyxiation, but that change must have been lost. The newly nerfed recipe has better machine ratios.
+      ► Junkibacterial digestion of rails: Concrete output 3 => 4 (+33%). Yes, this is a nerf.
+      ► All recipes that make/consume froth now make/consume 2x as much. I know everyone loves brown froth, but you really don't need to stockpile it! XD
+      ► Higher sludge costs, because I want to promote branching out to more sludge wells in lategame to postgame (or at least making people module their pumpjacks!).
+        ● Sludge => Nutrients sludge cost 20 => 40 (+100%).
+        ● Assisted frothing sludge cost 50 => 100 (+100%).
+      ► Junkibacterial digestion of blue chips. Light oil output 20 => 25 (+25%). I feel like voiding the liquid is more interesting of a challenge that I want to bring out.
+      ► Ghetto biorecycling science pack craft output 5 => 4 (-20%). The additional time here should mostly give a little more downtime to prep the base for the next stage.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.54
 Date: 2025-06-05

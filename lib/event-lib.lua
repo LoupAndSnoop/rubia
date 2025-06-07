@@ -163,7 +163,8 @@ local on_built, on_built_early = {}, {}
 ---@type string[], string[]
 local on_built_names, on_built_early_names = {}, {}
 local on_built_events = {defines.events.on_built_entity, defines.events.on_robot_built_entity,
-  defines.events.script_raised_built, defines.events.script_raised_revive}
+    defines.events.script_raised_built, defines.events.script_raised_revive,
+    defines.events.on_space_platform_built_entity}
 
 
 ---@param event EventData.on_built_entity | EventData.on_robot_built_entity | EventData.script_raised_built | EventData.script_raised_revive | 

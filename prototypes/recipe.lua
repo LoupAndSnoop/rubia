@@ -99,7 +99,7 @@ data:extend({
     energy_required = 5,
     results =
     {
-      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 5}
+      {type ="item", name ="ghetto-biorecycling-science-pack", amount = 4}
     },
     allow_productivity = true,
     main_product ="ghetto-biorecycling-science-pack",
@@ -137,7 +137,7 @@ data:extend({
     {
       {type ="item", name ="biter-egg", amount = 1},
       {type ="item", name ="iron-bacteria", amount = 1},
-      {type ="fluid", name ="rubia-froth", amount = 200},
+      {type ="fluid", name ="rubia-froth", amount = 400},
     },
     surface_conditions = rubia.surface_conditions(),
     energy_required = 15,
@@ -255,7 +255,8 @@ data:extend({
   {
     type ="recipe",
     name ="rubia-bacteria-A",
-    category ="chemistry-or-cryogenics",--"chemical-plant-only",
+    category = "chemical-plant-only",
+    additional_categories = {"cryogenics"},
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-a",
     enabled = false,
     ingredients = {
@@ -317,7 +318,8 @@ data:extend({
 {
   type ="recipe",
   name ="rubia-bacteria-B",
-  category = "chemistry-or-cryogenics",--"chemical-plant-only",
+  category = "chemical-plant-only",
+  additional_categories = {"cryogenics"},
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-a",
   enabled = false,
   ingredients = {
@@ -355,49 +357,6 @@ data:extend({
   crafting_machine_tint = crafting_machine_tint_blue,
 },
 
---[[{
-  type ="recipe",
-  name ="biorecycle-bacteria-A-cupric-scrap",
-  --icon = "__rubia-assets__/graphics/icons/recipes/scrap-red+bacteria-B.png", --TODO
-  category ="biorecycling",
-  subgroup = "rubia-biorecycling", order = "d[rubia stage2]-b",
-  enabled = false,
-  ingredients = {
-    {type ="item", name ="rubia-bacteria-A", amount = 2},
-    {type ="item", name ="rubia-cupric-scrap", amount = 1},
-  },
-  surface_conditions = rubia.surface_conditions(),
-  energy_required = 3,
-  results = {
-    {type ="item", name ="piercing-rounds-magazine", amount = 4},
-    --{type ="item", name ="processing-unit", amount = 10},
-  },
-  allow_productivity = true,
-  crafting_machine_tint = crafting_machine_tint_blue,
-},]]
-
-
---[[{
-  type ="recipe",
-  name ="biorecycle-bacteria-AB-cupric-scrap",
-  icon = "__rubia-assets__/graphics/icons/recipes/scrap-red+bacteria-both.png",
-  category ="biorecycling",
-  subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
-  enabled = false,
-  ingredients = {
-    {type ="item", name ="rubia-bacteria-A", amount = 1},
-    {type ="item", name ="rubia-bacteria-B", amount = 2},
-    {type ="item", name ="rubia-cupric-scrap", amount = 1},
-  },
-  surface_conditions = rubia.surface_conditions(),
-  energy_required = 1.5,
-  results = {
-    {type ="item", name ="engine-unit", amount = 4},
-    {type ="item", name ="processing-unit", amount = 10},
-  },
-  allow_productivity = true,
-  crafting_machine_tint = crafting_machine_tint_purple,
-},]]
 {
   type ="recipe",
   name ="biorecycle-bacteria-A-cupric-scrap",
@@ -406,11 +365,11 @@ data:extend({
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
   ingredients = {
-    {type ="item", name ="rubia-bacteria-A", amount = 4},
+    {type ="item", name ="rubia-bacteria-A", amount = 5},
     {type ="item", name ="rubia-cupric-scrap", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 1.5,
+  energy_required = 2.5,
   results = {
     {type ="item", name ="engine-unit", amount = 3},
     {type ="item", name ="processing-unit", amount = 5},
@@ -454,7 +413,7 @@ data:extend({
   energy_required = 4,
   results = {
     {type ="item", name ="advanced-circuit", amount = 1},
-    {type ="fluid", name ="light-oil", amount = 20},
+    {type ="fluid", name ="light-oil", amount = 25},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_blue,
@@ -498,7 +457,7 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 3,
   results = {
-    {type ="item", name ="concrete", amount = 3},
+    {type ="item", name ="concrete", amount = 4},
     {type ="item", name ="steel-plate", amount = 1},
   },
   allow_productivity = true,
@@ -510,18 +469,19 @@ data:extend({
 {
   type ="recipe",
   name ="assisted-frothing",
-  category = "organic-or-biorecycling",
+  category = "biorecycling",
+  additional_categories = {"organic"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-k",
   enabled = false,
   ingredients = {
     {type ="item", name ="craptonite-chunk", amount = 1},
-    {type ="fluid", name ="rubia-bacterial-sludge", amount = 50},
-    {type ="fluid", name ="light-oil", amount = 30},
+    {type ="fluid", name ="rubia-bacterial-sludge", amount = 100},
+    {type ="fluid", name ="light-oil", amount = 25},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 10,
+  energy_required = 8,
   results = {
-    {type ="fluid", name ="rubia-froth", amount = 50},
+    {type ="fluid", name ="rubia-froth", amount = 100},
   },
   allow_productivity = true,
   crafting_machine_tint = crafting_machine_tint_brown,
@@ -534,7 +494,7 @@ data:extend({
   enabled = false,
   ingredients = {
     {type ="item", name ="concrete", amount = 20},
-    {type ="fluid", name ="rubia-froth", amount = 100},
+    {type ="fluid", name ="rubia-froth", amount = 200},
   },
   surface_conditions = rubia.surface_conditions(),
   energy_required = 6,
@@ -624,7 +584,7 @@ data:extend({
     category = "crafting",
     enabled = false,
     surface_conditions = rubia.surface_conditions(),
-    energy_required = 10,
+    energy_required = 6,
     ingredients = {
         { type = "item", name = "electronic-circuit", amount = 10}, 
         { type = "item", name = "steel-plate", amount = 8}, 
@@ -668,7 +628,7 @@ data:extend({
   category = "crafting",
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 8,
+  energy_required = 7,
   ingredients = {
       { type = "item", name = "copper-cable", amount = 50},
       { type = "item", name = "steel-plate", amount = 40}, 
@@ -703,7 +663,7 @@ data:extend({
 {
   type = "recipe",
   name = "rubia-wind-turbine",
-  energy_required = 10,
+  energy_required = 8,
   ingredients = {
       {type = "item", name = "iron-plate",      amount = 8},
       {type = "item", name = "iron-gear-wheel", amount = 5},

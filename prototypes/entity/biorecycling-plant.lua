@@ -132,7 +132,7 @@ data:extend({
         },
 
         crafting_speed = 3,
-        crafting_categories = {"biorecycling", "organic-or-biorecycling"},
+        crafting_categories = {"biorecycling"},
         energy_source =
         {
           type = "electric",
