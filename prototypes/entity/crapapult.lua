@@ -13,10 +13,10 @@ local inset = 0.2
 
 --#region Crapapult recipes in early data stage
 -- Declare a namespace to have the crapapult blacklist.
-_G.crapapult = {}
+_G.rubia.crapapult = {}
 --Crapapult blacklist. This is where other mods could potentially blacklist things.
 --This should be a list of all the names of items to NOT be able to yeet normally.
-crapapult.external_blacklist = {}
+rubia.crapapult.external_blacklist = {}
 data:extend({
     {
         type = "item-subgroup",

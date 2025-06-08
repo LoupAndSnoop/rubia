@@ -4,7 +4,7 @@ local damage_modifier = 20 --Multiplier for how much damage it does per bullet, 
 
 --Credit: Thanks to xX_Reckless_Xx for the base. I changed numbers to transform.
 
-function sniper_turret_sheet(inputs)
+local function sniper_turret_sheet(inputs)
     return {
         layers = {{
             filename = "__rubia-assets__/graphics/entity/sniper-turret/sniper-turret-sheet.png",

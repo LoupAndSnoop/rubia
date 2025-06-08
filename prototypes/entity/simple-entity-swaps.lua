@@ -54,7 +54,7 @@ local function make_rubia_variant(prototype)
   assert(prototype, "nil prototype!")
   assert(prototype.name, "Prototype has no name! : " .. serpent.block(prototype))
 
-  new_prototype = util.table.deepcopy(prototype)
+  local new_prototype = util.table.deepcopy(prototype)
   new_prototype.name = rubia.RUBIA_AUTO_ENTITY_PREFIX .. prototype.name
   new_prototype.localised_name = {"",{"entity-name." .. prototype.name}, " (", {"space-location-name.rubia"},")"}
   new_prototype.localised_description =  {"entity-description." .. prototype.name}

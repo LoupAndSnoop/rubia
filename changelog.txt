@@ -2,6 +2,7 @@
 Version: 0.69.57
 Date: ????
   Changes:
+    - Removed unnecessary global variables for other mods.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.56
 Date: 2025-06-07

@@ -182,6 +182,5 @@ for category, sub_blacklist in pairs(dictionary_blacklist) do
         if rubia_lib.array_find(sub_blacklist, prototype.name) then
             rubia.ban_from_rubia(prototype)
         end
-        --log("Rail conditions = " .. serpent.block(data.raw["straight-rail"]["straight-rail"].surface_conditions))
     end
 end

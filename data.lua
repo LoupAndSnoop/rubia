@@ -1,3 +1,6 @@
+--Function to check all globals degined by Rubia during data stage.
+--_G.all_globals = {}; for n in pairs(_G) do all_globals[n] = true end
+
 _G.rubia = require("__rubia__.lib.constants") -- Global var to query for global constants
 require("__rubia__.lib.lib")
 
@@ -43,3 +46,7 @@ require("__rubia__.compat.wood-logistics")
 require("__rubia__.compat.alloy-smelting")
 
 require("__rubia__.prototypes.data-script.recycling-fixes")
+
+
+--log("All globals defined by Rubia:")
+--for n in pairs(_G) do if not all_globals[n] then log(n) end end
