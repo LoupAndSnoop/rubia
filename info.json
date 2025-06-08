@@ -1,6 +1,6 @@
 {
     "name": "rubia",
-    "version": "0.69.57",
+    "version": "0.69.56",
     "title": "Planet Rubia",
     "author": "Loup&Snoop, 2025",
     "factorio_version": "2.0",
@@ -8,8 +8,7 @@
         "space-age >= 2.0.55",
         "PlanetsLib >= 1.4.1",
         "rubia-assets >= 0.69.8",
-        "RocketCargoInsertion >= 1.1.0",
-        "! Krastorio2-spaced-out"
+        "RocketCargoInsertion >= 1.1.0"
     ],
     "space_travel_required": true,
     "description": "Discover the wind planet Rubia. Belts and inserters work differently on Rubia, leading to unique building challenges not seen on any other planet. Your whole factory must go with the wind as a never-ending barrage of waste is hurled at your base.",
