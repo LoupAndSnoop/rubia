@@ -2,7 +2,9 @@
 Version: 0.69.57
 Date: ????
   Changes:
+    - Krastorio 2 spaced out compatibility. Thanks, Polka!
     - Removed unnecessary global variables for other mods.
+    - Infinite quality tiers should no longer horrendously lag the game when mousing over a wind turbine.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.56
 Date: 2025-06-07

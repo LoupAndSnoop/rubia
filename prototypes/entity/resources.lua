@@ -6,6 +6,13 @@ local sounds = require("__base__.prototypes.entity.sounds")
 local simulations = require("__rubia__.prototypes.factoriopedia-simulations")
 local tile_sounds = require("__base__.prototypes.tile.tile-sounds")
 
+--Multiply sludge richness depending on other mods
+local sludge_richness_multiplier = 1
+if mods["Krastorio2-spaced-out"] then sludge_richness_multiplier = 0.5 end --K2SO pumpjack has 2x speed.
+
+
+
+
 --Their resource function. Not sure how call theirs without copying it, but this should work
 local function resource(resource_graphic,resource_parameters, autoplace_parameters)
   return
@@ -137,7 +144,7 @@ data:extend({
       --At 220000 additional richness, base speed seems to be about 7/s
       --At 220000*50 additional richness, base speed seems to be about 350/s
       --Empirically, 220000*25 seems about right, given moduling
-      additional_richness = 220000 * 25, -- this increases the total everywhere, so base_density needs to be decreased to compensate
+      additional_richness = 220000 * 25 * sludge_richness_multiplier, -- this increases the total everywhere, so base_density needs to be decreased to compensate
       has_starting_area_placement = true,
       regular_rq_factor_multiplier = 1,--1.10, --0.4
       starting_rq_factor_multiplier = 1,--1.5, --0.5

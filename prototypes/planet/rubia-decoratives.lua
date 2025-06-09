@@ -443,7 +443,6 @@ data:extend
         {type = "item", name = "express-splitter", probability = 0.2, amount_min = 8, amount_max = 12},
         {type = "item", name = "pipe-to-ground", probability = 0.1, amount_min = 16, amount_max = 32},
         {type = "item", name = "assembling-machine-2", probability = 0.1, amount_min = 7, amount_max = 12},
-        --{type = "item", name = "rail", probability = 0.08, amount_min = 50, amount_max = 80},
         {type = "item", name = "electric-mining-drill", probability = 0.07, amount_min = 10, amount_max = 20},
         {type = "item", name = "efficiency-module", probability = 0.1, amount_min = 15, amount_max = 30},
         {type = "item", name = "speed-module-2", probability = 0.08, amount_min = 15, amount_max = 25},

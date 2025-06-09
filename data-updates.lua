@@ -13,12 +13,15 @@ local function add_quality_factoriopedia_info(entity, factoriopedia_info)
       local header, factoriopedia_function = unpack(factoriopedia_info)
       local localised_string = {"", "[font=default-semibold]", header, "[/font]"}
 
+      local qualities_shown = 0
       for _, quality in pairs(data.raw.quality) do
           if quality.hidden then goto continue end
-
+          
           local quality_buff = factoriopedia_function(entity, quality)
           if type(quality_buff) ~= "table" then quality_buff = tostring(quality_buff) end
           table.insert(localised_string, {"", "\n[img=quality." .. quality.name .. "] ", {"quality-name." .. quality.name}, ": [font=default-semibold]", quality_buff, "[/font]"})
+          qualities_shown = qualities_shown + 1
+          if qualities_shown > 25 then break end --Infinite quality tiers etc will lag the game if we don't break.
           ::continue::
       end
 

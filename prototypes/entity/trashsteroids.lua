@@ -77,6 +77,16 @@ data:extend {{
     cyclic = true
 }}
 
+-------Health Scaling
+
+
+--Health multiplier can depend on other mods
+local health_multiplier = 1 --Normal yellow ammo does 5 dmg
+if mods["Krastorio2-spaced-out"] then 
+  --Rifle rounds do 5=>10 dmg. Gun turret shoot speed 10=>6. 
+  health_multiplier = 2 * 0.6 end 
+
+
 --Shield prototype, to be able to change their armor at runtime
 data:extend({
   {
@@ -140,7 +150,7 @@ for i = 10100, 100000, 1500 do table.insert(shield_values, i) end
 for i = 101000, 1000000, 20000 do table.insert(shield_values, i) end
 table.insert(shield_values, 10000000000)
 for index, shield in pairs(shield_values) do
-  make_shield(index, shield)
+  make_shield(index, shield * health_multiplier)
 end
 
 
@@ -154,7 +164,7 @@ data:extend({
     --minable = {mining_time = 0.4, result = "car"},
     --mined_sound = sounds.deconstruct_medium(0.8),
     equipment_grid = "trashsteroid-grid",
-    max_health = 200,
+    max_health = 200 * health_multiplier,
     is_military_target = true,
     deliver_category = "vehicle",
     --corpse = "car-remnants",

@@ -84,7 +84,7 @@ local sounds = { wind_turbine = {
 local entity = {
     type = "electric-energy-interface", -- special "cheat" prototype
     name = TURBINE_NAME,
-    factoriopedia_description = "Converts wind power to electricity. Power scales with quality.",--{"factoriopedia-description."..TURBINE_NAME},
+    --factoriopedia_description = "Converts wind power to electricity. Power scales with quality.",--{"factoriopedia-description."..TURBINE_NAME},
     --gui_mode = "admins", -- gui contains sliders for energy parameters
     icon = GRAPHICS_PATH .. "icons/k2-wind-turbine.png",
     icon_size = 64,
@@ -131,69 +131,3 @@ entity.heating_energy = "30kW"--SETTING.EXQUISITE and "0kW" or "30kW"
 
 --|FINAL DATA WRITE|-------------------------------------------------------------------------------
 data:extend({entity})
-
---------------------------------
-
----------------------------------------------------------------------------------------------------
---  ┳┏┳┓┏┓┳┳┓
---  ┃ ┃ ┣ ┃┃┃
---  ┻ ┻ ┗┛┛ ┗
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
--- WIND TURBINE
----------------------------------------------------------------------------------------------------
---[[
-local item = {
-  type = "item",
-  name = "rubia-wind-turbine",
-  icon = "__rubia-assets__/graphics/entity/wind-turbine/icons/k2-wind-turbine.png",
-  icon_size = 64,
-  subgroup = "energy",
-  stack_size = 40,
-  --order = "a[energy-source]-a[wind-turbine]",
-  place_result = "rubia-wind-turbine",
-  weight = 20*kg * 1000,
-  factoriopedia_description="Converts wind power to electricity. Power scales with quality."
-}
-
---|FINAL DATA WRITE|-------------------------------------------------------------------------------
-data:extend({item})]]
-
----------------------------------------------------------------------------------------------------
-
----------------------------------------------------------------------------------------------------
---  ┳┓┏┓┏┓┳┏┓┏┓
---  ┣┫┣ ┃ ┃┃┃┣ 
---  ┛┗┗┛┗┛┻┣┛┗┛
----------------------------------------------------------------------------------------------------
----------------------------------------------------------------------------------------------------
--- WIND TURBINE
----------------------------------------------------------------------------------------------------
-
---[[local recipe =  {
-  type = "recipe",
-  name = TURBINE_NAME,
-  energy_required = 3,
-  ingredients = {
-      {type = "item", name = "iron-plate",      amount = 8},
-      {type = "item", name = "iron-gear-wheel", amount = 6},
-      {type = "item", name = "copper-cable",    amount = 6}
-  },
-  results = {
-      {type = "item", name = TURBINE_NAME,      amount = 1}
-  },
-
-  main_product = TURBINE_NAME,
-  category ="crafting",
-  factoriopedia_description ="Harness the power of the wind.",
-  allow_productivity = false,
-  allow_quality = true,
-  enabled = false,
-  surface_conditions = rubia.surface_conditions()
-}
-
---|FINAL DATA WRITE|-------------------------------------------------------------------------------
-data:extend({recipe})
-]]
-
----------------------------------------------------------------------------------------------------
