@@ -17,7 +17,7 @@ if settings.startup["alloy-smelting-coke"].value then
         type ="recipe",
         name ="rubia-compat-alloy-smelting-coke",
         category = "biorecycling",
-        subgroup = "rubia-biorecycling", order = "g[rubia compat]-a",
+        subgroup = "rubia-compat-recipes", order = "g[rubia compat]-a[alloy-smelt]",
         enabled = false,
         ingredients = {
             {type ="fluid", name ="rubia-bacterial-sludge", amount = 50},
@@ -32,6 +32,5 @@ if settings.startup["alloy-smelting-coke"].value then
         auto_recycle = false,
         },
     })
-
     rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1B", "rubia-compat-alloy-smelting-coke")
 end

@@ -83,8 +83,11 @@ data:extend {{
 --Health multiplier can depend on other mods
 local health_multiplier = 1 --Normal yellow ammo does 5 dmg
 if mods["Krastorio2-spaced-out"] then 
-  --Rifle rounds do 5=>10 dmg. Gun turret shoot speed 10=>6. 
-  health_multiplier = 2 * 0.6 end 
+  if settings.startup["kr-realistic-weapons"].value then
+    health_multiplier = 2 * 0.6 --Rifle rounds do 5=>10 dmg. Gun turret shoot speed 10=>6. 
+  else health_multiplier = (8/5) * 0.6 --Rifle rounds do 5=>8 dmg. Gun turret shoot speed 10=>6.
+  end
+end 
 
 
 --Shield prototype, to be able to change their armor at runtime

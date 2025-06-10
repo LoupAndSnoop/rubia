@@ -13,4 +13,16 @@ data:extend({
         group = "intermediate-products",
         order = "o-a",
       },
+      --[[{
+        type = "item-subgroup",
+        name = "rubia-science-recipes",
+        group = "intermediate-products",
+        order = "o-b",
+      },]]
+      {
+        type = "item-subgroup",
+        name = "rubia-compat-recipes",
+        group = "intermediate-products",
+        order = "o-f",
+      },
 })
