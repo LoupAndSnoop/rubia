@@ -22,7 +22,7 @@ local difficulty_settings = {
     ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 5,
         trashsteroid_impact_radius = 3.5, character_damage = 150, health_multiplier = 0.5},
     ["normal"] = {impact_base_damage = 75, impact_crit_damage = 300, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4, character_damage = 280, health_multiplier = 1},
+        trashsteroid_impact_radius = 4, character_damage = 300, health_multiplier = 1},
     ["hard"] = {impact_base_damage = 150, impact_crit_damage = 400, impact_crit_chance = 10,
         trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 6.8^(1-DIFFICULTY_EXPONENT)},
     ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10,

@@ -2,6 +2,9 @@
 Version: 0.69.60
 Date: ????
   Changes:
+    - Russian locale re-reupdated.
+    - Trashsteroid character damage 280 => 300 on normal difficulty, because you really should have shields.
+    - Buff sniper turret: HP 300 => 600, impact resistance 0% => 30%. This should help with setting up mining outposts.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.59
 Date: 2025-06-11

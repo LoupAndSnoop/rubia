@@ -45,7 +45,8 @@ data:extend({{
         result = "rubia-sniper-turret"
     },
     order =(data.raw["ammo-turret"]["gun-turret"].order or "z-b-a-") .. "-b",
-    max_health = 300,
+    max_health = 600,
+    resistances = {{type = "impact", percent = 30}},
     corpse = "medium-remnants",
     fast_replaceable_group = "ammo-turret",
     collision_box = {{-0.7, -0.7}, {0.7, 0.7}},
