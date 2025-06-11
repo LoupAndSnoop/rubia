@@ -2,6 +2,8 @@
 Version: 0.69.59
 Date: ????
   Changes:
+    - Updated list of mods that block you from Rubia postgame content.
+    - Updated Russian localization, thanks to Пружинка.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.58
 Date: 2025-06-11

@@ -1,5 +1,6 @@
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/CaDJzEj557)[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LoupAndSnoop/rubia)
 Reach me fastest on Discord.
+Languages: 🇬🇧 🇨🇳 🇷🇺
 ---
 
 # Rubia
@@ -60,5 +61,6 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Yuoki: I recolored some of his wagon sprites for trains in this mod. Derivatives of his wagons are distributed under CC license. [Link](https://mods.factorio.com/mod/yi_railway)
 - Hornwitser: Science sprites are derived from his beautiful [quality glassware mod](https://mods.factorio.com/mod/quality_glassware). These derrivatives are shared under a CC-BY-SA license.
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
-- Localization: Thanks to rlcyyg1108 for generously providing a Chinese localization!
-- Localization: Thanks to MagistrDjo for generously providing a Russian localization!
+- Localization:
+     - Thanks to rlcyyg1108 for generously providing a Chinese localization!
+     - Thanks to MagistrDjo for generously providing a Russian localization! Thanks to Пружинка for updating it.

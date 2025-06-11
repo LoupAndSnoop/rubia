@@ -142,13 +142,21 @@ end]]
 --#region Lab and biofusion-related
 
 --Biofusion science pack
----If something deleted gleba, then remove all biofusion technologies
-if not data.raw.planet["gleba"] or mods["delete-gleba"] then
+---If something deleted gleba or messed with gleba content, then remove all biofusion technologies
+local biofusion_blocking_mods = {"delete-gleba", "FarmingInAnotherWorld",
+    "NoCraftingSurfaceCondition", "no-cond", "no_placement_restriction"}
+local blocking_mods_string = ""
+for _, entry in pairs(biofusion_blocking_mods) do
+    if mods[entry] then
+        blocking_mods_string = blocking_mods_string .. entry .. ", "
+    end
+end
+if not data.raw.planet["gleba"] then blocking_mods_string = blocking_mods_string .. "Planet Gleba not found." end
+if blocking_mods_string ~= "" then
   local biofusion_tech = data.raw.technology["rubia-biofusion-science-pack"]
   biofusion_tech.icon = "__rubia-assets__/graphics/technology/biofusion-science-pack-removed.png"
-  biofusion_tech.localised_description = {"technology-description.rubia-biofusion-science-pack-removed"}
+  biofusion_tech.localised_description = {"technology-description.rubia-biofusion-science-pack-removed", blocking_mods_string}
   biofusion_tech.effects = {}
-  --biofusion_tech.research_trigger = {type = "craft-item", item = "rubia-biofusion-science-pack", count = 10^50}
 end
 
 
