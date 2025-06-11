@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.60
-Date: ????
+Date: 2025-06-11
   Changes:
     - Russian locale re-reupdated.
     - Trashsteroid character damage 280 => 300 on normal difficulty, because you really should have shields.
