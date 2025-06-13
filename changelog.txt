@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.62
-Date: ????
+Date: 2025-06-13
   Changes:
     - BZ mod compatibility
     - Added achievements for difficulty.
