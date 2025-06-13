@@ -2,6 +2,7 @@
 Version: 0.69.61
 Date: ????
   Changes:
+    - Added an interface for PlanetHoppers to use to block Rubia access if you don't actually have the gear.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.60
 Date: 2025-06-11

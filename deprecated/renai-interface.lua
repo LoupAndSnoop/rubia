@@ -10,8 +10,14 @@ end
 
 --Define an interface to allow other mods to request a particular yeet trajectory.
 remote.add_interface("renai-transportaton", {
-    ---Request a custom trajectory
-    request_trajectory = function(inserter, initial_yeet_vector)
+    ---Request a custom trajectory. yeet_function is a table:
+    ---{interface = name of a remote interface, 
+    ---function_name = name of a function in that interface},
+    ---arguments = table of arguments}
+    ---Renai will expect the function that is tied to be of the form: function(table_of_arguments, time),
+    ---and will call function(arguments, time), expecting it to return an x,y position for where the thrown
+    ---item is at a given point in time.
+    request_trajectory = function(inserter, yeet_function)
         if not inserter.valid then return end
 
         --Reject request unless we are actually talking about a thrower
@@ -21,9 +27,19 @@ remote.add_interface("renai-transportaton", {
         --You probably already have this
         if not IS_A_THROWER(inserter_type) then return end 
 
-        local new_path = 0 --TODO: Whatever Renai calculates goes here to 
-        -- calculate a brand new path that this inserter will use.
+        local interface_name = yeet_function.interface
+        local trajectory_func_name = yeet_function.function_name
+        local trajectory_arguments = yeet_function.arguments
+        if not interface_name or not remote.interfaces[interface_name] then
+            log("WARNING: No matching interface found.") return end
+        if not trajectory_func_name then log("WARNING: No trajectory function name found.") return end
 
+        local new_path = {} --TODO: idk your data format
+        for time = 0, RENAI_HANGTIME, RENAI_TIME_SPACING do --TODO: RENAI TIMINGS!
+            local point = remote.call(interface_name, trajectory_func_name, trajectory_arguments, time)
+            table.insert(new_path, point)
+        end
+        
         ---@type table<uint, RENAI_PATH_OBJECT>
         storage.trajectories = storage.trajectories or {}
         storage.trajectories[inserter.unit_number] = new_path;

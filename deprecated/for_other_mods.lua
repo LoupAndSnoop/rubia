@@ -141,3 +141,6 @@ script.on_event(defines.events.on_object_destroyed,
 --Initializing the storage, add to whatever you do for on_init or on_config_changed 
 script.on_init(function() storage.trajectories = storage.trajectories or {} end)
 script.on_configuration_changed(function() storage.trajectories = storage.trajectories or {} end)
+
+
+------ Planet hoppers

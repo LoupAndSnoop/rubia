@@ -677,5 +677,37 @@ event_lib.on_event(defines.events.on_player_died, "cancel-cutscene-death",
   landing_cutscene.cancel_on_player_death)
 --#endregion
 
+--#region Interface for weird mods that skip cutscene
+
+---Return true if the given character should be able to land on Rubia roughly. NOT accurate: just rough for use on other mods.
+---@param character LuaEntity
+---@return boolean
+local function can_land_on_rubia(character)
+    if not character.valid then return false end
+    --Operation iron man automatically lets you pass through
+    if character.force.technologies["planetslib-rubia-cargo-drops"].researched then return true end
+    local shields = get_character_shields(character)
+    local expected_shield_req = get_planned_big_damage() - 130
+    if shields < expected_shield_req then return false end
+    return true
+end
+
+---When we externally cancel another mod sending a character to Rubia, send this error message:
+---@param player LuaPlayer
+local function on_aborted_rubia_travel(player)
+    local print_target = player
+    if not print_target then print_target = game end
+    print_target.print({"alert.landing-cutscene-abort-external-mod"},rubia.WARNING_PRINT_SETTINGS)
+    print_target.play_sound{path="utility/cannot_build"}
+end
+
+--Remote interface for other mods to abort landing.
+remote.add_interface("rubia-travel-abort",{
+    can_land_on_rubia = can_land_on_rubia,
+    on_aborted_rubia_travel = on_aborted_rubia_travel
+})
+
+--#endregion
+
 
 return landing_cutscene
