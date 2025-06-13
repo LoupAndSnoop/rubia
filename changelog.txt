@@ -2,6 +2,7 @@
 Version: 0.69.62
 Date: ????
   Changes:
+    - BZ mod compatibility
     - Added achievements for difficulty.
     - Added another interface for planet hoppers. He didn't like the names on the first one.
 ---------------------------------------------------------------------------------------------------

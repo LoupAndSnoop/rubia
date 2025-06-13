@@ -45,7 +45,9 @@ require("__rubia__.compat.blueprint-shotgun")
 require("__rubia__.compat.wood-logistics")
 require("__rubia__.compat.lignumis")
 require("__rubia__.compat.alloy-smelting")
+require("__rubia__.compat.bz-mods")
 require("__rubia__.compat.krastorio2-so")
+
 
 require("__rubia__.prototypes.data-script.recycling-fixes")
 
