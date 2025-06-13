@@ -4,7 +4,7 @@ local tech_lib = require("__rubia__.lib.technology-lib")
 
 --List of techs to never hide.
 local hiding_blacklist = rubia_lib.array_to_hashset({
-    "rubia-progression-stage1",
+    --"rubia-progression-stage1",
     "rubia-project-trashdragon",
     "planetslib-rubia-cargo-drops",
     "rubia-long-bulk-inserter",

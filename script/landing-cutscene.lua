@@ -287,6 +287,7 @@ local first_blast_off_cutscene = function(player)
     rubia.timing_manager.wait_then_do(1, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part1"}})
     rubia.timing_manager.wait_then_do(5 * 60, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part2"}})
     rubia.timing_manager.wait_then_do(10 * 60, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part3"}})
+    rubia.timing_manager.wait_then_do(15 * 60, "unlock-rubia-difficulty-achievement", {player})
 end
 
 
@@ -402,6 +403,10 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     --Survival achievement
     if character and character.valid then
         rubia.timing_manager.wait_then_do(300, "landing-survival-achievement", {player, character})
+        --Log difficulty upon landing
+        if not storage.difficulty_upon_landing then
+            storage.difficulty_upon_landing = settings.global["rubia-difficulty-setting"].value
+        end
     end
 end)
 
@@ -474,7 +479,6 @@ landing_cutscene.try_start_cutscene = function(event)
     local cargo_pod = event.cargo_pod
     local player = game.get_player(event.player_index)
     --local surface = game.get_surface(event.surface_index)
-
 
     --Check for first blastoff:
     if (not storage.rubia_first_blastoff_complete
@@ -705,6 +709,11 @@ end
 remote.add_interface("rubia-travel-abort",{
     can_land_on_rubia = can_land_on_rubia,
     on_aborted_rubia_travel = on_aborted_rubia_travel
+})
+--Remote interface for just planet hoppers
+remote.add_interface("Planet-Hopper-abort-rubia",{
+    should_abort = function(character) return not can_land_on_rubia(character) end,
+    on_launch_aborted = on_aborted_rubia_travel
 })
 
 --#endregion

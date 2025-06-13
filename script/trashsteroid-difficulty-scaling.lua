@@ -20,15 +20,15 @@ local DIFFICULTY_EXPONENT = 0.69 + 0.02 --Bigger exponent = techs give less bene
 ---makes difficulty at that tech level match.
 local difficulty_settings = {
     ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 5,
-        trashsteroid_impact_radius = 3.5, character_damage = 150, health_multiplier = 0.5},
+        trashsteroid_impact_radius = 3.5, character_damage = 150, health_multiplier = 0.5, order = 1},
     ["normal"] = {impact_base_damage = 75, impact_crit_damage = 300, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4, character_damage = 300, health_multiplier = 1},
+        trashsteroid_impact_radius = 4, character_damage = 300, health_multiplier = 1, order = 2},
     ["hard"] = {impact_base_damage = 150, impact_crit_damage = 400, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 6.8^(1-DIFFICULTY_EXPONENT)},
+        trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 6.8^(1-DIFFICULTY_EXPONENT), order = 3},
     ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10,
-        trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 1.25 * 19.6^(1-DIFFICULTY_EXPONENT)},
+        trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 1.25 * 19.6^(1-DIFFICULTY_EXPONENT), order = 4},
     ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20,
-        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.75 * 44^(1-DIFFICULTY_EXPONENT)},
+        trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.75 * 44^(1-DIFFICULTY_EXPONENT), order = 5},
 }
 difficulty_scaling.settings = function() return difficulty_settings[
     settings.global["rubia-difficulty-setting"].value] end
@@ -100,7 +100,35 @@ difficulty_scaling.update_difficulty_scaling = function ()
             break
         end
     end
+
+
+    --check difficlty achievements:
+    if settings.global["rubia-difficulty-setting"].value ~= "easy" then return end
+    rubia.timing_manager.wait_then_do(250, "unlock-rubia-easy-mode-achievement", {})
+    --If we are downgrading in difficulty, then log it.
+    if storage.difficulty_upon_landing and 
+        difficulty_settings[settings.global["rubia-difficulty-setting"].value].order < 
+        difficulty_settings[storage.difficulty_upon_landing].order then
+        storage.difficulty_upon_landing = settings.global["rubia-difficulty-setting"].value
+    end
+
 end
+
+--Difficulty achievements
+rubia.timing_manager.register("unlock-rubia-easy-mode-achievement", function()
+    --Check again to make sure it was not changed back.
+    if settings.global["rubia-difficulty-setting"].value ~= "easy" then return end
+    for _, player in pairs(game.players) do
+        player.unlock_achievement("rubia-easy-mode")
+    end
+end)
+rubia.timing_manager.register("unlock-rubia-difficulty-achievement", function(player)
+    if player and storage.difficulty_upon_landing == "very-very-hard" then
+        player.unlock_achievement("rubia-very-very-hard-clear")
+        --game.print("test: " .. storage.difficulty_upon_landing)
+    end
+end)
+
 
 
 --[[Fetch the amount we expect to shield, and the relevant shield prototype

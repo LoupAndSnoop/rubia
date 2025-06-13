@@ -2,6 +2,8 @@
 Version: 0.69.62
 Date: ????
   Changes:
+    - Added achievements for difficulty.
+    - Added another interface for planet hoppers. He didn't like the names on the first one.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.61
 Date: 2025-06-13

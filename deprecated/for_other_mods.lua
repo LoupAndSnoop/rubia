@@ -144,3 +144,22 @@ script.on_configuration_changed(function() storage.trajectories = storage.trajec
 
 
 ------ Planet hoppers
+
+	--Planet hopper abort sequence for planets with special abort conditions
+	local abort_travel_interface = destination_name .. "-travel-abort"
+	if remote.interfaces[abort_travel_interface]
+		and not remote.call(abort_travel_interface, 
+			"can_land_on_" .. destination_name, character) then
+	    --We need to abort because the planet is telling us we are not clear to land.
+		remote.call(abort_travel_interface, "on_aborted_" .. destination_name .. "_travel", player)
+		return
+	end
+	
+	--[[
+	if script.active_mods["rubia"] and destination_name == "rubia" 
+		and remote.interfaces["rubia-travel-abort"]
+		and not remote.call("rubia-travel-abort", "can_land_on_rubia", character) then
+		--We need to abort because Rubia is telling us we are not clear to land.
+		remote.call("rubia-travel-abort", "on_aborted_rubia_travel", player)
+		return
+	end]]
