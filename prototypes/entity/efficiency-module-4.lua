@@ -26,15 +26,3 @@ data:extend({
         requires_beacon_alt_mode = false
       },
 })
-
---[[
-{
-    type = "produce-achievement",
-    name = "crafting-with-efficiency",
-    order = "a[progress]-h[crafting-tier-3-module]-b[efficiency]",
-    item_product = "efficiency-module-3",
-    amount = 1,
-    limited_to_one_game = false,
-    icon = "__base__/graphics/achievement/crafting-with-efficiency.png",
-    icon_size = 128
-  },]]

@@ -5,36 +5,6 @@ local effects = require("__core__.lualib.surface-render-parameter-effects")
 
 --local planet_map_gen = require("__rubia__/planet/rubia-map-gen")
 
------ Defining the wind speed surface condition
-data:extend({
-  {
-    type = "surface-property",
-    name = "rubia-wind-speed",
-    default_value = 6.9
-  }
-})
-
---Additional wind speeds for flavor
-local function set_wind_speed(planet_name,speed)
-  if (data.raw["planet"][planet_name]) then 
-    data.raw["planet"][planet_name].surface_properties["rubia-wind-speed"] = speed end
-  end
-set_wind_speed("nauvis", 15)
-set_wind_speed("fulgora", 35)
-set_wind_speed("vulcanus", 80)
-set_wind_speed("gleba", 5)
-set_wind_speed("aquilo", 30)
-
---Others
-set_wind_speed("maraxsis", 0)
-set_wind_speed("corrundum", 30)
-set_wind_speed("moshine", 40)
-set_wind_speed("cubium", 10)
-set_wind_speed("muluna", 0)
-set_wind_speed("cerys", 5)
-set_wind_speed("jahtra", 25)
-
-
 
 local fog = effects.default_fog_effect_properties()
 --------Basic Map generation
@@ -74,7 +44,8 @@ local planet = {
           ["solar-power"] = 15,
           pressure = 50,
           gravity = 2,
-          ["rubia-wind-speed"] = 300
+          --["rubia-wind-speed"] = 300,
+          --["rubia-asteroid-density"] = 30,
         },
 
         surface_render_parameters =

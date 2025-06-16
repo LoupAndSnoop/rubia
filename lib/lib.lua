@@ -11,10 +11,10 @@ if data and data.raw and not data.raw.item["iron-plate"] then
     rubia.stage = "settings"
 elseif data and data.raw then
     rubia.stage = "data"
-    require "__rubia__/lib/data-stage"
+    require("__rubia__/lib/data-stage")
 elseif script then
     rubia.stage = "control"
-    require "__rubia__/lib/control-stage"
+    require("__rubia__/lib/control-stage")
 else
     error("Could not determine load order stage.")
 end

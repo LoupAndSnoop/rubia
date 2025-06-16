@@ -9,6 +9,14 @@ rubia.surface_conditions = function()
         max = 300,
     }}
 end
+---Give a table of surface conditions to denote: Rubia OR space (or other places with rocks)
+rubia.surface_conditions_any_asteroids = function()
+    return {{
+        property = "rubia-asteroid-density",
+        min = 5,
+        max = 300,
+    }}
+end
 
 --Take in an EntityPrototype, and ADD surface conditions to it to ban it from Rubia. 
 --This takes in the prototype by reference to modify it, with no return.

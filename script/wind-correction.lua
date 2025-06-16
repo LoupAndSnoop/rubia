@@ -58,6 +58,7 @@ local function try_adjust_inserter(entity)
     return true
 end
 
+
 ---Return true if the given unadjustable inserter is in a valid orientation.
 ---@param entity LuaEntity
 ---@return boolean
@@ -96,16 +97,10 @@ local wind_prototype_dic = {
     ["loader-1x1"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
 }
 
---Special cases for compatibility
-for _, prototype in pairs(prototypes.entity) do
-    --Throwers must be rotated
-    if (string.find(prototype.name, "RTThrower")) then 
-        wind_entity_dic[prototype.name] = {wind_type = "force-to", orient=defines.direction.west}
-    end
-end
-
 --#region Making functions for wind correction. These assume valid entity.
---Force this entity's orientation to that direction.
+---Force this entity's orientation to that direction.
+---@param entity LuaEntity
+---@param player_index uint?
 local function force_orientation_to(entity, player_index, direction)
     if (entity.direction == direction) then return end
     wind_correction_notification(entity, player_index)
@@ -197,6 +192,48 @@ local function force_splitter_like_orientation_to(entity, player_index, directio
         end
     end
 end
+
+
+--Special case for thrower inserters, to adjust their orientation and trajectory
+remote.add_interface("rubia-thrower-trajectories", {
+    trajectory_function = function(parameters, total_ticks)
+        local start_pos, end_pos = parameters.start_pos, parameters.end_pos
+        local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
+        
+        local path = {}
+        for i = 0, total_ticks, 1 do
+            local dimensionless_time = i / total_ticks
+            table.insert(path, {
+                x=start_pos.x + dimensionless_time * delta_x,
+                y = start_pos.y + dimensionless_time * delta_y 
+                    + 2 * math.sin(2 * 3.14159 / dimensionless_time),
+                height = -(dimensionless_time) * (dimensionless_time - 1),
+            })
+        end
+        --game.print(serpent.block(path))
+        return path
+    end
+})
+local function force_thrower_orientation(entity, player_index)
+    force_orientation_to(entity, player_index, defines.direction.west)
+    if remote.interfaces["RenaiTransportation"] then
+        local trajectory = {type="interface", interface="rubia-thrower-trajectories", name="trajectory_function",
+            parameters={start_pos = entity.position, end_pos = entity.drop_position}}
+
+        remote.call("RenaiTransportation", "SetTrajectoryAdjust", entity, trajectory)
+    end
+end
+--Special cases for compatibility with Renai
+--local force_thrower_orientation
+for _, prototype in pairs(prototypes.entity) do
+    --Throwers must be rotated
+    if (string.find(prototype.name, "RTThrower")) then 
+        wind_entity_dic[prototype.name] = {wind_type = "custom", custom = force_thrower_orientation}
+        --wind_entity_dic[prototype.name] = {wind_type = "force-to", orient=defines.direction.west} --Old version. Works until new interface
+    end
+end
+
+
 
 --Parse wind behavior table to code in a specific function.
 local function wind_behavior_to_function(wind_behavior)
@@ -303,6 +340,30 @@ end
 
 return rubia_wind
 
+
+--[[
+--Special cases for compatibility
+for _, prototype in pairs(prototypes.entity) do
+    --Throwers must be rotated
+    if (string.find(prototype.name, "RTThrower")) then 
+        wind_entity_dic[prototype.name] = {wind_type = "force-to", orient=defines.direction.west}
+    end
+end
+
+
+---Make list of thrower inserters
+local thrower_inserter_names = {}
+if script.active_mods["RenaiTransportation"] then
+    for _, prototype in pairs(prototypes.entity) do
+        if prototype.type == "inserter"
+            and prototypes.get_history(prototype.type, prototype.name).created == "RenaiTransportation"
+            and string.find(prototype.name, "RTThrower") then
+            table.insert(thrower_inserter_names, prototype.name)
+        end 
+    end
+end
+remote.add_interface("RenaiTransportation", {
+]]
 
 
 --[[This is the previous version of the wind mechanic, for posterity.

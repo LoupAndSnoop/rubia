@@ -3,7 +3,7 @@ Version: 0.69.63
 Date: ????
   Changes:
     - Russian locale update.
-    - Trashsteroid laser resistance 85% => 80%, to make it slightly more viable.
+    - Added new surface conditon: Asteroid density.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.62
 Date: 2025-06-13

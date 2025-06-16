@@ -1,7 +1,9 @@
 
 require("__rubia__.lib.lib")
-require("util")
+--require("util")
+require("__rubia__.prototypes.planet.surface-conditions")
 require("__rubia__.prototypes.technology-updates")
+
 local entity_swaps = require("__rubia__.prototypes.entity.simple-entity-swaps")
 entity_swaps.make_auto_generated_prototypes()
 
