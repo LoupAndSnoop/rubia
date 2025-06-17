@@ -4,6 +4,7 @@ Date: ????
   Changes:
     - Russian locale update.
     - Added new surface conditon: Asteroid density.
+    - Fixed incompatibility with Electronic Locomotives
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.62
 Date: 2025-06-13

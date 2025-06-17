@@ -62,6 +62,16 @@ rubia.try_add_science_packs_to_labs = function()
 end
 rubia.try_add_science_packs_to_labs()
 
+--In case other mods added braking-force-8 etc
+
+data.raw.technology["braking-force-8"] = nil
+for i = 9, 50 do
+    local other_braking_tech = data.raw["technology"]["braking_force-" .. tostring(i)]
+    if other_braking_tech then --and rubia_lib.technology_is_prerequisite("braking-force-8", other_braking_tech.name) then
+        log("Tech found " .. other_braking_tech.name)
+        data.raw["technology"][other_braking_tech.name] = nil
+    end
+end
 
 data:extend({
 --#region MARK: Core Rubia Progression

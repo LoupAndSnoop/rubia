@@ -318,11 +318,12 @@ event_lib.on_built("wind-rotation", rubia_wind.wind_rotation)
 event_lib.on_entity_gui_update("wind-rotation", rubia_wind.wind_rotation)
 
 event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity},
-  "wind-rotation",
-  function(event) rubia_wind.wind_rotation(event.entity, event.player_index) end)
+  "wind-rotation", function(event) 
+    rubia_wind.wind_rotation(event.entity, event.player_index) end)
 event_lib.on_event(defines.events.on_entity_settings_pasted,
-  "wind-rotation",
-  function(event) rubia_wind.wind_rotation(event.destination, event.player_index) end)
+  "wind-rotation", function(event)
+    rubia_wind.wind_rotation(event.destination, event.player_index) end)
+
 
 
 --Special events for weird mods, especially adjustable inserters

@@ -221,5 +221,13 @@ for _, entry in pairs(braking_force.effects) do
 end
 data.raw.technology["braking-force-7"].max_level = nil
 
+--In case other mods fucked with braking force
+for i = 9, 50 do
+    local other_braking_tech = data.raw["technology"]["braking-force-" .. tostring(i)]
+    if other_braking_tech then 
+        log("Warning: Rubia is deleting a technology from another mod: " .. other_braking_tech.name)
+        data.raw["technology"][other_braking_tech.name] = nil
+    end
+end
 
 --#endregion
