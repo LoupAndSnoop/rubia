@@ -202,7 +202,7 @@ remote.add_interface("rubia-thrower-trajectories", {
         
         local path = {}
         for i = 0, total_ticks, 1 do
-            local dimensionless_time = i / total_ticks
+            local dimensionless_time = i / total_ticks + 0.00001
             table.insert(path, {
                 x=start_pos.x + dimensionless_time * delta_x,
                 y = start_pos.y + dimensionless_time * delta_y 

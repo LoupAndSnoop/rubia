@@ -62,16 +62,6 @@ rubia.try_add_science_packs_to_labs = function()
 end
 rubia.try_add_science_packs_to_labs()
 
---[[In case other mods added braking-force-8 etc
-data.raw.technology["braking-force-8"] = nil
-for i = 9, 50 do
-    local other_braking_tech = data.raw["technology"]["braking-force-" .. tostring(i)]
-    if other_braking_tech then --and rubia_lib.technology_is_prerequisite("braking-force-8", other_braking_tech.name) then
-        log("Tech found " .. other_braking_tech.name)
-        data.raw["technology"][other_braking_tech.name] = nil
-    end
-end]]
-
 data:extend({
 --#region MARK: Core Rubia Progression
     {
@@ -475,7 +465,6 @@ data:extend({
         time = 60
     }]]
 },
-
 {
     type = "technology",
     name = "rubia-nutrient-productivity",
@@ -502,10 +491,44 @@ data:extend({
     max_level = "infinite",
     upgrade = true
 },
+})
+
+
+if mods["machine-upgrades"] then
+    local mupgrades = require("__machine-upgrades__.lib.technology-maker")
+    data:extend({
+    {
+        type = "technology",
+        name = "rubia-biochamber-productivity-bonus",
+        icons = mupgrades.make_technology_icon({
+            icon = "__space-age__/graphics/technology/biochamber.png",
+            icon_size = 256}, "productivity"),
+        essential = false,
+        effects = {},
+        prerequisites = {"rubia-nutrients-from-sludge"},
+        unit = {
+            count_formula = "2^L*1000",
+            ingredients = {
+                { "automation-science-pack",      1 },
+                { "logistic-science-pack",        1 },
+                { "chemical-science-pack",        1 },
+                { "military-science-pack",        1 },
+                { "utility-science-pack",         1 },
+                { "agricultural-science-pack",    1 },
+                { "biorecycling-science-pack",    1 },
+                { "rubia-biofusion-science-pack", 1 },
+            },
+            time = 60
+        },
+        max_level = 5,
+    },
+    })
+end
 
 --#endregion
 
 --#region Infinite research (general)
+data:extend({
 {
     type = "technology",
     name = "craptonite-productivity",
@@ -716,7 +739,7 @@ if mods["maraxsis"] then
     })
 end
 
-if mods["planet-muluna"] then  --TODO
+if mods["planet-muluna"] then
     data:extend({
         {
             type = "technology",
@@ -751,6 +774,36 @@ if mods["cubium"] then
             prerequisites = {"craptonite-axe", "cube-mastery-4"},
             research_trigger = {type = "craft-item", item="yeet-dream-concentrate-barrel", count=100},
         },
+    })
+end
+
+
+if mods["secretas"] and mods["machine-upgrades"] then
+    data:extend({
+    {
+        type = "technology",
+        name = "rubia-craptonite-codpiece",
+        icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-codpiece.png",
+        icon_size = 256,
+        essential = false,
+        effects = {},
+        prerequisites = {"craptonite-axe", "steam-recycler"},
+        research_trigger = {type = "craft-item", item="yeet-steam-recycler", count=1000},
+    },
+    })
+end
+if mods["janus"] and mods["machine-upgrades"] then
+    data:extend({
+    {
+        type = "technology",
+        name = "rubia-craptonite-mask",
+        icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-mask.png",
+        icon_size = 256,
+        essential = false,
+        effects = {},
+        prerequisites = {"craptonite-axe", "janus-time-science-pack"},
+        research_trigger = {type = "craft-item", item="yeet-janus-time-science-pack", count=1000},
+    },
     })
 end
 
