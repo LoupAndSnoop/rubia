@@ -30,6 +30,25 @@ local mod_item_blacklist = {
     --Power
     {mod="Krastorio2-spaced-out", type = "electric-energy-interface", name = "kr-wind-turbine"},
 }
+
+--Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.
+if mods["miniloader-redux"] then
+    local function is_miniloader(name)
+        local miniloader_prefix, miniloader_prefix_lane = "hps__ml-", "lane-hps__ml-"
+        if string.sub(name,1,string.len(miniloader_prefix)) == miniloader_prefix then return true
+        elseif string.sub(name,1,string.len(miniloader_prefix_lane)) == miniloader_prefix_lane then return true
+        end
+        return false
+    end
+    for _, type in pairs({"inserter","loader-1x1"}) do
+        for name, _ in pairs(data.raw.inserter) do
+            if is_miniloader(name) then 
+                table.insert(mod_item_blacklist, {mod = "miniloader-redux", type = type, name = name})
+            end
+        end
+    end
+end
+
 for _, entry in pairs(mod_item_blacklist) do
     if mods[entry.mod] then table.insert(internal_blacklist, entry) end
 end

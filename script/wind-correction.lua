@@ -144,7 +144,8 @@ local function force_orientation_condition(entity, player_index, orientation_val
         entity.rotate{by_player=player_index}
     end
     
-    error("Could not find an allowed orientation for an entity of type: " .. entity.prototype.name)
+    local true_type = (entity.type == "entity-ghost") and entity.ghost_type or entity.type
+    error("Could not find an allowed orientation for an entity of type: " .. entity.prototype.name .. ", True type: " .. true_type)
 end
 
 --Force this entity to any orientation except any of those in the hashset
@@ -297,7 +298,8 @@ rubia_wind.wind_rotation = function(entity, player_index)
     --Inserters are their own beast.
     --Rotate relevant items to not conflict with wind
     if entity_type == "inserter" then
-        if entity.prototype.allow_custom_vectors then
+        local true_prototype = entity.type == "entity-ghost" and entity.ghost_prototype or entity.prototype
+        if true_prototype.allow_custom_vectors then
             if try_adjust_inserter(entity) then 
                 wind_correction_notification(entity, player_index)
             end

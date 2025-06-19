@@ -3,6 +3,8 @@ Version: 0.69.64
 Date: ????
   Changes:
     - Removed warning from Biofusion science.
+    - I had to ban miniloader-redux from my planet because it kept fighting back at me with its scripting.
+    - Fixed issue with ghost adjustable inserters not getting updated.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.63
 Date: 2025-06-17

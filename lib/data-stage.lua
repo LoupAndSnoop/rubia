@@ -23,7 +23,7 @@ end
 ---@class prototype EntityPrototype
 rubia.ban_from_rubia = function(prototype)
     local function rubia_condition()
-        return {property = "rubia-wind-speed", min = 0, max = 100,}
+        return {property = "rubia-wind-speed", max = 100,} --min = 0, 
     end
     --log("Banning from Rubia: " .. prototype.name)
     --This needs to be made separately, because different prototypes might refer to the same object.
