@@ -63,6 +63,19 @@ if mods["janus"] then
 end
 
 
+if (mods["lignumis"] or mods["wood-universe-modpack"]) then
+    local lumber_mill = data.raw["assembling-machine"]["lumber-mill"]
+    table.insert(upgrade_data, {
+        handler = "rubia-lignumis-mill-productivity",
+        technology_name = "rubia-craptonite-wood-charm",
+        modifier_icon = {icon=lumber_mill.icon, icon_size = lumber_mill.icon_size},
+        entity_names = {"lumber-mill"},
+        module_effects = {productivity = 0.25, consumption = -0.25},
+        effect_name = {"entity-name.lumber-mill"},
+    })
+end
+
+
 if table_size(upgrade_data) > 0 then
     mupgrades.handle_modifier_data(upgrade_data)
 end

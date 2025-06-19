@@ -807,6 +807,24 @@ if mods["janus"] and mods["machine-upgrades"] then
     })
 end
 
+if (mods["lignumis"] or mods["wood-universe-modpack"]) and mods["machine-upgrades"] then
+    --Lignumis/Wood universe use same internal names for stuff, and similar balance. The difference is the tech.
+    local wooden_prerequisite = mods["lignumis"] and "lumber-mill" or "advanced-carpentry"
+    data:extend({
+    {
+        type = "technology",
+        name = "rubia-craptonite-wood-charm",
+        icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-wood-charm.png",
+        icon_size = 256,
+        essential = false,
+        effects = {},
+        prerequisites = {"craptonite-axe", wooden_prerequisite},
+        research_trigger = {type = "craft-item", item="yeet-lumber", count=10000},
+    },
+    })
+end
+
+
 --[[
 ----TODO: When Jahtra launches
 if mods["jahtra"] then 

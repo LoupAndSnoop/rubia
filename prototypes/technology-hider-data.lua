@@ -25,6 +25,7 @@ local hiding_parent_list = rubia_lib.array_to_hashset({
     "rubia-biofusion-science-pack",
     "rubia-project-trashdragon",
     "planetslib-rubia-cargo-drops",
+    "rubia-nutrients-from-sludge",
 })
 
 --Mostly disable the tech hiding feature.
