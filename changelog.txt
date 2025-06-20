@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.65
-Date: ????
+Date: 2025-06-20
   Changes:
     - NEW machine upgrades mod just released! This mod allows technologies to give a global module effect to all machines of a given type. Using this new mod, we have some new technologies:
       ► New biochamber productivity tech
