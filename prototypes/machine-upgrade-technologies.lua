@@ -82,7 +82,7 @@ if mods["Paracelsin"] then
         technology_name = "rubia-craptonite-grillz",
         modifier_icon = {icon=electrochemical_plant.icon, icon_size = electrochemical_plant.icon_size},
         entity_names = {"electrochemical-plant"},
-        module_effects = {productivity = 0.25, consumption = -0.25},
+        module_effects = {productivity = 0.15, consumption = -0.20},
         effect_name = {"entity-name.electrochemical-plant"},
     })
 end
@@ -94,7 +94,7 @@ if mods["Factorio-Tiberium"] then
         technology_name = "rubia-craptonite-tiber-implant",
         modifier_icon = {icon=reprocessor.icon, icon_size = reprocessor.icon_size},
         entity_names = {"tiberium-reprocessor"},
-        module_effects = {productivity = 0.25},
+        module_effects = {productivity = 0.20},
         effect_name = {"entity-name.tiberium-reprocessor"},
     })
 end
