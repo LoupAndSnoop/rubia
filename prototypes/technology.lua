@@ -825,6 +825,40 @@ if (mods["lignumis"] or mods["wood-universe-modpack"]) and mods["machine-upgrade
 end
 
 
+if mods["Paracelsin"] and mods["machine-upgrades"] then
+    data:extend({
+    {
+        type = "technology",
+        name = "rubia-craptonite-grillz",
+        icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-tooth-grillz.png",
+        icon_size = 256,
+        essential = false,
+        effects = {{type = "character-health-bonus", modifier = -25, 
+                    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
+        },
+        prerequisites = {"craptonite-axe", "galvanized-casting"},
+        research_trigger = {type = "craft-item", item="yeet-electric-coil", count=2000},
+    },
+    })
+end
+
+if mods["Factorio-Tiberium"] and mods["machine-upgrades"] then
+    data:extend({
+    {
+        type = "technology",
+        name = "rubia-craptonite-tiber-implant",
+        icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-implant.png",
+        icon_size = 256,
+        essential = false,
+        effects = {{type = "character-health-bonus", modifier = -50, 
+                    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
+        },
+        prerequisites = {"craptonite-axe", "tiberium-liquid-centrifuging"},
+        research_trigger = {type = "craft-item", item="yeet-liquid-tiberium-barrel", count=1000},
+    },
+    })
+end
+
 --[[
 ----TODO: When Jahtra launches
 if mods["jahtra"] then 

@@ -16,6 +16,7 @@ local internal_blacklist = {
     "craptonite-wall","rubia-armored-locomotive","rubia-armored-cargo-wagon",
     "rubia-armored-fluid-wagon",
     "rubia-long-bulk-inserter", "rubia-long-stack-inserter",
+    "RTThrower-rubia-long-bulk-inserter", "RTThrower-rubia-long-stack-inserter",
     --Other
     "character-corpse",
 }

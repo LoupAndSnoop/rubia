@@ -60,6 +60,7 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - billnguyen1411: Art used for Operation Iron Man.
 - Yuoki: I recolored some of his wagon sprites for trains in this mod. Derivatives of his wagons are distributed under CC license. [Link](https://mods.factorio.com/mod/yi_railway)
 - Hornwitser: Science sprites are derived from his beautiful [quality glassware mod](https://mods.factorio.com/mod/quality_glassware). These derrivatives are shared under a CC-BY-SA license.
+- Leonardo Carlvaho, yogensia: Models for hexagonal tile and kunai from Sketchfab, used to make the Tiberium cross tech sprite.
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
 - Localization:
      - Thanks to rlcyyg1108 for generously providing a Chinese localization!

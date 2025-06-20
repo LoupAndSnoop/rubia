@@ -231,3 +231,13 @@ for i = 9, 50 do
 end
 
 --#endregion
+
+
+
+
+-----Adding my techs as prereqs for other mod things.
+
+if mods["Paracelsin"] and data.raw.technology["axe-mining-speed"] then
+    table.insert(data.raw.technology["axe-mining-speed"].prerequisites, "craptonite-axe")
+    try_add_science_pack_to_tech("biorecycling-science-pack", "axe-mining-speed")
+end

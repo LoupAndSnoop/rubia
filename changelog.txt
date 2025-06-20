@@ -2,6 +2,7 @@
 Version: 0.69.65
 Date: ????
   Changes:
+    - Rubia's axe is now needed for Paracelsin's infinite axe technology.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.64
 Date: 2025-06-19

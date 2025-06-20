@@ -75,6 +75,30 @@ if (mods["lignumis"] or mods["wood-universe-modpack"]) then
     })
 end
 
+if mods["Paracelsin"] then
+    local electrochemical_plant = data.raw["assembling-machine"]["electrochemical-plant"]
+    table.insert(upgrade_data, {
+        handler = "rubia-paracelsin-electrochem-bonus",
+        technology_name = "rubia-craptonite-grillz",
+        modifier_icon = {icon=electrochemical_plant.icon, icon_size = electrochemical_plant.icon_size},
+        entity_names = {"electrochemical-plant"},
+        module_effects = {productivity = 0.25, consumption = -0.25},
+        effect_name = {"entity-name.electrochemical-plant"},
+    })
+end
+
+if mods["Factorio-Tiberium"] then
+    local reprocessor = data.raw["furnace"]["tiberium-reprocessor"]
+    table.insert(upgrade_data, {
+        handler = "rubia-tiberium-reprocessors",
+        technology_name = "rubia-craptonite-tiber-implant",
+        modifier_icon = {icon=reprocessor.icon, icon_size = reprocessor.icon_size},
+        entity_names = {"tiberium-reprocessor"},
+        module_effects = {productivity = 0.25},
+        effect_name = {"entity-name.tiberium-reprocessor"},
+    })
+end
+
 
 if table_size(upgrade_data) > 0 then
     mupgrades.handle_modifier_data(upgrade_data)
