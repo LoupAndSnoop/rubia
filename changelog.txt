@@ -2,6 +2,7 @@
 Version: 0.69.67
 Date: ????
   Changes:
+    - Machine Upgrades crashes fixed. Now forcing everyone to come up to a stable version.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.66
 Date: 2025-06-21
