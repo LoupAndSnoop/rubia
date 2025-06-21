@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.66
-Date: ????
+Date: 2025-06-21
   Changes:
     - Putting out a version where machine-upgrades is optional while I figure out bugs that affect a small set of users.
 ---------------------------------------------------------------------------------------------------
