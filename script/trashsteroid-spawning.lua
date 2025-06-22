@@ -197,6 +197,7 @@ local update_difficulty_scaling = function()
   storage.impact_damage_special = {--Dictionary of entity=>impact damage for special cases
     ["character"] = 280,
     ["cargo-pod-container"] = 200,
+    ["construction-robot"] = 100,
   }
   storage.impact_damage_special["character"] = settings.character_damage
 end

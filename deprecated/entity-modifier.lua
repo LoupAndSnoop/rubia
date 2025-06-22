@@ -1,3 +1,5 @@
+-----------****** THIS IS AN OLD VERSION, AND ALSO NOT NEEDED IN THIS MOD. MOVED TO MACHINE UPGRADES
+
 --This file controls the runtime modification of entities in a generic way.
 local entity_modifier = {}
 

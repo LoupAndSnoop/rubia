@@ -2,6 +2,11 @@
 Version: 0.69.68
 Date: ????
   Changes:
+    - Forcing everyone up in prerequisite versions.
+    - Trashsteroids now damange vanilla construction robots by a flat 100 damage, which exactly kills them at normal quality, while always letting quality bots live (at all difficulty).
+    - Janus cross tech nerf: Time Distorter speed +50% => +30%
+    - Removed some unused code.
+    - Fixed random lore, where it was not actually randomizing some of the lore. Ooops!
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.67
 Date: 2025-06-21

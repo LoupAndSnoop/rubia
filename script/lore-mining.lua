@@ -45,10 +45,10 @@ local lore_drop_table ={
         {count = 5, string = "rubia-lore.junk-mine-part1"},
         {count = 17, string = "rubia-lore.junk-mine-part2"},
         {count = 31, string = "rubia-lore.junk-mine-part3"},
-        {count = 52, string = "rubia-lore.junk-mine-part4-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1),
+        {count = 52, string = "rubia-lore.junk-mine-part4-rand", random = 6,-- .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1),
                      extra_id = "rubia-lore.junk-mine-part4-rand"},
         {count = 77, string = "rubia-lore.junk-mine-part5"},
-        {count = 105, string = "rubia-lore.junk-mine-part6-rand" .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(4)) or 1),
+        {count = 105, string = "rubia-lore.junk-mine-part6-rand", random = 3,--.. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(4)) or 1),
                      extra_id = "rubia-lore.junk-mine-part6-rand"},
     }
 }
@@ -71,13 +71,13 @@ lore_mining.assign_ids_to_lore(lore_drop_table)
 
 
 
---[[Code for testing. Comment in/out as needed.
+--Code for testing. Comment in/out as needed.
 log("RUBIA: Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
-end]]
+end
 
 
 --When we just got a lore drop, check if we need an achievement for it
@@ -120,14 +120,23 @@ lore_mining.try_lore_when_mined = function(entity)
         if new_count >= entry.count  --Time to trigger
             and not storage.rubia_lore_previously_played[entry.unique_id] then --Not seen before
             storage.rubia_lore_previously_played[entry.unique_id] = true
+
+            --Base string print
             if entry.string then
-                game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string}},{color=lore_color})
+                local to_print = entry.string
+                if entry.random then
+                    to_print = to_print .. tostring(game.create_random_generator()(entry.random))
+                end
+                game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {to_print}},{color=lore_color})
             end
+
+            --Non-basic print functions
             if entry.string2 then 
                 rubia.timing_manager.wait_then_do(entry.string2_delay or (5*60), "delayed-text-print", {"game", 
                     {"", {"rubia-lore.rubia-notice-prestring"}, ": ", {entry.string2}}, {color=lore_color}})
             end
             if entry.execute then entry.execute(entity) end
+            
             try_lore_achievement()
             table.remove(lore_drop_table, index) --Remove because we've seen it.
             return

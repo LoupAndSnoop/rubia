@@ -163,3 +163,49 @@ script.on_configuration_changed(function() storage.trajectories = storage.trajec
 		remote.call("rubia-travel-abort", "on_aborted_rubia_travel", player)
 		return
 	end]]
+
+
+--------
+---Mod data proposal
+
+
+---Data stage
+data:extend({
+    {
+        --Mandatory
+        type = "mod-data",
+        subtype = "rubia-wind-restriction",
+        name = "fast-transport-belt",
+
+        --The actual custom data
+        wind_behavior = "force-not",
+        orientation = {defines.direction.west},
+    },
+    --Define everything else like normal prototypes
+    {
+        type = "mod-data",
+        subtype = "rubia-wind-restriction",
+        name = "express-splitter",
+        wind_behavior = "force-to",
+        orientation = {defines.direction.east},
+    },
+    ...
+})
+
+---Rubia control stage
+script.on_event(defines.events.on_built, function(event)
+    if not event.entity.valid then return end
+    local wind_restriction = prototypes.mod_data["rubia-wind-restriction"][event.entity.name]
+    if wind_types[wind_restriction.wind_behavior] then
+         -- go do stuff
+    end
+end)
+
+---Cheat mod: "Rubia without wind restrictions" in data-final-fixes.Lua
+---Go delete all of the mod_data prototypes of this type
+if data.raw.mod_data["rubia-wind-restriction"] then
+    local to_delete = util.table.deepcopy(data.raw.mod_data["rubia-wind-restriction"])
+    for name, _ in pairs (to_delete) do
+        data.raw.mod_data["rubia-wind-restriction"][name] = nil
+    end
+end

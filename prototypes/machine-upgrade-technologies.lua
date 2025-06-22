@@ -57,7 +57,7 @@ if mods["janus"] then
         technology_name = "rubia-craptonite-mask",
         modifier_icon = {icon=time_distorter.icon, icon_size = time_distorter.icon_size},
         entity_names = {"janus-time-distorter"},
-        module_effects = {speed = 0.5},
+        module_effects = {speed = 0.3},
         effect_name = {"entity-name.janus-time-distorter"},
     })
 end
