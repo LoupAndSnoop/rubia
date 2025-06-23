@@ -85,12 +85,7 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
     local unknown_tech = force.technologies[tech_lib.get_unknown_tech_name(tech_name)]
 
 
-    --TODO: Genhis' bugfix is tied to the experimental version right now.
-    if rubia.DISABLE_TECH_HIDING then
-        unknown_tech.researched = false --Should always be false, because researched techs are forced visible.
-    else unknown_tech.researched = orig_tech.researched --This needs to be done because disabled techs are still enforced prereqs.
-    end
-
+    unknown_tech.researched = orig_tech.researched --This needs to be done because disabled techs are still enforced prereqs.
 
     orig_tech.visible_when_disabled = false
     unknown_tech.visible_when_disabled = false
@@ -137,7 +132,6 @@ end
 --Go sync ALL unknown techs for all forces
 local function sync_all_unknown_techs()
     --For the case of tech hiding, just enable all the techs in case of migrations
-    --if rubia.DISABLE_TECH_HIDING then enable_all_rubia_techs(); end
     enable_all_rubia_techs();
 
     --Array of all unknown tech placeholders

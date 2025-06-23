@@ -71,13 +71,13 @@ lore_mining.assign_ids_to_lore(lore_drop_table)
 
 
 
---Code for testing. Comment in/out as needed.
+--[[Code for testing. Comment in/out as needed.
 log("RUBIA: Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
-end
+end]]
 
 
 --When we just got a lore drop, check if we need an achievement for it

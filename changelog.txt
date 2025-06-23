@@ -7,6 +7,7 @@ Date: ????
     - Janus cross tech nerf: Time Distorter speed +50% => +30%
     - Removed some unused code.
     - Fixed random lore, where it was not actually randomizing some of the lore. Ooops!
+    - Corrundum tech nerf: Charcter craft speed +100% => +50%. In combination with other techs, this was getting handcrafting to be too good relative to automation, which is unhealthy. I'm hitting this one because it is the biggest offender.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.67
 Date: 2025-06-21

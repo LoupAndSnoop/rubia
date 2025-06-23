@@ -695,7 +695,7 @@ if mods["corrundum"] then
             icon_size = 256,
             essential = false,
             effects = {
-                {type = "character-crafting-speed", modifier = 1},
+                {type = "character-crafting-speed", modifier = 0.5},
             },
             prerequisites = {"craptonite-axe", "electrochemical-science-pack"},
             research_trigger = {type = "craft-item", item="yeet-electrochemical-science-pack", count=1000},
