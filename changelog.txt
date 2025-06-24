@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.68
-Date: ????
+Date: 2025-06-24
   Changes:
     - Forcing everyone up in prerequisite versions.
     - Trashsteroids now damange vanilla construction robots by a flat 100 damage, which exactly kills them at normal quality, while always letting quality bots live (at all difficulty).
