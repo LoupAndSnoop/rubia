@@ -39,13 +39,14 @@ require("__rubia__.prototypes.ambient-sounds")
 require("__rubia__.prototypes.achievements")
 require("__rubia__.prototypes.tips-and-tricks")
 
---Late stage data updates
+--Late stage data updates for compat.
 require("__rubia__.prototypes.entity.rocketizer-merge")
 require("__rubia__.compat.blueprint-shotgun")
 require("__rubia__.compat.wood-logistics")
 require("__rubia__.compat.lignumis")
 require("__rubia__.compat.alloy-smelting")
 require("__rubia__.compat.bz-mods")
+require("__rubia__.compat.resource-spawner-overhaul")
 require("__rubia__.compat.krastorio2-so")
 
 
