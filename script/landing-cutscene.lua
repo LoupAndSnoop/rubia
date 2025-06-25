@@ -165,8 +165,24 @@ local function get_character_shields(character)
     return total_shield
 end
 
+--[[ This version maximizes shield regen
+--Go through the player's equipment grid, and change the shield to that total value
+--This version engages as many shields as possible.
+local function set_character_shields(character, new_total_shield_value)
+    if (not character.grid or not character.grid.valid
+        or character.grid.max_shield < 1) then return end --Nothing to do
+    local final_shield_ratio = math.min(1,math.max(0, new_total_shield_value / character.grid.max_shield))
+    for _, equip in pairs(character.grid.equipment) do 
+        if (equip.valid and (equip.type ~= "equipment-ghost") 
+        and equip.max_shield > 0) then
+            equip.shield = equip.max_shield * final_shield_ratio
+        end
+    end
+end]]
 
 --Go through the player's equipment grid, and change the shield to that total value
+--Engages the minimal number of shields for regen. This can lead to slight inconsistencies in damage estimates,
+--but it makes the shield bar clearly fill slowly.
 local function set_character_shields(character, new_total_shield_value)
     if (not character.grid or not character.grid.valid) then return end --Nothing to do
     local remaining_total_shield = new_total_shield_value
@@ -181,12 +197,13 @@ end
 
 --Go through the player's equipment grid, and remove all energy from the character's shields.\
 --This reduces jank from the shield making a ton of shield the next frame.
+--Leave an amount of energy on the shield equal to the amount it would need for 1 tick of energy
 local function drain_character_shields(character)
     if (not character.grid or not character.grid.valid) then return end --Nothing to do
     for _, equip in pairs(character.grid.equipment) do 
         if (equip.valid and (equip.type ~= "equipment-ghost") 
         and equip.max_shield > 0) then
-            equip.energy = 0
+            equip.energy = equip.prototype.get_energy_consumption(equip.quality)
         end
     end
 end
@@ -339,19 +356,20 @@ end)
 local CUTSCENE_TEXT_SETTINGS = {color={r=0.9,g=0,b=0,a=1}}
 rubia.timing_manager.register("cutscene-part2", function(player, cargo_pod, character)
     player.print({"alert.landing-cutscene-part1"}, CUTSCENE_TEXT_SETTINGS)
+    drain_character_shields(character) --Drain them to avoid jank in the calculation.
     cutscene_damage(character, player, 90)
 end)
 
 rubia.timing_manager.register("cutscene-part3", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
     player.print({"alert.landing-cutscene-part2"}, CUTSCENE_TEXT_SETTINGS)
-    cutscene_damage(character, player, 90)
+    cutscene_damage(character, player, 70)
 end)
 
 rubia.timing_manager.register("cutscene-part4", function(player, cargo_pod, character)
     player.play_sound{path="utility/alert_destroyed", volume_modifier=1}
     player.print({"alert.landing-cutscene-part3"}, CUTSCENE_TEXT_SETTINGS)
-    cutscene_damage(character, player, 110)
+    cutscene_damage(character, player, 89)
 end)
 
 
@@ -369,17 +387,19 @@ end)
 --Epic Mech armor + many epic shield Mk2 = 7.6k shield
 --Leg Mech armor + many leg shield Mk2 = 12k shield
 --
+--When shields drained, shield value for small amounts of shield: Mk1 = 122
 --2400 shield and 2310 big dmg => 165.8 HP left
---200 => need 2 Mk1 shield.
---510 => need 8 Mk1 shield
+--240 => need 2 Mk1 shield.
+--550 => need 8 Mk1 shield
 --860 => need 700 shield
 local planned_big_damage_dic = {
-    ["easy"] = 200,
-    ["normal"] = 510,
-    ["hard"] = 510 -400 + 750, --Does not need quality
-    ["very-hard"] = 510 -400 + 2200,
-    ["very-very-hard"] = 6300,
-} 
+    ["easy"] = 200 + 40, --2 MK1 shield
+    ["normal"] = 510 + 40, --8 Mk1 shield
+    ["hard"] = 510 -400 + 770, --Does not need quality
+    ["very-hard"] = 510 -400 + 2200 +40,
+    ["very-very-hard"] = 6300 +40,
+}
+
 --Return the amount of burst damage the player will be taking as they land at the end
 local function get_planned_big_damage() return planned_big_damage_dic[
         settings.global["rubia-difficulty-setting"].value] end
@@ -400,8 +420,8 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     if (not character.grid) or character.grid.max_shield == 0 then bonus_damage = 400 end
 
     --log("RUBIA TEST CODE NOT TO BE SHOWN")
-    --game.print("TESTING: Expected eff health after = " .. tostring(character.health + get_character_shields(character) - get_planned_big_damage() + bonus_damage)
-    --    .. ".  Character health = " .. tostring(character.health) .. ", shield = " .. tostring(get_character_shields(character))) --Testing
+    --game.print("TESTING: Expected eff health after = " .. tostring(character.health + get_character_shields(character) - get_planned_big_damage() - bonus_damage)
+    --    .. ".  Current Character health = " .. tostring(character.health) .. ", shield = " .. tostring(get_character_shields(character))) --Testing
         
     --Main damage check here. Empirically, 460 = need 6 shields with no health upgrades.
     cutscene_damage(character, player, get_planned_big_damage() + bonus_damage)
@@ -616,20 +636,19 @@ landing_cutscene.check_initial_journey_warning = function(event)
             and ((char.grid.max_solar_energy + char.grid.get_generator_energy()) > 0)) then
             effective_health = effective_health + char.grid.max_shield
 
-            local expected_regen = 
-                12 * char.grid.count("energy-shield-mk2-equipment")
-                + 12 * char.grid.count("energy-shield-equipment")
-
-            expected_regen = math.min(300, expected_regen * 6) --How much healing we expect max
+            --Total regen winds up being off by 54 too small for small values because we take from shields in a way that minimizes regen.
+            local expected_regen = math.min(249 -54, get_character_shield_regen(char) * 6.5) --How much healing we expect max
             --If shields, then issue warning if total eff health too small
-            local planned_total_dmg = get_planned_big_damage() + 300 + 30 --fudge factor
-            issue_warning = effective_health + expected_regen < planned_total_dmg * 1.15 --Fudge factor
+            local planned_total_dmg = get_planned_big_damage() + 249
+            --game.print("Expected final HP = " .. (effective_health + expected_regen - get_planned_big_damage() - 249)
+            --.. ", Effective HP = " .. (effective_health) .. ", Expected regen = " .. expected_regen .. ", max shield = " .. (char.grid.max_shield or 0))
+            issue_warning = effective_health + expected_regen < planned_total_dmg * 1.08 + 5 --Fudge factor
 
             --Shield ratio = fraction of shield you need / total
             local needed_shield = planned_total_dmg - char.max_health
             if needed_shield == 0 then needed_shield = 0.1 end
             local shield_ratio = (char.grid.max_shield + expected_regen) / needed_shield     
-            if shield_ratio == 0        then warning_message = "alert.pre-rubia-cutscene-unprepared-naked"
+            if shield_ratio <= 0        then warning_message = "alert.pre-rubia-cutscene-unprepared-naked"
             elseif shield_ratio < 0.4  then warning_message = "alert.pre-rubia-cutscene-unprepared-low-shield"
             elseif shield_ratio < 0.7  then warning_message = "alert.pre-rubia-cutscene-unprepared-medium-shield"
             elseif shield_ratio < 0.9 then warning_message = "alert.pre-rubia-cutscene-unprepared-almost-shield"
@@ -680,6 +699,7 @@ rubia.testing.test_shield_regen = function(damage_to_try)
     local character = game.players[1].character
     if not character then game.print("No character found") return end
 
+    drain_character_shields(character)
     local pre_damage_shield = get_character_shields(character)
     if not damage_to_try then damage_to_try = pre_damage_shield * 0.9 end
 
@@ -688,7 +708,7 @@ rubia.testing.test_shield_regen = function(damage_to_try)
     game.print("Initial shield: Pre damage = " .. tostring(pre_damage_shield)
         .. ", Post-damage = " .. tostring(get_character_shields(character)))
 
-    for _, test_ticks in pairs({1, 5,10,50,120}) do
+    for _, test_ticks in pairs({1, 2, 5,10,50,120}) do
         rubia.timing_manager.wait_then_do(test_ticks, "shield-value-testing",
             {character, get_character_shields(character), game.tick, shield_damage})
     end
@@ -701,7 +721,6 @@ rubia.testing.measure_shield_regen = function()
     local character = game.players[1].character
     if not character then game.print("No character found") return end
     game.print("Shield regen/s = " .. get_character_shield_regen(character))
-    drain_character_shields(character)
 end
 
 

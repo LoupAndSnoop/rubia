@@ -9,6 +9,9 @@ Date: ????
       ► Crapapult can now be exported from Rubia. Rocket capacity 0 => 1. 
       ► Crapapult stack size 10 => 5. Sorry.
       ► Crapapult recipe is still surface locked to Rubia.
+    - Landing cutscene warnings are now more accurate.
+    - I can now more accurately estimate the amount of damage you can regen, leading to more accurate estimates for landing on Rubia.
+    - Compat for Lignumis when alternate electronic circuit recipes demand wood.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.68
 Date: 2025-06-24
