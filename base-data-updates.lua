@@ -1,1 +1,0 @@
---table.insert(data.raw.item.landfill.place_as_tile.tile_condition, "petroleum-tile") --shoud fixed bug that petrol tile is not coverage 

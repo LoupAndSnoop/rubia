@@ -160,18 +160,11 @@ data:extend({
         max_health = 400,
         corpse = "crapapult-remnants",
         dying_explosion = "electromagnetic-plant-explosion",
-        surface_conditions = rubia.surface_conditions(),
+        surface_conditions = rubia.surface_conditions_any_asteroids(),--surface_conditions(),
 
-        resistances =
-        {
-          {
-            type = "fire",
-            percent = 80
-          },
-          {
-            type = "impact",
-            percent = 50
-          }
+        resistances = {
+          {type = "fire", percent = 80},
+          {type = "impact", percent = 50}
         },
         collision_box = {{-size/2 + inset,-size/2 + inset},{size/2 - inset,size/2 - inset}},
         selection_box = {{-size/2,-size/2},{size/2,size/2}},

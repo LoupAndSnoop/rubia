@@ -46,6 +46,6 @@ local function set_asteroid_density(planet_name, asteroid_density)
   if (data.raw["planet"][planet_name]) then 
     data.raw["planet"][planet_name].surface_properties["rubia-asteroid-density"] = asteroid_density end
 end
-data.raw["surface"]["space-platform"].surface_properties["rubia-asteroid-density"] = 10
-set_asteroid_density("cerys", 5)
-set_asteroid_density("rubia", 30)
+data.raw["surface"]["space-platform"].surface_properties["rubia-asteroid-density"] = 50
+set_asteroid_density("cerys", 50)
+set_asteroid_density("rubia", 100)

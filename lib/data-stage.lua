@@ -3,27 +3,25 @@ _G.rubia_lib = _G.rubia_lib or {}
 
 --Return surface conditions for something that forces that item/recipe to Rubia only.
 rubia.surface_conditions = function()
-    return {{
-        property = "rubia-wind-speed",
-        min = 300,
-        max = 300,
-    }}
+    return {{property = "rubia-wind-speed", min = 300, max = 300,}}
+end
+---Surface condition for NOT Rubia.
+---@return table<uint,data.SurfaceCondition>
+local function surface_conditions_not_rubia()
+    return {{property = "rubia-wind-speed", max = 100,}}
 end
 ---Give a table of surface conditions to denote: Rubia OR space (or other places with rocks)
 rubia.surface_conditions_any_asteroids = function()
-    return {{
-        property = "rubia-asteroid-density",
-        min = 5,
-        max = 300,
-    }}
+    return {{property = "rubia-asteroid-density", min = 10}}--, max = 300,}}
 end
 
---Take in an EntityPrototype, and ADD surface conditions to it to ban it from Rubia. 
---This takes in the prototype by reference to modify it, with no return.
----@class prototype EntityPrototype
+
+---Take in an EntityPrototype, and ADD surface conditions to it to ban it from Rubia. 
+---This takes in the prototype by reference to modify it, with no return.
+---@param prototype data.EntityPrototype | data.RecipePrototype
 rubia.ban_from_rubia = function(prototype)
     local function rubia_condition()
-        return {property = "rubia-wind-speed", max = 100,} --min = 0, 
+        return surface_conditions_not_rubia()[1]
     end
     --log("Banning from Rubia: " .. prototype.name)
     --This needs to be made separately, because different prototypes might refer to the same object.

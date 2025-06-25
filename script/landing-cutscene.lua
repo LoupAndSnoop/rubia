@@ -149,6 +149,9 @@ landing_cutscene.check_respawn_off_rubia = function(event)
     storage.rubia_respawn_blocked_players[event.player_index] = nil
 end
 
+
+--#region Doing/reading damage/shields
+
 --For troubleshooting. Get the character's current total shield.
 local function get_character_shields(character)
     if (not character.grid or not character.grid.valid) then return 0 end --Nothing to do
@@ -176,6 +179,34 @@ local function set_character_shields(character, new_total_shield_value)
     end
 end
 
+--Go through the player's equipment grid, and remove all energy from the character's shields.\
+--This reduces jank from the shield making a ton of shield the next frame.
+local function drain_character_shields(character)
+    if (not character.grid or not character.grid.valid) then return end --Nothing to do
+    for _, equip in pairs(character.grid.equipment) do 
+        if (equip.valid and (equip.type ~= "equipment-ghost") 
+        and equip.max_shield > 0) then
+            equip.energy = 0
+        end
+    end
+end
+
+---Get this character's total shield regen per second.
+---@param character LuaEntity
+---@return double
+local function get_character_shield_regen(character)
+    if (not character.grid or not character.grid.valid) then return 0 end --Nothing to do
+    local regen = 0
+    for _, equip in pairs(character.grid.equipment) do 
+        if (equip.valid and (equip.type ~= "equipment-ghost") 
+            and equip.max_shield > 0) then
+            local proto = equip.prototype
+            local energy_consumption = proto.get_energy_consumption(equip.quality) --energy/tick
+            regen = regen + energy_consumption / proto.energy_per_shield --Shield / tick
+        end
+    end
+    return regen * 60 --Output in shield/sec
+end
 
 --Try to damage the player during the cutscene, but return control if the player is about to die.
 local function cutscene_damage(character, player, damage)
@@ -202,6 +233,7 @@ local function cutscene_damage(character, player, damage)
         storage.rubia_respawn_blocked_players[player.index] = true
     end
 end
+--#endregion
 
 --Start the cutscene for the given player. Return an array of all the relevant event_id to be able to cancel it later.
 ---@param player LuaPlayer
@@ -663,6 +695,14 @@ rubia.testing.test_shield_regen = function(damage_to_try)
 end
 --call: /c __rubia__ rubia.testing.test_shield_regen()
 --Or call with a specific damage argument
+
+---Measure the character's shield regen.
+rubia.testing.measure_shield_regen = function()
+    local character = game.players[1].character
+    if not character then game.print("No character found") return end
+    game.print("Shield regen/s = " .. get_character_shield_regen(character))
+    drain_character_shields(character)
+end
 
 
 --#endregion

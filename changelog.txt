@@ -2,6 +2,13 @@
 Version: 0.69.69
 Date: ????
   Changes:
+    - Nice version :)
+    - Crapapult is now allowed outside Rubia, on surfaces that allow space voiding. This comes with additional balance changes:
+      ► Crapapult yeet recipes involved with research are now surface-locked to Rubia. Yeeting related items on other surfaces will NOT advance research.
+      ► New "asteroid density" surface condition restricts crapapult to Rubia, space, or Cerys. Units are now ppb
+      ► Crapapult can now be exported from Rubia. Rocket capacity 0 => 1. 
+      ► Crapapult stack size 10 => 5. Sorry.
+      ► Crapapult recipe is still surface locked to Rubia.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.68
 Date: 2025-06-24

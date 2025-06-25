@@ -277,7 +277,8 @@ data:extend(
   subgroup = "agriculture", order = "z[biter-nest]-ag[rubia]-g",
   --subgroup = "production-machine", order = "zf[biorecycling]-d",
   place_result = "crapapult",
-  stack_size = 10
+  stack_size = 10,
+  weight = 1000/1*kg,
 },
 
 {

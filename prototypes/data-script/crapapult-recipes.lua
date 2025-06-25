@@ -84,7 +84,11 @@ end
 
 
 local no_icon = {icon="__core__/graphics/empty.png"}
--- generates a recipe to incinerate the specified non-fluid prototype
+---Generates a recipe to void the specified non-fluid prototype
+---@param item data.ItemPrototype
+---@param category string name of the item category
+---@param craft_category string name of the crafting category
+---@return data.RecipePrototype
 local function yeet_recipe(item, category, craft_category)
   local newicons = generate_crapapult_recipe_icons_from_item(item)
   table.insert(newicons, no_icon)
@@ -92,7 +96,7 @@ local function yeet_recipe(item, category, craft_category)
   
   --log("Making normal yeet void recipe for: " .. item.name)
 
-  data:extend({
+  return
     {
       type = "recipe",
       name = "yeet-" .. category .. "-" .. item.name,
@@ -117,7 +121,6 @@ local function yeet_recipe(item, category, craft_category)
       subgroup = "yeeting-items",
       order = "zz[yeet]"
     }
-  })
 end
 
 
@@ -126,24 +129,6 @@ local crapapult_category_list = {}
 for subtype in pairs(defines.prototypes.item) do
   table.insert(crapapult_category_list, subtype)
 end
-
---[[local crapapult_category_list = {
-  "item",
-  "tool",
-  "module",
-  "capsule",
-  "ammo",
-  "gun",
-  "armor",
-  "mining-tool",
-  "repair-tool",
-  "rail-planner",
-  "item-with-data",
-  "item-with-entity-data",
-  "item-with-label",
-  "item-with-inventory",
-  "item-with-tags",
-}]]
 
 --[[create Yeet recipe for any item that is not blacklisted
 for _, vi in pairs(data.raw.item) do
@@ -155,7 +140,7 @@ for _, categ in pairs(crapapult_category_list) do
   if data.raw[categ] then
     for _, item in pairs(data.raw[categ]) do
       if not crapapult_blacklist[item.name] then
-        yeet_recipe(item, categ, "crapapult")
+        data:extend({yeet_recipe(item, categ, "crapapult")})
       end
     end
   end
@@ -164,8 +149,11 @@ end
 
 --#region Special crapapult recipes
 
---Special yeeting recipes. Make a special item/recipe automatically for items
---specially marked to be yoten. If no custom icon is given, use an auto-generated one.
+---Special yeeting recipes. Make a special item/recipe automatically for items
+---specially marked to be yoten. If no custom icon is given, use an auto-generated one.
+---@param item_name string
+---@param icon string? file path for icon
+---@param icon_size uint?
 local function special_yeet_recipe(item_name, icon, icon_size)
   icon_size = icon_size or 64
   local local_item_name = rubia.get_item_localised_name(item_name)
@@ -184,8 +172,13 @@ local function special_yeet_recipe(item_name, icon, icon_size)
   local icons = (icon and {{icon=icon, icon_size = icon_size}}) 
     or generate_crapapult_recipe_icons_from_item(item)
 
+  local non_rubia_yeet = yeet_recipe(item, item.type, "crapapult")
+  rubia.ban_from_rubia(non_rubia_yeet)
+
   return
-  {{
+  {
+    non_rubia_yeet,
+  {
     type = "recipe",
     name = "yeet-" .. item_name,
     --icon = icon,    
@@ -193,6 +186,7 @@ local function special_yeet_recipe(item_name, icon, icon_size)
     icon_size = icon_size,
     category = "crapapult",
     enabled = true,
+    surface_conditions = rubia.surface_conditions(), --True research-based recipes cannot be done outside Rubia.
 
     localised_name = {"rubia-crapapult.yeet-recipe", local_item_name},
     localised_description = {"rubia-crapapult.yeet-recipe-description", local_item_name},
