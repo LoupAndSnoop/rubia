@@ -1,5 +1,4 @@
 
-
 --BZ Tin makes pumpjacks uncraftable
 if mods["bztin"] then
     local minable = data.raw["simple-entity"]["rubia-junk-pile"].minable.results
@@ -29,26 +28,10 @@ end
 
 --Both these mods change the recipe for green circuits.
 if mods["bzcarbon"] or mods["bztin"] then
-    data:extend({
-    {
-        type = "recipe",
-        name = "rubia-compat-electronic-circuit",
-        localised_name = {"item-name.electronic-circuit"},
-        category = "electronics",
-        --subgroup = "rubia-compat-recipes", order = "g[rubia compat]-bz[bz mods]-a",
-        surface_conditions = rubia.surface_conditions(),
-        ingredients =
-        {
-        {type = "item", name = "iron-plate", amount = 1},
-        {type = "item", name = "copper-cable", amount = 3}
-        },
-        results = {{type="item", name="electronic-circuit", amount=1}},
-        enabled = false,
-        allow_productivity = true,
-        auto_recycle = false,
-    },
-    })
-    rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", "rubia-compat-electronic-circuit")
+    local common_compat_prototypess = require("__rubia__.compat.common-compat-prototypes")
+    local green_circ = common_compat_prototypess["electronic-circuit-recipe"]
+    data:extend({green_circ})
+    rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", green_circ.name)
 end
 
 --These mods make chem plants uncraftable

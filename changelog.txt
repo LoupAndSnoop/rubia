@@ -3,6 +3,7 @@ Version: 0.69.69
 Date: ????
   Changes:
     - Nice version :)
+    - Trashsteroid trajectory has been changed: Trashsteroid speed x2, friction x20ish, lifetime +12%. This causes them to cover a lot of ground, and be slow towards the end of their trajectory. This makes them easier to hit, and buffs craptonite walls because trashsteroids now cover about 1.6x as much distance.
     - Crapapult is now allowed outside Rubia, on surfaces that allow space voiding. This comes with additional balance changes:
       ► Crapapult yeet recipes involved with research are now surface-locked to Rubia. Yeeting related items on other surfaces will NOT advance research.
       ► New "asteroid density" surface condition restricts crapapult to Rubia, space, or Cerys. Units are now ppb
@@ -12,6 +13,7 @@ Date: ????
     - Landing cutscene warnings are now more accurate.
     - I can now more accurately estimate the amount of damage you can regen, leading to more accurate estimates for landing on Rubia.
     - Compat for Lignumis when alternate electronic circuit recipes demand wood.
+    - Compat for AAI Industries. Both circuit recipe and chemical plant are now available.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.68
 Date: 2025-06-24

@@ -190,7 +190,7 @@ data:extend({
     braking_power = "200kW",
     energy_source = {type = "void"},
     consumption = "150kW",
-    friction = 1e-4,--2e-3,
+    friction = 4.3e-3,--1e-4,--Old one
     has_belt_immunity = true,
     render_layer = "air-object",
     created_smoke = {
@@ -225,7 +225,7 @@ data:extend({
     impact_category = "stone",
     impact_speed_to_volume_ratio = 100,--20.0,
     rotation_speed = 0.015,
-    weight = 1,--700,
+    weight = 0.01,--1,--700,
     inventory_size = 0,
   }
 })

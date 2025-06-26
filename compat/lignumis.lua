@@ -12,7 +12,12 @@ table.insert(scrapapalooza,
 
 --If Lignumis complicates the circuit recipe, I need to bring it back.
 if settings.startup["lignumis-circuit-progression"].value then
-    data:extend({
+    local common_compat_prototypess = require("__rubia__.compat.common-compat-prototypes")
+    local green_circ = common_compat_prototypess["electronic-circuit-recipe"]
+    data:extend({green_circ})
+    rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1B", green_circ.name)
+
+    --[[data:extend({
     {
         type = "recipe",
         name = "rubia-compat-electronic-circuit",
@@ -30,5 +35,5 @@ if settings.startup["lignumis-circuit-progression"].value then
         auto_recycle = false,
     },
     })
-    rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1B", "rubia-compat-electronic-circuit")
+    rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", "rubia-compat-electronic-circuit")]]
 end

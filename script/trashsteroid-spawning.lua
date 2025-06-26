@@ -12,7 +12,7 @@ local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to s
 local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
-local trashsteroid_lifetime = 200 + 40 --Number of ticks that a trashsteroid can live
+local trashsteroid_lifetime = 240 + 30 --Number of ticks that a trashsteroid can live
 
 local max_render_checks_per_update = 60 --Max # of trashsteroids to sift through when finding ones to render
 local max_renders_per_update = 30 --Max # of trashsteroid renderings to actually update per tick
@@ -21,8 +21,8 @@ local transparency_delta = 0.05 --If transparency change is less than this much,
 local trashsteroid_names = {"medium-trashsteroid"}
 
 --Medium Trashsteroid movement and rendering data
-local trashsteroid_speed = 0.045--0.04 --Speed given to trashsteroids upon spawning. 1 is too fast
-local trashsteroid_speed_var = 40 --Speed is randomly up/down to this % faster
+local trashsteroid_speed = 0.09--0.045 --Speed given to trashsteroids upon spawning. 1 is too fast
+local trashsteroid_speed_var = 30 --Speed is randomly up/down to this % faster
 --local trashsteroid_color = {r = 1, g = 1, b = 1, a = 0.2}
 local trashsteroid_rotation_max = 2 -- How much a trashsteroid can rotate (max) over its lifetime.
 local trashsteroid_min_size = 0.3 -- Initial scale of trashsteroid render, which grows linearly until it makes impact.
