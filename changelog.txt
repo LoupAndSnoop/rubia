@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.69
-Date: ????
+Date: 2025-06-26
   Changes:
     - Nice version :)
     - Trashsteroid trajectory has been changed: Trashsteroid speed x2, friction x20ish, lifetime +12%. This causes them to cover a lot of ground, and be slow towards the end of their trajectory. This makes them easier to hit, and buffs craptonite walls because trashsteroids now cover about 1.6x as much distance.
