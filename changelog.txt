@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.72
-Date: ????
+Date: 2025-06-28
   Changes:
     - Yet another crushing industry compat fix. Third time is the charm! This one fixes when a bunch of other mods change the load order.
 ---------------------------------------------------------------------------------------------------
