@@ -2,6 +2,7 @@
 Version: 0.69.71
 Date: ????
   Changes:
+    - Crushing industry compatibility when the concrete mix setting is turned off.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.70
 Date: 2025-06-28

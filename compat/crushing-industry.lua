@@ -1,5 +1,10 @@
 if not mods["crushing-industry"] then return end
 
+
+--This file only makes changes in the non-default concrete mix OFF setting.
+--If there are no concrete mix changes, then no changes.
+if not settings.startup["crushing-industry-concrete-mix"].value then return end
+
 --Craptonite casting should not be touched.
 CrushingIndustry = CrushingIndustry or {}
 CrushingIndustry.concrete_recipes = CrushingIndustry.concrete_recipes or {}

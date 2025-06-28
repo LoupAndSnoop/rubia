@@ -20,6 +20,8 @@ end
 ---This takes in the prototype by reference to modify it, with no return.
 ---@param prototype data.EntityPrototype | data.RecipePrototype
 rubia.ban_from_rubia = function(prototype)
+    assert(prototype, "Trying to ban nil from Rubia!")
+
     local function rubia_condition()
         return surface_conditions_not_rubia()[1]
     end
@@ -240,9 +242,10 @@ end
 ---@param icondata_source data.IconData | data.IconData[] | data.ItemPrototype | data.RecipePrototype
 ---@return data.IconData[] icons the full array of icon data to pass in for {icons}
 function rubia_lib.compat.get_icon_data(icondata_source)
+    assert(icondata_source, "No icon data source!")
     --If this is a recipe prototype, we may need to infer the item prototype.
     local icondata_actual_source = icondata_source
-    if icondata_actual_source.type == "recipe" 
+    if icondata_actual_source.type == "recipe"
         and not icondata_actual_source.icon
         and not icondata_actual_source.icons then
         
@@ -292,6 +295,7 @@ end
 ---@param icondata_source data.IconData | data.IconData[] | data.ItemPrototype | data.RecipePrototype
 ---@return data.IconData[] icons the full array of icon data to pass in for {icons}
 function rubia_lib.compat.make_rubia_superscripted_icon(icondata_source)
+    assert(icondata_source, "No icon data!")
     --For Rubia planet Icon
     local subicon_scale = 0.7
     local base_icon_size = 64
