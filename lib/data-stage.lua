@@ -232,5 +232,79 @@ function rubia_lib.compat.add_recipe_to_technology(technology_name, recipe_name)
     table.insert(tech.effects, {type = "unlock-recipe", recipe = recipe_name})
 end
 
+---Get a relevant IconData[] from a prototype OR IconData OR IconData[]
+---Usage:
+---icons = rubia_lib.compat.get_icon_data(prototype.icons)
+---icons = rubia_lib.compat.get_icon_data(prototype)
+---icons = rubia_lib.compat.get_icon_data({icon = "__base__/graphics/icons/electronic-circuit.png"})
+---@param icondata_source data.IconData | data.IconData[] | data.ItemPrototype | data.RecipePrototype
+---@return data.IconData[] icons the full array of icon data to pass in for {icons}
+function rubia_lib.compat.get_icon_data(icondata_source)
+    --If this is a recipe prototype, we may need to infer the item prototype.
+    local icondata_actual_source = icondata_source
+    if icondata_actual_source.type == "recipe" 
+        and not icondata_actual_source.icon
+        and not icondata_actual_source.icons then
+        
+        local item_name
+        if icondata_source.main_product then item_name = icondata_source.main_product
+        else
+            assert(icondata_source.results, "This recipe has no results: " .. icondata_source.name)
+            assert(table_size(icondata_source.results) == 1, "This recipe has an ambiguous number of results: " .. icondata_source.name)
+            item_name = icondata_source.results[1].name
+            assert(item_name, "No name found in the results for this recipe: " .. icondata_source.name)
+        end
+
+        local item
+        for category in pairs(prototypes.item_group) do
+            item = data.raw[category][item_name]
+            if item then break end
+        end
+        if not item then item = data.raw["fluid"][item_name] end
+        assert(item, "This recipe has invalid icon data: " .. icondata_actual_source.name)
+        icondata_actual_source = item
+    end
+
+    --icondata_actual_source is now either a valid prototype with icon data in it, an IconData[], or one IconData
+    local icondata = {}
+    if icondata_actual_source.type then --This is a full prototype
+        if icondata_actual_source.icon then -- One icon
+            icondata = {icon = icondata_actual_source.icon,
+                        icon_size = icondata.icon_size} --Could be nil
+        else
+            icondata = util.table.deepcopy(icondata.icons)
+        end
+    else icondata = icondata_actual_source
+    end
+
+    --Right now, it is an IconData or IconData[]
+    if icondata.icon then return {icondata}
+    else return icondata
+    end
+end
+
+
+---Make an icon for an item/recipe that has a small Rubia superscript.
+---Usage:
+---icons = rubia_lib.compat.make_rubia_superscripted_icon(prototype.icons)
+---icons = rubia_lib.compat.make_rubia_superscripted_icon(prototype)
+---icons = rubia_lib.compat.make_rubia_superscripted_icon({icon = "__base__/graphics/icons/electronic-circuit.png"})
+---@param icondata_source data.IconData | data.IconData[] | data.ItemPrototype | data.RecipePrototype
+---@return data.IconData[] icons the full array of icon data to pass in for {icons}
+function rubia_lib.compat.make_rubia_superscripted_icon(icondata_source)
+    --For Rubia planet Icon
+    local subicon_scale = 0.7
+    local base_icon_size = 64
+    local rubia_subicon = {
+        icon = "__rubia-assets__/graphics/planet/rubia-icon.png",
+        icon_size = 64,
+        scale = (0.5 * defines.default_icon_size / (64 or defines.default_icon_size)) * subicon_scale,
+        shift = {x=base_icon_size * subicon_scale/4, y =-base_icon_size * subicon_scale/4},
+    }
+
+    local icondata = util.table.deepcopy(rubia_lib.compat.get_icon_data(icondata_source))
+    table.insert(icondata, rubia_subicon)
+    return icondata
+end
 
 --#endregion
