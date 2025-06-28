@@ -32,3 +32,5 @@ CrushingIndustry.concrete_recipes["rubia-compat-crushing-concrete-mix"] = {ignor
 
 --Need to ban normal concrete mix recipe, in case some mods add the ability to get water, I don't want weird loops.
 rubia.ban_from_rubia(data.raw.recipe["reconstituted-concrete-mix"])
+--Need to ban concrete casting to stop people from using pipes to send concrete left.
+rubia.ban_from_rubia(data.raw.recipe["concrete"])
