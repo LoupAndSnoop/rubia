@@ -311,4 +311,10 @@ function rubia_lib.compat.make_rubia_superscripted_icon(icondata_source)
     return icondata
 end
 
+
+---Make a list of functions to call in data-updates, which is general for compat.
+---@type function[]
+rubia_lib.compat.to_call_on_data_updates = rubia_lib.compat.to_call_on_data_updates or {}
+
+
 --#endregion

@@ -7,6 +7,8 @@ local entity_swaps = require("__rubia__.prototypes.entity.simple-entity-swaps")
 entity_swaps.make_auto_generated_prototypes()
 require("__rubia__.prototypes.faux-quality-tooltips")
 
+--Generic compat calls
+for _, entry in pairs(rubia_lib.compat.to_call_on_data_updates) do entry() end
 
 --Edits to vanilla recipes
 --Make biofusion science possible

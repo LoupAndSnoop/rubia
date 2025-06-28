@@ -19,7 +19,11 @@ chunk_checker.chunk_key_to_chunk = function(key)
                 right_bottom = {x=result.x * 32 + 32, y = result.y * 32 + 32}}
     return result
 end]]
---Chunk x/y in chunk space goes in. out comes the bounding box for the chunk
+
+---Chunk x/y in chunk space goes in. out comes the bounding box for the chunk
+---@param x double
+---@param y double
+---@return data.BoundingBox
 chunk_checker.chunk_pos_to_area = function(x,y)
     return {left_top = {x=x * 32, y = y * 32}, right_bottom = {x=x * 32 + 32, y = y * 32 + 32}} end
 --Real position to chunk position
@@ -32,14 +36,37 @@ local develop_range = 1
 --Chunk development data: {entities = number of entities "developed" affecting the chunk, 
 --  players[] = hashset of player indices viewing the chunk, chunk = chunk pos and area}
 chunk_checker.init = function()
-    --Dictionary of (chunk key) => number of relevant entities that are activating this chunk for doing our scripts
+    ---@class (exact) chunk_checker.DevelopedChunkData Data about a chunk, and what is currently developping it, if anything
+    ---@field chunk ChunkPosition details of the given chunk
+    ---@field players table<uint, uint> Hashset of all players currently developping this chunk
+    ---@field entities uint number of entities developping this chunk
+    local DevelopedChunkData
+
+    ---Dictionary of (chunk key) => DevelopedChunk data for where this chunk is, and what is currently activating it
+    ---@type table<uint, chunk_checker.DevelopedChunkData>
     storage.developed_chunks = storage.developed_chunks or {}
-    --Hashset of all entities which are currently included. This hashset is a safeguard against multiple register calls.
+    
+    ---Hashset of all entities which are currently included. This hashset is a safeguard against multiple register calls.
+    ---@type table<LuaEntity, boolean>
     storage.developed_chunk_entities = storage.developed_chunk_entities or {}
-    --Dictionary to connect on_object_destroyed unique registration ID back to a specific entity.
+
+
+    ---@class (exact) chunk_checker.ChunkEntityData Data about an entity currently developping a chunk
+    ---@field entity LuaEntity
+    ---@field position data.MapPosition
+    local ChunkEntityData
+    ---Dictionary to connect on_object_destroyed unique registration ID back to a specific entity.
+    ---@type table<uint, chunk_checker.ChunkEntityData>
     storage.developed_chunk_entity_id = storage.developed_chunk_entity_id or {}
-    --Dictionary of player_index to player's last chunk position ON this surface as {key,position={x,y}}
-    --dic[player_index] = nil if no player, or player not looking here.
+
+
+    ---@class (exact) chunk_checker.PlayerChunkData
+    ---@field key uint Chunk key for the chunk the player was last.
+    ---@field position data.MapPosition Chunk-space map position of the chunk where this player was last
+    local PlayerChunkData
+    ---Dictionary of player_index to player's last chunk position ON this surface as {key,position={x,y}}
+    ---dic[player_index] = nil if no player, or player not looking here.
+    ---@type table<uint, chunk_checker.PlayerChunkData>
     storage.last_player_chunk = storage.last_player_chunk or {}
 
     --A dictionary of surface => hashset of currently viewed chunk position keys on that surface
