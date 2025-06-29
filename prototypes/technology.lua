@@ -290,7 +290,10 @@ data:extend({
     icon = "__rubia-assets__/graphics/technology/crap-wall.png",
     icon_size = 256,
     essential = false,
-    effects = {{type = "unlock-recipe", recipe = "craptonite-wall"},},
+    effects = {
+        {type = "unlock-recipe", recipe = "craptonite-wall"},
+        {type = "unlock-recipe", recipe = "rubia-refined-concrete"},
+    },
     prerequisites = {"planetslib-rubia-cargo-drops", "production-science-pack"},
     unit =
     {

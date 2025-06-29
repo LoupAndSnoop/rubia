@@ -893,6 +893,28 @@ data:extend({
     crafting_machine_tint = crafting_machine_tint_brown,
     allow_productivity=false,
   },
+
+  {
+    type = "recipe",
+    name = "rubia-refined-concrete",
+    energy_required = 15 * 2,
+    enabled = false,
+    category = "biorecycling",
+    subgroup = "rubia-biorecycling", order = "f[rubia-stage4]-f",
+    icons = rubia_lib.compat.make_rubia_superscripted_icon(
+      {icon= "__base__/graphics/icons/refined-concrete.png"}),
+    surface_conditions = rubia.surface_conditions(),
+    ingredients =
+    {
+      {type = "item", name = "concrete", amount = 20},
+      {type = "item", name = "iron-stick", amount = 8},
+      {type = "item", name = "steel-plate", amount = 1},
+      {type = "fluid", name = "rubia-bacterial-sludge", amount = 200}
+    },
+    results = {{type="item", name="refined-concrete", amount=10}},
+    crafting_machine_tint = crafting_machine_tint_blue,
+  },
+
   {
     type = "recipe",
     name = "rubia-efficiency-module4",

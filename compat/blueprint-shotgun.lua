@@ -1,7 +1,7 @@
 --Compatibility for blueprint shotgun, because you can't craft it on Rubia.
 if not mods["blueprint-shotgun"] then return end
 
-
+--Rubia versions to craft whenever.
 data:extend({
 {
     type = "recipe",
@@ -20,14 +20,6 @@ data:extend({
     subgroup = "ammo",
 }}) --[[@as data.RecipePrototype[] ]]
 
---We are always on a no-wood mode.
-data.raw.recipe["blueprint-shotgun"].ingredients = {
-        {type = "item", name = "iron-plate", amount = 15},
-        {type = "item", name = "copper-cable", amount = 10},
-        {type = "item", name = "electronic-circuit", amount = 5},
-        {type = "item", name = "iron-gear-wheel", amount = 15},
-    }
-
 data:extend{{
     type = "technology",
     name = "rubia-blueprint-shotgun",
@@ -44,22 +36,17 @@ data:extend{{
 }} --[[@as data.TechnologyPrototype[] ]]
 
 
-
---[[
-if not settings.startup["blueprint-shotgun-no-wood"].value then
-    data:extend{{
-        type = "recipe",
-        name = "rubia-blueprint-shotgun",
-        energy_required = 10,
-        results = {{type = "item", name = "blueprint-shotgun", amount = 1}},
-        ingredients = {
+local function on_data_updates()
+    --We are always on a no-wood mode.
+    data.raw.recipe["blueprint-shotgun"].ingredients = {
             {type = "item", name = "iron-plate", amount = 15},
             {type = "item", name = "copper-cable", amount = 10},
             {type = "item", name = "electronic-circuit", amount = 5},
             {type = "item", name = "iron-gear-wheel", amount = 15},
-        },
-        enabled = false,
-        subgroup = "gun",
-    }
-    }
-end]]
+        }
+
+    --Rubia icons
+    local item_cannister_recipe = data.raw.recipe["rubia-item-canister"]
+    item_cannister_recipe.icons = rubia_lib.compat.make_rubia_superscripted_icon(item_cannister_recipe)
+end
+table.insert(rubia_lib.compat.to_call_on_data_updates, on_data_updates)

@@ -259,7 +259,7 @@ function rubia_lib.compat.get_icon_data(icondata_source)
         end
 
         local item
-        for category in pairs(prototypes.item_group) do
+        for category in pairs(defines.prototypes.item) do
             item = data.raw[category][item_name]
             if item then break end
         end

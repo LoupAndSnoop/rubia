@@ -2,6 +2,8 @@
 Version: 0.69.73
 Date: ????
   Changes:
+    - New recipe to make refined concrete locally on Rubia.
+    - Improved stability with Blueprint Shotgun. Rubia's blueprint shotgun ammo recipe now has a superscript to make it more clear.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.72
 Date: 2025-06-28
@@ -493,6 +495,7 @@ Date: 2025-05-14
 Version: 0.69.6
 Date: 2025-05-14
   Changes:
+    - Still working out the FMTK publish thing.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.5
 Date: 2025-05-14
