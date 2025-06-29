@@ -65,11 +65,13 @@ end
 
 if (mods["lignumis"] or mods["wood-universe-modpack"]) then
     local lumber_mill = data.raw["assembling-machine"]["lumber-mill"]
+    local lumber_mill_list = {"lumber-mill"}
+    if mods["Age-of-Production"] then table.insert(lumber_mill_list, "aop-lumber-mill") end
     table.insert(upgrade_data, {
         handler = "rubia-lignumis-mill-productivity",
         technology_name = "rubia-craptonite-wood-charm",
         modifier_icon = {icon=lumber_mill.icon, icon_size = lumber_mill.icon_size},
-        entity_names = {"lumber-mill"},
+        entity_names = lumber_mill_list,
         module_effects = {productivity = 0.25, consumption = -0.25},
         effect_name = {"entity-name.lumber-mill"},
     })

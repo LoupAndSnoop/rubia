@@ -277,7 +277,7 @@ data:extend({
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-B-ferric-scrap"},
         },
         prerequisites = {"planetslib-rubia-cargo-drops"},
-        research_trigger = {type = "craft-item", item="yeet-light-oil-barrel", count=100},
+        research_trigger = {type = "craft-item", item="yeet-lubricant-barrel", count=100},
     },
 
 
