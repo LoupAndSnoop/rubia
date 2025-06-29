@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.73
-Date: ????
+Date: 2025-06-29
   Changes:
     - New recipe to make refined concrete locally on Rubia.
     - Ligma charm now works on lumber mill from age of production.
