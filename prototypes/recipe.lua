@@ -894,6 +894,7 @@ data:extend({
     allow_productivity=false,
   },
 
+  --[[
   {
     type = "recipe",
     name = "rubia-refined-concrete",
@@ -914,7 +915,7 @@ data:extend({
     results = {{type="item", name="refined-concrete", amount=10}},
     crafting_machine_tint = crafting_machine_tint_blue,
   },
-
+]]
   {
     type = "recipe",
     name = "rubia-efficiency-module4",

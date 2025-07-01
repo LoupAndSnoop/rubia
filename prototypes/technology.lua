@@ -292,7 +292,7 @@ data:extend({
     essential = false,
     effects = {
         {type = "unlock-recipe", recipe = "craptonite-wall"},
-        {type = "unlock-recipe", recipe = "rubia-refined-concrete"},
+        --{type = "unlock-recipe", recipe = "rubia-refined-concrete"},
     },
     prerequisites = {"planetslib-rubia-cargo-drops", "production-science-pack"},
     unit =

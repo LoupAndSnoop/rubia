@@ -29,6 +29,15 @@ local mod_item_blacklist = {
     
     --Power
     {mod="Krastorio2-spaced-out", type = "electric-energy-interface", name = "kr-wind-turbine"},
+
+    --Teleporters
+    {mod="Teleporters", type = "recipe", name = "teleporter"}, --Can transport items with people, but no automation
+    {mod="Teleporters_SpaceAge", type = "recipe", name = "teleporter"},
+    --{mod="interplanetary-krastorio", type = "accumulator", name = "interplanetary-teleporter"},
+    {mod="interplanetary-krastorio", type = "recipe", name = "interplanetary-teleporter"},
+    {mod="Teleportation_Redux", type = "container", name = "teleportation-beacon"},
+    {mod="Telogistics", type = "container", name = "s6x-logistic-teleporter"},
+    --Transport rings require non-rubia parts, and are fully manual.
 }
 
 --Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.

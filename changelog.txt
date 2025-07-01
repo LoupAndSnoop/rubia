@@ -2,6 +2,8 @@
 Version: 0.69.74
 Date: ????
   Changes:
+    - [BREAKING CHANGE] Removed Rubia-specific refined concrete recipe. Made craptonite walls easier to make locally, by changing the recipe.
+    - Banned several teleporters from Rubia. Generally, teleporters that let you automatically move items left are hard banned. Teleporters that let you manually bring items into Rubia before clearing it just had recipes banned (so you can still use them, but only after clearing Rubia).
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.73
 Date: 2025-06-29
