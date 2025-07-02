@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.74
-Date: ????
+Date: 2025-07-02
   Changes:
     - [BREAKING CHANGE] Removed Rubia-specific recipe for refined concrete. You no longer need it because of the following change. 
     - [BREAKING CHANGE] Made craptonite walls easier to make locally, by changing the recipe. These changes are to the end goal of minimizing the total number of Rubia recipes for simplicity.
