@@ -196,6 +196,7 @@ end
 if (settings.startup["require-rubia-for-endgame-planets"].value) then 
   require_rubia_clear_for_tech("planet-discovery-aquilo", true)
   if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
+  if mods["Paracelsin"] then require_rubia_clear_for_tech("planet-discovery-paracelsin", true) end
 end
 
 

@@ -887,7 +887,8 @@ data:extend({
     ingredients =
     {
       {type = "item", name = "craptonite-frame", amount = 1},
-      {type = "item", name = "refined-concrete", amount = 10},
+      {type = "item", name = "concrete", amount = 20},
+      {type = "item", name = "iron-stick", amount = 8},
     },
     results = {{type="item", name="craptonite-wall", amount=1}},
     crafting_machine_tint = crafting_machine_tint_brown,

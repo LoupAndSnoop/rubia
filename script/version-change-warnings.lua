@@ -1,4 +1,4 @@
---This file provides warnings related to version changes.
+--This file provides warnings related to breaking version changes.
 
 local function trashsteroid_health_warning(config_change)
     local rubia_change = config_change.mod_changes["rubia"]
@@ -21,12 +21,22 @@ local function craptonite_wall_update(config_change)
     end
 end
 
+local function craptonite_wall_recipe_update(config_change)
+    local rubia_change = config_change.mod_changes["rubia"]
+    if rubia_change and rubia.flib.is_newer_version(rubia_change.old_version, "0.69.74")
+        and storage.rubia_surface and game.forces["player"]
+        and game.forces["player"].technologies["craptonite-wall"].researched then 
+        rubia.timing_manager.wait_then_do(308, "delayed-text-print",
+            {"game", {"version-change-warnings.rubia-craptonite-wall-recipe"},
+            rubia.WARNING_PRINT_SETTINGS}) 
+    end
+end
 
 
 local event_lib = require("__rubia__.lib.event-lib")
 event_lib.on_configuration_changed(
-    "version-change-warning-trashsteroid-health-scaling",
-    trashsteroid_health_warning)
+    "version-change-warning-trashsteroid-health-scaling", trashsteroid_health_warning)
 event_lib.on_configuration_changed(
-    "version-change-warning-craptonite-wall-update",
-    craptonite_wall_update)
+    "version-change-warning-craptonite-wall-update", craptonite_wall_update)
+event_lib.on_configuration_changed(
+    "version-change-warning-craptonite-wall-recipe-update", craptonite_wall_recipe_update)

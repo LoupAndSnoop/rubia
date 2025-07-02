@@ -28,8 +28,8 @@ data:extend({
 rubia_lib.compat.add_recipe_to_technology("craptonite-processing", "rubia-compat-crushing-concrete-mix")
 
 --Custom refined concrete recipe is not needed.
-rubia_lib.compat.remove_recipe_from_technology("craptonite-wall","rubia-refined-concrete")
-data.raw.recipe["rubia-refined-concrete"] = nil
+--rubia_lib.compat.remove_recipe_from_technology("craptonite-wall","rubia-refined-concrete")
+--data.raw.recipe["rubia-refined-concrete"] = nil
 
 --All the code to run in data-updates
 local on_data_updates = function()

@@ -2,8 +2,11 @@
 Version: 0.69.74
 Date: ????
   Changes:
-    - [BREAKING CHANGE] Removed Rubia-specific refined concrete recipe. Made craptonite walls easier to make locally, by changing the recipe.
-    - Banned several teleporters from Rubia. Generally, teleporters that let you automatically move items left are hard banned. Teleporters that let you manually bring items into Rubia before clearing it just had recipes banned (so you can still use them, but only after clearing Rubia).
+    - [BREAKING CHANGE] Removed Rubia-specific recipe for refined concrete. You no longer need it because of the following change. 
+    - [BREAKING CHANGE] Made craptonite walls easier to make locally, by changing the recipe. These changes are to the end goal of minimizing the total number of Rubia recipes for simplicity.
+      ► Craptonite wall recipe inputs: 1 craptonite frame + 10 refined concrete => 1 craptonite frame + 20 concrete + 8 iron stick
+    - Paracelsin is now locked by default behind a Rubia clear. This behavior can be toggled in mod settings.
+    - Banned several teleporters from Rubia. Generally, teleporters that let you automatically move items left are hard banned. Teleporters that let you manually bring items into Rubia before clearing it just had recipes banned (so you can still use them, but only after clearing Rubia). This isn't an exhaustive ban, but it gets some of the really popular ones.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.73
 Date: 2025-06-29
