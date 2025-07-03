@@ -217,12 +217,13 @@ remote.add_interface("rubia-thrower-trajectories", {
 })
 local function force_thrower_orientation(entity, player_index)
     force_orientation_to(entity, player_index, defines.direction.west)
+    --[[ --Still WIP
     if remote.interfaces["RenaiTransportation"] then
         local trajectory = {type="interface", interface="rubia-thrower-trajectories", name="trajectory_function",
             parameters={start_pos = entity.position, end_pos = entity.drop_position}}
 
         remote.call("RenaiTransportation", "SetTrajectoryAdjust", entity, trajectory)
-    end
+    end]]
 end
 --Special cases for compatibility with Renai
 --local force_thrower_orientation
@@ -312,6 +313,25 @@ rubia_wind.wind_rotation = function(entity, player_index)
     storage.rubia_wind_callback_lock = false
 end
 
+---Wind correction with more general timing.
+
+---Correct the entities at the given position, placed by the given player.
+---@param search_area data.BoundingBox
+---@param player_index uint
+local function wind_correct_position(search_area, player_index)
+    if not storage.rubia_surface then return end
+    local player_force_index = game.players[player_index].force_index
+    local entities = storage.rubia_surface.find_entities(search_area)
+    --local entities = storage.rubia_surface.find_entities({{map_position.x, map_position.y},{map_position.x, map_position.y}})
+    for _, entity in pairs(entities) do
+        if entity.valid and entity.force_index == player_force_index then
+            rubia_wind.wind_rotation(entity, player_index)
+        end
+    end
+end
+rubia.timing_manager.register("wind-correct-position", wind_correct_position)
+
+
 
 --#region Events
 local event_lib = require("__rubia__.lib.event-lib")
@@ -326,7 +346,28 @@ event_lib.on_event(defines.events.on_entity_settings_pasted,
   "wind-rotation", function(event)
     rubia_wind.wind_rotation(event.destination, event.player_index) end)
 
+--#region Force build bug workaround
+local bplib = require("__rubia__.lib.bplib-blueprint")
+local BlueprintBuild = bplib.BlueprintBuild
 
+--This is needed for the current super force build bug.
+event_lib.on_event(defines.events.on_pre_build,
+  "wind-rotation", function(event)
+    local player = game.players[event.player_index]
+    if storage.rubia_surface and player.surface_index == storage.rubia_surface.index 
+        and event.build_mode == defines.build_mode.superforced then
+            local bounding_box
+            if not player.is_cursor_blueprint() then 
+                bounding_box = {{event.position.x, event.position.y},{event.position.x, event.position.y}}
+            else 
+                local bp_build = BlueprintBuild:new(event)
+                bounding_box = bp_build:make_blueprint_bounding_box()
+            end
+
+        rubia.timing_manager.wait_then_do(1, "wind-correct-position", {bounding_box, event.player_index})
+    end
+end)
+--#endregion
 
 --Special events for weird mods, especially adjustable inserters
 

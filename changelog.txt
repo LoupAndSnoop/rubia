@@ -2,6 +2,7 @@
 Version: 0.69.75
 Date: ????
   Changes:
+    - Added wind checks to super force building. Thanks to lesbian_mami for her cyubersyn code, and lord thy god for guiding me through her BP library!
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.74
 Date: 2025-07-02

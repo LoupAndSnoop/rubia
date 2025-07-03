@@ -3,6 +3,7 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, bilka
 - raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work. [Link](https://mods.factorio.com/mod/Krastorio2Assets)
 - ZarSasha: Wind turbine forked. [Link](https://mods.factorio.com/mod/k2-wind-turbine-zars-fork)
+- Lesbian Mami, lord thy god: Code used from BPlib to patch (temporarily?) an issue with super force building.
 - Velaanix: Code for infinite braking force. [Link](https://mods.factorio.com/mod/InfiniteBraking)
 - MadClown: An ore sprite. [Link](https://github.com/Pezzawinkle/MadClowns)
 - Touhma/xX_Reckless_Xx: Sprites for the sniper turret (originally [cannon turret mod](https://mods.factorio.com/mod/adjustable_cannon_turret)).
