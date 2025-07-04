@@ -253,6 +253,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   resulting_entity.force = game.forces["enemy"]
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(trashsteroid_speed_var,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
+  if rubia.MEGABASE_MODE then resulting_entity.active = false end --This substantially reduces UPS.
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
@@ -559,7 +560,7 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
   if trashsteroid then on_trashsteroid_removed(trashsteroid) end --Common cleanup
 end
 
-
+--#region Debugging and failsafes
 --Debugging function
 trashsteroid_lib.print_pending_trashsteroid_data = function()
   local string = "Total pending trashsteroids = " .. tostring(storage.pending_trashsteroid_data and #storage.pending_trashsteroid_data or 0) 
@@ -580,6 +581,17 @@ trashsteroid_lib.print_active_trashsteroid_data = function()
   log(string)
 end
 
+rubia.testing = rubia.testing or {}
+rubia.testing.print_pending_trashsteroid_data = trashsteroid_lib.print_pending_trashsteroid_data
+rubia.testing.print_active_trashsteroid_data = trashsteroid_lib.print_active_trashsteroid_data 
+--Make trashsteroids do no damage
+function rubia.testing.disable_trashsteroid_damage()
+  storage.impact_base_damage = 0
+  storage.impact_crit_damage = 0
+  storage.impact_damage_special = {}
+end
+
+
 --If trashsteroids are extremely old, then reset!
 trashsteroid_lib.reset_failsafe = function ()
   if not storage.active_trashsteroids then return end
@@ -596,6 +608,7 @@ trashsteroid_lib.reset_failsafe = function ()
     trashsteroid_lib.print_active_trashsteroid_data()
   end
 end
+--#endregion
 
 --#region Event management
 

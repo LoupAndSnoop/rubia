@@ -1,6 +1,29 @@
 --Some emergency failsafes are here
 
 rubia.emergency_failsafes = rubia.emergency_failsafes or {}
+rubia.testing = rubia.testing or {}
+
+--Print all emergency failsafe and testing functions
+function rubia.testing.help()
+    local string = "\nFunctions in rubia.testing:"
+    local test_strings = {}
+    for name in pairs(rubia.testing) do table.insert(test_strings, name) end
+    table.sort(test_strings)
+    for _, name in pairs(test_strings) do
+        string = string .. "\n      " .. name
+    end
+
+    string = string .. "\nFunctions in rubia.emergency_failsafes:"
+    local failsafe_strings = {}
+    for name in pairs(rubia.emergency_failsafes) do table.insert(failsafe_strings, name) end
+    table.sort(failsafe_strings)
+    for _, name in pairs(failsafe_strings) do
+        string = string .. "\n      " .. name
+    end
+    
+    game.print(string)
+end
+rubia.emergency_failsafes.help = rubia.testing.help
 
 --Fix issues where some entities were map genned on nauvis
 rubia.emergency_failsafes.clear_rubia_entities_from_nauvis = function()

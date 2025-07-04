@@ -2,6 +2,8 @@
 Version: 0.69.76
 Date: ????
   Changes:
+    - Version up of machine upgrades, to force in the bug fixes.
+    - Fixed old Rubia icon in Operation Iron Man.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.75
 Date: 2025-07-03

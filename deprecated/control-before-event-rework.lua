@@ -40,8 +40,6 @@ event_lib.on_event(defines.events.on_research_finished, "tech-updates", function
 event_lib.on_event({defines.events.on_research_finished, defines.events.on_technology_effects_reset},
   "trashsteroid-difficulty-update", trashsteroid_lib.update_difficulty_scaling)
 
-
-
 --#endregion
 
 

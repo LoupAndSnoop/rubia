@@ -8,7 +8,7 @@
         "space-age >= 2.0.55",
         "PlanetsLib >= 1.4.1",
         "rubia-assets >= 0.69.12",
-        "machine-upgrades >= 0.69.7",
+        "machine-upgrades >= 0.69.8",
         "RocketCargoInsertion >= 1.1.0"
     ],
     "space_travel_required": true,

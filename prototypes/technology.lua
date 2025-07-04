@@ -3,7 +3,7 @@ require("__rubia__.lib.lib")
 
 --Cargo drop restriction
 local cargo_drops_base = PlanetsLib.cargo_drops_technology_base(
-    "rubia", "__rubia-assets__/graphics/planet/rubia-discovery.png", 256)
+    "rubia", "__rubia-assets__/graphics/planet/rubia.png", 256)
 --cargo_drops_base.name = "operation-iron-man"
 --Internal tech name must remain planetslib-rubia-cargo-drops
 cargo_drops_base.icons = nil
