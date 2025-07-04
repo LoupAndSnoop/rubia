@@ -48,6 +48,7 @@ local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
 --local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
 --  ["character"] = 280
 --}
+local NOT_MEGABASE_MODE = not settings.startup["rubia-megabase-mode"].value
 
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
 local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
@@ -253,7 +254,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   resulting_entity.force = game.forces["enemy"]
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(trashsteroid_speed_var,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
-  if rubia.MEGABASE_MODE then resulting_entity.active = false end --This substantially reduces UPS.
+  resulting_entity.active = NOT_MEGABASE_MODE
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.

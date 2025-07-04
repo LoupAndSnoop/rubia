@@ -32,6 +32,18 @@ local function craptonite_wall_recipe_update(config_change)
     end
 end
 
+local function tangible_projectile_warning()
+    local tangible_projectiles = script.active_mods["distant-misfires"]
+        --or (script.active_mods["Krastorio2-spaced-out"] and settings.startup["kr-realistic-weapons"].value)
+    if tangible_projectiles and not storage.warning_issued_tangible_projectiles then
+        storage.warning_issued_tangible_projectiles = true
+        rubia.timing_manager.wait_then_do(320, "delayed-text-print",
+            {"game", {"version-change-warnings.rubia-tangible-projectile-mod-warning"},
+            rubia.WARNING_PRINT_SETTINGS}) 
+    end
+end
+
+
 
 local event_lib = require("__rubia__.lib.event-lib")
 event_lib.on_configuration_changed(
@@ -40,3 +52,6 @@ event_lib.on_configuration_changed(
     "version-change-warning-craptonite-wall-update", craptonite_wall_update)
 event_lib.on_configuration_changed(
     "version-change-warning-craptonite-wall-recipe-update", craptonite_wall_recipe_update)
+
+event_lib.on_init("mod-warning-tangible-projectiles", tangible_projectile_warning)
+event_lib.on_configuration_changed("mod-warning-tangible-projectiles", tangible_projectile_warning)

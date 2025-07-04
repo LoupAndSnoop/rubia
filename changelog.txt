@@ -4,6 +4,8 @@ Date: ????
   Changes:
     - Version up of machine upgrades, to force in the bug fixes.
     - Fixed old Rubia icon in Operation Iron Man.
+    - If K2SO is installed, then buff projectiles to make up for the issues in slower projectiles.
+    - Now issues warnings for gun mods that make Rubia much more difficult.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.75
 Date: 2025-07-03

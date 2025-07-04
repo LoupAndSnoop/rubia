@@ -184,7 +184,7 @@ data:extend({
     resistances = trashsteroid_resistances(),
     collision_box = {{-1, -1}, {1, 1}},--{{-0.75, -0.75}, {0.75, 0.75}},
     selection_box = {{-0.75, -0.75}, {0.75, 0.75}},
-    collision_mask= {layers={trashsteroid=true}},--{layers={}},
+    collision_mask= {layers={trashsteroid=true}, not_colliding_with_itself = true},--{layers={}},
     damaged_trigger_effect = hit_effects.entity(),
     effectivity = 0,--0.6,
     braking_power = "200kW",

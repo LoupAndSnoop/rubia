@@ -127,11 +127,33 @@ if settings.startup["kr-realistic-weapons"].value then
     local _, entry = rubia_lib.compat.find_item_in_list(junk_pile, "firearm-magazine")
     entry.name = "kr-rifle-magazine"
 
-    --[[Ammo is too slow.
-    local yellow_projectile = data.raw.projectile["kr-rifle-magazine-projectile"].ammo_type.action[1].action_delivery[1]
-    yellow_projectile.starting_speed = yellow_projectile.starting_speed * 3
-    yellow_projectile.direction_deviation = yellow_projectile.direction_deviation * 0.75
-    yellow_projectile.range_deviation = yellow_projectile.range_deviation * 0.75
-    ]]
+    --Ammo is too slow.
+    local function on_data_final_fixes()
+        local SPEED_MULT = 1.5
+        local DEV_MULT = 1
+        local RANGE_DEV_MULT = 0.8
+
+        local action_deliveries = {}
+        for name, proto in pairs(data.raw.ammo) do
+            if proto.ammo_category == "bullet" and proto.ammo_type and proto.ammo_type.action then
+                local action = proto.ammo_type.action
+                if action.action_delivery then table.insert(action_deliveries, action.action_delivery)
+                else
+                    for _, entry in pairs(action or {}) do
+                        if entry.action_delivery then table.insert(action_deliveries, entry.action_delivery) end
+                    end
+                end
+            end
+        end
+        for _, entry in pairs(action_deliveries) do
+            for _, each in pairs(entry) do
+                if each.starting_speed then each.starting_speed = each.starting_speed * SPEED_MULT end
+                if each.direction_deviation then each.direction_deviation = each.direction_deviation * DEV_MULT end
+                if each.range_deviation then each.range_deviation = each.range_deviation * RANGE_DEV_MULT end
+            end
+        end
+    end
+    table.insert(rubia_lib.compat.to_call_on_data_final_fixes, on_data_final_fixes)
+
 end
 -------

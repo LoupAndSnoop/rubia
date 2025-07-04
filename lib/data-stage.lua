@@ -315,6 +315,8 @@ end
 ---Make a list of functions to call in data-updates, which is general for compat.
 ---@type function[]
 rubia_lib.compat.to_call_on_data_updates = rubia_lib.compat.to_call_on_data_updates or {}
-
+---Make a list of functions to call in data-final-fixes, which is general for compat.
+---@type function[]
+rubia_lib.compat.to_call_on_data_final_fixes = rubia_lib.compat.to_call_on_data_final_fixes or {}
 
 --#endregion

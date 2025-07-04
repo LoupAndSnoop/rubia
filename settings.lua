@@ -26,6 +26,14 @@ data:extend({
     },
     {
         type = "bool-setting",
+        name = "rubia-megabase-mode",
+        setting_type = "startup",
+        default_value = false,
+        hidden = true,
+    },
+
+    {
+        type = "bool-setting",
         name = "invert-trashsteroid-scaling",
         setting_type = "runtime-global",
         default_value = false
