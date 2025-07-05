@@ -1,6 +1,7 @@
 Special thanks to everyone who helped, or from whom I got assets or code:
 
 - Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, bilka
+- Rubia planet sprite mode mostly by nullevoy.
 - raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work. [Link](https://mods.factorio.com/mod/Krastorio2Assets)
 - ZarSasha: Wind turbine forked. [Link](https://mods.factorio.com/mod/k2-wind-turbine-zars-fork)
 - Lesbian Mami, lord thy god: Code used from BPlib to patch (temporarily?) an issue with super force building.

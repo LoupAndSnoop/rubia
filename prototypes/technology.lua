@@ -452,21 +452,6 @@ data:extend({
     effects = {{type = "unlock-recipe", recipe = "rubia-nutrients-from-sludge"},},
     prerequisites = {"rubia-biofusion-science-pack"},
     research_trigger = {type = "craft-item", item="yeet-rubia-biofusion-science-pack", count=1000},
-    --[[unit =
-    {
-        count = 1000,
-        ingredients =
-        {
-            { "automation-science-pack",      1 },
-            { "logistic-science-pack",        1 },
-            { "chemical-science-pack",        1 },
-            { "utility-science-pack",         1 },
-            { "agricultural-science-pack",    1 },
-            { "biorecycling-science-pack",    1 },
-            { "rubia-biofusion-science-pack", 1 },
-        },
-        time = 60
-    }]]
 },
 {
     type = "technology",
@@ -480,7 +465,7 @@ data:extend({
     },
     prerequisites = {"rubia-biofusion-science-pack"},
     unit = {
-        count_formula = "1.5^L*1000",
+        count_formula = "1.8^L*1000",
         ingredients = {
             { "automation-science-pack",      1 },
             { "logistic-science-pack",        1 },
@@ -510,7 +495,7 @@ if mods["machine-upgrades"] then
         effects = {},
         prerequisites = {"rubia-nutrients-from-sludge"},
         unit = {
-            count_formula = "2^L*1000",
+            count_formula = "3^L*1000",
             ingredients = {
                 { "automation-science-pack",      1 },
                 { "logistic-science-pack",        1 },

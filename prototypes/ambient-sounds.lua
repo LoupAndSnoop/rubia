@@ -23,7 +23,7 @@ data:extend(
             filename = "__rubia-assets__/sounds/ambient/JunkyardTribe.ogg",--"__space-age__/sound/ambient/fulgora/fulgora-1.ogg",
             volume = 1,
         },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -34,7 +34,7 @@ data:extend(
             filename = "__rubia-assets__/sounds/ambient/cyberpunk-ambient-music-SoulSerenityAmbience.ogg",
             volume = 0.35,
         },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -45,7 +45,7 @@ data:extend(
             filename = "__rubia-assets__/sounds/ambient/cathedral-of-rusted-cars-DSTechnician.ogg",
             volume = 1,
         },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -54,7 +54,7 @@ data:extend(
         planet = "rubia",
         sound = {filename = "__rubia-assets__/sounds/ambient/dark-ambient-background-music-highway-LFC_records.ogg",
             volume =1 },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -63,7 +63,7 @@ data:extend(
         planet = "rubia",
         sound =  {filename = "__rubia-assets__/sounds/ambient/dark-hybrid-glitch-ambient-DenElbriggs.ogg",
             volume =1 },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -72,7 +72,7 @@ data:extend(
         planet = "rubia",
         sound =  {filename = "__rubia-assets__/sounds/ambient/dark-matter-dark-space-ambient-natures_eye.ogg",
             volume =1 },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -81,7 +81,7 @@ data:extend(
         planet = "rubia",
         sound =  {filename = "__rubia-assets__/sounds/ambient/sinius-shale-and-cinder-dark-ambient-music.ogg",
             volume =1 },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -90,7 +90,7 @@ data:extend(
         planet = "rubia",
         sound =  {filename = "__rubia-assets__/sounds/ambient/iridium-granular-ambient-2049-13856-zen_man.ogg",
             volume =1 },
-        weight = 10
+        weight = 100,
     },
     {
         type = "ambient-sound",
@@ -98,7 +98,7 @@ data:extend(
         track_type = "main-track",
         planet = "rubia",
         sound =  recycle_track,
-        weight = 1
+        weight = 15,
     },
     {
         type = "ambient-sound",
@@ -107,7 +107,7 @@ data:extend(
         planet = "rubia",
         sound =  {filename = "__rubia-assets__/sounds/ambient/dark-140112-Haletski.ogg",
             volume =1 },
-        weight = 7
+        weight = 70,
     },
 
 --[[

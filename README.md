@@ -49,6 +49,7 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 Special thanks to everyone who helped, or from whom I got assets or code:
 
 - Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, bilka
+- Rubia planet sprite made in collaboration with nullevoy in Blender.
 - raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work. [Link](https://mods.factorio.com/mod/Krastorio2Assets)
 - Several functions come from Raiguard's [factorio library](https://github.com/factoriolib/flib/tree/2dcdb8f4b97e026f7f21f2f023613b64cc7dbcc8). Praise Raiguard.
 -  Lesbian Mami, lord thy god: Code used from BPlib to patch (temporarily?) an issue with super force building. [Link](https://github.com/project-cybersyn/bplib/tree/7151f7ae752fc63418186c31e63903b294fb889a)

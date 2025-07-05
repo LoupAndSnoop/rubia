@@ -4,8 +4,13 @@ Date: ????
   Changes:
     - Version up of machine upgrades, to force in the bug fixes.
     - Fixed old Rubia icon in Operation Iron Man.
+    - New Rubia sprites. Thanks, nullevoy.
     - If K2SO is installed, then buff projectiles to make up for the issues in slower projectiles.
     - Now issues warnings for gun mods that make Rubia much more difficult.
+    - Buffed main theme song rate +50%.
+    - Wind turbine color on map now blackish.
+    - Nutrient productivity tech cost 1.5^L => 1.8^L, making it cost +20% per rank.
+    - Biochamber prod bonus cost (2^L => 3^L) * 1000. Now max rank costs 243k instead of 32k
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.75
 Date: 2025-07-03

@@ -100,8 +100,9 @@ local entity = {
     impact_category = "metal",
     collision_box = {{-0.95, -0.95}, {0.95, 0.95}}, -- modified to a 2x2
     selection_box = {{-0.95, -0.95}, {0.95, 0.95}},
+    map_color = {10/255, 13/255, 13/255}, --Match solar panel color.
+
     energy_production = SETTING.POWER_OUTPUT_kW .. "kW",
-    --energy_usage = "0kW",
     energy_source = {
         type = "electric",
         usage_priority = "primary-output",
