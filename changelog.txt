@@ -2,6 +2,9 @@
 Version: 0.69.78
 Date: ????
   Changes:
+    - Fixed crash that happened when super force building rails on Rubia.
+    - Planned to come soon: Biter egg productivity research added to biofusion science.
+    - Planned to come soon: Biolab pollution reduction research.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.77
 Date: 2025-07-06

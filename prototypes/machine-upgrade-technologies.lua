@@ -18,6 +18,21 @@ table.insert(upgrade_data, {
         effect_name = {"entity-name.biochamber"},
     })
 
+--Some mods delete the biolab
+if data.raw.lab["biolab"] and data.raw["technology"]["rubia-biolab-pollution-bonus"] then
+    table.insert(upgrade_data, {
+        handler = "rubia-biolab-pollution-bonus-search",
+        technology_name = "rubia-biolab-pollution-bonus",
+        modifier_icon = {icon="__space-age__/graphics/icons/biolab.png"},
+        entity_names = {"biolab"},
+        module_effects = {pollution = -0.05},
+        effect_name = {"entity-name.biolab"},
+    })
+else --No biolab = no tech
+    data.raw.technology["rubia-biolab-pollution-bonus"] = nil 
+end
+
+
 if mods["secretas"] and table_size(recyclers) > 0 then
     table.insert(upgrade_data, {
         handler = "rubia-secretas-recycler-speed-bonus",

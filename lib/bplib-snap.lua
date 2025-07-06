@@ -15,20 +15,8 @@
 local lib = {}
 
 local mlib = require("__rubia__.lib.bplib-math")
---local internal = require("__bplib__.internal")
---local get_snap_data_for_direction = internal.get_snap_data_for_direction
-
----@param bp_entity BlueprintEntity
----@param eproto LuaEntityPrototype
----@return bplib.SnapData|nil
-local function get_snap_data_for_direction(bp_entity, eproto)
-	local snap_data = get_custom_entity_info(eproto)
-	if not snap_data then return nil end
-	local data = snap_data[bp_entity.direction or 0]
-	if not data then data = snap_data[0] end
-	return data
-end
-
+local internal = require("__rubia__.lib.bplib-internal")
+local get_snap_data_for_direction = internal.get_snap_data_for_direction
 
 local floor = math.floor
 local bbox_get = mlib.bbox_get

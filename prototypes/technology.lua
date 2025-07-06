@@ -479,6 +479,41 @@ data:extend({
     max_level = "infinite",
     upgrade = true
 },
+
+--[[
+{
+    type = "technology",
+    name = "rubia-biter-egg-productivity",
+    localised_name = {"",{"item-name.biter-egg"}, " ", {"description.productivity-bonus"}},
+    icons = util.technology_icon_constant_recipe_productivity(
+        "__space-age__/graphics/technology/biter-egg-handling.png"),
+    icon_size = 256,
+    effects = {
+        {type = "change-recipe-productivity", recipe = "biter-egg", change = 0.05},
+    },
+    prerequisites = {"rubia-biofusion-science-pack", "promethium-science-pack"},
+    unit = {
+        count_formula = "2^L*1000",
+        ingredients = {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "military-science-pack",        1 },
+            --{ "utility-science-pack",         1 },
+            { "space-science-pack",           1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
+            { "promethium-science-pack",      1 },
+        },
+        time = 60
+    },
+    max_level = "infinite",
+    upgrade = true
+},
+]]
+
+
 })
 
 
@@ -510,6 +545,36 @@ if mods["machine-upgrades"] then
         },
         max_level = 5,
     },
+
+    --[[
+    {
+        type = "technology",
+        name = "rubia-biolab-pollution-bonus",
+        --localised_name = {"", {"entity-name.biolab"}," ", {"description.pollution-bonus"}},
+        icons = mupgrades.make_technology_icon({
+            icon = "__space-age__/graphics/technology/biolab.png",
+            icon_size = 256}, "pollution"),
+        essential = false,
+        effects = {},
+        prerequisites = {"rubia-biofusion-science-pack"},
+        unit = {
+            count_formula = "2^L*1000",
+            ingredients = {
+                { "automation-science-pack",      1 },
+                { "logistic-science-pack",        1 },
+                { "chemical-science-pack",        1 },
+                { "military-science-pack",        1 },
+                { "utility-science-pack",         1 },
+                { "agricultural-science-pack",    1 },
+                { "biorecycling-science-pack",    1 },
+                { "rubia-biofusion-science-pack", 1 },
+            },
+            time = 60
+        },
+        max_level = 16,
+    },
+    ]]
+
     })
 end
 
