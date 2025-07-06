@@ -254,6 +254,7 @@ data:extend({
 
 local destroyer = util.table.deepcopy(data.raw["combat-robot"]["destroyer"])
 destroyer.name = "rubia-destroyer"
+destroyer.localised_name = {"entity-name.destroyer"}
 table.insert(destroyer.resistances, {type = "impact", percent = 70})
 destroyer.max_health = 300
 destroyer.time_to_live = 60 * 60 * 4
@@ -262,3 +263,51 @@ destroyer.hidden_in_factoriopedia = true
 data:extend({destroyer})
 
 --#endregion
+
+--Gun turret trap
+local gun_turret = util.table.deepcopy(data.raw["ammo-turret"]["gun-turret"])
+gun_turret.name = "rubia-gun-turret-trap"
+gun_turret.localised_name = {"entity-name.gun-turret"}
+gun_turret.resistances = gun_turret.resistances or {}
+table.insert(gun_turret.resistances, {type = "impact", percent = 50})
+gun_turret.max_health = 800
+gun_turret.attacking_speed = 3--0.5
+gun_turret.preparing_speed = 0.02--0.08,
+gun_turret.folding_speed = 0.02--0.08
+
+gun_turret.attack_parameters =
+    {
+      type = "projectile",
+      ammo_category = "bullet",
+      health_penalty = -3,
+      cooldown = 6,--6,
+      projectile_creation_distance = 1.39375,
+      projectile_center = {0, -0.0875}, -- same as gun_turret_attack shift
+      damage_modifier = 12,
+      ammo_consumption_modifier = 0.5,
+      shell_particle =
+      {
+        name = "shell-particle",
+        direction_deviation = 0.1,
+        speed = 0.1,
+        speed_deviation = 0.03,
+        center = {-0.0625, 0},
+        creation_distance = -1.925,
+        starting_frame_speed = 0.2,
+        starting_frame_speed_deviation = 0.1
+      },
+      range = 18,
+      sound = sounds.gun_turret_gunshot
+    }
+gun_turret.hidden = true
+gun_turret.hidden_in_factoriopedia = true
+data:extend({gun_turret})
+
+data:extend({
+  {
+    type = "sound",
+    name = "rubia-gun-turret-trap-armed",
+    filename = "__base__/sound/spidertron/spidertron-activate.ogg",
+    priority = 64
+  },
+})

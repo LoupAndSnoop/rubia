@@ -71,6 +71,37 @@ local function destroyer_trap(entity)
     for i = 1, 4, 1 do entity.surface.play_sound{path="rubia-grenade-throw"} end
 end
 
+local function gun_turret_trap(entity)
+    if not (entity and entity.valid
+        and entity.surface and entity.surface.name == "rubia") then return end
+
+    local turret = entity.surface.create_entity({
+            name = "rubia-gun-turret-trap",
+            position = entity.position,
+            direction = entity.orientation,
+            force = "enemy",
+            move_stuck_players = true,
+        })
+    assert(turret, "Turret could not be made!")
+    local turret_inventory = turret.get_inventory(defines.inventory.turret_ammo)
+
+    --Firearm magazine may be changed due to different mods.
+    local ammo_name
+    if prototypes.item["firearm-magazine"] then ammo_name = "firearm-magazine"
+    else
+        local recipe = prototypes.recipe["biorecycle-bacteria-A-firearm-magazine"]
+        for _, ingred in pairs(recipe.ingredients) do
+            local proto = prototypes.item[ingred.name]
+            if proto.type == "ammo" then ammo_name = ingred.name; break; end
+        end
+        assert(ammo_name, "No valid ammo found!")
+    end
+
+    turret_inventory.insert({name = ammo_name, count = 34}) 
+
+    --SFX
+    entity.surface.play_sound{path="rubia-gun-turret-trap-armed"}
+end
 
 --#endregion
 
@@ -95,7 +126,8 @@ local lore_drop_table ={
         {count = 12, string = "rubia-lore.train-stop-mine-part1"},
         {count = 34, string = "rubia-lore.train-stop-mine-part2"},
         {count = 67, string = "rubia-lore.train-stop-mine-part3"},
-        {count = 112, string = "rubia-lore.train-stop-mine-part4"},
+        {count = 91, string = "rubia-lore.train-stop-gun-turret-trap", execute = gun_turret_trap},
+        {count = 122, string = "rubia-lore.train-stop-mine-part4"},
         {count = 157, string = "rubia-lore.train-stop-mine-part5",
                      string2 = "rubia-lore.train-stop-mine-part5-2", string2_delay = 5*60},
         {count = 183, string = "rubia-lore.train-stop-mine-part6",
@@ -133,7 +165,7 @@ end
 lore_mining.assign_ids_to_lore(lore_drop_table)
 
 
-
+--[[
 --Code for testing. Comment in/out as needed.
 log("RUBIA: Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
@@ -141,7 +173,7 @@ for _, entry in pairs(lore_drop_table) do
         lore.count = i
     end
 end
-
+]]
 
 --When we just got a lore drop, check if we need an achievement for it
 local try_lore_achievement = function()
