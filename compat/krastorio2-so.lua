@@ -147,9 +147,11 @@ if settings.startup["kr-realistic-weapons"].value then
         end
         for _, entry in pairs(action_deliveries) do
             for _, each in pairs(entry) do
-                if each.starting_speed then each.starting_speed = each.starting_speed * SPEED_MULT end
-                if each.direction_deviation then each.direction_deviation = each.direction_deviation * DEV_MULT end
-                if each.range_deviation then each.range_deviation = each.range_deviation * RANGE_DEV_MULT end
+                if type(each) == "table" then
+                    if each.starting_speed then each.starting_speed = each.starting_speed * SPEED_MULT end
+                    if each.direction_deviation then each.direction_deviation = each.direction_deviation * DEV_MULT end
+                    if each.range_deviation then each.range_deviation = each.range_deviation * RANGE_DEV_MULT end
+                end
             end
         end
     end
