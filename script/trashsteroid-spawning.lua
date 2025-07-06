@@ -544,8 +544,7 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
 
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
   local collector = find_closest_collector(entity.position)
-  if (collector) then --We have a valid collector. Spawn a chunk.
-    --local chunk_entity = 
+  if (collector) then --We have a valid collector. Spawn a chunk projectile.
     storage.rubia_surface.create_entity({
       name = "trashsteroid-chunk",
       position = entity.position,

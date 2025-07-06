@@ -31,6 +31,7 @@ require("__rubia__.prototypes.entity.craptonite-wall")
 require("__rubia__.prototypes.entity.efficiency-module-4")
 
 require("__rubia__.prototypes.planet.rubia-decoratives")
+require("__rubia__.prototypes.planet.rubia-surface-traps")
 require("__rubia__.prototypes.planet.rubia-map-gen")
 require("__rubia__.prototypes.planet.planet")
 require("__rubia__.prototypes.planet.procession-catalogue-rubia")

@@ -2,7 +2,7 @@
 local lore_mining = {}
 local lore_color = {r=0.2,g=0.9,b=0.9,a=1} --Color of lore text
 
-
+--#region Custom executables on mining
 --If we mined a lot of spidertron remnants, do this to ensure player gets what they need.
 local function spoilage_failsafe(entity)
     if entity and entity.valid and entity.name == "rubia-spidertron-remnants"
@@ -17,6 +17,50 @@ local function spoilage_failsafe(entity)
     end
 end
 
+---Create and use a capsule spawned at entity, by the name capsule_name, 
+---targetting a position at entity_position + shift. Does not check entity validity.
+local function throw_capsules(entity, capsule_name, shift_array)
+    local capsules = (entity.surface.spill_item_stack{
+            position = entity.position,
+            stack = {name=capsule_name, count=#shift_array},
+        })
+    for i, shift in pairs(shift_array) do
+        local target = {entity.position.x + shift[1], entity.position.y + shift[2]}
+        local projectiles = capsules[i].stack.use_capsule(entity, target)
+        --for _, proj in pairs(projectiles) do proj.speed = proj.speed * 0.05 end --Slow to see.
+    end
+    for _, entry in pairs(capsules) do entry.destroy() end
+end
+
+---Create a projectile spawned at entity, by the name projectile_name, 
+---targetting a position at entity_position + shift for each shift in the array.
+---Does not check entity validity.
+local function throw_projectiles(entity, projectile_name, shift_array)
+    for i, shift in pairs(shift_array) do
+        local target = {entity.position.x + shift[1], entity.position.y + shift[2]}
+        entity.surface.create_entity({
+            name = projectile_name,
+            position = entity.position,
+            target = target,
+            direction = entity.orientation,
+            create_build_effect_smoke = false,
+        })
+    end
+end
+
+local function grenade_trap(entity)
+    if not (entity and entity.valid --and entity.name == "rubia-junk-pile"
+        and entity.surface and entity.surface.name == "rubia") then return end
+
+    local position_shifts = {{3,3}, {1,-5}, {-2,0}, {0,4}, {-4,-3}, {0,2}, {-4,3}, {3,-4}}
+    throw_projectiles(entity, "rubia-cluster-grenade-trap", position_shifts)
+    --throw_capsules(entity, "rubia-grenade-trap", position_shifts) 
+
+    --SFX
+    for i = 1, 6, 1 do entity.surface.play_sound{path="rubia-grenade-throw"} end
+end
+
+--#endregion
 
 --"Drop table" for lore, detailing the entity, the count, and which piece of lore to read
 --execute = function to execute when this entity is mined.
@@ -39,16 +83,20 @@ local lore_drop_table ={
         {count = 112, string = "rubia-lore.train-stop-mine-part4"},
         {count = 157, string = "rubia-lore.train-stop-mine-part5",
                      string2 = "rubia-lore.train-stop-mine-part5-2", string2_delay = 5*60},
+        {count = 183, string = "rubia-lore.train-stop-mine-part6",
+                     string2 = "rubia-lore.train-stop-mine-part6-2", string2_delay = 78*3600},
     },
     ["rubia-junk-pile"] = {
         --{count = 1, string = "rubia-lore.junk-mine-hint-part1"},
         {count = 5, string = "rubia-lore.junk-mine-part1"},
         {count = 17, string = "rubia-lore.junk-mine-part2"},
         {count = 31, string = "rubia-lore.junk-mine-part3"},
-        {count = 52, string = "rubia-lore.junk-mine-part4-rand", random = 6,-- .. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(6)) or 1),
+        {count = 52, string = "rubia-lore.junk-mine-part7", execute = grenade_trap,
+                     string2 = "rubia-lore.junk-mine-part7-2", string2_delay = 80},
+        {count = 77, string = "rubia-lore.junk-mine-part4-rand", random = 6,
                      extra_id = "rubia-lore.junk-mine-part4-rand"},
-        {count = 77, string = "rubia-lore.junk-mine-part5"},
-        {count = 105, string = "rubia-lore.junk-mine-part6-rand", random = 3,--.. tostring((storage.rubia_asteroid_rng and storage.rubia_asteroid_rng(4)) or 1),
+        {count = 105, string = "rubia-lore.junk-mine-part5"},
+        {count = 130, string = "rubia-lore.junk-mine-part6-rand", random = 3,
                      extra_id = "rubia-lore.junk-mine-part6-rand"},
     }
 }
@@ -71,13 +119,13 @@ lore_mining.assign_ids_to_lore(lore_drop_table)
 
 
 
---[[Code for testing. Comment in/out as needed.
+--Code for testing. Comment in/out as needed.
 log("RUBIA: Lore test code is active. Remove before release.")
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
-end]]
+end
 
 
 --When we just got a lore drop, check if we need an achievement for it
