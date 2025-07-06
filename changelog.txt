@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.77
-Date: ????
+Date: 2025-07-06
   Changes:
     - Made Krastorio 2 SO compatibility code more stable for other mods being included.
     - Improved contrast of mod thumbnail.
