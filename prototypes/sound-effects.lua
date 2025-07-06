@@ -126,13 +126,6 @@ data:extend({
   },
   --#endregion
 
-  {
-    type = "sound",
-    name = "rubia-grenade-throw",
-    variations = sound_variations("__base__/sound/fight/throw-grenade", 5, 0.4),
-    priority = 64
-  }
-
 })
 
 --[[data.raw["utility-sounds"]["default"].default_driving_sound = {

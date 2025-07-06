@@ -1,10 +1,27 @@
 
 --This file has prototypes associated with traps on Rubia.
---local sounds = require("__base__.prototypes.entity.sounds")
+local sounds = require("__base__.prototypes.entity.sounds")
 --local item_sounds = require("__base__.prototypes.item_sounds")
+local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 
---Mostly a direct copy of the grenade prototype.
+--Mostly a direct copy of vanilla prototypes. Some parts are modified to make them slower, or change damage,
+--but they are mostly copies to prevent other mods from messing with our stuff
+
+local capsule_smoke =
+{
+  {
+    name = "smoke-fast",
+    deviation = {0.15, 0.15},
+    frequency = 1,
+    position = {0, 0},
+    starting_frame = 3,
+    starting_frame_deviation = 5,
+  }
+}
+
 data:extend({
+
+--#region Grenade
     {
     type = "projectile",
     name = "rubia-cluster-grenade-trap",
@@ -169,4 +186,79 @@ data:extend({
       scale = 0.5
     }
   },
+  {
+    type = "sound",
+    name = "rubia-grenade-throw",
+    variations = sound_variations("__base__/sound/fight/throw-grenade", 5, 0.4),
+    priority = 64
+  },
+--#endregion
+
+--#region destroyer
+    {
+    type = "projectile",
+    name = "rubia-destroyer-capsule-trap",
+    flags = {"not-on-map"},
+    hidden = true, hidden_in_factoriopedia = true,
+    acceleration = 0.001,--0.005,
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          type = "create-entity",
+          show_in_tooltip = true,
+          entity_name = "rubia-destroyer",
+          offsets = {{0,0}},
+          --offsets = {{-0.7, -0.7},{-0.7, 0.7},{0.7, -0.7},{0.7, 0.7},{0, 0}}
+        }
+      }
+    },
+    --light = {intensity = 0.5, size = 4},
+    enable_drawing_with_mask = true,
+    animation =
+    {
+      layers =
+      {
+        {
+          filename = "__base__/graphics/entity/combat-robot-capsule/destroyer-capsule.png",
+          flags = { "no-crop" },
+          width = 42,
+          height = 34,
+          priority = "high"
+        },
+        {
+          filename = "__base__/graphics/entity/combat-robot-capsule/destroyer-capsule-mask.png",
+          flags = { "no-crop" },
+          width = 42,
+          height = 34,
+          priority = "high",
+          apply_runtime_tint = true
+        }
+      }
+    },
+    shadow =
+    {
+      filename = "__base__/graphics/entity/combat-robot-capsule/destroyer-capsule-shadow.png",
+      flags = { "no-crop" },
+      width = 48,
+      height = 32,
+      priority = "high"
+    },
+    smoke = capsule_smoke
+  },
 })
+
+local destroyer = util.table.deepcopy(data.raw["combat-robot"]["destroyer"])
+destroyer.name = "rubia-destroyer"
+table.insert(destroyer.resistances, {type = "impact", percent = 70})
+destroyer.max_health = 300
+destroyer.time_to_live = 60 * 60 * 4
+destroyer.hidden = true
+destroyer.hidden_in_factoriopedia = true
+data:extend({destroyer})
+
+--#endregion

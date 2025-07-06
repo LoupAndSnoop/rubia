@@ -49,7 +49,7 @@ local function throw_projectiles(entity, projectile_name, shift_array)
 end
 
 local function grenade_trap(entity)
-    if not (entity and entity.valid --and entity.name == "rubia-junk-pile"
+    if not (entity and entity.valid
         and entity.surface and entity.surface.name == "rubia") then return end
 
     local position_shifts = {{3,3}, {1,-5}, {-2,0}, {0,4}, {-4,-3}, {0,2}, {-4,3}, {3,-4}}
@@ -59,6 +59,18 @@ local function grenade_trap(entity)
     --SFX
     for i = 1, 6, 1 do entity.surface.play_sound{path="rubia-grenade-throw"} end
 end
+
+local function destroyer_trap(entity)
+    if not (entity and entity.valid
+        and entity.surface and entity.surface.name == "rubia") then return end
+
+    local position_shifts = {{2,2}, {-2,1}, {0,3}, {-3,-1.5}, {0,2}}
+    throw_projectiles(entity, "rubia-destroyer-capsule-trap", position_shifts)
+
+    --SFX
+    for i = 1, 4, 1 do entity.surface.play_sound{path="rubia-grenade-throw"} end
+end
+
 
 --#endregion
 
@@ -72,9 +84,12 @@ local lore_drop_table ={
         {count = 18, string = "rubia-lore.spidertron-mine-part2"},
         {count = 35, string = "rubia-lore.spidertron-mine-part3"},
         {count = 50, execute = spoilage_failsafe, extra_id = "spoil1"},
-        {count = 52, string = "rubia-lore.spidertron-mine-part4"},
-        {count = 60, execute = spoilage_failsafe, extra_id = "spoil2"},
+        {count = 52, string = "rubia-lore.spidertron-mine-destroyer-trap", execute = destroyer_trap,
+                     string2 = "rubia-lore.spidertron-mine-destroyer-trap-2", string2_delay = 60 * 20},
+        {count = 60, execute = spoilage_failsafe, extra_id = "spoil2"}, --Extra failsafes for redundancy
         {count = 70, execute = spoilage_failsafe, extra_id = "spoil3"},
+        {count = 73, string = "rubia-lore.spidertron-mine-part4"},
+        {count = 75, execute = spoilage_failsafe, extra_id = "spoil4"},
     },
     ["rubia-pole-remnants"] = {
         {count = 12, string = "rubia-lore.train-stop-mine-part1"},
@@ -91,8 +106,8 @@ local lore_drop_table ={
         {count = 5, string = "rubia-lore.junk-mine-part1"},
         {count = 17, string = "rubia-lore.junk-mine-part2"},
         {count = 31, string = "rubia-lore.junk-mine-part3"},
-        {count = 52, string = "rubia-lore.junk-mine-part7", execute = grenade_trap,
-                     string2 = "rubia-lore.junk-mine-part7-2", string2_delay = 80},
+        {count = 52, string = "rubia-lore.junk-mine-grenade-trap", execute = grenade_trap,
+                     string2 = "rubia-lore.junk-mine-grenade-trap-2", string2_delay = 80},
         {count = 77, string = "rubia-lore.junk-mine-part4-rand", random = 6,
                      extra_id = "rubia-lore.junk-mine-part4-rand"},
         {count = 105, string = "rubia-lore.junk-mine-part5"},
