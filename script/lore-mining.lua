@@ -87,17 +87,14 @@ local function gun_turret_trap(entity)
 
     --Firearm magazine may be changed due to different mods.
     local ammo_name
-    if prototypes.item["firearm-magazine"] then ammo_name = "firearm-magazine"
-    else
-        local recipe = prototypes.recipe["biorecycle-bacteria-A-firearm-magazine"]
-        for _, ingred in pairs(recipe.ingredients) do
-            local proto = prototypes.item[ingred.name]
-            if proto.type == "ammo" then ammo_name = ingred.name; break; end
-        end
-        assert(ammo_name, "No valid ammo found!")
+    local recipe = prototypes.recipe["biorecycle-bacteria-A-firearm-magazine"]
+    for _, ingred in pairs(recipe.ingredients) do
+        local proto = prototypes.item[ingred.name]
+        if proto.type == "ammo" then ammo_name = ingred.name; break; end
     end
+    assert(ammo_name, "No valid ammo found!")
 
-    turret_inventory.insert({name = ammo_name, count = 34}) 
+    turret_inventory.insert({name = ammo_name, count = 21}) 
 
     --SFX
     entity.surface.play_sound{path="rubia-gun-turret-trap-armed"}
@@ -115,8 +112,8 @@ local lore_drop_table ={
         {count = 18, string = "rubia-lore.spidertron-mine-part2"},
         {count = 35, string = "rubia-lore.spidertron-mine-part3"},
         {count = 50, execute = spoilage_failsafe, extra_id = "spoil1"},
-        {count = 52, string = "rubia-lore.spidertron-mine-destroyer-trap", execute = destroyer_trap,
-                     string2 = "rubia-lore.spidertron-mine-destroyer-trap-2", string2_delay = 60 * 20},
+        {count = 53, string = "rubia-lore.spidertron-mine-destroyer-trap", execute = destroyer_trap,},
+                     --string2 = "rubia-lore.spidertron-mine-destroyer-trap-2", string2_delay = 60 * 20},
         {count = 60, execute = spoilage_failsafe, extra_id = "spoil2"}, --Extra failsafes for redundancy
         {count = 70, execute = spoilage_failsafe, extra_id = "spoil3"},
         {count = 73, string = "rubia-lore.spidertron-mine-part4"},

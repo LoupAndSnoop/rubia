@@ -254,7 +254,7 @@ data:extend({
 
 local destroyer = util.table.deepcopy(data.raw["combat-robot"]["destroyer"])
 destroyer.name = "rubia-destroyer"
-destroyer.localised_name = {"entity-name.destroyer"}
+destroyer.localised_name = {"",{"entity-name.destroyer"}, " (", {"space-location-name.rubia"}, ")"}
 table.insert(destroyer.resistances, {type = "impact", percent = 70})
 destroyer.max_health = 300
 destroyer.time_to_live = 60 * 60 * 4
@@ -267,7 +267,7 @@ data:extend({destroyer})
 --Gun turret trap
 local gun_turret = util.table.deepcopy(data.raw["ammo-turret"]["gun-turret"])
 gun_turret.name = "rubia-gun-turret-trap"
-gun_turret.localised_name = {"entity-name.gun-turret"}
+gun_turret.localised_name = {"", {"entity-name.gun-turret"}, " (", {"space-location-name.rubia"}, ")"}
 gun_turret.resistances = gun_turret.resistances or {}
 table.insert(gun_turret.resistances, {type = "impact", percent = 50})
 gun_turret.max_health = 800

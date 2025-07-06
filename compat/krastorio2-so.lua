@@ -111,10 +111,11 @@ data:extend({
     },
 })
 
-----
+--Gun turret trap needs to be rebalanced.
+local trap = data.raw["ammo-turret"]["rubia-gun-turret-trap"]
+trap.attack_parameters.damage_modifier = trap.attack_parameters.damage_modifier / 2
 
 
----------
 if settings.startup["kr-realistic-weapons"].value then
     --pistol ammo -> rifle ammo conversion
     data_util.convert_ingredient("biorecycle-bacteria-A-firearm-magazine","firearm-magazine", "kr-rifle-magazine" )
