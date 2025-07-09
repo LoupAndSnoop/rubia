@@ -9,12 +9,12 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 --- Asteroid Management
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
 local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to spawn in one tick.
-local max_gen_checks_per_update = 30 --Max # of chunks to try to generate a trashsteroid on, in one tick
+local max_gen_checks_per_update = 12 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
 local trashsteroid_lifetime = 240 + 30 --Number of ticks that a trashsteroid can live
 
-local max_render_checks_per_update = 60 --Max # of trashsteroids to sift through when finding ones to render
+local max_render_checks_per_update = 100--Max # of trashsteroids to sift through when finding ones to render
 local max_renders_per_update = 30 --Max # of trashsteroid renderings to actually update per tick
 local transparency_delta = 0.05 --If transparency change is less than this much, don't update it.
 
@@ -62,8 +62,9 @@ local function try_initialize_RNG() if not storage.rubia_asteroid_rng then stora
 trashsteroid_lib.entity_is_immune_to_impact = function(entity)
   --First, blacklist anything with either immunity to damage or impact damage
   if (not entity.is_entity_with_health) then return true end 
-  if (entity.prototype.resistances and entity.prototype.resistances.impact and entity.prototype.resistances.impact.percent 
-      and entity.prototype.resistances.impact.percent >= 99) then return true end
+  local resistances = entity.prototype.resistances
+  if (resistances and resistances.impact and resistances.impact.percent 
+      and resistances.impact.percent >= 99) then return true end
   
   --Check manual blacklist.
   if (rubia.trashsteroid_blacklist[entity.name]) then return true end
@@ -73,11 +74,11 @@ trashsteroid_lib.entity_is_immune_to_impact = function(entity)
 end
 
 --Return an array of all entities that are in the impact range, which are relevant to impact.
-local function find_impact_targets(position, radius) --TODO: Iterator
+local function find_impact_targets(position, radius)
   local impacted_raw = storage.rubia_surface.find_entities_filtered({
     position = position,
     radius = radius,
-    force = game.forces["player"]
+    force = "player",--game.forces["player"]
   })
   local impacted = {} --Actual list of entities that should be impacted
   for _,entity in pairs(impacted_raw) do
@@ -208,13 +209,15 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroid
   
   --First get a random coord in the chunk
-  local x = storage.rubia_asteroid_rng(chunk.area.left_top.x, chunk.area.right_bottom.x)
-  local y = storage.rubia_asteroid_rng(chunk.area.left_top.y, chunk.area.right_bottom.y)
+  local area = chunk.area
+  local x = storage.rubia_asteroid_rng(area.left_top.x, area.right_bottom.x)
+  local y = storage.rubia_asteroid_rng(area.left_top.y, area.right_bottom.y)
 
   --Make it
   local resulting_entity = storage.rubia_surface.create_entity({
     name = trashsteroid_name,
-    position = {x = x, y = y},
+    position = {x, y},
+    force = "enemy",
     direction = defines.direction.east,
     snap_to_grid = false,
     create_build_effect_smoke = false
@@ -223,14 +226,13 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Difficulty scaling
   local shield_val, shield_name = storage.shielding_amount, storage.current_shield_prototype--difficulty_scaling.get_current_shield()
-  local shield = resulting_entity.grid.put{name=shield_name}
+  local shield = resulting_entity.grid.put{name=shield_name, position = {0,0}}
   shield.shield = shield_val
-  --local shield = resulting_entity.grid.put{name="trashsteroid-shield"}
-  --shield.shield = 100
 
   --Add a rendering to be able to see it, as it moves somewhat independently
+  local trasteroid_render_no = tostring(storage.rubia_asteroid_rng(1,6))
   local render = rendering.draw_animation({
-    animation = "medium-trashsteroid-animation" .. tostring(storage.rubia_asteroid_rng(1,6)),
+    animation = "medium-trashsteroid-animation" .. trasteroid_render_no,
     orientation=storage.rubia_asteroid_rng(1,100) / 100,
     render_layer="air-object",
     xscale = trashsteroid_min_size, yscale = trashsteroid_min_size,
@@ -239,7 +241,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   })
   --Draw shadow, matching orientation, but it needs a custom offset
   local render_shadow = rendering.draw_animation({
-    animation = "medium-trashsteroid-shadow" .. tostring(storage.rubia_asteroid_rng(1,6)),
+    animation = "medium-trashsteroid-shadow" .. trasteroid_render_no,
     oriention= render.orientation,
     render_layer="object",
     xscale = trashsteroid_min_size, yscale = trashsteroid_min_size,
@@ -250,8 +252,8 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     tint = transparency(0)
   })
   
+
   --Set it up
-  resulting_entity.force = game.forces["enemy"]
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(trashsteroid_speed_var,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
   resulting_entity.active = NOT_MEGABASE_MODE
@@ -268,7 +270,6 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
     name = trashsteroid_name,
     chunk_data = chunk,
     chunk_key = chunk_checker.chunk_position_to_key(chunk.x, chunk.y),
-    --chunk_position = {x=chunk.x, y = chunk.y}, --Do we need both?
     render_solid = render,
     render_shadow = render_shadow,
     orient_initial = render.orientation, --Starting orientation for render
@@ -296,10 +297,11 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
   --game.print(serpent.block(storage.pending_trashsteroid_data))
 
   local key = 0
+  local pending_trashsteroid_data = storage.pending_trashsteroid_data
   --Function of what to do on a valid chunk
   local function do_on_valid_chunk(value, _)
     key = chunk_checker.chunk_position_to_key(value.chunk.x,value.chunk.y)
-    local next_tick = storage.pending_trashsteroid_data[key] --The key might not be in the dic,
+    local next_tick = pending_trashsteroid_data[key] --The key might not be in the dic,
     
     --We may have a developed chunk that isn't charted yet because of the ranges.
     if not next_tick then
@@ -357,8 +359,9 @@ local function update_trashsteroid_size_scaling()
 end
 update_trashsteroid_size_scaling()]]
 
+local invert_scaling_setting = settings.global["invert-trashsteroid-scaling"]
 local function trashsteroid_size_scaling(fractional_age)
-  if settings.global["invert-trashsteroid-scaling"].value then
+  if invert_scaling_setting.value then
     return (1 - fractional_age) + (fractional_age) * 0.5
   else return 2*fractional_age + (1 - fractional_age) * trashsteroid_min_size
   end
@@ -398,11 +401,6 @@ local function update_trashsteroid_rendering(trashsteroid)
     x = fractional_age * trashsteroid_shadow_min_vec.x + (1-fractional_age) * trashsteroid_shadow_max_vec.x + pos.x,
     y = fractional_age * trashsteroid_shadow_min_vec.y + (1-fractional_age) * trashsteroid_shadow_max_vec.y + pos.y
   }
-  
-  --[[Make it vulnetable if it is big enough
-  if (trashsteroid.entity and trashsteroid.entity.valid and fractional_age > 0.2) then
-    trashsteroid.entity.is_military_target = false
-  end]]
 end
 
 

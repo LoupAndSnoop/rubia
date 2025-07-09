@@ -13,9 +13,9 @@ require("__rubia__.script.wind-turbine-control")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
 local rubia_wind = require("__rubia__.script.wind-correction")
 local init_functions = require("__rubia__.script.init")
-local lore_mining = require("__rubia__.script.lore-mining")
-local entity_swap = require("__rubia__.script.entity-swap")
-local technology_scripts = require("__rubia__.script.technology-scripts")
+require("__rubia__.script.lore-mining")
+require("__rubia__.script.entity-swap")
+require("__rubia__.script.technology-scripts")
 require("__rubia__.script.emergency-failsafes")
 require("__rubia__.script.version-change-warnings")
 
@@ -29,7 +29,10 @@ require("__rubia__.compat.discovery-tree")
 event_lib.on_event(defines.events.on_surface_created, "rubia-created", function(event)
   if not storage.rubia_surface then
     local surface = game.get_surface(event.surface_index)
-    if surface and surface.name == "rubia" then storage.rubia_surface = surface end
+    if surface and surface.name == "rubia" then 
+      storage.rubia_surface = surface
+      surface.peaceful_mode = false
+    end
   end
   --wind_speed_lib.try_set_wind_speed()
 end)

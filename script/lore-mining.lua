@@ -1,6 +1,7 @@
 --This script provides rubia lore when a specific number of entities is mined.
 local lore_mining = {}
 local lore_color = {r=0.2,g=0.9,b=0.9,a=1} --Color of lore text
+local LORE_MINING_COOLDOWN = 60 * 15 --Cooldown before we replay something
 
 --#region Custom executables on mining
 --If we mined a lot of spidertron remnants, do this to ensure player gets what they need.
@@ -165,12 +166,13 @@ lore_mining.assign_ids_to_lore(lore_drop_table)
 --[[
 --Code for testing. Comment in/out as needed.
 log("RUBIA: Lore test code is active. Remove before release.")
+LORE_MINING_COOLDOWN = 1
 for _, entry in pairs(lore_drop_table) do
     for i, lore in pairs(entry) do
         lore.count = i
     end
-end
-]]
+end]]
+
 
 --When we just got a lore drop, check if we need an achievement for it
 local try_lore_achievement = function()
@@ -207,10 +209,22 @@ lore_mining.try_lore_when_mined = function(entity)
     storage.rubia_lore_previously_played = storage.rubia_lore_previously_played or {}
     local new_count = (storage.rubia_mined_lore_entities[prototype_name] or 0)+1
     storage.rubia_mined_lore_entities[prototype_name] = new_count
+
+    --Check cooldown to see if we actually execute anything
+    --The lore for the first spidertron mining should skip this.
+    ---@type uint The last tick where we played lore.
+    storage.lore_last_played_tick = storage.lore_last_played_tick or -100000
+    if ((storage.lore_last_played_tick + LORE_MINING_COOLDOWN) > game.tick)
+        --First spidertron hint skips the cooldown
+        and (storage.rubia_lore_previously_played["rubia-lore.spidertron-mine-hint-part1"]
+            or prototype_name ~= "rubia-spidertron-remnants") then return end
+
     --Check to give lore
     for index, entry in pairs(lore_drop_table[prototype_name]) do
         if new_count >= entry.count  --Time to trigger
             and not storage.rubia_lore_previously_played[entry.unique_id] then --Not seen before
+
+            storage.lore_last_played_tick = game.tick
             storage.rubia_lore_previously_played[entry.unique_id] = true
 
             --Base string print

@@ -4,6 +4,9 @@ Date: ????
   Changes:
     - Fixed lore typo
     - Added 4 new lore entries. Including some hazards.
+    - Added a cooldown to lore, so you don't get bombarded with many prompts at once.
+    - Forcing everyone up in version for some dependencies that fix bugs.
+    - Slight UPS optimization for trashsteroids.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.78
 Date: 2025-07-06

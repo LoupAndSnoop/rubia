@@ -227,6 +227,7 @@ data:extend({
     rotation_speed = 0.015,
     weight = 0.01,--1,--700,
     inventory_size = 0,
+    trash_inventory_size = 0,
   }
 })
 
