@@ -117,7 +117,7 @@ local function make_shield(shield_id, shield_value)
       height = 128,
       priority = "medium",
       scale = 0.5,
-      tine = {r=1,b=1,g=0,a=1}
+      tint = {r=1,b=1,g=0,a=1}
     },
     shape = {width = 1, height = 1, type = "full"},
     max_shield_value = shield_value,

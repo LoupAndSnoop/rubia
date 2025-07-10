@@ -38,6 +38,16 @@ local mod_item_blacklist = {
     {mod="Teleportation_Redux", type = "container", name = "teleportation-beacon"},
     {mod="Telogistics", type = "container", name = "s6x-logistic-teleporter"},
     --Transport rings require non-rubia parts, and are fully manual.
+
+    --Factorissimo
+    {mod="Factorissimo2", type = "storage-tank", name = "factory-1"},
+    {mod="Factorissimo2", type = "storage-tank", name = "factory-2"},
+    {mod="Factorissimo2", type = "storage-tank", name = "factory-3"},
+    {mod="Factorissimo2", type = "storage-tank", name = "factory-circuit-connector"},
+    {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-1"},
+    {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-2"},
+    {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-3"},
+    {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-circuit-connector"},
 }
 
 --Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.

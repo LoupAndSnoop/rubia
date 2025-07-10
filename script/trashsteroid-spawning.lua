@@ -8,7 +8,7 @@ _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 
 --- Asteroid Management
 local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
-local max_trashsteroids_per_update = 10 --Max # of trashsteroids to attempt to spawn in one tick.
+local max_trashsteroids_per_update = 4 --Max # of trashsteroids to attempt to spawn in one tick.
 local max_gen_checks_per_update = 12 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
@@ -226,7 +226,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
 
   --Difficulty scaling
   local shield_val, shield_name = storage.shielding_amount, storage.current_shield_prototype--difficulty_scaling.get_current_shield()
-  local shield = resulting_entity.grid.put{name=shield_name, position = {0,0}}
+  local shield = resulting_entity.grid.put{name=shield_name}--, position = {0,0}}
   shield.shield = shield_val
 
   --Add a rendering to be able to see it, as it moves somewhat independently
