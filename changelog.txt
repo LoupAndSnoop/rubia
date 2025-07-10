@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.79
-Date: ????
+Date: 2025-07-10
   Changes:
     - Fixed lore typo
     - Added 4 new lore entries. Including some hazards.
