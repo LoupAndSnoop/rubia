@@ -160,6 +160,16 @@ if blocking_mods_string ~= "" then
 end
 
 
+--Maraxsis promethium-science prod applies to biofusion research
+if mods["maraxsis"] and data.raw["technology"]["maraxsis-promethium-productivity"] then
+    local maraxsis_effects = data.raw["technology"]["maraxsis-promethium-productivity"].effects
+    table.insert(maraxsis_effects,
+        {type = "change-recipe-productivity",
+        recipe = "rubia-biofusion-promethium-science-pack",
+        change = 0.1})
+end
+
+
 --Set Nutrient productivity recipes
 local nutrient_prod_effects = {}
 local nutrient_prod_magnitude = 0.1

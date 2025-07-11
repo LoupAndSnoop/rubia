@@ -2,6 +2,9 @@
 Version: 0.69.80
 Date: ????
   Changes:
+    - New Recipe: Biofusion science can now be used to make promethium science with fewer promethium chunks.
+    - Biochamber productivity bonus has been made more granular. 10 ranks of +5% instead of 5 ranks of +10%. It's also more expensive now for the top rank.
+      ► Everyone's research rank has been migrated to avoid any lost progress.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.79
 Date: 2025-07-10

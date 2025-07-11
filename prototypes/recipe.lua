@@ -151,6 +151,35 @@ data:extend({
     crafting_machine_tint = crafting_machine_tint_brown,
   },
 
+  {
+    type = "recipe",
+    name = "rubia-biofusion-promethium-science-pack",
+    icons = rubia_lib.compat.make_rubia_superscripted_icon({
+      icon="__space-age__/graphics/icons/promethium-science-pack.png",}),
+    energy_required = 10,
+    surface_conditions = {
+      {property = "gravity", min = 0, max = 0}
+    },
+    enabled = false,
+    allow_productivity = true,
+    category = "organic",
+    ingredients =
+    {
+      {type = "item", name = "promethium-asteroid-chunk", amount = 10}, --25
+      {type = "item", name = "quantum-processor", amount = 1},
+      {type = "item", name = "rubia-biofusion-science-pack", amount = 8}
+    },
+    results = {{type="item", name="promethium-science-pack", amount=10}},
+    crafting_machine_tint =
+    {
+      primary = {r = 0, g = 0, b = 0.1, a = 1},
+      secondary = {r = 0, g = 0, b = 0.4, a = 1},
+      tertiary = {r = 0.1, g = 0.1, b = 0.4, a = 1},
+      quaternary = {r = 0, g = 0, b = 0.1, a = 1},
+    },
+    auto_recycle = false,
+  },
+
   --[[Science yeeting
   {
     type = "recipe",

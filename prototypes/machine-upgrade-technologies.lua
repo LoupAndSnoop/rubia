@@ -14,7 +14,7 @@ table.insert(upgrade_data, {
         technology_name = "rubia-biochamber-productivity-bonus",
         modifier_icon = {icon="__space-age__/graphics/icons/biochamber.png"},
         entity_names = {"biochamber"},
-        module_effects = {productivity = 0.1},
+        module_effects = {productivity = 0.05},
         effect_name = {"entity-name.biochamber"},
     })
 

@@ -479,6 +479,30 @@ data:extend({
     max_level = "infinite",
     upgrade = true
 },
+{
+    type = "technology",
+    name = "rubia-biofusion-promethium-science-pack",
+    icon = "__rubia-assets__/graphics/technology/promethium-biofusion-science.png",
+    icon_size = 256,
+    effects = {{type = "unlock-recipe", recipe = "rubia-biofusion-promethium-science-pack"},},
+    prerequisites = {"rubia-biofusion-science-pack", "promethium-science-pack"},
+    unit = {
+        count = 1000000,
+        ingredients = {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "military-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "space-science-pack",           1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
+            { "promethium-science-pack",      1 },
+        },
+        time = 60
+    },
+},
 
 --[[
 {
@@ -530,7 +554,7 @@ if mods["machine-upgrades"] then
         effects = {},
         prerequisites = {"rubia-nutrients-from-sludge"},
         unit = {
-            count_formula = "3^L*1000",
+            count_formula = "2^L*1000",
             ingredients = {
                 { "automation-science-pack",      1 },
                 { "logistic-science-pack",        1 },
@@ -543,7 +567,7 @@ if mods["machine-upgrades"] then
             },
             time = 60
         },
-        max_level = 5,
+        max_level = 10,
     },
 
     --[[
