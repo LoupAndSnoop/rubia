@@ -215,7 +215,9 @@ local function special_yeet_recipe(item_name, icon, icon_size)
     color_hint = { text = "T" },
 
     localised_name = {"rubia-crapapult.yeet-item", local_item_name},
-    localised_description = {"rubia-crapapult.yeet-item-description", local_item_name},
+    localised_description = {"", {"rubia-crapapult.yeet-item-description", local_item_name}
+      --Some people need pictograms because they never finished kindergarden.
+      , string.format("\n[item=%s] + [entity=crapapult] → [item=yeet-%s]", item_name, item_name)},
 
     inventory_move_sound = item_sounds.resource_inventory_move,
     pick_sound = item_sounds.resource_inventory_pickup,
@@ -238,6 +240,20 @@ for _, item in pairs(yeet_trigger_tech_items) do
   if recipe then data.extend(recipe) end
 end
 
---data.extend(special_yeet_recipe("makeshift-biorecycling-science-pack"))--,"__rubia-assets__/graphics/icons/science/yeet_torus_clear_brown.png"))
+
+--Some early crapapult recipes should be visible, to help the player figure out what is going on.
+local crapapult_recipes_to_reveal = {
+  "yeet-firearm-magazine",  "yeet-kr-rifle-magazine", --In case of K2SO
+  "yeet-makeshift-biorecycling-science-pack"
+}
+for _, name in pairs(crapapult_recipes_to_reveal) do
+  local recipe = data.raw.recipe[name]
+  if recipe then
+    recipe.hidden_in_factoriopedia = false
+    recipe.subgroup = nil
+  end
+  local item = data.raw.item[name]
+  if item then item.subgroup = nil end
+end
 
 --#endregion

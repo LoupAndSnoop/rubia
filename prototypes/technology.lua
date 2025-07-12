@@ -127,23 +127,6 @@ data:extend({
         prerequisites = { "rubia-progression-stage1"},
         research_trigger = {type = "craft-item", item="yeet-firearm-magazine", count=300},
     },
---[[    {
-        type = "technology",
-        name = "rubia-progression-stage1-machines",
-        icon = "__rubia-assets__/graphics/technology/biorecycling.png",--"__rubia-assets__/graphics/icons/science/torus_clear_brown.png",
-        icon_size = 256,
-        essential = false,
-        effects =
-        {
-            {type = "unlock-recipe", recipe = "biorecycling-plant"},
-            {type = "unlock-recipe", recipe = "crapapult"},
-            {type = "unlock-recipe", recipe = "alt-gun-turret"},
-            {type = "unlock-recipe", recipe = "rubia-sniper-turret"}, -- TODO Shift?
-            {type = "unlock-recipe", recipe = "rubia-wind-turbine"},
-        },
-        prerequisites = { "planet-discovery-rubia"},
-        research_trigger = {type = "mine-entity", entity="rubia-spidertron-remnants"},
-    },]]
 
     {
         type = "technology",

@@ -123,5 +123,37 @@ data:extend {{
     dependencies = {"rubia-briefing"}
 },
 
+{
+    type = "tips-and-tricks-item",
+    name = "rubia-crapapult-tips",
+    category = "space-age",
+    tag = "[entity=crapapult]",
+    indent = 1,
+    order = "g-a-d",
+    trigger = {
+      type = "build-entity",
+      entity = "crapapult",
+    },
+    dependencies = {"rubia-briefing"},
+    simulation =
+    {
+        planet = "rubia",
+        init_update_count = 620,
+        init =
+        [[
+            game.simulation.camera_position = {0+5, 0.5}
 
+            for _, force in pairs(game.forces) do
+                force.inserter_stack_size_bonus = 15
+                force.bulk_inserter_capacity_bonus = 15
+            end
+
+            game.surfaces[1].create_entities_from_blueprint_string
+            {
+            string = "0eNrNWttymzAQ/Rc9Q0d3iby2f5HJeDCWU02xYLikTTP+9wq7sdsGau0mD/jFNqCzF+2elVa8kG09urbzYSB3L8RXTejJ3f0L6f1jKOvpWigPjtyRqivbsh3rgRwz4sPO/SB37PiQERcGP3h3Hnb687wJ42HruvhA9jrch70P8VZefXX9QDLSNn0c1oRJRITKGRWfVEae40/9SZ1knEdsejcMPjz205OdOzRPbjPGe/XgOrfb+MEd4q19WfcuI+fLZ11+Sy53T2Wo3C6vfFeNfpJdNeNkL6c0I4dmd3pqyGtXnjS7Gnc8Zm9M4iiTzIea1HZN5fo+IuRjeLdF4mLRPj6e923thyhx1iB6MSias/Odq8735QyuvODWTblbAOR/TvmfgBkZnttpcDMO7ThF3RsBCiDAYARo1FzLNYevQZmkVhy+FhO+6nb4FoDokpjoYhQgQaEkXPl36MrQt0035FtXz812Yf+O3xveYTzZ7UVxIfYEXIFRWSWpLAHQetEbdg5apXvDAGKQ4RiIr5mBGI6CxIopiFlAJnNUJhcYlhO3I4xDSEhgVOcoEpq8NAfGMWBiAUxgCIGnEAJHcY1Igr5yzXasv+U+9K6bDwUrF5VmfA5ap2tt1a2pwuU5XfXi36JsYivmLg5Z51AMAQiK4S52m7sEA6jOUKpf6ebgdn485K6O4ztf5W1Tu/8uduh8WgiBWDjxBGegGIemMI5QGGiWBK3BDla3HGygkNbcgrQIymVJlCsKBDRNgpYUw+Zs3gWSYcAW/CmvaXVtK83gvKbuLIbAUPHHMnHVtK3r8qrcnuLqPTQsJcacjy2W5zxpQsyUjymXEtChQfGz1IjSklBZpElXHFUT5ZVRLuzkgusenyMDRAP2ZTVLfvYs8t/szyJ57Peu2/T+p5s6C5fPnOwCQec0ZYetKAJ5gXAUZNsgQVpC9hAKhAzZUHAQMqS6CxAypLhTEDJgN1EwELIBFKMChGwByBaEDMg6C8o6DanzBoSMKfoLNV+jDk7EWuu1Ri0/+LrrtQYc2aB6QVoh6nVCF0vrdMVR/TdtEH0nkZRjFoHMk5AL+E4zYaNpMEV+oUdkGLxvnhAOBsU1aq1cY1BcI9fNNUYiqCAh6g1gz4E6VDMArkGdCxoM16iFBMOwi1zAKjBhaNaaVZZizNHrzirLEFmV8C6H5elBj3rVwop0AaiXRayEV8M359UPGfke/09zeC94pjKhM/WQ3U9fmTDxd3ximvWpnXd5sSojdRlzLl77/Nrt+hJjJV5/ivFwglaaF7IolKFcmYIfj78AXFhfkw==",
+            position = {-9 + 5, 1}
+            }
+        ]]
+    },
+},
 }
