@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.81
-Date: ????
+Date: 2025-07-12
   Changes:
     - More crushing industry compat.
     - Compat with both K2SO + bzcarbon at the same time.
