@@ -9,7 +9,7 @@ local base_icon_size = 64
 common_compat_prototypes["electronic-circuit-recipe"] = {
         type = "recipe",
         name = "rubia-compat-electronic-circuit",
-        localised_name = {"item-name.electronic-circuit"},
+        localised_name = {"", {"item-name.electronic-circuit"}, " (", {"space-location-name.rubia"}, ")"},
         category = "electronics",
         icons = {
             {icon = "__base__/graphics/icons/electronic-circuit.png",},
@@ -21,10 +21,9 @@ common_compat_prototypes["electronic-circuit-recipe"] = {
             },
         },
         surface_conditions = rubia.surface_conditions(),
-        ingredients =
-        {
-        {type = "item", name = "iron-plate", amount = 1},
-        {type = "item", name = "copper-cable", amount = 3}
+        ingredients = {
+            {type = "item", name = "iron-plate", amount = 1},
+            {type = "item", name = "copper-cable", amount = 3}
         },
         results = {{type="item", name="electronic-circuit", amount=1}},
         enabled = false,
@@ -32,5 +31,22 @@ common_compat_prototypes["electronic-circuit-recipe"] = {
         auto_recycle = false,
     }
 
+
+common_compat_prototypes["steel-plate-recipe"] = {
+    type = "recipe",
+    name = "rubia-compat-steel-plate",
+    localised_name = {"", {"item-name.steel-plate"}, " (", {"space-location-name.rubia"}, ")"},
+    icons = rubia_lib.compat.make_rubia_superscripted_icon({
+            icon = "__base__/graphics/icons/steel-plate.png",
+        }),
+    category = "smelting",
+    enabled = false,
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 16,
+    ingredients = {{type = "item", name = "iron-plate", amount = 5}},
+    results = {{type="item", name="steel-plate", amount=1}},
+    allow_productivity = true,
+    auto_recycle = false,
+  }
 
 return common_compat_prototypes

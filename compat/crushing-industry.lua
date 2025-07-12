@@ -24,7 +24,7 @@ if settings.startup["crushing-industry-glass"].value then
         ingredients = {
             { type = "item", name = "concrete", amount = 1},
         },
-        results = {{type = "item", name = "sand", amount = 1}},--, probability = 0.5}},
+        results = {{type = "item", name = "sand", amount = 1}},
         allow_productivity = false,
         },
     })
@@ -33,8 +33,6 @@ if settings.startup["crushing-industry-glass"].value then
     --We need electric crushers to be automated.
     local scrapapalooza = data.raw["recipe"]["biorecycle-scrapapalooza"].results
     table.insert(scrapapalooza, {type = "item", name = "electric-crusher", amount = 1, probability = 0.05})
-
-
 end
 
 

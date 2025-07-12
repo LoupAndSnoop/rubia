@@ -34,6 +34,33 @@ if mods["bzcarbon"] or mods["bztin"] then
     rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", green_circ.name)
 end
 
+--If we have K2SO AND bzcarbon, then the steel-plate recipe gets graphite
+if mods["bzcarbon"] and mods["Krastorio2-spaced-out"] then
+    local common_compat_prototypess = require("__rubia__.compat.common-compat-prototypes")
+    local steel_plate = common_compat_prototypess["steel-plate-recipe"]
+    steel_plate.ingredients = {
+        {type = "item", name = "iron-plate", amount = 10},
+        {type = "item", name = "kr-coke", amount = 2}
+    }
+    steel_plate.results = {{type = "item", name = "steel-plate", amount = 5}}
+    data:extend({steel_plate})
+    rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1B", steel_plate.name)
+
+    --Ban the normal steel recipe from Rubia
+    if data.raw.recipe["steel-plate"] then rubia.ban_from_rubia(data.raw.recipe["steel-plate"]) end
+    
+    --Productivity
+    local steel_prod = data.raw.technology["steel-plate-productivity"]
+    if steel_prod then table.insert(steel_prod.effects, {
+        type = "change-recipe-productivity",
+        recipe = steel_plate.name,
+        change = 0.1,
+        hidden = true
+    })
+    end
+end
+
+
 --These mods make chem plants uncraftable
 if mods["bztin"] or mods["bzlead"] then
     local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
