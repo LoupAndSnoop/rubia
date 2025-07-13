@@ -224,7 +224,7 @@ data:extend {{
     {
         planet = "rubia",
         mods = {"rubia"},
-        init_update_count = 380,
+        init_update_count = 440,
         init =
         [[
             local rubia_surface = game.surfaces[1]--game.create_surface("rubia")
@@ -272,7 +272,7 @@ data:extend {{
                     animation = "medium-trashsteroid-animation" .. trasteroid_render_no,
                     orientation=math.random(1,100) / 100,
                     render_layer="air-object",
-                    xscale = 1.5, yscale = 1.5,
+                    xscale = 1.2, yscale = 1.2,
                     target=resulting_entity,
                     surface=rubia_surface,
                 })
@@ -312,7 +312,7 @@ data:extend {{
             rubia_surface.create_entities_from_blueprint_string
             {
             string = "0eNqd0kEOgyAQBdC7zBqNRVHhKk3TqCUNiQ4GsK0x3L1oF12UbljOZP6bzd+gHxc5G4UOxAZq0GhBnDew6o7duO+wmyQIGEw3O43KyezZjSN4Agpv8gXi5C8EJDrllPyEj2G94jL10oQD8g8hMGsbchr3T8HKipwRWEHQMmfekx+Lplg0bpUpFotbVYpVxS2WYjVxq06x6rjVpFg8brUpVrtboWzhdgrJb3UJPKSxR4TVlFecs6agrOHU+zc36PGk",
-            position = {0, -2}
+            position = {-2, -3}
             }
 
             --Rubia script loading
@@ -335,7 +335,7 @@ data:extend {{
                     snap_to_grid = false,
                     create_build_effect_smoke = false
                 })
-                resulting_entity.speed = 0.13 * (1 + math.random(-10,10)/100)
+                resulting_entity.speed = 0.17 * (1 + math.random(-10,10)/100)
                 resulting_entity.orientation = math.random(23,27) / 100
 
                 --Add a rendering to be able to see it, as it moves somewhat independently
@@ -344,7 +344,7 @@ data:extend {{
                     animation = "medium-trashsteroid-animation" .. trasteroid_render_no,
                     orientation=math.random(1,100) / 100,
                     render_layer="air-object",
-                    xscale = 1, yscale = 1,
+                    xscale = 3, yscale = 3,
                     target=resulting_entity,
                     surface=rubia_surface,
                 })
@@ -352,7 +352,7 @@ data:extend {{
                 table.insert(active_trashsteroids, resulting_entity)
             end
 
-            local desired_positions = {{-13,0},{-13,5}, {-16,3}, {-13,-2}, {-17, -3}}
+            local desired_positions = {{-13,0},{-13,5}, {-16,3}, {-18,7}, {-13,2}, {-13,-2}, {-17, -3}}
             local function trashsteroid_update()
                 for _, entry in pairs(active_trashsteroids) do
                     if entry.valid then entry.die() end

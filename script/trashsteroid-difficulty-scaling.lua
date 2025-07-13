@@ -120,21 +120,19 @@ difficulty_scaling.update_difficulty_scaling = function ()
 end
 
 --Difficulty achievements
-if not game then
-    rubia.timing_manager.register("unlock-rubia-easy-mode-achievement", function()
-        --Check again to make sure it was not changed back.
-        if settings.global["rubia-difficulty-setting"].value ~= "easy" then return end
-        for _, player in pairs(game.players) do
-            player.unlock_achievement("rubia-easy-mode")
-        end
-    end)
-    rubia.timing_manager.register("unlock-rubia-difficulty-achievement", function(player)
-        if player and storage.difficulty_upon_landing == "very-very-hard" then
-            player.unlock_achievement("rubia-very-very-hard-clear")
-            --game.print("test: " .. storage.difficulty_upon_landing)
-        end
-    end)
-end
+rubia.timing_manager.register("unlock-rubia-easy-mode-achievement", function()
+    --Check again to make sure it was not changed back.
+    if settings.global["rubia-difficulty-setting"].value ~= "easy" then return end
+    for _, player in pairs(game.players) do
+        player.unlock_achievement("rubia-easy-mode")
+    end
+end)
+rubia.timing_manager.register("unlock-rubia-difficulty-achievement", function(player)
+    if player and storage.difficulty_upon_landing == "very-very-hard" then
+        player.unlock_achievement("rubia-very-very-hard-clear")
+        --game.print("test: " .. storage.difficulty_upon_landing)
+    end
+end)
 
 
 

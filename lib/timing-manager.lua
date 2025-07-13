@@ -24,7 +24,8 @@ local function_register = {}
 ---@param function_to_invoke function
 ---@param function_name string
 rubia.timing_manager.register = function(function_name, function_to_invoke)
-  if game then error("Cannot register a function outside the main chunk: " .. function_name) end
+  if game and not game.simulation then
+    error("Cannot register a function outside the main chunk: " .. function_name) end
   assert(not function_register[function_name], "This function name has been added twice to the function lookup register: " .. function_name)
   function_register[function_name] = function_to_invoke
 end
