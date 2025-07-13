@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.82
-Date: ????
+Date: 2025-07-13
   Changes:
     - Made some yeetibng recipes visible in factoriopedia to help new players.
     - Added tips and tricks section:
