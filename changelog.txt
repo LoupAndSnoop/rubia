@@ -3,7 +3,11 @@ Version: 0.69.82
 Date: ????
   Changes:
     - Made some yeetibng recipes visible in factoriopedia to help new players.
-    - Added tips and tricks section on the crapapult.
+    - Added tips and tricks section:
+      ► Crapapult.
+      ► Rocketizer
+    - Made nicer debug functions.
+    - Trashsteroid speed now fluctuates (it was supposed to before)
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.81
 Date: 2025-07-12

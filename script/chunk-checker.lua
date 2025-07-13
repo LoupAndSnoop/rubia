@@ -359,7 +359,7 @@ event_lib.on_event({defines.events.on_player_changed_surface,
     defines.events.on_player_left_game,
     defines.events.on_player_banned,
     defines.events.on_player_kicked,
-    defines.events.on_player_removed
+    defines.events.on_pre_player_removed
 },
     "chunk-checker-player-pos",
     function(event)

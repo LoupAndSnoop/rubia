@@ -29,9 +29,14 @@ local difficulty_settings = {
         trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 1.25 * 19.6^(1-DIFFICULTY_EXPONENT), order = 4},
     ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20,
         trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.75 * 44^(1-DIFFICULTY_EXPONENT), order = 5},
+
+    ["disabled"] = {impact_base_damage = 0, impact_crit_damage = 0, impact_crit_chance = 0,
+        trashsteroid_impact_radius = 4, character_damage = 0, health_multiplier = 1, order = 0},
 }
-difficulty_scaling.settings = function() return difficulty_settings[
-    settings.global["rubia-difficulty-setting"].value] end
+difficulty_scaling.settings = function() 
+    if storage.disable_trashsteroid_damage then return difficulty_settings["disabled"] end
+    return difficulty_settings[settings.global["rubia-difficulty-setting"].value]
+end
 
 
 
@@ -115,19 +120,21 @@ difficulty_scaling.update_difficulty_scaling = function ()
 end
 
 --Difficulty achievements
-rubia.timing_manager.register("unlock-rubia-easy-mode-achievement", function()
-    --Check again to make sure it was not changed back.
-    if settings.global["rubia-difficulty-setting"].value ~= "easy" then return end
-    for _, player in pairs(game.players) do
-        player.unlock_achievement("rubia-easy-mode")
-    end
-end)
-rubia.timing_manager.register("unlock-rubia-difficulty-achievement", function(player)
-    if player and storage.difficulty_upon_landing == "very-very-hard" then
-        player.unlock_achievement("rubia-very-very-hard-clear")
-        --game.print("test: " .. storage.difficulty_upon_landing)
-    end
-end)
+if not game then
+    rubia.timing_manager.register("unlock-rubia-easy-mode-achievement", function()
+        --Check again to make sure it was not changed back.
+        if settings.global["rubia-difficulty-setting"].value ~= "easy" then return end
+        for _, player in pairs(game.players) do
+            player.unlock_achievement("rubia-easy-mode")
+        end
+    end)
+    rubia.timing_manager.register("unlock-rubia-difficulty-achievement", function(player)
+        if player and storage.difficulty_upon_landing == "very-very-hard" then
+            player.unlock_achievement("rubia-very-very-hard-clear")
+            --game.print("test: " .. storage.difficulty_upon_landing)
+        end
+    end)
+end
 
 
 

@@ -92,9 +92,10 @@ end
 ---Return the closerst garbo collector in range (LuaEntity) that is in range of an impact to make a chunk projectiles, and is valid to collect.
 ---If no valid collector found, return nil.
 ---@param search_start_point MapPosition
+---@param surface LuaSurface Surface to search on
 ---@return LuaEntity | nil
-local function find_closest_collector(search_start_point)
-  local collectors = storage.rubia_surface.find_entities_filtered({
+local function find_closest_collector(search_start_point, surface)
+  local collectors = surface.find_entities_filtered({
     position = search_start_point,
     radius = trashsteroid_chunk_reach,
     name = "garbo-grabber"
@@ -204,9 +205,12 @@ local update_difficulty_scaling = function()
   storage.impact_damage_special["character"] = settings.character_damage
 end
 
---Make trashsteroid in that chunk. Assume everything is initialized.
+---Make trashsteroid in that chunk. Assume everything is initialized.
+---@param trashsteroid_name string Name of trashsteroid prototype
+---@param chunk ChunkPositionAndArea
+---@return LuaEntity | nil
 local function generate_trashsteroid(trashsteroid_name, chunk)
-  if storage.active_trashsteroid_count > max_trashsteroids then return end --We are above the limit of trashsteroid
+  if max_trashsteroids < storage.active_trashsteroid_count then return end --We are above the limit of trashsteroid
   
   --First get a random coord in the chunk
   local area = chunk.area
@@ -254,7 +258,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   
 
   --Set it up
-  resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(trashsteroid_speed_var,trashsteroid_speed_var)/100)
+  resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(-trashsteroid_speed_var,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
   resulting_entity.active = NOT_MEGABASE_MODE
 
@@ -289,7 +293,6 @@ end]]
 ---This version uses flib iteration
 --Go through one round of going through all chunks and trying to spawn trashsteroids
 trashsteroid_lib.try_spawn_trashsteroids = function()
-  --game.print("Chunk iterator: " + serpent.block(stage.rubia_chunk_iterator))
   try_initialize_RNG()
   if not storage.developed_chunks then return end --No chunks to worry about
   local spawned_trashsteroids = 0 --Total spawned this cycle
@@ -312,22 +315,15 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
     end 
     if next_tick > game.tick then return end --Still on cooldown
 
-    --[[if(value.chunk.x == 0 and value.chunk.y == 1) then
-      game.print("key = " .. key .. ", tick = " .. game.tick .. ", next tick = " ..  storage.pending_trashsteroid_data[key] ..
-      ", next calc key = " .. chunk_checker.chunk_position_to_key(value.chunk.x, value.chunk.y))
-    end]]
     generate_trashsteroid("medium-trashsteroid", value.chunk)
     spawned_trashsteroids = spawned_trashsteroids + 1
     --If we reached the max, then abort the loop
     if spawned_trashsteroids >= max_trashsteroids_per_update then return nil, nil, true end
   end
 
-  --if math.fmod(game.tick,30) == 0 then log(serpent.block(storage.pending_trashsteroid_data)) end
-
   --Index of the last chunk where we ended iteration
   storage.trash_gen_index = rubia.flib.for_n_of(storage.developed_chunks, storage.trash_gen_index,
     max_gen_checks_per_update, do_on_valid_chunk)
-  --game.print(check_string)
 end
 
 
@@ -343,8 +339,6 @@ trashsteroid_lib.hard_refresh = function()
     end
   end
   try_initialize_RNG()
-  --difficulty_scaling.initialize()
-  --local trashsteroids = storage.rubia_surface.find_entities_filtered({filter="name",name="medium-trashsteroid"})
 end
 
 
@@ -541,9 +535,9 @@ trashsteroid_lib.on_med_trashsteroid_killed = function(entity, damage_type)
     or not trash_spawn_dmg_types[damage_type.name]) then return end
 
   --Make a smalll chunk projectile, if it makes sense. First: search for a valid collector
-  local collector = find_closest_collector(entity.position)
+  local collector = find_closest_collector(entity.position, entity.surface)
   if (collector) then --We have a valid collector. Spawn a chunk projectile.
-    storage.rubia_surface.create_entity({
+    collector.surface.create_entity({
       name = "trashsteroid-chunk",
       position = entity.position,
       direction = entity.orientation,
@@ -583,10 +577,10 @@ rubia.testing = rubia.testing or {}
 rubia.testing.print_pending_trashsteroid_data = trashsteroid_lib.print_pending_trashsteroid_data
 rubia.testing.print_active_trashsteroid_data = trashsteroid_lib.print_active_trashsteroid_data 
 --Make trashsteroids do no damage
-function rubia.testing.disable_trashsteroid_damage()
-  storage.impact_base_damage = 0
-  storage.impact_crit_damage = 0
-  storage.impact_damage_special = {}
+---@param enabled boolean | nil Set to true to re-enable trashsteroid damage. Default (no arg) => disable damage
+function rubia.testing.disable_trashsteroid_damage(enabled)
+  storage.disable_trashsteroid_damage = not enabled
+  update_difficulty_scaling()
 end
 
 
@@ -663,7 +657,7 @@ event_lib.on_event(defines.events.on_runtime_mod_setting_changed, "trashsteroid-
 end)
 --#endregion
 
-
+return trashsteroid_lib
 
 
 
