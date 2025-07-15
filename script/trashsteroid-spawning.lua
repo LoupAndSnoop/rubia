@@ -163,6 +163,11 @@ local function clear_all_trashsteroids()
     if trashsteroid.entity.valid then trashsteroid.entity.destroy() end
   end
 
+  --Some shadows may remain. Nuke them
+  local to_remove = rubia_lib.find_entity_renderings("medium-trashsteroid", true)
+  for _, entry in pairs(to_remove) do entry.destroy() end
+  --rendering.clear("rubia")
+
   assert(table_size(storage.active_trashsteroids) == 0, 
     "There are still some active trashsteroids! Report to the mod author.")
   storage.active_trashsteroids = {}

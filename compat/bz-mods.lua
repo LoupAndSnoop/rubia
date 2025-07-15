@@ -61,9 +61,15 @@ if mods["bzcarbon"] and mods["Krastorio2-spaced-out"] then
 end
 
 
---These mods make chem plants uncraftable
 if mods["bztin"] or mods["bzlead"] then
+    --These mods make chem plants uncraftable
     local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
     table.insert(minable, {type = "item", name = "chemical-plant", 
         probability = 0.4, amount_min = 3, amount_max = 6})
+
+    --These mods make rocket silos uncraftable
+    local function on_final_fixes()
+        rubia_lib.compat.set_recipe_input_count("rocket-silo", "solder", 0, false)
+    end
+    table.insert(rubia_lib.compat.to_call_on_data_final_fixes, on_final_fixes)
 end

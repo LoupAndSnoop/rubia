@@ -71,6 +71,18 @@ local graphics_entity_sh = {
     draw_as_shadow = true,
     shift = {1.15, 0.05+0.1}
 }
+--[[This is a spritesheet with 2 variations: the sprite, and blank. This allows triggering on command.
+local graphics_binary = {
+    filename = GRAPHICS_PATH .. "entities/hr-wind-turbine-binary-spritesheet.png",
+    priority = "extra-high",
+    width = 196,
+    height = 286,
+    scale = 0.5*graphics_scale,
+    frame_count = 2,
+    line_length = 2,
+    animation_speed = 0.8,
+    shift = {0, -1.2+0.1}
+}]]
 
 -- Sounds --
 local sounds = { wind_turbine = {
@@ -81,8 +93,13 @@ local sounds = { wind_turbine = {
 }}
 
 -- Properties -- 
+local WIND_TURBINE_TYPE = "electric-energy-interface"--"solar-panel"
+if WIND_TURBINE_TYPE == "solar-panel" then
+    SETTING.POWER_OUTPUT_kW = SETTING.POWER_OUTPUT_kW / 0.15
+end
+
 local entity = {
-    type = "electric-energy-interface", -- special "cheat" prototype
+    type = WIND_TURBINE_TYPE,
     name = TURBINE_NAME,
     --factoriopedia_description = "Converts wind power to electricity. Power scales with quality.",--{"factoriopedia-description."..TURBINE_NAME},
     --gui_mode = "admins", -- gui contains sliders for energy parameters
@@ -102,7 +119,17 @@ local entity = {
     selection_box = {{-0.95, -0.95}, {0.95, 0.95}},
     map_color = {10/255, 13/255, 13/255}, --Match solar panel color.
 
-    energy_production = SETTING.POWER_OUTPUT_kW .. "kW",
+    --[[type = "solar-panel",
+    production = SETTING.POWER_OUTPUT_kW .. "kW", --Solar panel version
+    performance_at_day = 1,
+    performance_at_night = 1,
+    picture = graphics_entity,--graphics_binary,
+    --solar_coefficient_property = "rubia-wind-speed",
+    ]]
+
+    --type = "electric-energy-interface",
+    energy_production = SETTING.POWER_OUTPUT_kW .. "kW", --For EEI-version
+
     energy_source = {
         type = "electric",
         usage_priority = "primary-output",
@@ -111,6 +138,10 @@ local entity = {
         output_flow_limit = (6*SETTING.POWER_OUTPUT_kW) .. "kW", -- Give x6 to give enough output for leg quality
         render_no_power_icon = false
     },
+
+    surface_conditions = rubia.surface_conditions(),
+    heating_energy = "30kW",
+
     water_reflection = {
         pictures = graphics_reflections,
         rotate = false,
@@ -123,12 +154,14 @@ local entity = {
         idle_sound = sounds.wind_turbine,
     }
 }
--- Compatibility: Space Age DLC --
 
-entity.surface_conditions = rubia.surface_conditions()
-entity.heating_energy = "30kW"--SETTING.EXQUISITE and "0kW" or "30kW"
-
--- Note: Turbine cannot be build on Aquilo, unless this is allowed in the startup settings.
-
---|FINAL DATA WRITE|-------------------------------------------------------------------------------
 data:extend({entity})
+
+--Animation if we want to render
+data:extend({
+    {
+        type = "animation",
+        name = "rubia-wind-turbine-animation",
+        layers = { graphics_entity, graphics_entity_sh }
+    }
+})

@@ -2,14 +2,19 @@
 Version: 0.69.83
 Date: ????
   Changes:
+    - Fixed bug where trashsteroid shadows would permanently exist on your map.
+    - Preparing for wind turbine UPS improvement.
+    - Fixed incompat with BZTin messing with rocket silo recipe, leading to a softlock.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.82
 Date: 2025-07-13
   Changes:
     - Made some yeetibng recipes visible in factoriopedia to help new players.
     - Added tips and tricks section:
-      ► Crapapult.
+      ► Crapapult
       ► Rocketizer
+      ► Craptonite wall
+      ► Garbo grabber
     - Made nicer debug functions.
     - Trashsteroid speed now fluctuates (it was supposed to before)
     - Bugfix for players being removed from multiplayer games (reported by DoubleThought).
