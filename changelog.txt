@@ -2,6 +2,7 @@
 Version: 0.69.84
 Date: ????
   Changes:
+    - Better long term fix for BZ-tin compatibility with a new rocket silo recipe.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.83
 Date: 2025-07-15

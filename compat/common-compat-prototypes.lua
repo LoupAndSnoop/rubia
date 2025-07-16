@@ -49,4 +49,29 @@ common_compat_prototypes["steel-plate-recipe"] = {
     auto_recycle = false,
   }
 
+
+common_compat_prototypes["rocket-silo-recipe"] = {
+    type = "recipe",
+    name = "rubia-compat-rocket-silo",
+    localised_name = {"", {"entity-name.rocket-silo"}, " (", {"space-location-name.rubia"}, ")"},
+    icons = rubia_lib.compat.make_rubia_superscripted_icon({
+        icon = "__base__/graphics/icons/rocket-silo.png",
+    }),
+    enabled = false,
+    category = "crafting",
+    surface_conditions = rubia.surface_conditions(),
+    ingredients =
+    {
+      {type = "item", name = "steel-plate", amount = 1000},
+      {type = "item", name = "concrete", amount = 1000},
+      {type = "item", name = "pipe", amount = 100},
+      {type = "item", name = "processing-unit", amount = 200},
+      {type = "item", name = "electric-engine-unit", amount = 200}
+    },
+    energy_required = 30,
+    results = {{type="item", name="rocket-silo", amount=1}},
+    requester_paste_multiplier = 1,
+    auto_recycle = false,
+  }
+
 return common_compat_prototypes
