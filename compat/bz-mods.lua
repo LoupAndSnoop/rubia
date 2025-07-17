@@ -70,6 +70,12 @@ if mods["bztin"] then --or mods["bzlead"] then
     local silo_recipe = common_compat_prototypess["rocket-silo-recipe"]
     data:extend({silo_recipe})
     rubia_lib.compat.add_recipe_to_technology("rubia-project-trashdragon", silo_recipe.name)
+    
+    --Ban the solder-requiring recipe, to avoid confusion
+    local original_silo_recipe = data.raw.recipe["rocket-silo"]
+    if original_silo_recipe then rubia.ban_from_rubia(original_silo_recipe) end
+
+
     --[[
     local function on_final_fixes()
         rubia_lib.compat.set_recipe_input_count("rocket-silo", "solder", 0, false)
