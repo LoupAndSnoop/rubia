@@ -520,6 +520,40 @@ data:extend({
 },
 ]]
 
+{ --Modeled from Maraxsis
+    type = "technology",
+    name = "rubia-cargo-landing-pad-capacity",
+    icon = "__rubia-assets__/graphics/technology/operation-craptonite-man.png",
+    icon_size = 256,
+    --icons = util.technology_icon_constant_capacity("__space-age__/graphics/technology/space-platform.png"),--data.raw.technology["space-platform"].icon),
+    --icon_size = data.raw.technology["space-platform"].icon_size,
+    effects = {
+        {type = "cargo-landing-pad-count", modifier = 1,
+        --icon = "__base__/graphics/icons/cargo-landing-pad.png"
+            icons = mupgrade_lib.make_technology_icon(
+                {icon = "__base__/graphics/icons/cargo-landing-pad.png"}, "efficiency")
+        },
+    },
+    prerequisites = {"rubia-biofusion-science-pack", "promethium-science-pack"},
+    unit = {
+        count = 50000,
+        ingredients = {
+            {"automation-science-pack",      1},
+            {"logistic-science-pack",        1},
+            {"chemical-science-pack",        1},
+            {"military-science-pack",        1},
+            {"production-science-pack",      1},
+            {"utility-science-pack",         1},
+            {"space-science-pack",           1},
+            {"agricultural-science-pack",    1},
+            {"biorecycling-science-pack",    1},
+            {"rubia-biofusion-science-pack", 1},
+            {"promethium-science-pack",      1},
+        },
+        time = 60
+    },
+}
+
 
 })
 

@@ -93,10 +93,8 @@ local sounds = { wind_turbine = {
 }}
 
 -- Properties -- 
-local WIND_TURBINE_TYPE = "electric-energy-interface"--"solar-panel"
-if WIND_TURBINE_TYPE == "solar-panel" then
-    SETTING.POWER_OUTPUT_kW = SETTING.POWER_OUTPUT_kW / 0.15
-end
+local WIND_TURBINE_TYPE = "electric-energy-interface"
+--local WIND_TURBINE_TYPE = "solar-panel"
 
 local entity = {
     type = WIND_TURBINE_TYPE,
@@ -119,25 +117,27 @@ local entity = {
     selection_box = {{-0.95, -0.95}, {0.95, 0.95}},
     map_color = {10/255, 13/255, 13/255}, --Match solar panel color.
 
-    --[[type = "solar-panel",
-    production = SETTING.POWER_OUTPUT_kW .. "kW", --Solar panel version
-    performance_at_day = 1,
-    performance_at_night = 1,
+    --[[Solar panel version
+    production = SETTING.POWER_OUTPUT_kW .. "kW",
+    performance_at_day = 1 * 6.9/300, --Factorio multiplies by surface_prop / default of that prop. Undo
+    performance_at_night = 1 * 6.9/300,
+    solar_coefficient_property = "rubia-wind-speed",
     picture = graphics_entity,--graphics_binary,
-    --solar_coefficient_property = "rubia-wind-speed",
+    energy_source = {type = "electric", usage_priority = "solar"},
+    --stateless_visualization = {animation = { layers = { graphics_entity, graphics_entity_sh } }},
     ]]
 
-    --type = "electric-energy-interface",
+    --Electric energy interface version
     energy_production = SETTING.POWER_OUTPUT_kW .. "kW", --For EEI-version
-
     energy_source = {
         type = "electric",
         usage_priority = "primary-output",
         buffer_capacity = SETTING.POWER_OUTPUT_kW .. "kW", -- "kW" makes math easier
         input_flow_limit = "0kW",
         output_flow_limit = (6*SETTING.POWER_OUTPUT_kW) .. "kW", -- Give x6 to give enough output for leg quality
-        render_no_power_icon = false
+        render_no_power_icon = false,
     },
+    
 
     surface_conditions = rubia.surface_conditions(),
     heating_energy = "30kW",

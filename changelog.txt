@@ -2,6 +2,7 @@
 Version: 0.69.85
 Date: ????
   Changes:
+    - New biofusion tech: +1 Cargo landing pad. This should aid with how limitted cargo landing pads are on Rubia in post game.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.84
 Date: 2025-07-17
