@@ -536,7 +536,7 @@ data:extend({
     },
     prerequisites = {"rubia-biofusion-science-pack", "promethium-science-pack"},
     unit = {
-        count = 50000,
+        count = 10000,
         ingredients = {
             {"automation-science-pack",      1},
             {"logistic-science-pack",        1},
