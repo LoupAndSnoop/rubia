@@ -2,6 +2,7 @@
 Version: 0.69.86
 Date: ????
   Changes:
+    - Renamed Operation Crap Man, because that name sucked.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.85
 Date: 2025-07-23
