@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.85
-Date: ????
+Date: 2025-07-23
   Changes:
     - Fixed fast replace group of long stack inserters.
     - New biofusion tech: +1 Cargo landing pad. This should aid with how limitted cargo landing pads are on Rubia in post game.
