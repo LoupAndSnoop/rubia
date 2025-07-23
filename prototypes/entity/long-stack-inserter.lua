@@ -78,7 +78,7 @@ data:extend({
       rotation_speed = 0.04 * 0.5,
       filter_count = 5,
       icon_draw_specification = {scale = 0.5},
-      fast_replaceable_group = "inserter",
+      fast_replaceable_group = "long-handed-inserter",
       open_sound = sounds.inserter_open,
       close_sound = sounds.inserter_close,
       working_sound = sounds.inserter_fast,
