@@ -3,6 +3,7 @@ Version: 0.69.87
 Date: ????
   Changes:
     - Reworded the planet briefing... again!
+    - Another megabasing tip added
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.86
 Date: 2025-07-23
