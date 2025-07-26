@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.88
-Date: ????
+Date: 2025-07-26
   Changes:
     - Long stack inserter HP 160 => 400. I had forgotten to give it better stats.
     - Wind turbine max HP 200 => 250. A slight little buff, since these are on the outskirts usually.
