@@ -42,7 +42,7 @@ data:extend({
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
     bulk = true,
     minable = { mining_time = 0.1, result = "rubia-long-bulk-inserter" },
-    max_health = 350,
+    max_health = 350, --Normal = 160
     corpse = "rubia-long-bulk-inserter-remnants",
     dying_explosion = "bulk-inserter-explosion",
     resistances = {

@@ -470,7 +470,7 @@ data:extend({
     effects = {{type = "unlock-recipe", recipe = "rubia-biofusion-promethium-science-pack"},},
     prerequisites = {"rubia-biofusion-science-pack", "promethium-science-pack"},
     unit = {
-        count = 1000000,
+        count = 100000,
         ingredients = {
             { "automation-science-pack",      1 },
             { "logistic-science-pack",        1 },

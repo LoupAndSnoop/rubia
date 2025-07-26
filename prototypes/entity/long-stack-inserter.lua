@@ -49,7 +49,7 @@ data:extend({
       enter_drop_mode_if_held_stack_spoiled = true,
       max_belt_stack_size = 4,
       minable = { mining_time = 0.1, result = "rubia-long-stack-inserter" },
-      max_health = 160,
+      max_health = 400, --Base stack inserter = 160 HP
       corpse = "rubia-long-stack-inserter-remnants",
       dying_explosion = "stack-inserter-explosion",
       resistances =

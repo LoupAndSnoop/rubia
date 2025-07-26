@@ -106,7 +106,7 @@ local entity = {
     drawing_box_vertical_extension = 1.8,
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.15, result = TURBINE_NAME},
-    max_health = 200,
+    max_health = 250,
     resistances = {{type = "fire", percent = 50}, {type = "impact", percent = 30}},
 
     corpse = "medium-small-remnants",

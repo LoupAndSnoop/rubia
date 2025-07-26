@@ -2,6 +2,10 @@
 Version: 0.69.88
 Date: ????
   Changes:
+    - Long stack inserter HP 160 => 400. I had forgotten to give it better stats.
+    - Wind turbine max HP 200 => 250. A slight little buff, since these are on the outskirts usually.
+    - Garbo grabber max HP 1000 => 600.
+    - Biofused promethium science tech cost reduced: 1M => 100k. This should make it more viable to get this for less mega-basey setups.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.87
 Date: 2025-07-25

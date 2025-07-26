@@ -17,7 +17,7 @@ data:extend({
     icon_size = 64,
     flags = {"placeable-neutral", "placeable-player", "player-creation", "not-rotatable", "no-automated-item-insertion"},
     minable = {mining_time = 1, result = "garbo-grabber"},
-    max_health = 1000,
+    max_health = 600,
     damaged_trigger_effect = hit_effects.entity(),
     corpse = "medium-remnants",
     dying_explosion = "assembling-machine-3-explosion",
