@@ -11,11 +11,6 @@ data:extend({
         type = "recipe-category",
         name = "chemical-plant-only"
     },
-    --[[
-    {
-        type = "recipe-category",
-        name = "organic-or-biorecycling"
-    },]]
 })
 
 --Add categories to vanilla machines

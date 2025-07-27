@@ -37,8 +37,14 @@ local mod_item_blacklist = {
     {mod="interplanetary-krastorio", type = "recipe", name = "interplanetary-teleporter"},
     {mod="Teleportation_Redux", type = "container", name = "teleportation-beacon"},
     {mod="Telogistics", type = "container", name = "s6x-logistic-teleporter"},
-    --Transport rings require non-rubia parts, and are fully manual.
+    --Transport rings require non-rubia parts, and are fully manual, so I will allow.
+    --Planet portal belts are like linked belts without the linked belt prototype
+    {mod="planet-portal", type = "underground-belt", name = "portal-underground-belt"},
+    {mod="planet-portal", type = "underground-belt", name = "portal-fast-underground-belt"},
+    {mod="planet-portal", type = "underground-belt", name = "portal-express-underground-belt"},
+    {mod="planet-portal", type = "underground-belt", name = "portal-turbo-underground-belt"},
 
+    
     --Factorissimo
     {mod="Factorissimo2", type = "storage-tank", name = "factory-1"},
     {mod="Factorissimo2", type = "storage-tank", name = "factory-2"},

@@ -518,7 +518,8 @@ data:extend({
 {
   type ="recipe",
   name ="craptonite-casting",
-  category = "organic-or-assembling",--"biorecycling",
+  category = "organic",
+  additional_categories = {"crafting-with-fluid"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-l",
   enabled = false,
   ingredients = {
@@ -970,7 +971,8 @@ data:extend({
     localised_description = {"technology-description.rubia-holmium-craptalysis"},
 
     enabled = false,
-    category ="organic-or-chemistry",
+    category ="chemical-plant-only",
+    additional_categories = {"organic"},
     ingredients =
     {
       {type = "item", name = "holmium-ore", amount = 2},
