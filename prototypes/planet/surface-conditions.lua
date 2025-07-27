@@ -21,14 +21,21 @@ set_wind_speed("vulcanus", 80)
 set_wind_speed("gleba", 5)
 set_wind_speed("aquilo", 30)
 
---Others
-set_wind_speed("maraxsis", 0)
-set_wind_speed("corrundum", 30)
-set_wind_speed("moshine", 40)
-set_wind_speed("cubium", 10)
-set_wind_speed("muluna", 0)
+--Mod planets. Keep it roughly alphabetical
+set_wind_speed("arig", 55)
+set_wind_speed("castra", 18)
 set_wind_speed("cerys", 5)
-set_wind_speed("jahtra", 25)
+set_wind_speed("corrundum", 30)
+set_wind_speed("cubium", 10)
+set_wind_speed("frozeta", 5)
+set_wind_speed("igrys", 35)
+set_wind_speed("jahtra", 23)
+set_wind_speed("lignumis", 19)
+set_wind_speed("maraxsis", 0)
+set_wind_speed("moshine", 40)
+set_wind_speed("muluna", 0)
+set_wind_speed("paracelsin", 10)
+--set_wind_speed("secretas", 8)
 set_wind_speed("tenebris", 60)
 
 
