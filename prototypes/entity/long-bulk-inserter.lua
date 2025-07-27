@@ -57,6 +57,8 @@ data:extend({
     insert_position = {0, 2.2},
     energy_per_movement = "20kJ", --Bulk = 20 kJ. Long = 5 kJ
     energy_per_rotation = "20kJ",
+    heating_energy = "50kW",
+    
     energy_source =
     {
       type = "electric",

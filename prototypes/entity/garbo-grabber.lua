@@ -35,6 +35,7 @@ data:extend({
       distance = gather_radius
     },
     monitor_visualization_tint = {78, 173, 255},
+    heating_energy = "200kW",
 
     --[[connection_points =
     {

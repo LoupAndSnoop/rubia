@@ -161,6 +161,7 @@ data:extend({
         corpse = "crapapult-remnants",
         dying_explosion = "electromagnetic-plant-explosion",
         surface_conditions = rubia.surface_conditions_any_asteroids(),--surface_conditions(),
+        heating_energy = "200kW",
 
         resistances = {
           {type = "fire", percent = 80},
