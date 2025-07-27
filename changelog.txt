@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.89
-Date: ????
+Date: 2025-07-27
   Changes:
     - Added freezing mechanics for most Rubia entities (for Aquilo etc). If this breaks a base, sorry not sorry. I also included heating energy for things that are normally locked to Rubia, just in case you use a mod that removes surface conditions, or mods that have other mechanics (eg Sniper turrets on Cerys). Heat energy changes from 0kW:
       ► Already had frost: wind turbine, biorecycling plant, long stack inserter
