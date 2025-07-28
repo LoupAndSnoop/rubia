@@ -26,6 +26,7 @@ if settings.startup["crushing-industry-glass"].value then
         },
         results = {{type = "item", name = "sand", amount = 1}},
         allow_productivity = false,
+        auto_recycle = false,
         },
     })
     rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage2", "rubia-compat-crushing-sand-crushing")
@@ -57,6 +58,7 @@ if settings.startup["crushing-industry-concrete-mix"].value then
         },
         results = {{type = "fluid", name = "concrete-mix", amount = 25}},
         allow_productivity = false,
+        auto_recycle = false,
         },
     })
     rubia_lib.compat.add_recipe_to_technology("craptonite-processing", "rubia-compat-crushing-concrete-mix")

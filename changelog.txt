@@ -5,6 +5,7 @@ Date: ????
     - Future-proofed some recipe category changes vs vanilla, as there are plans to replace all the "or" categories. The only material impact this should have is that Corrundum's catalytic plant loses access to holmium craptalysis, which is a recipe it was never supposed to have.
     - Planet portal linked belts now banned from Rubia.
     - Added explicit wind speeds to more mod planets.
+    - Crushing industry recycling compat fix.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.89
 Date: 2025-07-27
