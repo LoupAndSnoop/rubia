@@ -777,6 +777,19 @@ if mods["Moshine"] then
         table.insert(moshine_tech.effects,
         {type = "change-recipe-productivity", recipe = "quality-module", change = moshine_module_multiplier})
     end
+
+    --Vanila galore continued adds modules
+    if mods["vanilla_galore_continued"] then
+        local vgal_recipe = {"vgal-tungsten-carbide-speed-module", "vgal-spoilage-efficiency-module",
+            "vgal-biter-egg-productivity-module"}
+        if mods["quality"] then table.insert(vgal_recipe, "vgal-superconductor-quality-module") end
+        for _, entry in pairs(vgal_recipe) do
+            table.insert(moshine_tech.effects,
+                {type = "change-recipe-productivity", recipe = entry, 
+                    change = moshine_module_multiplier, hidden = true})
+        end
+    end
+
     data:extend({moshine_tech})
 end
 
