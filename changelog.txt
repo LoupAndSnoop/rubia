@@ -2,6 +2,7 @@
 Version: 0.69.91
 Date: ????
   Changes:
+    - Icons for unique compatibility recipes for Krastorio 2 Spaced out are now distinguishable.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.90
 Date: 2025-07-28

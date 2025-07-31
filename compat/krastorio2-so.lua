@@ -11,6 +11,9 @@ data:extend({
         localised_name = {"item-name.repair-pack"},
         category = "biorecycling",
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-b",
+        icons = rubia_lib.compat.make_rubia_superscripted_icon({
+            icon = "__base__/graphics/icons/repair-pack.png",
+        }),
         surface_conditions = rubia.surface_conditions(),
         energy_required = 10,
         enabled = false,
@@ -27,6 +30,9 @@ data:extend({
         localised_name = {"item-name.kr-automation-core"},
         category = "biorecycling",
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-c",
+        icons = rubia_lib.compat.make_rubia_superscripted_icon({
+            icon = "__Krastorio2Assets__/icons/items/automation-core.png",
+        }),
         surface_conditions = rubia.surface_conditions(),
         energy_required = 10,
         enabled = false,
@@ -44,6 +50,9 @@ data:extend({
         localised_name = {"fluid-name.kr-oxygen"},
         category = "biorecycling",
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-d",
+        icons = rubia_lib.compat.make_rubia_superscripted_icon({
+            icon = "__Krastorio2Assets__/icons/fluids/oxygen.png",
+        }),
         surface_conditions = rubia.surface_conditions(),
         energy_required = 2,
         enabled = false,
@@ -77,6 +86,9 @@ data:extend({
     localised_description = {"recipe-description.rubia-compat-alloy-smelting-coke"},
     category = "biorecycling",
     subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-a",
+    icons = rubia_lib.compat.make_rubia_superscripted_icon({
+        icon = "__Krastorio2Assets__/icons/items/coke.png",
+    }),
     enabled = false,
     ingredients = {
         {type ="fluid", name ="rubia-bacterial-sludge", amount = 50},
