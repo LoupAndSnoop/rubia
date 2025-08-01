@@ -23,6 +23,7 @@ data:extend({
         },
         results = { { type = "item", name = "repair-pack", amount = 1 } },
         allow_productivity = true,
+        auto_recycle = false,
     },
     {
         type = "recipe",
@@ -43,6 +44,7 @@ data:extend({
         },
         results = { { type = "item", name = "kr-automation-core", amount = 2 } },
         allow_productivity = true,
+        auto_recycle = false,
     },
     {
         type = "recipe",
@@ -61,6 +63,7 @@ data:extend({
         },
         results = { { type = "fluid", name = "kr-oxygen", amount = 100 } },
         allow_productivity = true,
+        auto_recycle = false,
     },
 })
 
