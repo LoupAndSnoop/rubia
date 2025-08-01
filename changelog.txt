@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.91
-Date: ????
+Date: 2025-08-01
   Changes:
     - Icons for unique compatibility recipes for Krastorio 2 Spaced out are now distinguishable.
     - Vanilla galore continued module recipes are now added to the Moshine-Rubia cross tech.
