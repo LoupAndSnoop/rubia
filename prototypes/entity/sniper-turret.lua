@@ -94,7 +94,7 @@ data:extend({{
       type = "projectile",
       ammo_category = "bullet",
       health_penalty = -3,
-      cooldown = 180,--6,
+      cooldown = 200,--6,
       projectile_creation_distance = 1.39375,
       projectile_center = {0, -0.0875}, -- same as gun_turret_attack shift
       damage_modifier = damage_modifier,
