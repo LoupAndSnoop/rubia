@@ -2,6 +2,7 @@
 Version: 0.69.92
 Date: ????
   Changes:
+    - Buffed huge asteroids so sniper turrets cannot kill them. I basically multiplied the HP/flat res of huge asteroids AND railgun ammo by 10x.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.91
 Date: 2025-08-01
