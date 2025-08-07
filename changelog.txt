@@ -2,6 +2,7 @@
 Version: 0.69.93
 Date: ????
   Changes:
+    - Rubia pressure 50 hbar => 80 hbar, gravity 2=>2.4 m/s^2. This improves robot energy usage: 4x => 3x.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.92
 Date: 2025-08-04
