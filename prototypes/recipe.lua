@@ -893,7 +893,7 @@ data:extend({
     name = "rubia-long-stack-inserter",
     category ="advanced-crafting",
     enabled = false,
-    surface_conditions = rubia.surface_conditions(),
+    --surface_conditions = rubia.surface_conditions(),
     energy_required = 5,
     ingredients = {
       {type = "item", name = "rubia-long-bulk-inserter", amount = 1},
