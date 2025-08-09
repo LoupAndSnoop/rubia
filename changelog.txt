@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.94
-Date: ????
+Date: 2025-08-09
   Changes:
     - Tenebris is now explicitly locked behind Rubia by default. This is toggleable via mod settings (just like locking Aquilo behind it). Realistically, you will only notice if you have Tenebris + a mod that deletes Aquilo.
 ---------------------------------------------------------------------------------------------------
