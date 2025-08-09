@@ -204,9 +204,10 @@ local function require_rubia_clear_for_tech(technology_name, add_sci_cost)
 end
 --Make project trashdragon a prerequisite for endgame planets, like aquilo
 if (settings.startup["require-rubia-for-endgame-planets"].value) then 
-  require_rubia_clear_for_tech("planet-discovery-aquilo", true)
-  if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
-  if mods["Paracelsin"] then require_rubia_clear_for_tech("planet-discovery-paracelsin", true) end
+    require_rubia_clear_for_tech("planet-discovery-aquilo", true)
+    if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
+    if mods["Paracelsin"] then require_rubia_clear_for_tech("planet-discovery-paracelsin", true) end
+    if mods["tenebris-prime"] or mods["tenebris"] then require_rubia_clear_for_tech("planet-discovery-tenebris", true) end
 end
 
 
