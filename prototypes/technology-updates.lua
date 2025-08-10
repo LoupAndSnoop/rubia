@@ -205,9 +205,17 @@ end
 --Make project trashdragon a prerequisite for endgame planets, like aquilo
 if (settings.startup["require-rubia-for-endgame-planets"].value) then 
     require_rubia_clear_for_tech("planet-discovery-aquilo", true)
-    if mods["maraxsis"] then require_rubia_clear_for_tech("planet-discovery-maraxsis", true) end
-    if mods["Paracelsin"] then require_rubia_clear_for_tech("planet-discovery-paracelsin", true) end
-    if mods["tenebris-prime"] or mods["tenebris"] then require_rubia_clear_for_tech("planet-discovery-tenebris", true) end
+
+    --All the mod planets that get locked behind rubia
+    local locked_mod_planets = {
+        ["maraxsis"] = "planet-discovery-maraxsis",
+        ["Paracelsin"] = "planet-discovery-paracelsin",
+        ["tenebris-prime"] = "planet-discovery-tenebris",
+        ["tenebris"] = "planet-discovery-tenebris",
+    }
+    for mod_name, planet_tech in pairs(locked_mod_planets) do
+        if mods[mod_name] then require_rubia_clear_for_tech(planet_tech, true) end
+    end
 end
 
 

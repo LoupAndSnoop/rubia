@@ -989,4 +989,21 @@ if mods["jahtra"] then
     })
 end]]
 
+if mods["skewer_shattered_planet"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-stopwatch",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-stopwatch.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "change-recipe-productivity", recipe = "kovarex-enrichment-process", change = 0.30},
+            },
+            prerequisites = {"craptonite-axe", "s3_californium"},
+            research_trigger = {type = "craft-item", item="yeet-ske_hec_251_oxide", count=1000},
+        },
+    })
+end
+
 --#endregion

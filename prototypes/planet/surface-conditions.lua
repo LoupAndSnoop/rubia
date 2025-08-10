@@ -42,7 +42,6 @@ set_wind_speed("tiber", 12)
 
 
 -- Asteroid surface condition
------ Defining the wind speed surface condition
 data:extend({
   {
     type = "surface-property",
@@ -58,3 +57,4 @@ end
 data.raw["surface"]["space-platform"].surface_properties["rubia-asteroid-density"] = 50
 set_asteroid_density("cerys", 50)
 set_asteroid_density("rubia", 100)
+set_asteroid_density("skewer_shattered_planet", 70)
