@@ -2,6 +2,9 @@
 Version: 0.69.95
 Date: ????
   Changes:
+    - More text added for multiplayer.
+    - More lore.
+    - Readme/info now shows which planet mods for which Rubia has cameo technologies.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.94
 Date: 2025-08-09

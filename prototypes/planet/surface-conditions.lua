@@ -30,6 +30,7 @@ set_wind_speed("cubium", 10)
 set_wind_speed("frozeta", 5)
 set_wind_speed("igrys", 35)
 set_wind_speed("jahtra", 23)
+set_wind_speed("janus", 15)
 set_wind_speed("lignumis", 19)
 set_wind_speed("maraxsis", 0)
 set_wind_speed("moshine", 40)
@@ -37,6 +38,7 @@ set_wind_speed("muluna", 0)
 set_wind_speed("paracelsin", 10)
 --set_wind_speed("secretas", 8)
 set_wind_speed("tenebris", 60)
+set_wind_speed("tiber", 12)
 
 
 -- Asteroid surface condition

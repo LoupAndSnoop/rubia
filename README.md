@@ -40,7 +40,7 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 - Rubia science being added to infinite research productivity research can be toggled.
 - Despite the junk theme, this mod does NOT play like Fulgora at all.
 - Rubia is explicitly compatible with several adjustasble inserter mods: Bob's inserters, JanSharp's quick adjustable inserters, Renai Transportation, Smart inserters, Therenas' simple adjustable inserters, Diagonal inserters.
-- Rubia has special cameo technologies that appear when certain other planet mods are installed.
+- Rubia has special cameo technologies that appear when certain other planet mods are installed (a-z): [Cerys](https://mods.factorio.com/mod/Cerys-Moon-of-Fulgora), [Corrundum](https://mods.factorio.com/mod/corrundum), [Cubium](https://mods.factorio.com/mod/cubium), Jahtra, [Janus](https://mods.factorio.com/mod/janus), [Lignumis](https://mods.factorio.com/mod/lignumis)/[Wooden Universe](https://mods.factorio.com/mod/wood-universe-modpack), [Maraxsis](https://mods.factorio.com/mod/maraxsis), [Moshine](https://mods.factorio.com/mod/Moshine), [Muluna](https://mods.factorio.com/mod/planet-muluna), [Paracelsin](https://mods.factorio.com/mod/Paracelsin), [Secretas&Frozeta](https://mods.factorio.com/mod/secretas), [Tiber](https://mods.factorio.com/mod/Factorio-Tiberium). Vanilla planets are included.
 
 ---
 

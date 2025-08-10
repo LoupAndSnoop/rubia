@@ -336,6 +336,15 @@ local first_blast_off_cutscene = function(player)
     rubia.timing_manager.wait_then_do(1, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part1"}})
     rubia.timing_manager.wait_then_do(5 * 60, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part2"}})
     rubia.timing_manager.wait_then_do(10 * 60, "delayed-text-print", {player, {"rubia-taunt.rubia-first-blast-off-part3"}})
+
+    --Taunt when there is a multiplayer clear. Send it globally, but only once.
+    if game.is_multiplayer() and (table_size(game.connected_players) > 1)
+        and not storage.rubia_multiplayer_taunt then 
+        storage.rubia_multiplayer_taunt = true
+        rubia.timing_manager.wait_then_do(15 * 60, "delayed-text-print", {"game", {"rubia-taunt.rubia-first-blast-off-part4-mp", player.name or "this guy"}, nil})
+        rubia.timing_manager.wait_then_do(40 * 60, "delayed-text-print", {"game", {"rubia-taunt.rubia-first-blast-off-part5-mp", player.name or "He"}, nil})
+    end
+
     rubia.timing_manager.wait_then_do(15 * 60, "unlock-rubia-difficulty-achievement", {player})
 end
 

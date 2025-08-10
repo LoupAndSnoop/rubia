@@ -141,7 +141,8 @@ local lore_drop_table ={
         {count = 77, string = "rubia-lore.junk-mine-part4-rand", random = 6,
                      extra_id = "rubia-lore.junk-mine-part4-rand"},
         {count = 105, string = "rubia-lore.junk-mine-part5"},
-        {count = 130, string = "rubia-lore.junk-mine-part6-rand", random = 3,
+        {count = 130, string = "rubia-lore.junk-mine-part7"},
+        {count = 152, string = "rubia-lore.junk-mine-part6-rand", random = 3,
                      extra_id = "rubia-lore.junk-mine-part6-rand"},
     }
 }
