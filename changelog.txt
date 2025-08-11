@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.96
-Date: ????
+Date: 2025-08-11
   Changes:
     - Shattered planet mod support:
       ► Crapapult can now be placed on the shattered planet.
