@@ -110,7 +110,7 @@ end
 
 --Determine if the technology is a (distant) prerequisite of the other. Return true if yes.
 --Pass in as the names of technology prototype
-function rubia_lib.technology_is_prerequisite(potential_parent, potential_dependent)
+function rubia_lib.technology_is_prerequisite(potential_parent, potential_dependent, depth)
     --Go get the technology prototypes
     local parent = data.raw.technology[potential_parent]
     local child = data.raw.technology[potential_dependent]
@@ -122,7 +122,9 @@ function rubia_lib.technology_is_prerequisite(potential_parent, potential_depend
     
     for _, prereq in pairs(child.prerequisites) do
         if prereq == potential_parent then return true end --We found the prerequisite
-        if rubia_lib.technology_is_prerequisite(potential_parent, prereq) then return true end
+        --Safeguard against stack overflow
+        if depth > 50000 then log("WARNING: Technology tree depth is way too long on this technology: " .. potential_dependent) end
+        if rubia_lib.technology_is_prerequisite(potential_parent, prereq, depth + 1) then return true end
     end
 
     return false --No connection found

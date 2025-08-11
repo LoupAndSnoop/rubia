@@ -4,6 +4,8 @@ Copyright (c) 2025 Loup&Snoop
 
 --Exception 1: Wagon sprites are derived from Yuoki railways are distributed under a creative commons license, and are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/yi_railway
 --Exception 2: Science pack sprites are derived from Hornwitser's Quality Glassware mod, and are distributed under a CC-BY-SA license. They are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/quality_glassware
+--Exception 3: Loup&Snoop retains moral rights over Rubia. Full reproductions of Rubia are explicitly allowed, as are modifications necessary to ensure compatibility (especially with later versions of Factorio). However, the spirit of the original script/names/etc contained within the locale files (eg those contained in .cfg files) must be preserved. The following derivatives of Rubia are not permitted: 1) altering the spirit of the locale files, 2) re-routing localization strings to achieve a similar effect, or 3) forcing a dependency that overwrites localization text. Making separate mods to achieve a similar effect is expressly allowed (as long as they are not forced dependencies).
+
 
 TERMS AND CONDITIONS
 0. Definitions.
