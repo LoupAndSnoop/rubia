@@ -124,6 +124,7 @@ function rubia_lib.technology_is_prerequisite(potential_parent, potential_depend
         if prereq == potential_parent then return true end --We found the prerequisite
         --Safeguard against stack overflow
         if depth > 50000 then log("WARNING: Technology tree depth is way too long on this technology: " .. potential_dependent) end
+        if depth > 60000 then return true end --Emergency failsafe
         if rubia_lib.technology_is_prerequisite(potential_parent, prereq, depth + 1) then return true end
     end
 

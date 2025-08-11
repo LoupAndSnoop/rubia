@@ -2,6 +2,7 @@
 Version: 0.69.97
 Date: ????
   Changes:
+    - Added emergency failsafe to the stack overflow bug.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.96
 Date: 2025-08-11
