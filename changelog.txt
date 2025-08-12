@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.98
-Date: ????
+Date: 2025-08-12
   Changes:
     - More long term fix to the issues from 0.69.95-97 on stack overflow. There are now more safeguards in place to stop this from ever happenning again.
 ---------------------------------------------------------------------------------------------------
