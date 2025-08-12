@@ -108,9 +108,11 @@ rubia.get_item_localised_name = function(name)
 end
 
 
+
+local tech_search_blacklist = {}
 --Determine if the technology is a (distant) prerequisite of the other. Return true if yes.
---Pass in as the names of technology prototype
-function rubia_lib.technology_is_prerequisite(potential_parent, potential_dependent, depth)
+--Pass in as the names of technology prototype.
+local function technology_is_prerequisite_internal(potential_parent, potential_dependent, recursion_depth)
     --Go get the technology prototypes
     local parent = data.raw.technology[potential_parent]
     local child = data.raw.technology[potential_dependent]
@@ -120,16 +122,29 @@ function rubia_lib.technology_is_prerequisite(potential_parent, potential_depend
     if not parent or not child then return false end --Those techs were not found.
     if not child.prerequisites then return false end --No prerequisites
     
+    if recursion_depth == 0 then tech_search_blacklist = {} end --Clear the blacklist for a new search
+    if tech_search_blacklist[potential_dependent] then return false end --This prereq actually leads to an infinite loop!
+
     for _, prereq in pairs(child.prerequisites) do
         if prereq == potential_parent then return true end --We found the prerequisite
+        
         --Safeguard against stack overflow
-        if depth > 50000 then log("WARNING: Technology tree depth is way too long on this technology: " .. potential_dependent) end
-        if depth > 60000 then return true end --Emergency failsafe
-        if rubia_lib.technology_is_prerequisite(potential_parent, prereq, depth + 1) then return true end
+        if recursion_depth > 50000 then
+            log("WARNING: Technology tree depth is way too long on this technology: " .. potential_dependent)
+            tech_search_blacklist[prereq] = true --This is in the loop, we need to block it.
+            if recursion_depth > 55000 then return false end --Emergency failsafe break.
+        end
+        if technology_is_prerequisite_internal(potential_parent, prereq, recursion_depth + 1) then return true end
     end
 
     return false --No connection found
 end
+--Determine if the technology is a (distant) prerequisite of the other. Return true if yes.
+--Pass in as the names of technology prototype
+function rubia_lib.technology_is_prerequisite(potential_parent, potential_dependent)
+    return technology_is_prerequisite_internal(potential_parent, potential_dependent, 0)
+end 
+
 
 ---Technology name goes in. Out comes an array of technology names that currently list that tech as a prerequisite.
 ---@param tech_name string
