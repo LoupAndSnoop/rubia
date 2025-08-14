@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.99
-Date: ????
+Date: 2025-08-14
   Changes:
     - Crapapult speed nerf: void 245/s => 100/s. The net effect is: 1) Normal crapapult voids a nice round 100/s. 2) Voiding a stacked green belt now needs a legendary crapapult, as a normal crapapult will not be enough. Most users will not notice much difference.
     - Crapapult energy change: 1000kW => 800 kW. It also has more idle power drain (17 => 200 kW). Crapapult should spike your power grid a bit less than before, but generally cost more electricity to place one at all.
