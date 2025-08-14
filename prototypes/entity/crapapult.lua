@@ -176,15 +176,19 @@ data:extend({
         allowed_effects = {},--"consumption", "speed", "productivity", "pollution", "quality"},
         crafting_categories = {"crapapult"},
         result_inventory_size = 1,
-        crafting_speed = 5,
-        energy_usage = "1000kW",
+        crafting_speed = 4,
         source_inventory_size = 1,
         show_recipe_icon = false,
+    
+        energy_usage = "600kW",-- "1000kW", old value. at speed 5
         energy_source =
         {
           type = "electric",
           usage_priority = "secondary-input",
-          --emissions_per_minute = { pollution = 1 }
+
+          buffer_capacity= "1000kJ",
+          --input_flow_limit = "800kW",
+          drain = "200kW",
         },
         impact_category = "metal",
         open_sound = sounds.electric_large_open,

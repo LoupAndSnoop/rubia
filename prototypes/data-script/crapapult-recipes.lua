@@ -3,7 +3,8 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 
 _G.rubia.crapapult = _G.rubia.crapapult or {}
 
-local crapapult_recipe_base_energy = 0.02
+--Base energy cost for a crapapult crafting recipe
+local crapapult_recipe_base_energy = 0.04 --0.02
 
 --Crapapult blacklist for this mod. The external blacklist is declared earlier, and can be messed with by other mods.
 --This should be a list of all the names of items to NOT be able to yeet normally.
@@ -195,7 +196,7 @@ local function special_yeet_recipe(item_name, icon, icon_size)
     hide_from_player_crafting = true,
     hide_from_signal_gui = true,
     hidden = true,
-    energy_required = 0.1,
+    energy_required = crapapult_recipe_base_energy,
     ingredients = {{ type = "item", name = item_name, amount = 1 }},
     results = {{ type = "item", name = "yeet-" .. item_name, amount = 1 }},
     subgroup = "yeeting-items",
