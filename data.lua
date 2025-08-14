@@ -39,6 +39,7 @@ require("__rubia__.prototypes.planet.rubia-expressions")
 require("__rubia__.prototypes.ambient-sounds")
 require("__rubia__.prototypes.achievements")
 require("__rubia__.prototypes.tips-and-tricks")
+require("__rubia__.prototypes.menu-simulations")
 
 --Late stage data updates for compat.
 require("__rubia__.prototypes.entity.rocketizer-merge")
