@@ -54,6 +54,7 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Several functions come from Raiguard's [factorio library](https://github.com/factoriolib/flib/tree/2dcdb8f4b97e026f7f21f2f023613b64cc7dbcc8). Praise Raiguard.
 -  Lesbian Mami, lord thy god: Code used from BPlib to patch (temporarily?) an issue with super force building. [Link](https://github.com/project-cybersyn/bplib/tree/7151f7ae752fc63418186c31e63903b294fb889a)
 - ZarSasha: Wind turbine forked. [Link](https://mods.factorio.com/mod/k2-wind-turbine-zars-fork)
+- Varaxia: Code and particles for wind particles. [Link](https://mods.factorio.com/mod/celestial-weather)
 - Velaanix: Code for infinite braking force. [Link](https://mods.factorio.com/mod/InfiniteBraking)
 - MadClown: An ore sprite. [Link](https://github.com/Pezzawinkle/MadClowns)
 - Touhma/xX_Reckless_Xx: Sprites for the sniper turret (originally [cannon turret mod](https://mods.factorio.com/mod/adjustable_cannon_turret)).

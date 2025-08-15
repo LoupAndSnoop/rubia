@@ -2,7 +2,7 @@
 Version: 0.69.101
 Date: ????
   Changes:
-    - Weather particle effects added.
+    - Weather particle effects added. With code/particles adapted from Varaxia's Celestial Weather mod.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.100
 Date: 2025-08-15
