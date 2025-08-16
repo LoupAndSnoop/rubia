@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.101
-Date: ????
+Date: 2025-08-16
   Changes:
     - Weather particle effects added. With code/particles adapted from Varaxia's Celestial Weather mod.
     - Added compat for Krastorio 2 spaced out when BZ Tin is installed at the same time. (Why are you people installing multiple overhauls at once!?)
