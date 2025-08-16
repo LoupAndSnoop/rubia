@@ -112,7 +112,7 @@ end
 --Pass in as the names of technology prototype
 function rubia_lib.technology_is_prerequisite(potential_parent, potential_dependent)
     local tech_search_blacklist = {}
-    
+
     --Same thing, but with recursion depth
     local function technology_is_prerequisite_internal(potential_parent, potential_dependent, recursion_depth)
         --Go get the technology prototypes
@@ -250,6 +250,25 @@ function rubia_lib.compat.add_recipe_to_technology(technology_name, recipe_name)
     end
     --It is not already there
     table.insert(tech.effects, {type = "unlock-recipe", recipe = recipe_name})
+end
+
+
+
+---Add this prerequisite to the given technology (if the tech exists, and if it is there). If it is already there, don't bother.
+---@param technology_name string
+---@param prerequisite string
+function rubia_lib.compat.try_add_prerequisite(technology_name, prerequisite)
+    local tech = data.raw["technology"][technology_name]
+    if not tech then return end
+    
+    if not tech.prerequisites then tech.prerequisites = {prerequisite}
+    else --There already exist prerequisites
+        for _, entry in pairs(tech.prerequisites) do
+            if entry == prerequisite then return end --It is already there            
+        end
+        --Not already in the list
+        table.insert(tech.prerequisites, prerequisite)
+    end
 end
 
 ---Get a relevant IconData[] from a prototype OR IconData OR IconData[]

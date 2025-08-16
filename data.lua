@@ -13,7 +13,7 @@ require("__rubia__.prototypes.item")
 require("__rubia__.prototypes.recipe-category")
 require("__rubia__.prototypes.recipe")
 require("__rubia__.prototypes.technology")
-require("__rubia__.prototypes.technology-hider-data")
+--require("__rubia__.prototypes.technology-hider-data")
 
 require("__rubia__.prototypes.entity.resources")
 require("__rubia__.prototypes.entity.wind-turbine")
@@ -54,6 +54,8 @@ require("__rubia__.compat.krastorio2-so")
 require("__rubia__.compat.aai-industry")
 require("__rubia__.compat.crushing-industry")
 
+--Late stage general changes that may depend on compat
+require("__rubia__.prototypes.technology-hider-data")
 require("__rubia__.prototypes.data-script.recycling-fixes")
 
 
