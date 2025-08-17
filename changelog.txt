@@ -2,7 +2,7 @@
 Version: 0.69.102
 Date: ????
   Changes:
-    - Fixed bullet range issues for Krastorio 2 Spaced Out, where bullets lose their hitbox on distant targets for long range turrets, if weapons are set to "Realistic" mode. I'm putting out this fix for Rubian sniper turrets, but this also fixes issues within K2SO related to quality (as a side effect). Thanks to Protonel for figuring this out.
+    - Fixed bullet range issues for Krastorio 2 Spaced Out (again, again! Third time is the charm). Bullets lost their hitbox on distant targets for long range turrets, if weapons are set to "Realistic" mode. I'm putting out this fix for Rubian sniper turrets, but this also fixes issues within K2SO related to quality (as a side effect). Thanks to Protonel for figuring this out.
     - Quick train fix.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.101
