@@ -545,7 +545,10 @@ data:extend({
     corpse = "cargo-wagon-remnants",
     dying_explosion = "cargo-wagon-explosion",
     factoriopedia_simulation = simulations.factoriopedia_cargo_wagon,
-    collision_box = {{-0.6, -2.4}, {0.6, 2.4}},
+    --Collision hitbox is slightly smaller to prevent cheese.
+    --Original: {{-0.6, -2.4}, {0.6, 2.4}},
+    --Biggest with no width changes: {{-0.6, -2.3}, {0.6, 2.3}}, --Note 2.305 is too big!
+    collision_box = {{-0.6, -2.3}, {0.6, 2.3}},
     selection_box = {{-1, -2.703125}, {1, 3.296875}},
     damaged_trigger_effect = hit_effects.entity(),
     vertical_selection_shift = -0.796875,

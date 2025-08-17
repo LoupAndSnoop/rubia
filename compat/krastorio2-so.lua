@@ -153,6 +153,7 @@ if settings.startup["kr-realistic-weapons"].value then
         local SPEED_MULT = 1.5
         local DEV_MULT = 1
         local RANGE_DEV_MULT = 0.8
+        local MIN_PROJECTILE_RANGE = 65
 
         local action_deliveries = {}
         for name, proto in pairs(data.raw.ammo) do
@@ -172,6 +173,7 @@ if settings.startup["kr-realistic-weapons"].value then
                     if each.starting_speed then each.starting_speed = each.starting_speed * SPEED_MULT end
                     if each.direction_deviation then each.direction_deviation = each.direction_deviation * DEV_MULT end
                     if each.range_deviation then each.range_deviation = each.range_deviation * RANGE_DEV_MULT end
+                    if each.max_range then each.max_range = math.max(each.max_range, MIN_PROJECTILE_RANGE) end
                 end
             end
         end
