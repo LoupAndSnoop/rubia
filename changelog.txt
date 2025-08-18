@@ -2,6 +2,8 @@
 Version: 0.69.103
 Date: ????
   Changes:
+    - Fixed undo bug. I need to do more testing, with potential edits due to a wube bug. You may notice weirdness with undo calls around Rubia.
+    - Paracelsin compat fix.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.102
 Date: 2025-08-17

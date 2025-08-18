@@ -943,7 +943,7 @@ if mods["Paracelsin"] and mods["machine-upgrades"] then
         effects = {{type = "character-health-bonus", modifier = -25, 
                     icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
         },
-        prerequisites = {"craptonite-axe", "galvanized-casting"},
+        prerequisites = {"craptonite-axe", "galvanization-science-pack"},
         research_trigger = {type = "craft-item", item="yeet-electric-coil", count=2000},
     },
     })

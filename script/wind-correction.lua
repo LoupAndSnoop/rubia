@@ -97,6 +97,31 @@ local wind_prototype_dic = {
     ["loader-1x1"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
 }
 
+
+---Remove the last undo item from the given player index, if there is one.
+---@param player_index uint?
+local function squash_undo_actions(player_index)
+    if not player_index then return end
+    local player = game.players[player_index]
+    if not player then return end
+    local stack = player.undo_redo_stack
+
+    --assert(stack.get_undo_item_count() > 1, "Fewer than 2 items on the undo stack!")
+
+    if stack.get_undo_item_count() < 2 then return end
+    local undo1 = stack.get_undo_item(1)
+    local undo2 = stack.get_undo_item(2)
+
+    if not undo1 or not undo2 then return end
+
+    --Squash them together
+    for _, action in pairs(undo1) do
+        table.insert(undo2, action)
+    end
+    --Remove the last one
+    stack.remove_undo_item(1)
+end
+
 --#region Making functions for wind correction. These assume valid entity.
 ---Force this entity's orientation to that direction.
 ---@param entity LuaEntity
@@ -105,7 +130,10 @@ local function force_orientation_to(entity, player_index, direction)
     if (entity.direction == direction) then return end
     wind_correction_notification(entity, player_index)
     for _ = 1, 3 do
-        if entity.direction ~= direction then entity.rotate{by_player=player_index} end
+        if entity.direction ~= direction then
+            entity.rotate{by_player=player_index}
+            squash_undo_actions(player_index)
+        end
     end
 end
 
@@ -113,6 +141,7 @@ end
 local function force_orientation_not(entity, player_index, direction)
     if entity.direction == direction then
         entity.rotate{by_player=player_index}
+        squash_undo_actions(player_index)
         wind_correction_notification(entity, player_index)
     end
 end
@@ -141,7 +170,10 @@ local function force_orientation_condition(entity, player_index, orientation_val
         if orientation_validator(entity) then 
             wind_correction_notification(entity, player_index);
             return end --Happy
+        --game.print("Before: " .. tostring(game.players[player_index].undo_redo_stack.get_undo_item_count()))
         entity.rotate{by_player=player_index}
+        --game.print("After: " .. tostring(game.players[player_index].undo_redo_stack.get_undo_item_count()))
+        squash_undo_actions(player_index)
     end
     
     local true_type = (entity.type == "entity-ghost") and entity.ghost_type or entity.type
@@ -167,6 +199,7 @@ local function force_splitter_like_orientation_to(entity, player_index, directio
 
     --If one rotation gets this entity to the right state, then we're good to just give notice.
     entity.rotate{by_player=player_index} --Do not raise event, because that causes an infinite loop
+    squash_undo_actions(player_index)
     if entity.direction == direction then
         wind_correction_notification(entity, player_index)
         return
