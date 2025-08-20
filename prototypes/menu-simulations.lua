@@ -19,7 +19,7 @@ return
     },
     init_update_count = init_update_count or 0,
 
-    mods = {"rubia"},
+    mods = (planet == "rubia") and {"rubia"} or {},
     init =
     [[
     local sim_planet = game.surfaces["]] .. planet .. [["]
@@ -34,17 +34,18 @@ return
     for _, force in pairs(game.forces) do
         force.set_turret_attack_modifier("gun-turret", 0.1)
     end
-    for _, player in pairs(game.players) do
-        player.teleport({center[1]-9,center[2]}, game.get_surface("rubia"), true)
+    if ]] .. planet .. [[ == "rubia" then
+        for _, player in pairs(game.players) do
+            player.teleport({center[1]-9,center[2]}, game.get_surface("rubia"), true)
+        end
     end
-
     ]]
     ..
     script
 }
 end
 
-main_menu_simulations.rubia_sim_001 = make_simulation(60 * 15, 60*3, "rubia", "__rubia-assets__/menu-simulations/rubia-title-sim-gun-belts.zip", [[]])
+main_menu_simulations.rubia_sim_001 = make_simulation(60 * 16, 60*1, "rubia", "__rubia-assets__/menu-simulations/rubia-title-sim-gun-belts.zip", [[]])
 main_menu_simulations.rubia_sim_002 = make_simulation(60 * 25, 0, "rubia", "__rubia-assets__/menu-simulations/rubia-title-sim-trashsteroid-destruction.zip", [[]])
 main_menu_simulations.rubia_sim_003 = make_simulation(60 * 15, 0, "nauvis", "__rubia-assets__/menu-simulations/rubia-title-sim-trains.zip", [[]])
 

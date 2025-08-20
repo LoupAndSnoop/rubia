@@ -2,6 +2,8 @@
 Version: 0.69.104
 Date: ????
   Changes:
+    - Menu simulations no longer give message pings. Also very slightly optimized.
+    - More lore.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.103
 Date: 2025-08-18

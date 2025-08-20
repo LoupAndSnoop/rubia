@@ -516,6 +516,7 @@ rubia.timing_manager.register("cutscene-roboport-failsafe-part2", function(playe
 end)
 
 rubia.timing_manager.register("delayed-text-print", function(player, local_string, print_settings) 
+    if game.simulation then return end --Do not print in simulations!
     if player and player ~= "game" then player.print(local_string, print_settings)
     else game.print(local_string, print_settings)
     end
