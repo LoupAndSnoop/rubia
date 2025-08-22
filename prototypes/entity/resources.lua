@@ -36,6 +36,15 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
     collision_mask = resource_parameters.collision_mask,
     collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+
+    --[[Making our patches infinite. This idea is shelved because I can't get the density
+    --right for the desired mining speed.
+    --Note: Base elec mining drill speed give 1.85 scrap/sec.
+    infinite = true,
+    minimum = 100,
+    normal = 100,
+    infinite_depletion_amount = 0,]]
+
     resource_patch_search_radius = resource_parameters.resource_patch_search_radius,
     --[[autoplace = resource_autoplace.resource_autoplace_settings
     {
@@ -85,7 +94,7 @@ local function resource(resource_graphic,resource_parameters, autoplace_paramete
     },
     map_color = resource_parameters.map_color,
     mining_visualisation_tint = resource_parameters.mining_visualisation_tint,
-    factoriopedia_simulation = resource_parameters.factoriopedia_simulation
+    factoriopedia_simulation = resource_parameters.factoriopedia_simulation,    
   }
 end
 
@@ -111,7 +120,7 @@ data:extend({
     highlight = true,
     minimum = 60000,
     normal = 300000,
-    infinite_depletion_amount = 10,
+    infinite_depletion_amount = 0,--10,
     resource_patch_search_radius = 12,
     tree_removal_probability = 0.7,
     tree_removal_max_distance = 32 * 32,
@@ -299,7 +308,6 @@ data:extend({
   richness = true
 }
 })
-
 
 --[[Noise expressions
 data:extend({

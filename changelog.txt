@@ -4,6 +4,8 @@ Date: ????
   Changes:
     - Menu simulations no longer give message pings. Also very slightly optimized.
     - More lore.
+    - Bacterial sludge wells no longer deplete.
+    - Garbo grabbers can finally animate! ty Boskid.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.103
 Date: 2025-08-18

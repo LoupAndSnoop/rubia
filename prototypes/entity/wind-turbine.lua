@@ -122,9 +122,9 @@ local entity = {
     performance_at_day = 1 * 6.9/300, --Factorio multiplies by surface_prop / default of that prop. Undo
     performance_at_night = 1 * 6.9/300,
     solar_coefficient_property = "rubia-wind-speed",
-    picture = graphics_entity,--graphics_binary,
+    --picture = graphics_entity,--graphics_binary,
     energy_source = {type = "electric", usage_priority = "solar"},
-    --stateless_visualization = {animation = { layers = { graphics_entity, graphics_entity_sh } }},
+    stateless_visualisation = {animation = { layers = { graphics_entity, graphics_entity_sh } }},
     ]]
 
     --Electric energy interface version
@@ -137,18 +137,18 @@ local entity = {
         output_flow_limit = (6*SETTING.POWER_OUTPUT_kW) .. "kW", -- Give x6 to give enough output for leg quality
         render_no_power_icon = false,
     },
+    animation = { layers = { graphics_entity, graphics_entity_sh } },
+    continuous_animation = true,
     
-
+    
     surface_conditions = rubia.surface_conditions(),
     heating_energy = "30kW",
-
     water_reflection = {
         pictures = graphics_reflections,
         rotate = false,
         orientation_to_variation = false
     },
-    animation = { layers = { graphics_entity, graphics_entity_sh } },
-    continuous_animation = true,
+
     working_sound = {
         sound = sounds.wind_turbine,
         idle_sound = sounds.wind_turbine,

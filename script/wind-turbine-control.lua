@@ -68,13 +68,14 @@ local function update_wind_turbine(entity)
         quality_correct_wind_turbine(entity)
     else
         entity.operable = true
-        try_add_turbine_rendering(entity)
+        --try_add_turbine_rendering(entity)
     end
 end
 
 
 --Refresh the quality correction etc on all turbines
 function wind_turbine.hard_refresh_all_turbines()
+    --[[
     remove_all_turbine_renderings()
 
     local all_entity = rubia_lib.find_all_entity_of_name("rubia-wind-turbine")
@@ -83,6 +84,7 @@ function wind_turbine.hard_refresh_all_turbines()
             update_wind_turbine(entity)
         end
     end
+    ]]
 end
 
 --Events
