@@ -106,7 +106,6 @@ data:extend {{
         type = "research",
         technology = "rubia-progression-stage1"
     },
-    dependencies = {"rubia-briefing"}
 },
 
 {
@@ -120,7 +119,6 @@ data:extend {{
         type = "research",
         technology = "rubia-progression-stage1"
     },
-    dependencies = {"rubia-briefing"}
 },
 
 {
@@ -134,7 +132,6 @@ data:extend {{
       type = "build-entity",
       entity = "crapapult",
     },
-    dependencies = {"rubia-briefing"},
     simulation =
     {
         planet = "rubia",
@@ -168,7 +165,6 @@ data:extend {{
       type = "research",
       technology = "rubia-project-trashdragon",
     },
-    dependencies = {"rubia-briefing"},
     localised_description = {"entity-description.rci-rocketizer"},
     simulation =
     {
@@ -219,7 +215,7 @@ data:extend {{
       type = "research",
       technology = "craptonite-processing",
     },
-    dependencies = {"rubia-briefing"},
+    --dependencies = {"rubia-briefing"},
     simulation =
     {
         planet = "rubia",
@@ -297,7 +293,6 @@ data:extend {{
       type = "research",
       technology = "craptonite-wall",
     },
-    dependencies = {"rubia-briefing"},
     simulation =
     {
         planet = "rubia",

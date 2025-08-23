@@ -2,6 +2,11 @@
 Version: 0.69.106
 Date: ????
   Changes:
+    - Changed the resistances of huge asteroids AGAIN so that sniper turrets (and misc physical stuff) cannot harm them. This should only affect people trying to do promethium with really cheesey strats that are clearly unintended. PLEASE let me know if this messes with another mod in a way that would mess with gathering promethium. The change:
+      ► Railguns now do "Railgun" type damage to huge asteroids.
+      ► Huge asteroids are 100% immune to physical.
+    - Landing logic tuned for dropping with items.
+    - Fixed a bug where tips and tricks items did not get highlighted if you didn't scroll through the whole Rubia planet briefing. Very sorry to everyone affected.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.105
 Date: 2025-08-23

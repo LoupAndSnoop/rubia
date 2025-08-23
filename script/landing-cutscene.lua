@@ -444,6 +444,10 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
 
     cancel_cutscene(player)
 
+    --Some mods allow items in player inventory. We need to clear this so they actually land with nothing
+    local inventory = player.get_inventory(defines.inventory.character_main)
+    if inventory then inventory.clear() end
+
     --Check if they forgot a roboport in their armor before queuing failsafe
     --No grid = they did forget a roboport
     local need_roboport = true
