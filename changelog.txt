@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.105
-Date: ????
+Date: 2025-08-23
   Changes:
     - Context: Lots of minor tweaks from watching Splee play Rubia.
     - Rubia wind turbines have a smaller hitbox: 0.95 => 0.8. This allows the engineer to squeak through them. I originally blocked this intentionally, but have since changed my mind.
