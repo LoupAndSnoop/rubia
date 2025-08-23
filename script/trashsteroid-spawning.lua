@@ -516,7 +516,7 @@ trashsteroid_lib.trashsteroid_impact_update = function()
         end
       end
 
-      local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,9)) --Number of unique explosions go here
+      local explosion_name = "medium-trashsteroid-explosion" .. tostring(storage.rubia_asteroid_rng(1,10)) --Number of unique explosions go here
       --trashsteroid_lib.trashsteroid_explosions[storage.rubia_asteroid_rng(1,#trashsteroid_lib.trashsteroid_explosions)]
       storage.rubia_surface.create_entity({
         name = explosion_name,

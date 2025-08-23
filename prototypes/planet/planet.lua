@@ -25,7 +25,7 @@ local planet = {
         subgroup = "planets",
         map_gen_settings = planet_map_gen.rubia(), 
         pollutant_type = nil,
-        solar_power_in_space = 200,
+        solar_power_in_space = 250,
         platform_procession_set =
         {
           arrival = {"planet-to-platform-b"},
@@ -41,7 +41,7 @@ local planet = {
         {
           ["day-night-cycle"] = 1.5 * minute,
           ["magnetic-field"] = 10,
-          ["solar-power"] = 15,
+          ["solar-power"] = 25,
           pressure = 80,--50,
           gravity = 2.4, --2,
           --["rubia-wind-speed"] = 300,

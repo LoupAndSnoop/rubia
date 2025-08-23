@@ -113,7 +113,8 @@ local entity = {
     dying_explosion = "assembling-machine-1-explosion",
     damaged_trigger_effect = HIT_EFFECTS.entity(),
     impact_category = "metal",
-    collision_box = {{-0.95, -0.95}, {0.95, 0.95}}, -- modified to a 2x2
+    -- modified to a 2x2. Characer is 0.4x0.4. This allows a squeak thru.
+    collision_box = {{-0.8, -0.8}, {0.8, 0.8}},--{{-0.95, -0.95}, {0.95, 0.95}}, 
     selection_box = {{-0.95, -0.95}, {0.95, 0.95}},
     map_color = {10/255, 13/255, 13/255}, --Match solar panel color.
 

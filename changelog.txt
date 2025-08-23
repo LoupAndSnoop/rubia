@@ -2,6 +2,13 @@
 Version: 0.69.105
 Date: ????
   Changes:
+    - Context: Lots of minor tweaks from watching Splee play Rubia.
+    - Rubia wind turbines have a smaller hitbox: 0.95 => 0.8. This allows the engineer to squeak through them. I originally blocked this intentionally, but have since changed my mind.
+    - Rubia entities now slightly faster to mine (0.5s each).
+    - Spidertron module drop rates 8 => 10% (+25%)
+    - Rubia solar power 15% => 25% (+66%). This is to give less disadvantage to people dropping to Rubia without fission power.
+    - Rubia solar power in space 200% => 250% (+25%). This allows solar-powered space platforms to have less stress when approaching Rubia, and also maintains similar lore-based occlusion of light: 93% => 90% occlusion. (If you didn't put the pieces together, the debris in the atmosphere is why solar is so much weaker on surface than in space).
+    - Trashsteroid explosions vs ground are now visually larger (+50% or so) for more satisfying impact. They are also better organized in level editor, to be less obnoxious for other modders. Also, I added one more unique trashsteroid explosion type.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.104
 Date: 2025-08-22

@@ -427,7 +427,7 @@ data:extend
     minable =
     {
       mining_particle = "iron-ore-particle",
-      mining_time = 4,
+      mining_time = 3.5,
       results =
       {
         --Important drops
@@ -445,7 +445,7 @@ data:extend
         {type = "item", name = "assembling-machine-2", probability = 0.1, amount_min = 7, amount_max = 12},
         {type = "item", name = "electric-mining-drill", probability = 0.07, amount_min = 10, amount_max = 20},
         {type = "item", name = "efficiency-module", probability = 0.1, amount_min = 15, amount_max = 30},
-        {type = "item", name = "speed-module-2", probability = 0.08, amount_min = 15, amount_max = 25},
+        {type = "item", name = "speed-module-2", probability = 0.1, amount_min = 15, amount_max = 25},
         {type = "item", name = "spoilage", probability = 0.03, amount_min = 1, amount_max = 1}
       },
     },
@@ -523,7 +523,7 @@ data:extend
     minable =
     {
       mining_particle = "iron-ore-particle",
-      mining_time = 3,
+      mining_time = 2.5,
       results =
       {
         {type = "item", name = "iron-stick", amount_min = 4, amount_max = 8},
@@ -635,7 +635,7 @@ data:extend
     minable =
     {
       mining_particle = "iron-ore-particle",
-      mining_time = 3,
+      mining_time = 2.5, --3
       results =
       {
         {type = "item", name = "iron-gear-wheel", amount_min = 2, amount_max = 4},

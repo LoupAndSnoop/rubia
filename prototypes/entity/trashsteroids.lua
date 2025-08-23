@@ -235,22 +235,41 @@ data:extend({
 --_G.trashsteroid_lib = _G.trashsteroid_lib or {}
 local explosions_medium = {
     table.deepcopy(data.raw["explosion"]["steel-chest-explosion"]),
-    table.deepcopy(data.raw["explosion"]["pipe-explosion"]),
-    table.deepcopy(data.raw["explosion"]["turbo-transport-belt-explosion"]),
-    table.deepcopy(data.raw["explosion"]["pipe-to-ground-explosion"]),
-    table.deepcopy(data.raw["explosion"]["fast-transport-belt-explosion"]),
-    table.deepcopy(data.raw["explosion"]["transport-belt-explosion"]),
+    table.deepcopy(data.raw["explosion"]["pipe-explosion-base"]),
+    table.deepcopy(data.raw["explosion"]["turbo-transport-belt-explosion-base"]),
+    table.deepcopy(data.raw["explosion"]["pipe-to-ground-explosion-base"]),
+    table.deepcopy(data.raw["explosion"]["fast-transport-belt-explosion-base"]),
+    table.deepcopy(data.raw["explosion"]["transport-belt-explosion-base"]),
     table.deepcopy(data.raw["explosion"]["solar-panel-explosion"]),
     table.deepcopy(data.raw["explosion"]["storage-chest-explosion"]),--"space-platform-foundation-explosion"]),
-    table.deepcopy(data.raw["explosion"]["iron-chest-explosion"])
+    table.deepcopy(data.raw["explosion"]["iron-chest-explosion"]),
+    table.deepcopy(data.raw["explosion"]["rail-explosion"])
 }
 --Names of all trashsteroid explosion prototypes
 --trashsteroid_lib.trashsteroid_explosions = {}
 for i,explosion in pairs(explosions_medium) do
     --explosions_medium[i]
     explosion.name = "medium-trashsteroid-explosion" .. tostring(i)
+    explosion.localised_name = {"entity-name.medium-trashsteroid-explosion", tostring(i)}
     explosion.sound = sounds.large_explosion(0.03,0.06) --Min/max volume edit here
-    --table.insert(trashsteroid_lib.trashsteroid_explosions, explosion.name)
+    explosion.icon = data.raw.car["medium-trashsteroid"].icon
+    explosion.icon_size = data.raw.car["medium-trashsteroid"].icon_size
+    explosion.order = "r-r-e" .. tostring(i)
+    explosion.subgroup = "enemy-death-explosions"
+  
+    if explosion.created_effect and explosion.created_effect.action_delivery then
+      for _, entry in pairs(explosion.created_effect.action_delivery.target_effects or {}) do
+        if entry.speed_from_center then entry.speed_from_center = entry.speed_from_center * 1.5 end
+        if entry.initial_vertical_speed then entry.initial_vertical_speed = entry.initial_vertical_speed * 1.25 end
+        if entry.offset_deviation then
+          for _, x in pairs({1,2}) do 
+            for _, y in pairs({1,2}) do 
+              entry.offset_deviation[x][y] = entry.offset_deviation[x][y] * 1.5
+            end
+          end
+        end
+      end
+    end
 end
 data:extend(explosions_medium)
 
