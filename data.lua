@@ -3,6 +3,7 @@
 
 _G.rubia = require("__rubia__.lib.constants") -- Global var to query for global constants
 require("__rubia__.lib.lib")
+rubia_lib.start_logging_rubia_technology()
 
 require("__rubia__.prototypes.particles")
 require("__rubia__.prototypes.sound-effects")
@@ -55,9 +56,9 @@ require("__rubia__.compat.aai-industry")
 require("__rubia__.compat.crushing-industry")
 
 --Late stage general changes that may depend on compat
-require("__rubia__.prototypes.technology-hider-data")
+--require("__rubia__.prototypes.technology-hider-data")
 require("__rubia__.prototypes.data-script.recycling-fixes")
-
+rubia_lib.stop_logging_rubia_technology()
 
 --log("All globals defined by Rubia:")
 --for n in pairs(_G) do if not all_globals[n] then log(n) end end

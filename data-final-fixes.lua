@@ -1,8 +1,9 @@
 require("__rubia__.prototypes.data-script.crapapult-recipes")
 require("__rubia__.prototypes.data-script.rubia-surface-blacklist")
 require("__rubia__.prototypes.data-script.asteroid-update")
-require("__rubia__.prototypes.technology-final-fixes")
+--require("__rubia__.prototypes.technology-final-fixes")
 require("__rubia__.compat.distant-misfires")
+require("__rubia__.prototypes.technology-hider-data")
 
 --Generic compat calls
 for _, entry in pairs(rubia_lib.compat.to_call_on_data_final_fixes) do entry() end

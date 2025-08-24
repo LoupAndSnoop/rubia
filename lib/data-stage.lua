@@ -357,3 +357,28 @@ rubia_lib.compat.to_call_on_data_updates = rubia_lib.compat.to_call_on_data_upda
 rubia_lib.compat.to_call_on_data_final_fixes = rubia_lib.compat.to_call_on_data_final_fixes or {}
 
 --#endregion
+
+
+--Logging all techs that exist in Rubia
+function rubia_lib.start_logging_rubia_technology()
+    --Hashset of all technology prototype names that exist prior to Rubia
+    rubia_lib.all_techs_non_rubia = {}
+    for name in pairs(data.raw.technology or {}) do rubia_lib.all_techs_non_rubia[name] = true end
+end
+
+--At the end of a data stage, figure out which technology prototypes were made by Rubia
+--Only add techs that did not exist that the last start_logging call
+function rubia_lib.stop_logging_rubia_technology()
+    --Hashset of all technology prototypes made by Rubia
+    rubia_lib.all_techs_rubia = rubia_lib.all_techs_rubia or {}
+    assert(rubia_lib.all_techs_non_rubia, "Rubia did not start logging techs before finishing counting all Rubia-specific technologies!")
+
+    for name in pairs(data.raw.technology or {}) do 
+        if not rubia_lib.all_techs_non_rubia[name] then
+            rubia_lib.all_techs_rubia[name] = true
+        end
+    end
+
+    rubia_lib.all_techs_rubia["braking-force-8"] = true --Count this tech as our tech
+    rubia_lib.all_techs_non_rubia = nil
+end

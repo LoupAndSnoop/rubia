@@ -110,7 +110,7 @@ end
 local function get_techs_to_be_hidden() 
     local to_hide = {}
 
-    --Go through parents that have auto-selected chuldren
+    --Go through parents that have auto-selected children
     for tech in pairs(hiding_parent_list) do
         to_hide[tech] = true
         for _, child in pairs(rubia_lib.get_child_technologies(tech)) do
@@ -129,10 +129,11 @@ local function get_techs_to_be_hidden()
         if to_hide[tech] then to_hide[tech] = nil end
     end
 
-    --Remove any unknowns in case
+    --Failsafes to not add
     local to_remove = {}
     for tech in pairs(to_hide) do
-        if tech_lib.is_unknown_tech_placeholder(tech) then 
+        if tech_lib.is_unknown_tech_placeholder(tech) --Do not hide the unknown techs
+            or not rubia_lib.all_techs_rubia[tech] then --Do not hide non-Rubia technologies
             table.insert(to_remove, tech)
         end
     end
