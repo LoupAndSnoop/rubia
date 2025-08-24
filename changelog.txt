@@ -2,7 +2,7 @@
 Version: 0.69.107
 Date: ????
   Changes:
-    - Quick bugfix for huge asteroids with no resistances.
+    - Fix crash on load when you have a mod with huge asteroids with no resistances.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.106
 Date: 2025-08-24
