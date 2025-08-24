@@ -72,6 +72,7 @@ local function try_scale_asteroid_health(prototype)
         end
     end
     if not has_railgun_res then --Doesn't already have impact res => give it
+        prototype.resistances = prototype.resistances or {}
         table.insert(prototype.resistances, proposed_kinetic_res)
     end
 end
