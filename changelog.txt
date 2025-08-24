@@ -2,6 +2,7 @@
 Version: 0.69.108
 Date: ????
   Changes:
+    - I refactored the technology hiding system to allow other mods to change prerequisites of Rubia technologies. You won't notice anything different, but this futureproofs Rubia techs against softlocks from external interference.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.107
 Date: 2025-08-24
