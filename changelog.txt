@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.106
-Date: ????
+Date: 2025-08-24
   Changes:
     - NEW KINETIC DAMAGE TYPE: Changed the resistances again so that sniper turrets (and misc physical stuff) cannot harm huge asteroids. This should only affect people trying to do promethium with really cheesey strats that are clearly unintended. PLEASE let me know if this messes with another mod (especially if it would mess with gathering promethium). Thanks to Praxi for reporting it! The change:
       ► Railguns now do "Kinetic" type damage to huge asteroids.
