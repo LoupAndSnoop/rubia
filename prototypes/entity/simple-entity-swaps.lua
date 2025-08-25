@@ -76,7 +76,7 @@ local function make_rubia_variant(prototype)
   end
 
   --Some things aren't placeable. Example: gunship-flying from MeteorSwarms Aircraft space age. Work out more later!
-  if not new_prototype.placeable_by then --TODO: Permanent fix!
+  if not new_prototype.placeable_by then --TODO: Permanent fix?
     log("WARNING: There is nothing for placeable_by for this prototype: " .. prototype.name)
   end
   return new_prototype
@@ -97,7 +97,7 @@ end
 
 local function make_car_prototypes()
   for i, prototype in pairs(find_car_prototypes()) do
-    log(i .. " - " .. tostring(prototype.name))
+    log("Rubia is auto-making a custom car-variant of: " .. i .. " - " .. tostring(prototype.name))
     local new_prototype = make_rubia_variant(prototype)
     new_prototype.trash_inventory_size = 0
     data:extend({new_prototype})
