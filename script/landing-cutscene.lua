@@ -266,6 +266,16 @@ local function start_cutscene(player, cargo_pod)
     local character = cargo_pod.get_passenger()
     assert(character, "Character not found.")
     
+    --Some mods allow items in player inventory. We need to clear this so they actually land with nothing
+    while player.crafting_queue_size > 0 do
+        player.cancel_crafting{index = 1, count = player.crafting_queue[1].count}
+    end
+    local inventory = player.get_inventory(defines.inventory.character_main)
+    if inventory then inventory.clear() end
+    local inventory_trash = player.get_inventory(defines.inventory.character_trash)
+    if inventory_trash then inventory_trash.clear() end
+    
+    
     player.teleport(character.position, character.surface, false) --break out of remote view
 
     --[[
@@ -443,10 +453,6 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     end
 
     cancel_cutscene(player)
-
-    --Some mods allow items in player inventory. We need to clear this so they actually land with nothing
-    local inventory = player.get_inventory(defines.inventory.character_main)
-    if inventory then inventory.clear() end
 
     --Check if they forgot a roboport in their armor before queuing failsafe
     --No grid = they did forget a roboport
