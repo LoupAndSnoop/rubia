@@ -38,7 +38,13 @@ local mod_item_blacklist = {
     {mod="Telogistics", type = "container", name = "s6x-logistic-teleporter"},
     --Transport rings require non-rubia parts, and are fully manual, so I will allow.
     {mod="quantum-fabricator", type = "reactor", name = "dedigitizer-reactor"}, --Lets you teleport items in
-
+    
+    --AAI programmable vehicles
+    {mod="aai-programmable-vehicles", type = "constant-combinator", name = "position-beacon"},
+    {mod="aai-programmable-vehicles", type = "container", name = "vehicle-deployer"},
+    {mod="aai-programmable-vehicles", type = "simple-entity-with-force", name = "vehicle-depot"},
+    {mod="aai-programmable-vehicles", type = "container", name = "vehicle-depot-chest"},
+    
     --Linked belt shenanigans
     --Planet portal belts are like linked belts without the linked belt prototype
     {mod="planet-portal", type = "underground-belt", name = "portal-underground-belt"},
@@ -220,12 +226,13 @@ for _, entry in pairs(rubia.surface_blacklist) do
     end
 end
 
---Now go through all the blacklist
-log("Banning these entities from Rubia: " .. serpent.block(dictionary_blacklist))
-for category, sub_blacklist in pairs(dictionary_blacklist) do
-    for _, prototype in pairs(data.raw[category]) do
-        if rubia_lib.array_find(sub_blacklist, prototype.name) then
-            rubia.ban_from_rubia(prototype)
-        end
+--Protect the actual blacklist in a separate file so we can make copies.
+local rubia_surface_blacklist = {}
+function rubia_surface_blacklist.copy_blacklist()
+    local dictionary_copy = {}
+    for key, val in pairs(dictionary_blacklist) do
+        dictionary_copy[key] = val
     end
+    return dictionary_copy
 end
+return rubia_surface_blacklist

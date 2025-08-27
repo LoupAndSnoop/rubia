@@ -382,3 +382,94 @@ function rubia_lib.stop_logging_rubia_technology()
     rubia_lib.all_techs_rubia["braking-force-8"] = true --Count this tech as our tech
     rubia_lib.all_techs_non_rubia = nil
 end
+
+
+---A localised string can only have 20 parameters. But you can embed
+---another complete localised string with 20 into a single parameter...
+---By Stringweasel
+---@param message LocalisedString
+---@return LocalisedString condensed_message
+function rubia_lib.crunch_localised_string(message)
+    local condensed_message = {""}
+    local index = 1
+    for i=1,19 do
+        if not message[index] then break end
+
+        local line = {""}
+
+        for j=1,19 do
+            if not message[index] then break end
+            table.insert(line, message[index])
+            index = index + 1
+        end
+
+        table.insert(condensed_message, line)
+    end
+    return condensed_message
+end
+
+--[[
+local test = {}
+for i = 1, 10000, 1 do
+    table.insert(test, tostring(i))
+end
+log("RUBIA LOCALIZED STRING TEST")
+log(serpent.block(rubia_lib.crunch_localised_string(test)))
+]]
+
+---Get order for the given entity, searching through its different subgroups...
+---This is used to sort entity prototypes for printing purposes.
+function rubia_lib.get_entity_order(entity_prototype)
+    if entity_prototype.subgroup then
+        local subgroup = data.raw["item-subgroup"][entity_prototype.subgroup]
+        if subgroup and subgroup.order and subgroup.group and entity_prototype.order then
+            local group = data.raw["item-group"][subgroup.group]
+            if group and group.order then
+                return {group = group.order, subgroup = subgroup.order, order = entity_prototype.order}
+            end
+        end
+    end
+
+    --Find an item that places it
+    local item
+    local item_name
+    if entity_prototype.placeable_by then
+        if type(entity_prototype.placeable_by) == "string" then
+            item_name = entity_prototype.placeable_by
+        elseif entity_prototype.placeable_by[1] and entity_prototype.placeable_by[1].item then
+            item_name = entity_prototype.placeable_by[1].item
+        end
+    else item_name = entity_prototype.name
+    end
+
+    if item_name then
+        for subtype in pairs(defines.prototypes.item) do
+            if data.raw[subtype][item_name] then
+                item = data.raw[subtype][item_name]
+                break
+            end
+        end
+    end
+
+    
+    if item then
+        local subgroup = item.subgroup and data.raw["item-subgroup"][item.subgroup]
+        if item and subgroup and subgroup.order and subgroup.group and item.order then
+            local group = data.raw["item-group"][subgroup.group]
+            if group and group.order then
+                return {group = group.order, subgroup = subgroup.order, order = item.order}
+            end
+        end
+    end
+
+     --Default order = order by entity internal name
+    return {group = "zzzzzz-no_group", subgroup = "zzzzzz-no_group", order = entity_prototype.name or "zzzzz"}
+end
+
+--Compare the order of two entities, with data retrieved from get_entity_order.
+--This is used as a comparator for table.sort
+function rubia_lib.compare_entity_order(ordering1, ordering2)
+    if ordering1.group ~= ordering2.group then return ordering1.group < ordering2.group
+    elseif ordering1.subgroup ~= ordering2.subgroup then return ordering1.subgroup < ordering2.subgroup
+    else return ordering1.order < ordering2.order end
+end

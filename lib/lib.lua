@@ -337,7 +337,6 @@ rubia_lib.make_rotated_animation_variations_from_sheet = function(variation_coun
 end
 
 
-
 --Technology searching
 
 --[[Make a dictionary of: "tech name" => {names of all its children}

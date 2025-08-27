@@ -5,6 +5,8 @@ Date: ????
     - I refactored the technology hiding system to allow other mods to change prerequisites of Rubia technologies. You won't notice anything different, but this futureproofs Rubia techs against softlocks from external interference.
     - Fix for an extremely niche landing cutscene scenario.
     - Iron bacteria recipes are now auto-detected and banned from Rubia, except for the intended bacterial cultivation recipe. This patches up blind spots from mods like Wayward Seas.
+    - AAI programmable vehicle compatibility.
+    - Tips and tricks now shows a full listing of banned entities from Rubia.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.107
 Date: 2025-08-24

@@ -144,7 +144,8 @@ end]]
 --Biofusion science pack
 ---If something deleted gleba or messed with gleba content, then remove all biofusion technologies
 local biofusion_blocking_mods = {"delete-gleba", "FarmingInAnotherWorld",
-    "NoCraftingSurfaceCondition", "no-cond", "no_placement_restriction"}
+    "NoCraftingSurfaceCondition", "no-cond", "no_placement_restriction", 
+    "surface_restriction_removal_rubia_compat"}
 local blocking_mods_string = ""
 for _, entry in pairs(biofusion_blocking_mods) do
     if mods[entry] then
