@@ -33,6 +33,15 @@ data:extend({
     },
 
     {
+        type = "int-setting",
+        name = "rubia-tech-cost-multiplier",
+        setting_type = "startup",
+        default_value = 1,
+        minimum_value = 1,
+        maximum_value = 10000,
+    },
+
+    {
         type = "bool-setting",
         name = "invert-trashsteroid-scaling",
         setting_type = "runtime-global",

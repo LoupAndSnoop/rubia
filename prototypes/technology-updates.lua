@@ -278,3 +278,18 @@ if mods["Paracelsin"] and data.raw.technology["axe-mining-speed"] then
     table.insert(data.raw.technology["axe-mining-speed"].prerequisites, "craptonite-axe")
     try_add_science_pack_to_tech("biorecycling-science-pack", "axe-mining-speed")
 end
+
+
+----Tech cost multiplier settings
+local tech_multiplier = settings.startup["rubia-tech-cost-multiplier"].value
+--local core_technologies = {"rubia-progression-stage2","craptonite-processing", "rubia-project-trashdragon"}
+local multipler_blacklist_techs = {["rubia-progression-stage1B"] = true, ["rubia-scrapapalooza"] = true}
+for entry in pairs(rubia_lib.all_techs_rubia) do    
+    local tech = data.raw["technology"][entry]
+    if  not multipler_blacklist_techs[entry]
+        and tech and tech.research_trigger 
+        and tech.research_trigger.type == "craft-item"
+        and tech.research_trigger.count then
+        tech.research_trigger.count = tech.research_trigger.count * tech_multiplier
+    end
+end

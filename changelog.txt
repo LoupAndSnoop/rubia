@@ -8,8 +8,10 @@ Date: ????
     - AAI programmable vehicle compatibility.
     - Tips and tricks now shows a full listing of banned entities from Rubia.
     - Better/stricter wind controls. This may introduce incompatibility issues. Please report any that you may find.
-    - Mods that remove surface restrictions will no longer softlock you. These mods are now better detected and handled in general.
+    - Mods that remove surface restrictions will no longer softlock you. These mods are now better detected and handled in general. Thanks to reports by Praxi, complaining about these mods.
     - Fixed a bug that allowed Crapapult-based research outside Rubia.
+    - Added Rubia tech cost multiplier settings.
+    - Fixed a typo to make it possible for Nataly to play Rubia.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.107
 Date: 2025-08-24
