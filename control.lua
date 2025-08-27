@@ -25,6 +25,7 @@ require("__rubia__.compat.simple-adjustable-inserters")
 require("__rubia__.compat.pickier-dollies")
 require("__rubia__.compat.discovery-tree")
 require("__rubia__.compat.factorissimo")
+require("__rubia__.compat.surface-condition-rechecks")
 
 --Start of rubia
 event_lib.on_event(defines.events.on_surface_created, "rubia-created", function(event)

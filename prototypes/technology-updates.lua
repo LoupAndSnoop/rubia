@@ -143,9 +143,8 @@ end]]
 
 --Biofusion science pack
 ---If something deleted gleba or messed with gleba content, then remove all biofusion technologies
-local biofusion_blocking_mods = {"delete-gleba", "FarmingInAnotherWorld",
-    "NoCraftingSurfaceCondition", "no-cond", "no_placement_restriction", 
-    "surface_restriction_removal_rubia_compat"}
+local constants = require("__rubia__.lib.constants")
+local biofusion_blocking_mods = constants.BIOFUSION_BLOCKING_MODS
 local blocking_mods_string = ""
 for _, entry in pairs(biofusion_blocking_mods) do
     if mods[entry] then
@@ -160,7 +159,7 @@ if blocking_mods_string ~= "" then
   biofusion_tech.effects = {}
 
   --Remove all tech effects and recipes associated as well.
-  local BIOFUSION_LINE = require("__rubia__.lib.constants").BIOFUSION_LINE
+  local BIOFUSION_LINE = constants.BIOFUSION_LINE
   for _, entry in pairs(BIOFUSION_LINE.technology) do
     data.raw.technology[entry].effects = {}
   end

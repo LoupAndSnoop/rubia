@@ -149,6 +149,12 @@ end
 --#endregion
 
 --#region Special crapapult recipes
+local special_yeet_recipe_names = {}
+local surface_restrictions_will_be_disabled = false
+local NO_SURFACE_RESTRICTION_MODS = require("__rubia__.lib.constants").NO_SURFACE_RESTRICTION_MODS
+for _, entry in pairs(NO_SURFACE_RESTRICTION_MODS) do
+  if mods[entry] then surface_restrictions_will_be_disabled = true end
+end
 
 ---Special yeeting recipes. Make a special item/recipe automatically for items
 ---specially marked to be yoten. If no custom icon is given, use an auto-generated one.
@@ -175,13 +181,17 @@ local function special_yeet_recipe(item_name, icon, icon_size)
 
   local non_rubia_yeet = yeet_recipe(item, item.type, "crapapult")
   rubia.ban_from_rubia(non_rubia_yeet)
+  if surface_restrictions_will_be_disabled then non_rubia_yeet.enabled = false end
+
+  local rubia_yeet_name = "yeet-" .. item_name
+  table.insert(special_yeet_recipe_names, rubia_yeet_name)
 
   return
   {
     non_rubia_yeet,
   {
     type = "recipe",
-    name = "yeet-" .. item_name,
+    name = rubia_yeet_name,
     --icon = icon,    
     icons = icons,
     icon_size = icon_size,
@@ -240,6 +250,16 @@ for _, item in pairs(yeet_trigger_tech_items) do
   local recipe = special_yeet_recipe(item)
   if recipe then data.extend(recipe) end
 end
+
+--Send the list of special recipes as a mod-data. These are the ones for trigger technologies.
+data:extend({
+  {
+  type = "mod-data",
+  name = "rubia-crapapult-recipes-trigger",
+  data_type = "rubia-crapapult-recipes-trigger",
+  data = {names = special_yeet_recipe_names},
+}
+})
 
 
 --Some early crapapult recipes should be visible, to help the player figure out what is going on.
