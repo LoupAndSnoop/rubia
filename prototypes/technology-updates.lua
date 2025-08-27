@@ -164,7 +164,14 @@ if blocking_mods_string ~= "" then
     data.raw.technology[entry].effects = {}
   end
   for _, entry in pairs(BIOFUSION_LINE.recipe) do
-    data.raw.recipe[entry] = nil
+    local recipe = data.raw.recipe[entry]
+    recipe.enabled = false
+    recipe.results = {}
+    recipe.ingredients = {}
+    recipe.main_product = nil
+    recipe.icon = "__rubia-assets__/graphics/technology/biofusion-science-pack-removed.png"
+    recipe.icon_size = 256
+    --data.raw.recipe[entry] = nil
   end
 end
 

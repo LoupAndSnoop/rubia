@@ -7,7 +7,9 @@ Date: ????
     - Iron bacteria recipes are now auto-detected and banned from Rubia, except for the intended bacterial cultivation recipe. This patches up blind spots from mods like Wayward Seas.
     - AAI programmable vehicle compatibility.
     - Tips and tricks now shows a full listing of banned entities from Rubia.
-    - Better wind controls.
+    - Better/stricter wind controls.
+    - Mods that remove surface restrictions will no longer softlock you. These mods are now better detected and handled in general.
+    - Fixed a bug that allowed Crapapult-based research outside Rubia.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.107
 Date: 2025-08-24

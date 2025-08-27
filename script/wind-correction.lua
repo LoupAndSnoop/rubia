@@ -414,7 +414,7 @@ event_lib.on_event(defines.events.on_entity_settings_pasted,
   "wind-rotation", function(event)
     rubia_wind.wind_rotation(event.destination, event.player_index) end)
 
-event_lib.on_configuration_changed("global-wind-correction", global_wind_correction)
+--event_lib.on_configuration_changed("global-wind-correction", global_wind_correction)
 
 --#region Force build bug workaround
 local bplib = require("__rubia__.lib.bplib-blueprint")
