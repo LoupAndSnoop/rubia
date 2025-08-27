@@ -158,11 +158,21 @@ if blocking_mods_string ~= "" then
   biofusion_tech.icon = "__rubia-assets__/graphics/technology/biofusion-science-pack-removed.png"
   biofusion_tech.localised_description = {"technology-description.rubia-biofusion-science-pack-removed", blocking_mods_string}
   biofusion_tech.effects = {}
+
+  --Remove all tech effects and recipes associated as well.
+  local BIOFUSION_LINE = require("__rubia__.lib.constants").BIOFUSION_LINE
+  for _, entry in pairs(BIOFUSION_LINE.technology) do
+    data.raw.technology[entry].effects = {}
+  end
+  for _, entry in pairs(BIOFUSION_LINE.recipe) do
+    data.raw.recipe[entry] = nil
+  end
 end
 
 
 --Maraxsis promethium-science prod applies to biofusion research
-if mods["maraxsis"] and data.raw["technology"]["maraxsis-promethium-productivity"] then
+if mods["maraxsis"] and data.raw["technology"]["maraxsis-promethium-productivity"]
+    and data.raw.recipe["rubia-biofusion-promethium-science-pack"] then
     local maraxsis_effects = data.raw["technology"]["maraxsis-promethium-productivity"].effects
     table.insert(maraxsis_effects,
         {type = "change-recipe-productivity",

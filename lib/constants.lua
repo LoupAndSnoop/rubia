@@ -6,4 +6,16 @@ constants.WARNING_PRINT_SETTINGS = {color={r=0.9,g=0,b=0,a=1}}
 constants.GREEN_PRINT_SETTINGS = {color={r=0.2,g=1,b=0.2,a=1}}
 constants.MEGABASE_MODE = settings.startup["rubia-megabase-mode"].value
 
+--table<string of prototype type, names of prototypes[]> tied to biofusion sci
+constants.BIOFUSION_LINE = {
+    technology = {"rubia-biofusion-science-pack", "rubia-nutrients-from-sludge",
+        "rubia-long-stack-inserter", "rubia-biofusion-promethium-science-pack",
+        "rubia-cargo-landing-pad-capacity", "rubia-biochamber-productivity-bonus",
+        "rubia-nutrient-productivity"
+    },
+    recipe = {"rubia-biofusion-science-pack", "rubia-biofusion-promethium-science-pack",
+        "rubia-long-stack-inserter", "rubia-nutrients-from-sludge"
+    },
+}
+
 return constants

@@ -15,11 +15,14 @@ local function wind_correction_notification(entity, player_index)
 end
 
 --Give notice that the wind blocked the placement of an entity. Input the player index
-local function wind_block_notification(entity, player_index)
+local function wind_block_notification(entity, player_index, message)
     if not player_index then return end --No player, no notice.
+    if not entity or not entity.valid then return end --Entity is not valid. Can't do anything
     local player = game.get_player(player_index)
     if not player then return end --No player, no notice.
-    player.create_local_flying_text({text = {"alert.wind_block_notification"}, position= entity.position, surface=player.surface})
+
+    if not message then message = "alert.wind_block_notification" end --Default
+    player.create_local_flying_text({text = {message}, position= entity.position, surface=player.surface})
     player.play_sound{path="utility/cannot_build", position=player.position, volume_modifier=1}
     player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
 end
@@ -97,6 +100,14 @@ local wind_prototype_dic = {
     ["loader-1x1"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
 }
 
+--Merge blacklist with the surface ban blacklist
+--local prototype_blacklist = prototypes.mod_data["rubia-surface-blacklist"].data
+--assert(prototype_blacklist and table_size(prototype_blacklist) > 5, "Another mod chose to delete Rubia's internal blacklist data, and caused a crash.")
+local rubia_surface_blacklist = require("__rubia__.prototypes.data-script.rubia-surface-blacklist")
+local prototype_blacklist = rubia_surface_blacklist.copy_blacklist_array()
+for _, name in pairs(prototype_blacklist) do
+    wind_entity_dic[name] =  {wind_type = "block"}
+end
 
 ---Remove the last undo item from the given player index, if there is one.
 ---@param player_index uint?
@@ -191,22 +202,8 @@ local function force_orientation_unadj_inserter(entity, player_index)
     force_orientation_condition(entity, player_index, is_unadj_inserter_valid_orientation)
 end]]
 
-
---Force this entity to a specific orientation, but if it is placed orthogonal to the wind,
---then block its placement.
-local function force_splitter_like_orientation_to(entity, player_index, direction)
-    if entity.direction == direction then return end
-
-    --If one rotation gets this entity to the right state, then we're good to just give notice.
-    entity.rotate{by_player=player_index} --Do not raise event, because that causes an infinite loop
-    squash_undo_actions(player_index)
-    if entity.direction == direction then
-        wind_correction_notification(entity, player_index)
-        return
-    end
-
-    --otherwise, we can't reconcile it, and must mine it!
-    wind_block_notification(entity, player_index)
+--Try to mine the given entity when placed by the given player_index
+local function try_mine(entity, player_index)
     if entity.type == "entity-ghost" then entity.mine()
     else --Must mine real entity
         if player_index then game.get_player(player_index).mine_entity(entity, true) 
@@ -222,11 +219,41 @@ local function force_splitter_like_orientation_to(entity, player_index, directio
                 }
             end
             entity.destroy()
-            --error("Splitter-like entity going down wouldn't get mined!")
         end
     end
 end
 
+--Force this entity to a specific orientation, but if it is placed orthogonal to the wind,
+--then block its placement.
+local function force_splitter_like_orientation_to(entity, player_index, direction)
+    if entity.direction == direction then return end
+
+    --If one rotation gets this entity to the right state, then we're good to just give notice.
+    entity.rotate{by_player=player_index} --Do not raise event, because that causes an infinite loop
+    squash_undo_actions(player_index)
+    if entity.direction == direction then
+        wind_correction_notification(entity, player_index)
+        return
+    end
+
+    --otherwise, we can't reconcile it, and must mine it!
+    wind_block_notification(entity, player_index, "alert.wind_block_notification")
+    try_mine(entity, player_index)
+end
+
+--Try mine an entity, but set on a delay
+rubia.timing_manager.register("try-mine-entity", function(entity, player_index)
+    if entity and entity.valid then
+        wind_block_notification(entity, player_index, "alert.wind_full_block_notification")
+        try_mine(entity, player_index)
+    end
+    if entity and entity.valid then entity.active = false end --Just in case
+end)
+--An entity is being placed on Rubia that should not be placed. Block it.
+local function block_entity_placement(entity, player_index)
+    rubia.timing_manager.wait_then_do(1, "try-mine-entity", {entity, player_index})
+    if entity and entity.valid then entity.active = false end --Just in case
+end
 
 --Special case for thrower inserters, to adjust their orientation and trajectory
 remote.add_interface("rubia-thrower-trajectories", {
@@ -288,8 +315,10 @@ local function wind_behavior_to_function(wind_behavior)
     elseif wind_behavior.wind_type == "splitter-like-to" then 
         return function(entity, player_index)
             return force_splitter_like_orientation_to(entity, player_index, wind_behavior.orient) end
+    elseif wind_behavior.wind_type == "block" then 
+        return function(entity, player_index) 
+            return block_entity_placement(entity, player_index) end
     end
-
 
     error("Invalid wind behavior: " .. serpent.block(wind_behavior))
 end
@@ -365,6 +394,12 @@ end
 rubia.timing_manager.register("wind-correct-position", wind_correct_position)
 
 
+--Consistency check and correct whole Rubia surface. Super expensive!
+local function global_wind_correction()
+    if not storage.rubia_surface then return end
+    local entities = storage.rubia_surface.find_entities()
+    for _, entry in pairs(entities) do rubia_wind.wind_rotation(entry, nil) end
+end
 
 --#region Events
 local event_lib = require("__rubia__.lib.event-lib")
@@ -378,6 +413,8 @@ event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_p
 event_lib.on_event(defines.events.on_entity_settings_pasted,
   "wind-rotation", function(event)
     rubia_wind.wind_rotation(event.destination, event.player_index) end)
+
+event_lib.on_configuration_changed("global-wind-correction", global_wind_correction)
 
 --#region Force build bug workaround
 local bplib = require("__rubia__.lib.bplib-blueprint")

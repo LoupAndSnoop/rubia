@@ -1,5 +1,20 @@
 _G.rubia = _G.rubia or {}
 
+--For use in control stage: make a similarly named dictionary to iterate for blacklisting.
+local data_raw = {}
+local mods_list = {}
+if rubia.stage == "control" then
+    for name, entry in pairs(prototypes.entity) do
+        data_raw[entry.type] = data_raw[entry.type] or {}
+        data_raw[entry.type][name] = entry
+    end
+    mods_list = script.active_mods
+else --Data stage version
+    data_raw = data.raw
+    mods_list = mods
+end
+
+
 -------Surface blacklist = list of things to ban from rubia's surface.
 --Array of entity prototypes to ban from only rubia's surface.
 --Input {type="type",name="entity-name"}, such that data.raw["type"]["entity-name"] gives the prototype. This is global, so other mods can add entries
@@ -64,7 +79,7 @@ local mod_item_blacklist = {
 }
 
 --Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.
-if mods["miniloader-redux"] then
+if mods_list["miniloader-redux"] then
     local function is_miniloader(name)
         local miniloader_prefix, miniloader_prefix_lane = "hps__ml-", "lane-hps__ml-"
         if string.sub(name,1,string.len(miniloader_prefix)) == miniloader_prefix then return true
@@ -73,7 +88,7 @@ if mods["miniloader-redux"] then
         return false
     end
     for _, type in pairs({"inserter","loader-1x1"}) do
-        for name, _ in pairs(data.raw.inserter) do
+        for name, _ in pairs(data_raw.inserter) do
             if is_miniloader(name) then 
                 table.insert(mod_item_blacklist, {mod = "miniloader-redux", type = type, name = name})
             end
@@ -82,7 +97,7 @@ if mods["miniloader-redux"] then
 end
 
 for _, entry in pairs(mod_item_blacklist) do
-    if mods[entry.mod] then table.insert(internal_blacklist, entry) end
+    if mods_list[entry.mod] then table.insert(internal_blacklist, entry) end
 end
 
 
@@ -108,9 +123,10 @@ local prototype_type_blacklist = {--"logistic-container",
 }
 --prototype_type_blacklist = rubia_lib.array_to_hashset(prototype_type_blacklist)
 
+
 --Add entities in the prototype blacklist (not in the whitelist) to the growing blacklist.
 for _, type in pairs(prototype_type_blacklist) do
-    for _,entry in pairs(data.raw[type]) do
+    for _,entry in pairs(data_raw[type]) do
         if not rubia_lib.array_find_condition(internal_whitelist,function(value)
             return (value.type==type) and (value.name==entry.name) end) then
             table.insert(internal_blacklist, {type=entry.type,name=entry.name})
@@ -121,8 +137,10 @@ end
 
 --I need to ban all possible modded recyclers
 for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) do
-    for _, prototype in pairs(data.raw[type_to_check]) do
-        if prototype.crafting_categories and rubia_lib.array_find(prototype.crafting_categories, "recycling") then
+    for _, prototype in pairs(data_raw[type_to_check]) do
+        if prototype.crafting_categories and --Control stage => hashset. Data stage => array
+            (prototype.crafting_categories["recycling"]
+                or (data and rubia_lib.array_find(prototype.crafting_categories, "recycling"))) then
             table.insert(internal_blacklist, {type = type_to_check, name= prototype.name})
         end
     end
@@ -130,15 +148,11 @@ end
 
 
 --Banning logistic containers EXCEPT storage and passive providers. If not defined, ban it
---[[local banned_modes = rubia_lib.array_to_hashset({ --Both string and enum forms
-    "buffer", "active-provider", "requester",
-    defines.logistic_mode.buffer, defines.logistic_mode.requester, defines.logistic_mode.active_provider})
-]]
 local allowed_modes = rubia_lib.array_to_hashset({ --Both string and enum forms
     "none", "passive-provider", "storage",
     defines.logistic_mode.none, defines.logistic_mode.passive_provider, defines.logistic_mode.storage})
 for _, type_to_check in pairs({"logistic-container"}) do
-    for _, prototype in pairs(data.raw[type_to_check] or {}) do
+    for _, prototype in pairs(data_raw[type_to_check] or {}) do
         --log("Checking: " .. prototype.name .. " - " .. tostring(prototype.logistic_mode))
         if not allowed_modes[prototype.logistic_mode or "blank"] then
             table.insert(internal_blacklist, {type = type_to_check, name= prototype.name})
@@ -159,12 +173,18 @@ local function vector_to_xy(vector)
 end
 
 ---Return TRUE if the given inserter can be compatible with rubia.
----@param prototype data.InserterPrototype
+---@param prototype data.InserterPrototype | LuaEntityPrototype
 ---@return boolean
 local function inserter_is_rubia_compatible(prototype)
     if prototype.allow_custom_vectors then return true end
-    local pickup = vector_to_xy(prototype.pickup_position)
-    local dropoff = vector_to_xy(prototype.insert_position)
+    local pickup, dropoff
+    if rubia.stage == "control" then
+        pickup = vector_to_xy(prototype.inserter_pickup_position)
+        dropoff = vector_to_xy(prototype.inserter_drop_position)
+    else --Data stage
+        pickup = vector_to_xy(prototype.pickup_position)
+        dropoff = vector_to_xy(prototype.insert_position)
+    end
     
     --Standardize
     --if not pickup.x then pickup = {pickup[1], pickup[2]} end
@@ -202,7 +222,7 @@ local function inserter_is_rubia_compatible(prototype)
     return true
 end
 --Add all invalid inserters to the blacklist.
-for _, prototype in pairs(data.raw.inserter) do
+for _, prototype in pairs(data_raw.inserter) do
     if not inserter_is_rubia_compatible(prototype) then
         table.insert(internal_blacklist, prototype)
         log("Banning this inserter prototype from Rubia, because it looks incompatible: " .. prototype.name)
@@ -235,4 +255,13 @@ function rubia_surface_blacklist.copy_blacklist()
     end
     return dictionary_copy
 end
+--Return a string[] of blacklisted prototype names
+function rubia_surface_blacklist.copy_blacklist_array()
+    local array_copy = {}
+    for _, entry in pairs(rubia.surface_blacklist) do
+        table.insert(array_copy, entry.name)
+    end
+    return array_copy
+end
+
 return rubia_surface_blacklist

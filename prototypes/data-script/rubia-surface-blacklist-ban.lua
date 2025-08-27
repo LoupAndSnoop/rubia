@@ -37,8 +37,24 @@ data.raw["tips-and-tricks-item"]["rubia-wind-tips"].localised_description =
     rubia_lib.crunch_localised_string(banlist_strings)
 
 
+--Send blacklist as mod-data
+---Just a hashset of strings of the actual names of entities banned from Rubia
+local blacklist_names = {}
+for _, entry in pairs(rubia.surface_blacklist) do
+    blacklist_names[entry.name] = true
+end
+data:extend({
+    {
+        type = "mod-data",
+        name = "rubia-surface-blacklist",
+        data_type = "rubia-surface-blacklist",
+        data = blacklist_names,
+    }
+})
+
+
 --[[
---Older version, where everything is sorted by prototype type, then by internal name.
+--Older version of localized string, where everything is sorted by prototype type, then by internal name.
 
 --Log for blacklist string, categorized by category
 --if banlist_for_string[category] then
