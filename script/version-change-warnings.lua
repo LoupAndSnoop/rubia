@@ -57,6 +57,23 @@ local function bz_mod_silo_warning(config_change)
     end
 end
 
+--This is a warning for when you start playing with a tech cost multiplier, but Rubia tech costs
+--are still set to 1.
+local function tech_cost_multiplier_warning()
+    local general_multiplier = game.difficulty_settings.technology_price_multiplier
+    local rubia_multiplier = settings.startup["rubia-tech-cost-multiplier"].value
+    if general_multiplier > 1.1
+        and rubia_multiplier < 1.1
+        and not storage.warning_issued_tech_cost then
+        storage.warning_issued_tech_cost = true
+        rubia.timing_manager.wait_then_do(311, "delayed-text-print",
+            {"game", {"version-change-warnings.rubia-tech-cost-multiplier-warning"},
+            rubia.WARNING_PRINT_SETTINGS}) 
+    end
+end
+
+
+
 
 local event_lib = require("__rubia__.lib.event-lib")
 event_lib.on_configuration_changed(
@@ -70,3 +87,6 @@ event_lib.on_configuration_changed(
 
 event_lib.on_init("mod-warning-tangible-projectiles", tangible_projectile_warning)
 event_lib.on_configuration_changed("mod-warning-tangible-projectiles", tangible_projectile_warning)
+
+event_lib.on_init("version-change-warning-tech-cost-multiplier", tech_cost_multiplier_warning)
+event_lib.on_configuration_changed("version-change-warning-tech-cost-multiplier", tech_cost_multiplier_warning)

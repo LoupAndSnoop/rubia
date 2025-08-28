@@ -38,7 +38,7 @@ data:extend({
         setting_type = "startup",
         default_value = 1,
         minimum_value = 1,
-        maximum_value = 10000,
+        maximum_value = 69420,
     },
 
     {

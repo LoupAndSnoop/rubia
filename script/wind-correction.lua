@@ -255,9 +255,11 @@ local function block_entity_placement(entity, player_index)
     if entity and entity.valid then entity.active = false end --Just in case
 end
 
+
+--#region Renai
 --Special case for thrower inserters, to adjust their orientation and trajectory
 remote.add_interface("rubia-thrower-trajectories", {
-    trajectory_function = function(parameters, total_ticks)
+    sinusoid = function(parameters, total_ticks)
         local start_pos, end_pos = parameters.start_pos, parameters.end_pos
         local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
         
@@ -273,16 +275,46 @@ remote.add_interface("rubia-thrower-trajectories", {
         end
         --game.print(serpent.block(path))
         return path
+    end,
+
+    corkscrew = function(parameters, total_ticks)
+        local start_pos, end_pos = parameters.start_pos, parameters.end_pos
+        local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
+        
+        local path = {}
+        local revolutions = math.min(4, math.max(2, math.floor(delta_x / 4)))
+        local radius = math.min(1.5, math.max(0.5, delta_x / 5))
+        for i = 0, total_ticks, 1 do
+            local dimensionless_time = i / total_ticks-- + 0.00001
+            local theta = 2 * 3.14159 * revolutions * dimensionless_time
+            table.insert(path, {
+                x= start_pos.x + dimensionless_time * delta_x
+                    + radius * math.cos(theta) - radius,
+                y = start_pos.y + dimensionless_time * delta_y 
+                    + radius * math.sin(theta),
+                height = -(dimensionless_time) * (dimensionless_time - 1),
+            })
+        end
+        --game.print(serpent.block(path))
+        return path
     end
 })
 local function force_thrower_orientation(entity, player_index)
     force_orientation_to(entity, player_index, defines.direction.west)
-    --[[ --Still WIP
-    if remote.interfaces["RenaiTransportation"] then
-        local trajectory = {type="interface", interface="rubia-thrower-trajectories", name="trajectory_function",
-            parameters={start_pos = entity.position, end_pos = entity.drop_position}}
 
-        remote.call("RenaiTransportation", "SetTrajectoryAdjust", entity, trajectory)
+    --[[not ready yet. WIP
+    --Make funny trajectory
+    if remote.interfaces["RenaiTransportation"] then
+        local delta_x = math.abs(entity.drop_position.x - entity.position.x)
+        if delta_x > 5 then
+            local trajectory = {type="interface", interface="rubia-thrower-trajectories", 
+                name = "corkscrew",--name="sinusoid",
+                parameters={start_pos = entity.position, end_pos = entity.drop_position}}
+
+            remote.call("RenaiTransportation", "SetTrajectoryAdjust", entity, trajectory)
+        else
+            remote.call("RenaiTransportation", "ClearTrajectoryAdjust", entity)
+        end
     end]]
 end
 --Special cases for compatibility with Renai
@@ -294,7 +326,7 @@ for _, prototype in pairs(prototypes.entity) do
         --wind_entity_dic[prototype.name] = {wind_type = "force-to", orient=defines.direction.west} --Old version. Works until new interface
     end
 end
-
+--#endregion
 
 
 --Parse wind behavior table to code in a specific function.
@@ -447,6 +479,24 @@ if script.active_mods["quick-adjustable-inserters"] then
       defines.events.on_qai_inserter_adjustment_finished}, function(event)
     rubia_wind.wind_rotation(event.inserter, event.player_index) 
   end)
+end
+
+--Renai transportation: Focused flinging event calls.
+if script.active_mods["RenaiTransportation"] then
+    script.on_event({"RTtcaretnI", "RTInteract"}, function(event)
+        local player = event.player_index and game.players[event.player_index]
+        if not player.surface or player.surface.name ~= "rubia" then return end --wrong surface
+        local entity = player.selected
+        if entity and entity.valid then
+            rubia_wind.wind_rotation(entity, player_index)
+        end
+        --local search_area = --local spot = event.cursor_position
+        --wind_correct_position(search_area, player_index)
+    end
+)
+
+
+    
 end
 
 --#endregion
