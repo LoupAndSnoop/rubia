@@ -2,6 +2,7 @@
 Version: 0.69.109
 Date: ????
   Changes:
+    - Fixed crash when certain mods are installed that remove all of one type of item prototype.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.108
 Date: 2025-08-28

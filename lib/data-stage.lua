@@ -444,7 +444,7 @@ function rubia_lib.get_entity_order(entity_prototype)
 
     if item_name then
         for subtype in pairs(defines.prototypes.item) do
-            if data.raw[subtype][item_name] then
+            if subtype and data.raw[subtype] and data.raw[subtype][item_name] then
                 item = data.raw[subtype][item_name]
                 break
             end
