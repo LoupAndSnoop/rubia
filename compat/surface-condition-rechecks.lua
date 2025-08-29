@@ -98,7 +98,6 @@ end
 --the special yeet recipes had surface restrictions removed.
 --This basically allows the trigger techs to be done outside Rubia.
 
----@as table<string, boolean>
 local special_yeet_recipes = prototypes.mod_data["rubia-crapapult-recipes-trigger"].data.names --[[@as table<string, boolean>]]
 
 --Consistency check
