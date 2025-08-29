@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.110
-Date: ????
+Date: 2025-08-29
   Changes:
     - Changing compat for surface restriction mods (since my previous update now forces wind-restrictions by script, even if you have these mods on):
       ► Biofusion science is no longer locked out for mods that remove surface restrictions.
