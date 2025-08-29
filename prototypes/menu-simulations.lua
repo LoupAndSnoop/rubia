@@ -45,7 +45,7 @@ return
 }
 end
 
-main_menu_simulations.rubia_sim_001 = make_simulation(60 * 16, 60*1, "rubia", "__rubia-assets__/menu-simulations/rubia-title-sim-gun-belts.zip", [[]])
+main_menu_simulations.rubia_sim_001 = make_simulation(60 * 16, 60 * 1, "rubia", "__rubia-assets__/menu-simulations/rubia-title-sim-gun-belts.zip", [[]])
 main_menu_simulations.rubia_sim_002 = make_simulation(60 * 25, 0, "rubia", "__rubia-assets__/menu-simulations/rubia-title-sim-trashsteroid-destruction.zip", [[]])
 main_menu_simulations.rubia_sim_003 = make_simulation(60 * 15, 0, "nauvis", "__rubia-assets__/menu-simulations/rubia-title-sim-trains.zip", [[]])
 

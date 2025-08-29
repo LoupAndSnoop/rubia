@@ -1,4 +1,5 @@
---Validate: If surface conditions have been removed, then turn off all biofusion science.
+--Validate: If surface conditions have been removed, then we need
+--to be managing the crapapult differently.
 
 ---Detection
 local entities_to_lock = {"rubia-biorecycling-plant", "rubia-wind-turbine"}
@@ -91,12 +92,25 @@ local function recheck_biofusion()
     end
 end
 
+--------------------
+
 --Crapapult also needs to be disabled on foreign surfaces outright if 
 --the special yeet recipes had surface restrictions removed.
 --This basically allows the trigger techs to be done outside Rubia.
-local special_yeet_recipes = prototypes.mod_data["rubia-crapapult-recipes-trigger"].data.names
+
+---@as table<string, boolean>
+local special_yeet_recipes = prototypes.mod_data["rubia-crapapult-recipes-trigger"].data.names --[[@as table<string, boolean>]]
+
+--Consistency check
+local critical_recipe_names = {"yeet-makeshift-biorecycling-science-pack",
+    "yeet-ghetto-biorecycling-science-pack", "yeet-biorecycling-science-pack"}
+for _, name in pairs(critical_recipe_names) do
+    assert(special_yeet_recipes[name], "A mod destroyed critical mod data required for Rubia to function.")
+end
+assert(table_size(special_yeet_recipes) > 4, "A mod destroyed critical mod data required for Rubia to function.")
+
 local trigger_recipe_conditions_unlocked = false
-for _, recipe_name in pairs(special_yeet_recipes) do
+for recipe_name in pairs(special_yeet_recipes) do
     if check_conditions(prototypes.recipe[recipe_name], false) then
         trigger_recipe_conditions_unlocked = true
         break
@@ -112,11 +126,13 @@ local function disable_foreign_crapapult(entity)
     end
 end
 
----Event subscription
+------------
+
+---Event subscriptions (do actual logic
 local event_lib = require("__rubia__.lib.event-lib")
-if surface_conditions_were_removed then
-    event_lib.on_nth_tick(60, "biofusion-allowance-check", block_biofusion)
-end
+--if surface_conditions_were_removed then
+--    event_lib.on_nth_tick(60, "biofusion-allowance-check", block_biofusion)
+--end
 event_lib.on_configuration_changed("biofusion-unblock-check", recheck_biofusion)
 
 if trigger_recipe_conditions_unlocked then 

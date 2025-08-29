@@ -257,7 +257,7 @@ data:extend({
   type = "mod-data",
   name = "rubia-crapapult-recipes-trigger",
   data_type = "rubia-crapapult-recipes-trigger",
-  data = {names = special_yeet_recipe_names},
+  data = {names = rubia_lib.array_to_hashset(special_yeet_recipe_names)},
 }
 })
 

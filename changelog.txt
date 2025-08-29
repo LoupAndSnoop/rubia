@@ -2,6 +2,9 @@
 Version: 0.69.110
 Date: ????
   Changes:
+    - Changing compat for surface restriction mods (since my previous update now forces wind-restrictions by script, even if you have these mods on):
+      ► Biofusion science is no longer locked out for mods that remove surface restrictions.
+      ► No surface restriction mods can once again place recyclers on Rubia.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.109
 Date: 2025-08-28

@@ -25,7 +25,7 @@ local internal_blacklist = {
     {type="logistic-container", name="requester-chest"},
     {type="logistic-container", name="buffer-chest"},
     {type="logistic-container", name="active-provider-chest"},
-    {type="furnace", name="recycler"},
+    --{type="furnace", name="recycler"},
 
     {type="locomotive", name ="locomotive"},
     {type="cargo-wagon", name ="cargo-wagon"},
@@ -136,12 +136,14 @@ end
 
 
 --I need to ban all possible modded recyclers
-for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) do
-    for _, prototype in pairs(data_raw[type_to_check]) do
-        if prototype.crafting_categories and --Control stage => hashset. Data stage => array
-            (prototype.crafting_categories["recycling"]
-                or (data and rubia_lib.array_find(prototype.crafting_categories, "recycling"))) then
-            table.insert(internal_blacklist, {type = type_to_check, name= prototype.name})
+if rubia.stage == "data" then --Only block recyclers in data stage. Allow surface restriction mods to allow them.
+    for _, type_to_check in pairs({"furnace", "assembling-machine","rocket-silo"}) do
+        for _, prototype in pairs(data_raw[type_to_check]) do
+            if prototype.crafting_categories and --Control stage => hashset. Data stage => array
+                (prototype.crafting_categories["recycling"]
+                    or (data and rubia_lib.array_find(prototype.crafting_categories, "recycling"))) then
+                table.insert(internal_blacklist, {type = type_to_check, name= prototype.name})
+            end
         end
     end
 end
