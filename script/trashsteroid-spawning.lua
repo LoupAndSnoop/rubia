@@ -621,6 +621,10 @@ local function initialize()
   --Log and update chunk data
   storage.rubia_chunks = storage.rubia_chunks or {}
   storage.trash_render_index = storage.trash_render_index or 0
+
+  if game.simulation then 
+    trashsteroid_cooldown_min, trashsteroid_cooldown_max = 20, 200
+  end
 end
 
 local event_lib = require("__rubia__.lib.event-lib")

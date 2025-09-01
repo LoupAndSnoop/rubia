@@ -56,12 +56,23 @@ local function are_surface_conditions_removed()
 end
 local surface_conditions_were_removed = are_surface_conditions_removed()
 
+--Check for Gleba's removal
+local planet_gleba_removed = false
+if not prototypes.space_location["gleba"] 
+    or prototypes.space_location["gleba"] .hidden
+    or not prototypes.technology["planet-discovery-gleba"]
+    or not prototypes.technology["planet-discovery-gleba"].effects
+    or table_size(prototypes.technology["planet-discovery-gleba"].effects) == 0
+    then planet_gleba_removed = true
+end
+
 -----Enforcement
 
 --Block biofusion.
 local function block_biofusion()
-    if not surface_conditions_were_removed then return end
-
+    if not planet_gleba_removed then return end
+    --if not surface_conditions_were_removed then return end
+    
     for _, name in pairs(rubia.BIOFUSION_LINE.recipe) do
         local recipe = prototypes.recipe[name]
         if recipe then
@@ -73,9 +84,10 @@ local function block_biofusion()
 end
 
 
---If someone turns on such a mod, then undoes it, bring it back
+--If someone turns on an offending mod, then undoes it, bring it back
 local function recheck_biofusion()
-    if surface_conditions_were_removed then return end
+    if planet_gleba_removed then return end
+    --if surface_conditions_were_removed then return end
 
     for _, force in pairs(game.forces) do
         local technologies = force.technologies
@@ -129,9 +141,9 @@ end
 
 ---Event subscriptions (do actual logic
 local event_lib = require("__rubia__.lib.event-lib")
---if surface_conditions_were_removed then
---    event_lib.on_nth_tick(60, "biofusion-allowance-check", block_biofusion)
---end
+if planet_gleba_removed then --surface_conditions_were_removed then
+    event_lib.on_nth_tick(60, "biofusion-allowance-check", block_biofusion)
+end
 event_lib.on_configuration_changed("biofusion-unblock-check", recheck_biofusion)
 
 if trigger_recipe_conditions_unlocked then 

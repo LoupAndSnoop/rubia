@@ -2,7 +2,9 @@ require("__rubia__.prototypes.data-script.crapapult-recipes")
 require("__rubia__.prototypes.data-script.rubia-surface-blacklist-ban")
 require("__rubia__.prototypes.data-script.asteroid-update")
 --require("__rubia__.prototypes.technology-final-fixes")
+
 require("__rubia__.compat.distant-misfires")
+--require("__rubia__.compat.ownlys-tracers")
 require("__rubia__.prototypes.technology-hider-data")
 
 --Generic compat calls

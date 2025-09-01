@@ -397,7 +397,7 @@ data:extend({
         effect_description = {"modifier-description.biofusion-bacteria-release"}}
     },
     prerequisites = {"planetslib-rubia-cargo-drops", "biolab"},
-    research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=10000},
+    research_trigger = {type = "craft-item", item="yeet-agricultural-science-pack", count=5000},
 },
 
 {
@@ -482,6 +482,33 @@ data:extend({
             { "biorecycling-science-pack",    1 },
             { "rubia-biofusion-science-pack", 1 },
             { "promethium-science-pack",      1 },
+        },
+        time = 60
+    },
+},
+{
+    type = "technology",
+    name = "rubia-bio-utility-science-pack",
+    icon = "__rubia-assets__/graphics/technology/rubia-utility-science-pack.png",
+    icon_size = 256,
+    effects = {
+        {type = "unlock-recipe", recipe = "rubia-bio-utility-science-pack", hidden = true},
+        {type = "nothing", icon_size = 64,
+         icon = "__rubia-assets__/graphics/icons/rubia-utility-science-pack.png",
+                effect_description = {"modifier-description.rubia-bio-utility-science-pack-unlock"}}
+        },
+    prerequisites = {"rubia-biofusion-science-pack", "rubia-postgame-biorecycle-part1"},
+    unit = {
+        count = 3000,
+        ingredients = {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "military-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
         },
         time = 60
     },

@@ -21,7 +21,7 @@ constants.BIOFUSION_LINE = {
 --string[] of mod names known to remove surface restrictions
 constants.NO_SURFACE_RESTRICTION_MODS = {
     "NoCraftingSurfaceCondition", "no-cond", "no_placement_restriction", 
-    "surface_restriction_removal_rubia_compat"}
+    "surface_restriction_removal_rubia_compat", "surface_restriction_reforked"}
 --string[] of mod names known to block biofusion
 constants.BIOFUSION_BLOCKING_MODS = {"delete-gleba", "FarmingInAnotherWorld"}
 --for _, entry in pairs(constants.NO_SURFACE_RESTRICTION_MODS) do

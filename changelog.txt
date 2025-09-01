@@ -2,6 +2,12 @@
 Version: 0.69.111
 Date: ????
   Changes:
+    - New technology (behind biofusion science): Allows yellow science to be made in biochambers.
+    - Biorecycling for batteries now allows productivity modules. Oops!
+    - Bugfix again for surface condition removal mods.
+    - Biofusion science technology cost: 10k => 5k agri science. This allows you to get it earlier.
+    - Optimized menu simulations, and added a new one. Apparently my whole BP library was in the files.
+    - Compat for Ownley's Tracers, which before caused all gun turrets to not damage trashsteroids.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.110
 Date: 2025-08-29

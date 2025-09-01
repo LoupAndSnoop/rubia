@@ -842,6 +842,7 @@ data:extend({
     {type = "fluid", name = "lubricant", amount = 10},
   },
   crafting_machine_tint = crafting_machine_tint_blue,
+  allow_productivity = true,
 },
 
 --[[
@@ -988,5 +989,36 @@ data:extend({
     auto_recycle=false,
   },
 
+  {
+    type = "recipe",
+    name = "rubia-bio-utility-science-pack",
+    --icons = rubia_lib.compat.make_rubia_superscripted_icon({icon ="__base__/graphics/icons/utility-science-pack.png",})
+    icon = "__rubia-assets__/graphics/icons/rubia-utility-science-pack.png",
+    subgroup = "science-pack", order = "f[utility-science-pack]-b",
+    --localised_name = {"item-name.utility-science-pack"},
+    localised_description = {"item-description.utility-science-pack"},
+    category = "organic",
+    enabled = false,
+    energy_required = 21,
+    ingredients =
+    {
+      {type = "item", name = "low-density-structure", amount = 3},
+      {type = "item", name = "processing-unit", amount = 2},
+      {type = "item", name = "flying-robot-frame", amount = 1}
+    },
+    results = {{type="item", name="utility-science-pack", amount=3}},
+    crafting_machine_tint =
+    {
+      primary = {r = 1.0, g = 0.8, b = 0.0, a = 1.000},
+      secondary = {r = 1.0, g = 0.8, b = 0.0, a = 1.000},
+    },
+    allow_productivity = true,
+    auto_recycle = false,
+    --hidden_in_factoriopedia = true,
+  },
+
 --#endregion
 })
+
+
+--Utility science pack

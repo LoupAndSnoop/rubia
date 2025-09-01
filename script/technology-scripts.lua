@@ -131,6 +131,8 @@ end
 
 --Go sync ALL unknown techs for all forces
 local function sync_all_unknown_techs()
+    if game.simulation then return end --We don't do this for sims.
+    
     --For the case of tech hiding, just enable all the techs in case of migrations
     enable_all_rubia_techs();
 
