@@ -7,6 +7,8 @@ Date: ????
       ► Cost: Junkbacter 2=>3, Ferric scrap 1=>2, Time 5=>7s
       ► Yield: Battery 2=>3, Low density structure 1=>2, Lubricant 10=>8.
     - Fixed bplib interface collision.
+    - Minor typo fixes.
+    - Robotics icon is currently WIP. I'm rushing out a change to fix a crashing compat bug from by a recent Cerys update. This will be fixed later.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.111
 Date: 2025-09-01
