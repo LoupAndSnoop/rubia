@@ -16,7 +16,7 @@ local internal_custom_entity_names = nil
 local function get_custom_entity_types()
 	if internal_custom_entity_types == nil then
 		internal_custom_entity_types =
-			remote.call("bplib", "get_custom_entity_types")
+			remote.call("rubia-bplib", "get_custom_entity_types")
 	end
 	return internal_custom_entity_types
 end
@@ -24,7 +24,7 @@ end
 local function get_custom_entity_names()
 	if internal_custom_entity_names == nil then
 		internal_custom_entity_names =
-			remote.call("bplib", "get_custom_entity_names")
+			remote.call("rubia-bplib", "get_custom_entity_names")
 	end
 	return internal_custom_entity_names
 end
@@ -132,7 +132,7 @@ local custom_entity_types = {
 ---@type bplib.EntityDirectionalSnapData
 local custom_entity_names = {}
 
-remote.add_interface("bplib", {
+remote.add_interface("rubia-bplib", {
 	---@return bplib.EntityDirectionalSnapData
 	get_custom_entity_types = function() return custom_entity_types end,
 	---@return bplib.EntityDirectionalSnapData

@@ -2,6 +2,11 @@
 Version: 0.69.112
 Date: ????
   Changes:
+    - Yellow science made by biochambers +33% yield. This makes the disparity even bigger, and it's even more preferable to use the biochamber for yellow sci.
+    - Tuned the lube biorecycling recipe to make it more favorable for yellow science. This is an overall buff.
+      ► Cost: Junkbacter 2=>3, Ferric scrap 1=>2, Time 5=>7s
+      ► Yield: Battery 2=>3, Low density structure 1=>2, Lubricant 10=>8.
+    - Fixed bplib interface collision.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.111
 Date: 2025-09-01

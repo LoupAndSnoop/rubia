@@ -97,6 +97,25 @@ if mods["Cerys-Moon-of-Fulgora"] then
 end
 
 
+--Flying robot frame productivity. There are several techs like this, so it will require a big iteration.
+for _, tech in pairs(data.raw.technology) do
+    if tech.effects and type(tech.effects) == "table" then
+        for _, effect in pairs(tech.effects) do
+            if effect.type == "change-recipe-productivity"
+                and effect.recipe == "flying-robot-frame"
+                and effect.change and type(effect.change) == type(4) then
+
+                table.insert(tech.effects, {
+                    type = "change-recipe-productivity",
+                    recipe = "rubia-bio-flying-robot-frame",
+                    change = effect.change,
+                })
+                log("Adding Rubia flying robot frame prod to technology: " .. tech.name)
+                break
+            end
+        end
+    end
+end
 
 
 
@@ -270,10 +289,8 @@ end
 --#endregion
 
 
-
-
 -----Adding my techs as prereqs for other mod things.
-
+--Paracelsin axe mining speed.
 if mods["Paracelsin"] and data.raw.technology["axe-mining-speed"] then
     table.insert(data.raw.technology["axe-mining-speed"].prerequisites, "craptonite-axe")
     try_add_science_pack_to_tech("biorecycling-science-pack", "axe-mining-speed")

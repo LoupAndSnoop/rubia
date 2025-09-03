@@ -331,7 +331,7 @@ data:extend({
             { "automation-science-pack",      1 },
             { "logistic-science-pack",        1 },
             { "chemical-science-pack",        1 },
-            { "utility-science-pack",    1 },
+            { "utility-science-pack",         1 },
             { "agricultural-science-pack",    1 },
             { "biorecycling-science-pack",    1 },
         },
@@ -498,6 +498,39 @@ data:extend({
                 effect_description = {"modifier-description.rubia-bio-utility-science-pack-unlock"}}
         },
     prerequisites = {"rubia-biofusion-science-pack", "rubia-postgame-biorecycle-part1"},
+    unit = {
+        count = 3000,
+        ingredients = {
+            { "automation-science-pack",      1 },
+            { "logistic-science-pack",        1 },
+            { "chemical-science-pack",        1 },
+            { "military-science-pack",        1 },
+            { "utility-science-pack",         1 },
+            { "agricultural-science-pack",    1 },
+            { "biorecycling-science-pack",    1 },
+            { "rubia-biofusion-science-pack", 1 },
+        },
+        time = 60
+    },
+},
+
+{
+    type = "technology",
+    name = "rubia-bio-flying-robot-frame",
+    --"__rubia-assets__/graphics/technology/rubia-utility-science-pack.png"
+    icons = {--rubia_lib.compat.make_rubia_superscripted_icon(
+        {icon = "__base__/graphics/technology/robotics.png", icon_size = 256,},
+        {icon = "__rubia-assets__/graphics/planet/rubia.png", icon_size = 256,
+        scale = 0.5 * 0.5,
+        shift = {x=256 * 0.5/4, y =-256 * 0.5/4},}
+    },
+    effects = {
+        {type = "unlock-recipe", recipe = "rubia-bio-flying-robot-frame"},--, hidden = true},
+        --{type = "nothing", icon_size = 64,
+        -- icon = "__rubia-assets__/graphics/icons/rubia-utility-science-pack.png",
+        --        effect_description = {"modifier-description.rubia-bio-utility-science-pack-unlock"}}
+        },
+    prerequisites = {"rubia-biofusion-science-pack", "rubia-bio-utility-science-pack"},
     unit = {
         count = 3000,
         ingredients = {

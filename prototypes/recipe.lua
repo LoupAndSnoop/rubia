@@ -831,15 +831,15 @@ data:extend({
   subgroup = "rubia-biorecycling", order = "f[rubia stage4]-e",
   enabled = false,
   ingredients = {
-    {type ="item", name ="rubia-bacteria-B", amount = 2},
-    {type ="item", name ="rubia-ferric-scrap", amount = 1},
+    {type ="item", name ="rubia-bacteria-B", amount = 3},
+    {type ="item", name ="rubia-ferric-scrap", amount = 2},
   },
   surface_conditions = rubia.surface_conditions(),
-  energy_required = 5,
+  energy_required = 7,
   results = {
-    {type = "item", name = "battery", amount = 2},
-    {type = "item", name = "low-density-structure", amount = 1},
-    {type = "fluid", name = "lubricant", amount = 10},
+    {type = "item", name = "battery", amount = 3},
+    {type = "item", name = "low-density-structure", amount = 2},
+    {type = "fluid", name = "lubricant", amount = 8},
   },
   crafting_machine_tint = crafting_machine_tint_blue,
   allow_productivity = true,
@@ -989,6 +989,30 @@ data:extend({
     auto_recycle=false,
   },
 
+  --
+  {
+    type = "recipe",
+    name = "rubia-bio-flying-robot-frame",
+    icons = rubia_lib.compat.make_rubia_superscripted_icon(
+      {icon ="__base__/graphics/icons/flying-robot-frame.png", icon_size = 64}),
+    category = "biorecycling",
+    subgroup = "intermediate-product", order = "c[advanced-intermediates]-c[flying-robot-frame]-b",
+    surface_conditions = rubia.surface_conditions(),
+    energy_required = 15,
+    ingredients =
+    {
+      {type ="item", name ="rubia-bacteria-A", amount = 12},
+      {type = "item", name = "electric-engine-unit", amount = 1},
+      {type = "item", name = "battery", amount = 3},
+      {type = "item", name = "steel-plate", amount = 1},
+      {type = "item", name = "electronic-circuit", amount = 3}
+    },
+    results = {{type="item", name="flying-robot-frame", amount=1}},
+    enabled = false,
+    allow_productivity = true,
+    auto_recycle = false,
+  },
+
   {
     type = "recipe",
     name = "rubia-bio-utility-science-pack",
@@ -1006,7 +1030,7 @@ data:extend({
       {type = "item", name = "processing-unit", amount = 2},
       {type = "item", name = "flying-robot-frame", amount = 1}
     },
-    results = {{type="item", name="utility-science-pack", amount=3}},
+    results = {{type="item", name="utility-science-pack", amount=4}},
     crafting_machine_tint =
     {
       primary = {r = 1.0, g = 0.8, b = 0.0, a = 1.000},
@@ -1020,5 +1044,10 @@ data:extend({
 --#endregion
 })
 
-
---Utility science pack
+--[[Add categories to vanilla recipes
+local robo_frame = data.raw.recipe["flying-robot-frame"]
+if robo_frame then
+    if robo_frame.additional_categories then table.insert(robo_frame.additional_categories, "biorecycling")
+    else robo_frame.additional_categories = {"biorecycling"} end
+end
+robo_frame.category = "biorecycling"]]
