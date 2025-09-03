@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.112
-Date: ????
+Date: 2025-09-03
   Changes:
     - Yellow science made by biochambers +33% yield. This makes the disparity even bigger, and it's even more preferable to use the biochamber for yellow sci.
     - Tuned the lube biorecycling recipe to make it more favorable for yellow science. This is an overall buff.
