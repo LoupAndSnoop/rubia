@@ -93,13 +93,12 @@ local sounds = { wind_turbine = {
 }}
 
 -- Properties -- 
-local WIND_TURBINE_TYPE = "electric-energy-interface"
---local WIND_TURBINE_TYPE = "solar-panel"
+--local WIND_TURBINE_TYPE = "electric-energy-interface"
+local WIND_TURBINE_TYPE = "solar-panel"
 
 local entity = {
     type = WIND_TURBINE_TYPE,
     name = TURBINE_NAME,
-    --factoriopedia_description = "Converts wind power to electricity. Power scales with quality.",--{"factoriopedia-description."..TURBINE_NAME},
     --gui_mode = "admins", -- gui contains sliders for energy parameters
     icon = GRAPHICS_PATH .. "icons/k2-wind-turbine.png",
     icon_size = 64,
@@ -118,7 +117,7 @@ local entity = {
     selection_box = {{-0.95, -0.95}, {0.95, 0.95}},
     map_color = {10/255, 13/255, 13/255}, --Match solar panel color.
 
-    --[[Solar panel version
+    --Solar panel version
     production = SETTING.POWER_OUTPUT_kW .. "kW",
     performance_at_day = 1 * 6.9/300, --Factorio multiplies by surface_prop / default of that prop. Undo
     performance_at_night = 1 * 6.9/300,
@@ -126,9 +125,9 @@ local entity = {
     --picture = graphics_entity,--graphics_binary,
     energy_source = {type = "electric", usage_priority = "solar"},
     stateless_visualisation = {animation = { layers = { graphics_entity, graphics_entity_sh } }},
-    ]]
+    draw_stateless_visualisations_in_ghost = true,
 
-    --Electric energy interface version
+    --[[Electric energy interface version
     energy_production = SETTING.POWER_OUTPUT_kW .. "kW", --For EEI-version
     energy_source = {
         type = "electric",
@@ -140,7 +139,7 @@ local entity = {
     },
     animation = { layers = { graphics_entity, graphics_entity_sh } },
     continuous_animation = true,
-    
+    ]]
     
     surface_conditions = rubia.surface_conditions(),
     heating_energy = "30kW",

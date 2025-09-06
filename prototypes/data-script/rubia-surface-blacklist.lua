@@ -112,6 +112,7 @@ local internal_whitelist = {
 
     --Modded items
     {type="cargo-wagon", name ="RTImpactWagon"},
+    {type="locomotive", name ="rubia-armored-locomotive-mu"}, --Multiple unit train control
 }
 --internal_whitelist = rubia_lib.array_to_dictionary(internal_whitelist,"type")
 

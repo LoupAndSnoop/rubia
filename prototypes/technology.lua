@@ -517,13 +517,14 @@ data:extend({
 {
     type = "technology",
     name = "rubia-bio-flying-robot-frame",
-    --"__rubia-assets__/graphics/technology/rubia-utility-science-pack.png"
-    icons = {--rubia_lib.compat.make_rubia_superscripted_icon(
+    icon = "__rubia-assets__/graphics/technology/rubia-robotics.png",
+    icon_size = 256,
+    --[[icons = {
         {icon = "__base__/graphics/technology/robotics.png", icon_size = 256,},
-        {icon = "__rubia-assets__/graphics/planet/rubia.png", icon_size = 256,
+        {icon = "__rubia-assets__/graphics/planet/rubia-icon.png", icon_size = 64,
         scale = 0.5 * 0.5,
-        shift = {x=256 * 0.5/4, y =-256 * 0.5/4},}
-    },
+        shift = {x=64 * 0.5/4, y =-64 * 0.5/4},}
+    },]]
     effects = {
         {type = "unlock-recipe", recipe = "rubia-bio-flying-robot-frame"},--, hidden = true},
         --{type = "nothing", icon_size = 64,

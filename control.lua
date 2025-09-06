@@ -9,7 +9,7 @@ require("__rubia__.script.chunk-checker")
 require("__rubia__.script.trashsteroid-blacklist")
 require("__rubia__.script.trashsteroid-spawning")
 
-require("__rubia__.script.wind-turbine-control")
+--require("__rubia__.script.wind-turbine-control")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
 local rubia_wind = require("__rubia__.script.wind-correction")
 local init_functions = require("__rubia__.script.init")
