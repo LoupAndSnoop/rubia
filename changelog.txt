@@ -3,10 +3,12 @@ Version: 0.69.113
 Date: ????
   Changes:
     - Wind turbines are now implemented as solar panels, following a critical update from Wube in factorio 2.0.66. Expect lower UPS cost (about 0.1-0.25 ms per 1 GW of power).
+      ► WARNING: If you used no surface restriction mods to place turbines off of Rubia, they will not produce as much power anymore.
     - Wind turbines can now finally be repaired by hand.
     - Compatibility with Multiple Unit Train Control.
     - Robo frame biomanufacturing tech icon now looks less terrible.
     - Spanish locale added. Thanks to AnthonyDPS.
+    - Fixed bug that caused version change warnings to appear incorrectly. Sorry for making you think there were more breaking changes than actual -.-
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.112
 Date: 2025-09-03

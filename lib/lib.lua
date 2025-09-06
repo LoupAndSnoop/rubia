@@ -176,13 +176,18 @@ end
 function rubia.flib.is_newer_version(old_version, current_version, format)
   local v1 = rubia.flib.format_version(old_version, format)
   local v2 = rubia.flib.format_version(current_version, format)
+  
   if v1 and v2 then
-    if v2 > v1 then
-      return true
-    end
+    if helpers.compare_versions(v2,v1) > 0 then return true end
     return false
   end
   return nil
+  
+  --if v1 and v2 then
+  --  if v2 > v1 then return true end
+  --  return false
+  --end
+  --return nil
 end
 
 --log("RUBIA: Setting constant should be removed once version is set stable.")
