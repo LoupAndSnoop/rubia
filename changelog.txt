@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.113
-Date: ????
+Date: 2025-09-06
   Changes:
     - Wind turbines are now implemented as solar panels, following a critical update from Wube in factorio 2.0.66. Expect lower UPS cost (about 0.1-0.25 ms per 1 GW of power).
       ► WARNING: If you used no surface restriction mods to place turbines off of Rubia, they will not produce as much power anymore.
