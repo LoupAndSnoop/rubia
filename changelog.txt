@@ -6,6 +6,7 @@ Date: ????
     - Wind turbines can now finally be repaired by hand.
     - Compatibility with Multiple Unit Train Control.
     - Robo frame biomanufacturing tech icon now looks less terrible.
+    - Spanish locale added. Thanks to AnthonyDPS.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.112
 Date: 2025-09-03
