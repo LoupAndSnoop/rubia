@@ -2,6 +2,11 @@
 Version: 0.69.114
 Date: ????
   Changes:
+    - Additional safeguards against old version change warnings from freaking you out.
+    - Specific key forageable items on Rubia now scale with your Rubia-specific tech cost multiplier. This reduces how much foraging you need to do at high tech cost multiplier. This only affects gameplay with Rubia's mod-settings.
+      ► Gun turrets and furnace output will scale. Mod compatibility items added to forage are also scaled. These mission-critical items now drop ~sqrt(tech multiplier)
+      ► Non-critical foragable items (eg modules) get a smaller boost. These non-essential items now drop as cube root of (tech multiplier)
+    - Spidertron remnant gun turret chance: 40%=>50%. Just in case, I also slightly bumped it up for everyone.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.113
 Date: 2025-09-06

@@ -3,33 +3,38 @@
 local function trashsteroid_health_warning(config_change)
     local rubia_change = config_change.mod_changes["rubia"]
     if rubia_change and rubia.flib.is_newer_version(rubia_change.old_version, "0.69.46")
-        and storage.rubia_surface then 
+        and storage.rubia_surface and not storage.warning_issued_trashsteroid_health then 
         rubia.timing_manager.wait_then_do(300, "delayed-text-print",
             {"game", {"version-change-warnings.rubia-trashsteroid-health-scaling"},
             rubia.WARNING_PRINT_SETTINGS}) 
     end
+    storage.warning_issued_trashsteroid_health = true
 end
 
 local function craptonite_wall_update(config_change)
     local rubia_change = config_change.mod_changes["rubia"]
     if rubia_change and rubia.flib.is_newer_version(rubia_change.old_version, "0.69.56")
         and storage.rubia_surface and game.forces["player"]
-        and game.forces["player"].technologies["rubia-project-trashdragon"].researched then 
+        and game.forces["player"].technologies["rubia-project-trashdragon"].researched
+        and not storage.warning_issued_craptonite_wall then 
         rubia.timing_manager.wait_then_do(302, "delayed-text-print",
             {"game", {"version-change-warnings.rubia-craptonite-wall"},
             rubia.GREEN_PRINT_SETTINGS}) 
     end
+    storage.warning_issued_craptonite_wall = true
 end
 
 local function craptonite_wall_recipe_update(config_change)
     local rubia_change = config_change.mod_changes["rubia"]
     if rubia_change and rubia.flib.is_newer_version(rubia_change.old_version, "0.69.74")
         and storage.rubia_surface and game.forces["player"]
-        and game.forces["player"].technologies["craptonite-wall"].researched then 
+        and game.forces["player"].technologies["craptonite-wall"].researched 
+        and not storage.warning_issued_wall_recipe then 
         rubia.timing_manager.wait_then_do(308, "delayed-text-print",
             {"game", {"version-change-warnings.rubia-craptonite-wall-recipe"},
             rubia.WARNING_PRINT_SETTINGS}) 
     end
+    storage.warning_issued_wall_recipe = true
 end
 
 local function tangible_projectile_warning()
@@ -71,8 +76,6 @@ local function tech_cost_multiplier_warning()
             rubia.WARNING_PRINT_SETTINGS}) 
     end
 end
-
-
 
 
 local event_lib = require("__rubia__.lib.event-lib")

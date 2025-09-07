@@ -358,6 +358,26 @@ rubia_lib.compat.to_call_on_data_final_fixes = rubia_lib.compat.to_call_on_data_
 
 --#endregion
 
+--Tech cost multiplier scaling.
+local tech_cost_mult = settings.startup["rubia-tech-cost-multiplier"].value --@as int
+local tech_mult_critical_forage_scaling = math.max(1,math.min(20, math.floor(math.sqrt(tech_cost_mult))))
+local tech_mult_noncritical_forage_scaling = math.max(1,math.min(10, math.floor(tech_cost_mult^0.3334)))
+
+---Take a given product prototype, and scale it based on tech multiplier. Modify it, and also return it.
+---@param product data.ItemProductPrototype
+---@param not_critical boolean? If true, scale the amount a lot, because it is critical. If false, scale a lesser amount. Default false.
+---@return data.ItemProductPrototype
+function rubia_lib.tech_cost_scale(product, not_critical)
+    local scale = 1
+    if not_critical then scale = tech_mult_noncritical_forage_scaling
+    else scale = tech_mult_critical_forage_scaling end
+
+    if product.amount then product.amount = product.amount * scale end
+    if product.amount_min then product.amount_min = product.amount_min * scale end
+    if product.amount_max then product.amount_max = product.amount_max * scale end
+
+    return product
+end
 
 --Logging all techs that exist in Rubia
 function rubia_lib.start_logging_rubia_technology()

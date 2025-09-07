@@ -24,8 +24,12 @@ constants.NO_SURFACE_RESTRICTION_MODS = {
     "surface_restriction_removal_rubia_compat", "surface_restriction_reforked"}
 --string[] of mod names known to block biofusion
 constants.BIOFUSION_BLOCKING_MODS = {"delete-gleba", "FarmingInAnotherWorld"}
---for _, entry in pairs(constants.NO_SURFACE_RESTRICTION_MODS) do
---    table.insert(constants.BIOFUSION_BLOCKING_MODS, entry)
---end
+
+--[[string[] of items that are necessary to obtain by forage. Some are not available normally,
+--and only come in from compat calls from other mods. When they are in forage, they are crucial!
+constants.NECESSARY_FORAGE = {"gun-turret", 
+    "chemical-plant", "electric-furnace", "electric-kiln",
+    "kr-mineral-water-pumpjack",
+}]]
 
 return constants

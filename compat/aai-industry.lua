@@ -11,4 +11,5 @@ rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", green_circ
 --Chemical plant needs glass and stone brick. This must come from forage/scrapapalooza
 local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
 table.insert(minable, 
-    {type = "item", name = "chemical-plant", probability = 0.4, amount_min = 1, amount_max = 3})
+    rubia_lib.tech_cost_scale(
+        {type = "item", name = "chemical-plant", probability = 0.4, amount_min = 1, amount_max = 3}))
