@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.114
-Date: ????
+Date: 2025-09-11
   Changes:
     - Additional safeguards against old version change warnings from freaking you out.
     - Specific key forageable items on Rubia now scale with your Rubia-specific tech cost multiplier. This reduces how much foraging you need to do at high tech cost multiplier. This only affects gameplay with Rubia's mod-settings.
