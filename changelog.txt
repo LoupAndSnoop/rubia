@@ -5,8 +5,11 @@ Date: ????
     - Additional safeguards against old version change warnings from freaking you out.
     - Specific key forageable items on Rubia now scale with your Rubia-specific tech cost multiplier. This reduces how much foraging you need to do at high tech cost multiplier. This only affects gameplay with Rubia's mod-settings.
       ► Gun turrets and furnace output will scale. Mod compatibility items added to forage are also scaled. These mission-critical items now drop ~sqrt(tech multiplier)
-      ► Non-critical foragable items (eg modules) get a smaller boost. These non-essential items now drop as cube root of (tech multiplier)
-    - Spidertron remnant gun turret chance: 40%=>50%. Just in case, I also slightly bumped it up for everyone.
+      ► Non-critical foragable items (eg modules, belts) get a smaller boost. These non-essential items now drop as cube root of (tech multiplier)
+    - Tiny forageable buffs on Spidertron remnants to reduce chances of getting RNG-screwed on things you need, but more variance on non-critical drops. This makes forage less painful for tech multiplier runs. No one else will care.
+      ► Gun turret chance: 40% => 50%
+      ► Red belt yield 50-65 => 45-75
+      ► Assembler 2 yield 7-12 => 7-14
     - Trashsteroids new have a spawn position offset to reduce weird blind spots in where they target.
     - Megabase mode settings now added to reduce UPS costs for extremely large Rubia bases. Even when enabled, these settings do nothing until UPS savings are at least ~0.2 ms. Most people will notice no difference, because Rubia is already highly optimized. This now makes the absolute worst case update time for Rubia ~0.5 ms, with most bases (gigantic or small) having about <0.3 ms across absolutely everything.
 ---------------------------------------------------------------------------------------------------
