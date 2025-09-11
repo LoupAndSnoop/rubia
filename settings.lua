@@ -27,9 +27,9 @@ data:extend({
     {
         type = "bool-setting",
         name = "rubia-megabase-mode",
-        setting_type = "startup",
+        setting_type = "runtime-global",
         default_value = false,
-        hidden = true,
+        --hidden = true,
     },
 
     {

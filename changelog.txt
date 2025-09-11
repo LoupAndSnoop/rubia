@@ -7,6 +7,8 @@ Date: ????
       ► Gun turrets and furnace output will scale. Mod compatibility items added to forage are also scaled. These mission-critical items now drop ~sqrt(tech multiplier)
       ► Non-critical foragable items (eg modules) get a smaller boost. These non-essential items now drop as cube root of (tech multiplier)
     - Spidertron remnant gun turret chance: 40%=>50%. Just in case, I also slightly bumped it up for everyone.
+    - Trashsteroids new have a spawn position offset to reduce weird blind spots in where they target.
+    - Megabase mode settings now added to reduce UPS costs for extremely large Rubia bases. Even when enabled, these settings do nothing until UPS savings are at least ~0.2 ms. Most people will notice no difference, because Rubia is already highly optimized. This now makes the absolute worst case update time for Rubia ~0.5 ms, with most bases (gigantic or small) having about <0.3 ms across absolutely everything.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.113
 Date: 2025-09-06

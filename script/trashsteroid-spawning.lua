@@ -7,12 +7,13 @@ local chunk_checker = require("__rubia__.script.chunk-checker")
 _G.trashsteroid_lib = _G.trashsteroid_lib or {}
 
 --- Asteroid Management
-local max_trashsteroids = 500 --Max # of managed trashsteroids active at once
+local max_trashsteroids = 700 --500 --Max # of managed trashsteroids active at once
+local max_trashsteroids_before_disabled = 200 --If # of trashsteroids exceeds this value, start optimizing by disabling the car entity.
 local max_trashsteroids_per_update = 4 --Max # of trashsteroids to attempt to spawn in one tick.
 local max_gen_checks_per_update = 12 --Max # of chunks to try to generate a trashsteroid on, in one tick
 local trashsteroid_cooldown_min = 100 --Min cooldown time between trashsteroids in one chunk
 local trashsteroid_cooldown_max = 600 --Max cooldown time between trashsteroids in one chunk
-local trashsteroid_lifetime = 240 + 30 --Number of ticks that a trashsteroid can live
+local trashsteroid_lifetime = 270 --Number of ticks that a trashsteroid can live
 
 local max_render_checks_per_update = 100--Max # of trashsteroids to sift through when finding ones to render
 local max_renders_per_update = 30 --Max # of trashsteroid renderings to actually update per tick
@@ -29,6 +30,7 @@ local trashsteroid_min_size = 0.3 -- Initial scale of trashsteroid render, which
 local temp_shadow_dist_min = 0.5 --Shift in map space, min
 local temp_shadow_dist_max = 6 --Shift in map space, max
 local temp_shadow_unit_vec = {x=0.707, y=0.707} --unit vector for the direction the shadow should go, relative to the object
+local trashsteroid_spawn_x_offset = -10 --This X offset is added to the trashsteroid spawn X pos
 --Premultiply min and max offset of the shadows
 local trashsteroid_shadow_min_vec = {x=temp_shadow_unit_vec.x * temp_shadow_dist_min, y = temp_shadow_unit_vec.y * temp_shadow_dist_min}
 local trashsteroid_shadow_max_vec = {x=temp_shadow_unit_vec.x * temp_shadow_dist_max, y = temp_shadow_unit_vec.y * temp_shadow_dist_max}
@@ -48,7 +50,6 @@ local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
 --local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
 --  ["character"] = 280
 --}
-local NOT_MEGABASE_MODE = not settings.startup["rubia-megabase-mode"].value
 
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
 local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
@@ -220,6 +221,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --First get a random coord in the chunk
   local area = chunk.area
   local x = storage.rubia_asteroid_rng(area.left_top.x, area.right_bottom.x)
+  if storage.trash_megabase_enabled then x = x + trashsteroid_spawn_x_offset end
   local y = storage.rubia_asteroid_rng(area.left_top.y, area.right_bottom.y)
 
   --Make it
@@ -265,7 +267,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --Set it up
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(-trashsteroid_speed_var,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
-  resulting_entity.active = NOT_MEGABASE_MODE
+  resulting_entity.active = storage.trash_megabase_enabled
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.
@@ -302,7 +304,10 @@ trashsteroid_lib.try_spawn_trashsteroids = function()
   if not storage.developed_chunks then return end --No chunks to worry about
   local spawned_trashsteroids = 0 --Total spawned this cycle
 
-  --game.print(serpent.block(storage.pending_trashsteroid_data))
+  --Determine if our trashsteroids need to be disabled.
+  ---@type boolean True if trashsteroids should exhibit megabase-style optimization behavior.
+  storage.trash_megabase_enabled = not (settings.global["rubia-megabase-mode"].value
+    and (storage.active_trashsteroid_count > max_trashsteroids_before_disabled))
 
   local key = 0
   local pending_trashsteroid_data = storage.pending_trashsteroid_data

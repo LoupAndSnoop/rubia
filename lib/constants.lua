@@ -4,7 +4,7 @@ local constants = {}
 constants.RUBIA_AUTO_ENTITY_PREFIX = "rubia-auto-variant-"
 constants.WARNING_PRINT_SETTINGS = {color={r=0.9,g=0,b=0,a=1}}
 constants.GREEN_PRINT_SETTINGS = {color={r=0.2,g=1,b=0.2,a=1}}
-constants.MEGABASE_MODE = settings.startup["rubia-megabase-mode"].value
+--constants.MEGABASE_MODE = settings.startup["rubia-megabase-mode"].value
 
 --table<string of prototype type, names of prototypes[]> tied to biofusion sci
 constants.BIOFUSION_LINE = {
