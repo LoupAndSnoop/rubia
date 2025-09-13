@@ -302,7 +302,7 @@ remote.add_interface("rubia-thrower-trajectories", {
 local function force_thrower_orientation(entity, player_index)
     force_orientation_to(entity, player_index, defines.direction.west)
 
-    --not ready yet. WIP
+    --[[not ready yet. WIP
     --Make funny trajectory
     if remote.interfaces["RenaiTransportation"] then
         local delta_x = math.abs(entity.drop_position.x - entity.position.x)
@@ -315,7 +315,7 @@ local function force_thrower_orientation(entity, player_index)
         else
             remote.call("RenaiTransportation", "ClearTrajectoryAdjust", entity)
         end
-    end
+    end]]
 end
 --Special cases for compatibility with Renai
 --local force_thrower_orientation

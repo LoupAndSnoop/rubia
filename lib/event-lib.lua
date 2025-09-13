@@ -29,6 +29,9 @@ local on_nth_ticks = {}
 ---@type table<int, string[]>
 local on_nth_ticks_names = {}
 
+--Compound event handling that needs to be redirected
+local do_on_built, on_build_event_hashset
+
 ---Take the given handle (identifier for the specific subscription),
 ---function to be assigned (or nil to unsub), the working array of handles and functions
 ---that should be synchronized. Make a modification as though it is a pseudo-dictionary.
@@ -61,7 +64,6 @@ local function assign_function(handle, func, handle_array, function_array)
 end
 
 
-
 ---@param event_id LuaEventType
 ---@param handle string Unique identifier for this subscription.
 ---@param func fun(event: EventData) | nil
@@ -72,11 +74,13 @@ local function on_event(event_id, handle, func)
     local func_array = events[event_id]
     assign_function(handle, func, handler_array, func_array)
 
-    script.on_event(event_id, function(event)
-        for _, fun in pairs(func_array) do
-            fun(event)
-        end
-    end)
+    --Redirect to compound event handling, if relevant.
+    if on_build_event_hashset[event_id] then
+        script.on_event(event_id, do_on_built)
+    --Standard event call
+    else script.on_event(event_id, function(event)
+            for _, fun in pairs(func_array) do fun(event) end end)
+    end
 end
 
 
@@ -157,18 +161,21 @@ end
 
 --#region Compound event managment
 
+--Array of all on_built style events
+local on_built_events = {defines.events.on_built_entity, defines.events.on_robot_built_entity,
+    defines.events.script_raised_built, defines.events.script_raised_revive,
+    defines.events.on_space_platform_built_entity, defines.events.on_entity_cloned}
+on_build_event_hashset = {}
+for _, entry in pairs(on_built_events) do on_build_event_hashset[entry] = true end
 
 ---@type fun(entity : LuaEntity, player_index? : uint)[], fun(entity : LuaEntity, player_index? : uint)[]
 local on_built, on_built_early = {}, {}
 ---@type string[], string[]
 local on_built_names, on_built_early_names = {}, {}
-local on_built_events = {defines.events.on_built_entity, defines.events.on_robot_built_entity,
-    defines.events.script_raised_built, defines.events.script_raised_revive,
-    defines.events.on_space_platform_built_entity, defines.events.on_entity_cloned}
 
-
+---The function that gets called in general for all on_built style events.
 ---@param event EventData.on_built_entity | EventData.on_robot_built_entity | EventData.script_raised_built | EventData.script_raised_revive | EventData.on_entity_cloned
-local function do_on_built(event)
+do_on_built = function(event)
     local entity = event.entity or event.destination
     local player_index = event.player_index
     --Consolidate robot/player events, if possible. player index may stil be nil
@@ -177,11 +184,15 @@ local function do_on_built(event)
         local owner = cell and cell.owner
         if owner and owner.is_player() then player_index = owner.player.index end
     end
+    
+    --Standard unique event calls
+    for _, fun in pairs(events[event.name] or {}) do fun(event) end
 
     for _, fun in pairs(on_built_early) do 
         if not entity.valid then return end
         fun(entity, player_index)
     end
+
     for _, fun in pairs(on_built) do 
         if not entity.valid then return end
         fun(entity, player_index)

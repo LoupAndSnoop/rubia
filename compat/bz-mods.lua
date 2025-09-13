@@ -1,4 +1,4 @@
-local common_compat_prototypess = require("__rubia__.compat.common-compat-prototypes")
+local common_compat_prototypes = require("__rubia__.compat.common-compat-prototypes")
 
 --BZ Tin makes pumpjacks uncraftable
 if mods["bztin"] then
@@ -29,14 +29,14 @@ end
 
 --Both these mods change the recipe for green circuits.
 if mods["bzcarbon"] or mods["bztin"] then
-    local green_circ = common_compat_prototypess["electronic-circuit-recipe"]
+    local green_circ = common_compat_prototypes["electronic-circuit-recipe"]
     data:extend({green_circ})
     rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", green_circ.name)
 end
 
 --If we have K2SO AND bzcarbon, then the steel-plate recipe gets graphite
 if mods["bzcarbon"] and mods["Krastorio2-spaced-out"] then
-    local steel_plate = common_compat_prototypess["steel-plate-recipe"]
+    local steel_plate = common_compat_prototypes["steel-plate-recipe"]
     steel_plate.ingredients = {
         {type = "item", name = "iron-plate", amount = 10},
         {type = "item", name = "kr-coke", amount = 2}
@@ -67,7 +67,7 @@ if mods["bztin"] then --or mods["bzlead"] then
         probability = 0.4, amount_min = 3, amount_max = 6}))
 
     --Bztin makes rocket silos uncraftable
-    local silo_recipe = common_compat_prototypess["rocket-silo-recipe"]
+    local silo_recipe = common_compat_prototypes["rocket-silo-recipe"]
     data:extend({silo_recipe})
     rubia_lib.compat.add_recipe_to_technology("rubia-project-trashdragon", silo_recipe.name)
     
