@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.115
-Date: ????
+Date: 2025-09-13
   Changes:
     - Rubia is now compatible with all of Bob's modpack!
     - Rubia is now compatible with entity cloning from editor.
