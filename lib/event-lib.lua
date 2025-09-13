@@ -164,12 +164,12 @@ local on_built, on_built_early = {}, {}
 local on_built_names, on_built_early_names = {}, {}
 local on_built_events = {defines.events.on_built_entity, defines.events.on_robot_built_entity,
     defines.events.script_raised_built, defines.events.script_raised_revive,
-    defines.events.on_space_platform_built_entity}
+    defines.events.on_space_platform_built_entity, defines.events.on_entity_cloned}
 
 
----@param event EventData.on_built_entity | EventData.on_robot_built_entity | EventData.script_raised_built | EventData.script_raised_revive | 
+---@param event EventData.on_built_entity | EventData.on_robot_built_entity | EventData.script_raised_built | EventData.script_raised_revive | EventData.on_entity_cloned
 local function do_on_built(event)
-    local entity = event.entity
+    local entity = event.entity or event.destination
     local player_index = event.player_index
     --Consolidate robot/player events, if possible. player index may stil be nil
     if not player_index and event.robot and event.robot.valid then

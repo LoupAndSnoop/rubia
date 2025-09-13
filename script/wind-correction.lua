@@ -259,8 +259,8 @@ end
 --#region Renai
 --Special case for thrower inserters, to adjust their orientation and trajectory
 remote.add_interface("rubia-thrower-trajectories", {
-    sinusoid = function(parameters, total_ticks)
-        local start_pos, end_pos = parameters.start_pos, parameters.end_pos
+    sinusoid = function(parameters, total_ticks, thrower)
+        local start_pos, end_pos = thrower.position, thrower.drop_position--parameters.start_pos, parameters.end_pos
         local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
         
         local path = {}
@@ -277,8 +277,8 @@ remote.add_interface("rubia-thrower-trajectories", {
         return path
     end,
 
-    corkscrew = function(parameters, total_ticks)
-        local start_pos, end_pos = parameters.start_pos, parameters.end_pos
+    corkscrew = function(parameters, total_ticks, thrower)
+        local start_pos, end_pos = thrower.position, thrower.drop_position--parameters.start_pos, parameters.end_pos
         local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
         
         local path = {}
@@ -302,7 +302,7 @@ remote.add_interface("rubia-thrower-trajectories", {
 local function force_thrower_orientation(entity, player_index)
     force_orientation_to(entity, player_index, defines.direction.west)
 
-    --[[not ready yet. WIP
+    --not ready yet. WIP
     --Make funny trajectory
     if remote.interfaces["RenaiTransportation"] then
         local delta_x = math.abs(entity.drop_position.x - entity.position.x)
@@ -315,7 +315,7 @@ local function force_thrower_orientation(entity, player_index)
         else
             remote.call("RenaiTransportation", "ClearTrajectoryAdjust", entity)
         end
-    end]]
+    end
 end
 --Special cases for compatibility with Renai
 --local force_thrower_orientation
@@ -370,7 +370,7 @@ end
 --Code modified from Nancy B + Exfret the wise.
 --Thanks to CodeGreen, for help sorting out horizontal splitters
 --Warning: Player index could be nil
-rubia_wind.wind_rotation = function(entity, player_index)
+local function wind_correction(entity, player_index)
     if  not entity or not entity.valid
         or entity.surface.name ~= "rubia" then return end
 
@@ -399,7 +399,6 @@ rubia_wind.wind_rotation = function(entity, player_index)
                 wind_correction_notification(entity, player_index)
             end
         else force_orientation_condition(entity, player_index, is_unadj_inserter_valid_orientation)
-            --force_orientation_to(entity, player_index, defines.direction.west)
         end
     end
 
@@ -419,7 +418,7 @@ local function wind_correct_position(search_area, player_index)
     --local entities = storage.rubia_surface.find_entities({{map_position.x, map_position.y},{map_position.x, map_position.y}})
     for _, entity in pairs(entities) do
         if entity.valid and entity.force_index == player_force_index then
-            rubia_wind.wind_rotation(entity, player_index)
+            wind_correction(entity, player_index)
         end
     end
 end
@@ -430,21 +429,21 @@ rubia.timing_manager.register("wind-correct-position", wind_correct_position)
 local function global_wind_correction()
     if not storage.rubia_surface then return end
     local entities = storage.rubia_surface.find_entities()
-    for _, entry in pairs(entities) do rubia_wind.wind_rotation(entry, nil) end
+    for _, entry in pairs(entities) do wind_correction(entry, nil) end
 end
 
 --#region Events
 local event_lib = require("__rubia__.lib.event-lib")
 
-event_lib.on_built("wind-rotation", rubia_wind.wind_rotation)
-event_lib.on_entity_gui_update("wind-rotation", rubia_wind.wind_rotation)
+event_lib.on_built("wind-correction", wind_correction)
+event_lib.on_entity_gui_update("wind-correction", wind_correction)
 
 event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity},
-  "wind-rotation", function(event) 
-    rubia_wind.wind_rotation(event.entity, event.player_index) end)
+  "wind-correction", function(event) 
+    wind_correction(event.entity, event.player_index) end)
 event_lib.on_event(defines.events.on_entity_settings_pasted,
-  "wind-rotation", function(event)
-    rubia_wind.wind_rotation(event.destination, event.player_index) end)
+  "wind-correction", function(event)
+    wind_correction(event.destination, event.player_index) end)
 
 --event_lib.on_configuration_changed("global-wind-correction", global_wind_correction)
 
@@ -454,7 +453,7 @@ local BlueprintBuild = bplib.BlueprintBuild
 
 --This is needed for the current super force build bug.
 event_lib.on_event(defines.events.on_pre_build,
-  "wind-rotation", function(event)
+  "wind-correction", function(event)
     local player = game.players[event.player_index]
     if storage.rubia_surface and player.surface_index == storage.rubia_surface.index 
         and event.build_mode == defines.build_mode.superforced then
@@ -477,7 +476,7 @@ end)
 if script.active_mods["quick-adjustable-inserters"] then
   script.on_event({defines.events.on_qai_inserter_direction_changed,  --defines.events.on_qai_inserter_vectors_changed, 
       defines.events.on_qai_inserter_adjustment_finished}, function(event)
-    rubia_wind.wind_rotation(event.inserter, event.player_index) 
+    wind_correction(event.inserter, event.player_index) 
   end)
 end
 
@@ -488,7 +487,7 @@ if script.active_mods["RenaiTransportation"] then
         if not player.surface or player.surface.name ~= "rubia" then return end --wrong surface
         local entity = player.selected
         if entity and entity.valid then
-            rubia_wind.wind_rotation(entity, player_index)
+            wind_correction(entity, player_index)
         end
         --local search_area = --local spot = event.cursor_position
         --wind_correct_position(search_area, player_index)
