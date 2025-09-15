@@ -22,7 +22,7 @@ end
 local function respond_to_rotation(event)
     local inserter, prototype = find_inserter(event)
     if not inserter or not prototype then return end
-    rubia_wind.wind_rotation(inserter, event.player_index)
+    rubia_wind.wind_correction(inserter, event.player_index)
 end
 
 script.on_event({"sai_rotate_pickup_clockwise","sai_rotate_pickup_anti_clockwise"},

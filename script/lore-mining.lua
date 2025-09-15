@@ -131,6 +131,8 @@ local lore_drop_table ={
         {count = 183, string = "rubia-lore.train-stop-mine-part6",
                      string2 = "rubia-lore.train-stop-mine-part6-2", string2_delay = 78*3600},
         {count = 201, string = "rubia-lore.train-stop-mine-part7"},
+        {count = 224, string = "rubia-lore.train-stop-mine-part8-rand", random = 5,
+                     extra_id = "rubia-lore.train-stop-mine-part8-rand"},
     },
     ["rubia-junk-pile"] = {
         --{count = 1, string = "rubia-lore.junk-mine-hint-part1"},
@@ -164,9 +166,20 @@ function lore_mining.assign_ids_to_lore(lore_table)
 end
 lore_mining.assign_ids_to_lore(lore_drop_table)
 
+--Give every random entry of the lore table a serialized ID to advance an RNG seed by a specific amount.
+local current_rand_lore_id = 1
+for _, list in pairs(lore_drop_table) do
+    for _, entry in pairs(list) do
+        if entry.random then
+            entry.random_serial_no = current_rand_lore_id
+            current_rand_lore_id = current_rand_lore_id + 1
+        end
+    end
+end
 
---[[
---Code for testing. Comment in/out as needed.
+
+-------------
+--[[Code for testing. Comment in/out as needed.
 log("RUBIA: Lore test code is active. Remove before release.")
 LORE_MINING_COOLDOWN = 1
 for _, entry in pairs(lore_drop_table) do
@@ -174,6 +187,7 @@ for _, entry in pairs(lore_drop_table) do
         lore.count = i
     end
 end]]
+---------------
 
 
 --When we just got a lore drop, check if we need an achievement for it
@@ -233,7 +247,10 @@ lore_mining.try_lore_when_mined = function(entity)
             if entry.string then
                 local to_print = entry.string
                 if entry.random then
-                    to_print = to_print .. tostring(game.create_random_generator()(entry.random))
+                    --Random is the same per save file, but also unlink the different ones from each other.
+                    local rng = game.create_random_generator();
+                    for _ = 1, entry.random_serial_no, 1 do rng() end
+                    to_print = to_print .. tostring(rng(entry.random))
                 end
                 game.print({"", {"rubia-lore.rubia-notice-prestring"}, ": ", {to_print}},{color=lore_color})
             end

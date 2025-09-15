@@ -2,6 +2,11 @@
 Version: 0.69.116
 Date: ????
   Changes:
+    - Collab with Kiplacon complete. Now, thrower inserters from Renai Transportation have unique trajectories while on Rubia.
+    - Fixed typo on cargo landing pad modifier.
+    - More lore. He can't be stopped.
+    - Fixed RNG of lore again, so they aren't coupled to each other.
+    - Fixed incompatibility issue with Therenas' Simple adjustable inserters.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.115
 Date: 2025-09-13

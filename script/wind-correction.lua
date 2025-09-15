@@ -370,7 +370,7 @@ end
 --Code modified from Nancy B + Exfret the wise.
 --Thanks to CodeGreen, for help sorting out horizontal splitters
 --Warning: Player index could be nil
-local function wind_correction(entity, player_index)
+function rubia_wind.wind_correction(entity, player_index)
     if  not entity or not entity.valid
         or entity.surface.name ~= "rubia" then return end
 
@@ -418,7 +418,7 @@ local function wind_correct_position(search_area, player_index)
     --local entities = storage.rubia_surface.find_entities({{map_position.x, map_position.y},{map_position.x, map_position.y}})
     for _, entity in pairs(entities) do
         if entity.valid and entity.force_index == player_force_index then
-            wind_correction(entity, player_index)
+            rubia_wind.wind_correction(entity, player_index)
         end
     end
 end
@@ -429,21 +429,21 @@ rubia.timing_manager.register("wind-correct-position", wind_correct_position)
 local function global_wind_correction()
     if not storage.rubia_surface then return end
     local entities = storage.rubia_surface.find_entities()
-    for _, entry in pairs(entities) do wind_correction(entry, nil) end
+    for _, entry in pairs(entities) do rubia_wind.wind_correction(entry, nil) end
 end
 
 --#region Events
 local event_lib = require("__rubia__.lib.event-lib")
 
-event_lib.on_built("wind-correction", wind_correction)
-event_lib.on_entity_gui_update("wind-correction", wind_correction)
+event_lib.on_built("wind-correction", rubia_wind.wind_correction)
+event_lib.on_entity_gui_update("wind-correction", rubia_wind.wind_correction)
 
 event_lib.on_event({defines.events.on_player_flipped_entity, defines.events.on_player_rotated_entity},
   "wind-correction", function(event) 
-    wind_correction(event.entity, event.player_index) end)
+    rubia_wind.wind_correction(event.entity, event.player_index) end)
 event_lib.on_event(defines.events.on_entity_settings_pasted,
   "wind-correction", function(event)
-    wind_correction(event.destination, event.player_index) end)
+    rubia_wind.wind_correction(event.destination, event.player_index) end)
 
 --event_lib.on_configuration_changed("global-wind-correction", global_wind_correction)
 
@@ -476,7 +476,7 @@ end)
 if script.active_mods["quick-adjustable-inserters"] then
   script.on_event({defines.events.on_qai_inserter_direction_changed,  --defines.events.on_qai_inserter_vectors_changed, 
       defines.events.on_qai_inserter_adjustment_finished}, function(event)
-    wind_correction(event.inserter, event.player_index) 
+    rubia_wind.wind_correction(event.inserter, event.player_index) 
   end)
 end
 
@@ -487,7 +487,7 @@ if script.active_mods["RenaiTransportation"] then
         if not player.surface or player.surface.name ~= "rubia" then return end --wrong surface
         local entity = player.selected
         if entity and entity.valid then
-            wind_correction(entity, player_index)
+            rubia_wind.wind_correction(entity, player_index)
         end
         --local search_area = --local spot = event.cursor_position
         --wind_correct_position(search_area, player_index)
