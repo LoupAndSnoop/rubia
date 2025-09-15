@@ -7,6 +7,7 @@ Date: ????
     - More lore. He can't be stopped.
     - Fixed RNG of lore again, so they aren't coupled to each other.
     - Fixed incompatibility issue with Therenas' Simple adjustable inserters.
+    - Armored trains make more smoke to make it more obvious at high speed.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.115
 Date: 2025-09-13

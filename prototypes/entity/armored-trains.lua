@@ -230,7 +230,7 @@ data:extend({
         {
           name = "train-smoke",
           deviation = {0.3, 0.3},
-          frequency = 100,
+          frequency = 200,--100,
           position = {0, 0},
           starting_frame = 0,
           starting_frame_deviation = 60,
