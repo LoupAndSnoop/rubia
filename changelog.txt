@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.116
-Date: ????
+Date: 2025-09-15
   Changes:
     - Collab with Kiplacon complete. Now, thrower inserters from Renai Transportation have unique trajectories while on Rubia.
     - Fixed typo on cargo landing pad modifier.
