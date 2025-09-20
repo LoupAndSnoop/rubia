@@ -155,14 +155,9 @@ rubia_wind.force_orientation_to = force_orientation_to
 --Force this entity to any orientation besides this one.
 local function force_orientation_not(entity, player_index, direction)
     if entity.direction == direction then
-        --local direction1 = entity.direction
-        
         entity.rotate{by_player=player_index}
         squash_undo_actions(player_index)
         wind_correction_notification(entity, player_index)
-        --game.print("Force Not: " .. entity.prototype.name .. " from " 
-        --    .. tostring(direction1) .. " to " .. tostring(entity.direction))
-    --else game.print("Force Not failed: " .. entity.prototype.name .. ", direction = " .. entity.direction)
     end
 end
 
