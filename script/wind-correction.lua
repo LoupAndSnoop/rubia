@@ -155,11 +155,17 @@ rubia_wind.force_orientation_to = force_orientation_to
 --Force this entity to any orientation besides this one.
 local function force_orientation_not(entity, player_index, direction)
     if entity.direction == direction then
+        --local direction1 = entity.direction
+        
         entity.rotate{by_player=player_index}
         squash_undo_actions(player_index)
         wind_correction_notification(entity, player_index)
+        --game.print("Force Not: " .. entity.prototype.name .. " from " 
+        --    .. tostring(direction1) .. " to " .. tostring(entity.direction))
+    --else game.print("Force Not failed: " .. entity.prototype.name .. ", direction = " .. entity.direction)
     end
 end
+
 
 --[[Force this entity to any orientation except any of those in the hashset
 local function force_orientation_not_hashset(entity, player_index, directions)
@@ -310,13 +316,22 @@ rubia_wind.update_wind_behavior()
 --#endregion
 
 
---Wind mechanic: Restricting the directions of specific items. Entity passed in could be invalid.
---Code modified from Nancy B + Exfret the wise.
+--Initial code modified from Nancy B + Exfret the wise.
 --Thanks to CodeGreen, for help sorting out horizontal splitters
---Warning: Player index could be nil
-function rubia_wind.wind_correction(entity, player_index)
+
+---Wind mechanic: Restricting the directions of specific items. Entity passed in could be invalid.
+---Warning: Player index could be nil
+---@param entity LuaEntity Entity to correct
+---@param player_index uint? Index of the player to send notifications, if applicable
+---@param skip_recheck boolean? if true, then don't recheck the same entity next frame.
+function rubia_wind.wind_correction(entity, player_index, skip_recheck)
     if  not entity or not entity.valid
         or entity.surface.name ~= "rubia" then return end
+
+    --This recheck is currently needed due to a bug in 2.0.66
+    if not skip_recheck then 
+        rubia.timing_manager.wait_then_do(1, "rubia-wind-correction", {entity, player_index, true})
+    end
 
     local entity_type = entity.type;
     if entity.type == "entity-ghost" then entity_type = entity.ghost_type end
@@ -349,6 +364,7 @@ function rubia_wind.wind_correction(entity, player_index)
     --Undo the lock
     storage.rubia_wind_callback_lock = false
 end
+rubia.timing_manager.register("rubia-wind-correction",rubia_wind.wind_correction)
 
 ---Wind correction with more general timing.
 
