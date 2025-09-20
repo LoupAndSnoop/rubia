@@ -4,6 +4,7 @@
 local rubia_wind = {}
 
 --#region Notifications
+
 --Give a notice that an entity's config was changed. Input player index
 local function wind_correction_notification(entity, player_index)
     if not player_index then return end --No player, no notice.
@@ -29,6 +30,7 @@ end
 --#endregion
 
 --#region Inserters
+
 --Given a valid adjustable inserter entity, apply adjustments that will work with adjustable inserter mods.
 --Return true if an edit was made.
 local function try_adjust_inserter(entity)
@@ -134,6 +136,7 @@ local function squash_undo_actions(player_index)
 end
 
 --#region Making functions for wind correction. These assume valid entity.
+
 ---Force this entity's orientation to that direction.
 ---@param entity LuaEntity
 ---@param player_index uint?
@@ -147,6 +150,7 @@ local function force_orientation_to(entity, player_index, direction)
         end
     end
 end
+rubia_wind.force_orientation_to = force_orientation_to
 
 --Force this entity to any orientation besides this one.
 local function force_orientation_not(entity, player_index, direction)
@@ -256,78 +260,11 @@ local function block_entity_placement(entity, player_index)
 end
 
 
---#region Renai
---Special case for thrower inserters, to adjust their orientation and trajectory
-remote.add_interface("rubia-thrower-trajectories", {
-    sinusoid = function(parameters, total_ticks, thrower)
-        local start_pos, end_pos = thrower.position, thrower.drop_position--parameters.start_pos, parameters.end_pos
-        local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
-        
-        local path = {}
-        for i = 0, total_ticks, 1 do
-            local dimensionless_time = i / total_ticks-- + 0.00001
-            table.insert(path, {
-                x=start_pos.x + dimensionless_time * delta_x,
-                y = start_pos.y + dimensionless_time * delta_y 
-                    + 2 * math.sin(3 * 2 * 3.14159 * dimensionless_time),
-                height = -(dimensionless_time) * (dimensionless_time - 1),
-            })
-        end
-        --game.print(serpent.block(path))
-        return path
-    end,
-
-    corkscrew = function(parameters, total_ticks, thrower)
-        local start_pos, end_pos = thrower.position, thrower.drop_position--parameters.start_pos, parameters.end_pos
-        local delta_x, delta_y = end_pos.x - start_pos.x, end_pos.y - start_pos.y 
-        
-        local path = {}
-        local revolutions = math.min(4, math.max(2, math.floor(delta_x / 4)))
-        local radius = math.min(1.5, math.max(0.5, delta_x / 5))
-        for i = 0, total_ticks, 1 do
-            local dimensionless_time = i / total_ticks-- + 0.00001
-            local theta = 2 * 3.14159 * revolutions * dimensionless_time
-            table.insert(path, {
-                x= start_pos.x + dimensionless_time * delta_x
-                    + radius * math.cos(theta) - radius,
-                y = start_pos.y + dimensionless_time * delta_y 
-                    + radius * math.sin(theta),
-                height = -(dimensionless_time) * (dimensionless_time - 1),
-            })
-        end
-        --game.print(serpent.block(path))
-        return path
-    end
-})
-local function force_thrower_orientation(entity, player_index)
-    force_orientation_to(entity, player_index, defines.direction.west)
-
-    --[[not ready yet. WIP
-    --Make funny trajectory
-    if remote.interfaces["RenaiTransportation"] then
-        local delta_x = math.abs(entity.drop_position.x - entity.position.x)
-        if delta_x > 5 then
-            local trajectory = {type="interface", interface="rubia-thrower-trajectories", 
-                name = "corkscrew",--name="sinusoid",
-                parameters={start_pos = entity.position, end_pos = entity.drop_position}}
-
-            remote.call("RenaiTransportation", "SetTrajectoryAdjust", entity, trajectory)
-        else
-            remote.call("RenaiTransportation", "ClearTrajectoryAdjust", entity)
-        end
-    end]]
+--#region Connecting entities to wind behaviors
+--Add a specific wind behavior to the given prototype
+function rubia_wind.assign_wind_behavior(prototype_name, wind_behavior)
+    wind_entity_dic[prototype_name] = wind_behavior
 end
---Special cases for compatibility with Renai
---local force_thrower_orientation
-for _, prototype in pairs(prototypes.entity) do
-    --Throwers must be rotated
-    if (string.find(prototype.name, "RTThrower")) then 
-        wind_entity_dic[prototype.name] = {wind_type = "custom", custom = force_thrower_orientation}
-        --wind_entity_dic[prototype.name] = {wind_type = "force-to", orient=defines.direction.west} --Old version. Works until new interface
-    end
-end
---#endregion
-
 
 --Parse wind behavior table to code in a specific function.
 local function wind_behavior_to_function(wind_behavior)
@@ -355,14 +292,21 @@ local function wind_behavior_to_function(wind_behavior)
     error("Invalid wind behavior: " .. serpent.block(wind_behavior))
 end
 
---Make wind behavior dictionaries to return functions
 local wind_entity_functions, wind_prototype_functions = {}, {}
-for name, wind_behavior in pairs(wind_entity_dic) do
-    wind_entity_functions[name] = wind_behavior_to_function(wind_behavior)
+--Make wind behavior dictionaries to return functions
+function rubia_wind.update_wind_behavior()
+    wind_entity_functions, wind_prototype_functions = {}, {}
+    for name, wind_behavior in pairs(wind_entity_dic) do
+        wind_entity_functions[name] = wind_behavior_to_function(wind_behavior)
+    end
+    for name, wind_behavior in pairs(wind_prototype_dic) do
+        wind_prototype_functions[name] = wind_behavior_to_function(wind_behavior)
+    end
 end
-for name, wind_behavior in pairs(wind_prototype_dic) do
-    wind_prototype_functions[name] = wind_behavior_to_function(wind_behavior)
-end
+
+rubia_wind.update_wind_behavior()
+--#endregion
+
 --#endregion
 
 
@@ -478,24 +422,6 @@ if script.active_mods["quick-adjustable-inserters"] then
       defines.events.on_qai_inserter_adjustment_finished}, function(event)
     rubia_wind.wind_correction(event.inserter, event.player_index) 
   end)
-end
-
---Renai transportation: Focused flinging event calls.
-if script.active_mods["RenaiTransportation"] then
-    script.on_event({"RTtcaretnI", "RTInteract"}, function(event)
-        local player = event.player_index and game.players[event.player_index]
-        if not player.surface or player.surface.name ~= "rubia" then return end --wrong surface
-        local entity = player.selected
-        if entity and entity.valid then
-            rubia_wind.wind_correction(entity, player_index)
-        end
-        --local search_area = --local spot = event.cursor_position
-        --wind_correct_position(search_area, player_index)
-    end
-)
-
-
-    
 end
 
 --#endregion

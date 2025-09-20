@@ -11,7 +11,7 @@ require("__rubia__.script.trashsteroid-spawning")
 
 --require("__rubia__.script.wind-turbine-control")
 local landing_cutscene = require("__rubia__.script.landing-cutscene")
-local rubia_wind = require("__rubia__.script.wind-correction")
+require("__rubia__.script.wind-correction")
 local init_functions = require("__rubia__.script.init")
 require("__rubia__.script.lore-mining")
 require("__rubia__.script.entity-swap")
@@ -22,6 +22,7 @@ require("__rubia__.script.version-change-warnings")
 
 --Compatibility calls
 require("__rubia__.compat.simple-adjustable-inserters")
+require("__rubia__.compat.renai-transportation")
 require("__rubia__.compat.pickier-dollies")
 require("__rubia__.compat.discovery-tree")
 require("__rubia__.compat.factorissimo")

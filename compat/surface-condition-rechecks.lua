@@ -110,15 +110,16 @@ end
 --the special yeet recipes had surface restrictions removed.
 --This basically allows the trigger techs to be done outside Rubia.
 
+rubia_lib.assert_protected_mod_data("rubia-crapapult-recipes-trigger")
 local special_yeet_recipes = prototypes.mod_data["rubia-crapapult-recipes-trigger"].data.names --[[@as table<string, boolean>]]
-
+assert(special_yeet_recipes, "A mod destroyed critical mod data required for Rubia to function.")
+assert(table_size(special_yeet_recipes) > 4, "A mod caused Rubia technologies to cease functioning.")
 --Consistency check
 local critical_recipe_names = {"yeet-makeshift-biorecycling-science-pack",
     "yeet-ghetto-biorecycling-science-pack", "yeet-biorecycling-science-pack"}
 for _, name in pairs(critical_recipe_names) do
-    assert(special_yeet_recipes[name], "A mod destroyed critical mod data required for Rubia to function.")
+    assert(special_yeet_recipes[name], "A mod destroyed critical mod data required for Rubia to function: " .. name)
 end
-assert(table_size(special_yeet_recipes) > 4, "A mod destroyed critical mod data required for Rubia to function.")
 
 local trigger_recipe_conditions_unlocked = false
 for recipe_name in pairs(special_yeet_recipes) do

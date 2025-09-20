@@ -51,3 +51,17 @@ function rubia_lib.remove_entity_renderings(entity_name)
     for _, entry in pairs(to_remove) do entry.destroy() end
 end
 ]]
+
+---Assert that the given mod data was not deleted or modified by any other mods.
+---@param mod_data_name string name of the mod-data
+function rubia_lib.assert_protected_mod_data(mod_data_name)
+    assert(prototypes.mod_data[mod_data_name], "A mod destroyed critical mod data required for Rubia to function.")
+    local THIS_MOD = "rubia"
+
+    local history = prototypes.get_history("mod-data", mod_data_name)
+    assert(history.created == THIS_MOD, "A mod overwrote critical mod data required for Rubia to function."
+        .. "Please disable this mod: " .. history.created)
+    
+    assert(table_size(history.changed) == 0, "A mod(s) tampered with critical mod data required for Rubia to function."
+        .. "Please disable this mod(s): " .. serpent.line(history.changed))
+end

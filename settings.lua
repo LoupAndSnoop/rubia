@@ -64,6 +64,15 @@ data:extend({
         allowed_values = {"easy","normal","hard","very-hard","very-very-hard"},
         --hidden = true,
     },
+
+    {
+        type = "bool-setting",
+        name = "rubia-renai-special-trajectories",
+        setting_type = "runtime-global",
+        default_value = true,
+        hidden = not mods["RenaiTransportation"],
+    },
+
 })
 
 --data:extend({
