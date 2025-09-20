@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.117
-Date: ????
+Date: 2025-09-20
   Changes:
     - Collab with Kiplacon complete. Now, thrower inserters from Renai Transportation have unique trajectories while on Rubia.
     - Identified severe incompat with Exotic Space Industries. I'm marking it as incompatible."
