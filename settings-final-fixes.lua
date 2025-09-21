@@ -17,3 +17,11 @@ end
 if mods["blueprint-shotgun"] then
     data.raw["bool-setting"]["blueprint-shotgun-no-wood"].hidden = true
 end
+
+--Exotic space industries nukes trigger techs by default.
+if mods["exotic-space-industries"] then
+    local no_triggers = data.raw["bool-setting"]["ei-no-triggers"]
+    no_triggers.forced_value = false
+    no_triggers.allowed_values = {false}
+    no_triggers.hidden = true
+end

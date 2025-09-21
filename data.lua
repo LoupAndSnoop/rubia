@@ -54,6 +54,7 @@ require("__rubia__.compat.krastorio2-so")
 require("__rubia__.compat.aai-industry")
 require("__rubia__.compat.crushing-industry")
 require("__rubia__.compat.bobs-mods")
+require("__rubia__.compat.exotic-space-industries")
 
 --Late stage general changes that may depend on compat
 require("__rubia__.prototypes.data-script.recycling-fixes")
