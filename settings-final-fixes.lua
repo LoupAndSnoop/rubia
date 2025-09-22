@@ -24,4 +24,10 @@ if mods["exotic-space-industries"] then
     no_triggers.forced_value = false
     no_triggers.allowed_values = {false}
     no_triggers.hidden = true
+
+    local remove_sci = data.raw["bool-setting"]["ei-debloat"]
+    remove_sci.forced_value = false
+    remove_sci.allowed_values = {false}
+    remove_sci.hidden = true
+
 end
