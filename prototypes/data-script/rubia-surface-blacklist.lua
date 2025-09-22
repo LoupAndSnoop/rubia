@@ -76,6 +76,19 @@ local mod_item_blacklist = {
     {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-2"},
     {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-3"},
     {mod="factorissimo-2-notnotmelon", type = "storage-tank", name = "factory-circuit-connector"},
+
+    --Pneumatic transport mods turn solids to liquids, which is a massive problem!
+    {mod="pneumatic-transport-rp", type = "furnace", name = "pneumatic-outtake"},
+    {mod="pneumatic-transport-rp", type = "furnace", name = "pneumatic-intake"},
+    {mod="pneumatic-transport-rp", type = "assembling-machine", name = "pneumatic-intake-filtered"},
+    {mod="pneumatic-transport-rp", type = "inserter", name = "pneumatic-hidden-outtake"},
+    {mod="pneumatic-transport-rp", type = "inserter", name = "pneumatic-hidden-intake"},
+    {mod="pneumatic-transport-redux", type = "furnace", name = "pneumatic-outtake"},
+    {mod="pneumatic-transport-redux", type = "furnace", name = "pneumatic-intake"},
+    {mod="pneumatic-transport-redux", type = "storage-tank", name = "fluid-logistics-tank"},
+    {mod="pneumatic-transport-redux", type = "inserter", name = "pneumatic-hidden-outtake"},
+    {mod="pneumatic-transport-redux", type = "inserter", name = "pneumatic-hidden-intake"},
+    {mod="pneumatic-transport-redux", type = "pipe-to-ground", name = "rocket-silo-fluid-input"},
 }
 
 --Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.
