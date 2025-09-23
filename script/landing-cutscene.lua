@@ -557,6 +557,7 @@ landing_cutscene.try_start_cutscene = function(event)
         and cargo_pod
         and cargo_pod.cargo_pod_destination
         and cargo_pod.cargo_pod_destination.type == defines.cargo_destination.station
+        and cargo_pod.cargo_pod_destination.station
         and cargo_pod.cargo_pod_destination.station.surface.platform
         and cargo_pod.cargo_pod_origin
         and cargo_pod.cargo_pod_origin.surface

@@ -29,5 +29,4 @@ if mods["exotic-space-industries"] then
     remove_sci.forced_value = false
     remove_sci.allowed_values = {false}
     remove_sci.hidden = true
-
 end
