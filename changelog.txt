@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.119
-Date: ????
+Date: 2025-09-23
   Changes:
     - Blacklisted several items from Pneumatic Transport mods (mods that turn all solids to liquids, and removes all belts) because they basically invalidate Rubia.
     - Exotic Space Industries: Forced new science packs back in to non-vanilla technologies.
