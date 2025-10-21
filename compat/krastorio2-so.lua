@@ -75,7 +75,7 @@ data_util.add_recipe_unlock("rubia-progression-stage2", "kr-rubia-oxygen")
 --Add mineral pump to spidertron corpse results
 local spider = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
 table.insert(spider, 5, rubia_lib.tech_cost_scale(
-    {type = "item", name = "kr-mineral-water-pumpjack", probability=0.4, amount_min = 1, amount_max = 3}))
+    {type = "item", name = "pumpjack", probability=0.4, amount_min = 1, amount_max = 3}))
 
 --BZ Tin adds solder to fuel refineries.
 if mods["bztin"] then 
