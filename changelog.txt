@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.120
-Date: ????
+Date: 2025-10-21
   Changes:
     - Fixed K2SO compat issue with pumpjacks..
     - Forcing everyone up versions of machine upgrades with bugfixes.
