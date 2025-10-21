@@ -22,6 +22,7 @@ data:extend({rubia_lib.merge(cargo_drops_base, {
             { "logistic-science-pack", 1 },
             { "chemical-science-pack", 1 },
             { "military-science-pack", 1 },
+            { "space-science-pack",    1 },
             { "biorecycling-science-pack", 1 },
         },
         time = 60,

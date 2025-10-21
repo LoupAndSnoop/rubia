@@ -121,7 +121,6 @@ end
 
 --#region Promethium sci updating
 
-
 --Conditionally add/remove rubia science from promethium science costs
 if settings.startup["remove-rubia-from-promethium_sci"].value then
     remove_science_pack_from_tech("biorecycling-science-pack", "research-productivity")

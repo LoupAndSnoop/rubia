@@ -73,9 +73,11 @@ data_util.add_recipe_unlock("rubia-progression-stage2", "kr-rubia-oxygen")
 
 
 --Add mineral pump to spidertron corpse results
-local spider = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
-table.insert(spider, 5, rubia_lib.tech_cost_scale(
-    {type = "item", name = "kr-mineral-water-pumpjack", probability=0.4, amount_min = 1, amount_max = 3}))
+if helpers.compare_versions(mods["Krastorio2-spaced-out"], "1.4.31") == -1 then
+    local spider = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
+    table.insert(spider, 5, rubia_lib.tech_cost_scale(
+        {type = "item", name = "kr-mineral-water-pumpjack", probability=0.4, amount_min = 1, amount_max = 3}))
+end
 
 --BZ Tin adds solder to fuel refineries.
 if mods["bztin"] then 
@@ -181,4 +183,5 @@ if settings.startup["kr-realistic-weapons"].value then
     table.insert(rubia_lib.compat.to_call_on_data_final_fixes, on_data_final_fixes)
 
 end
--------
+
+--data.raw.technology["promethium-science-pack"].unit.count_formula = nil --Testing

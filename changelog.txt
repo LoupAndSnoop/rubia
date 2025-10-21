@@ -2,6 +2,11 @@
 Version: 0.69.120
 Date: ????
   Changes:
+    - Fixed K2SO compat issue with pumpjacks..
+    - Forcing everyone up versions of machine upgrades with bugfixes.
+    - Cheaper delete gleba now has proper messages.
+    - Operation Iron Man now costs space science to research. Please let me know if this causes issues with overhauls, as this primarilly targets K2SO.
+    - Prettied up Rubia planet brief simulation.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.119
 Date: 2025-09-23

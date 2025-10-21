@@ -23,7 +23,7 @@ constants.NO_SURFACE_RESTRICTION_MODS = {
     "NoCraftingSurfaceCondition", "no-cond", "no_placement_restriction", 
     "surface_restriction_removal_rubia_compat", "surface_restriction_reforked"}
 --string[] of mod names known to block biofusion
-constants.BIOFUSION_BLOCKING_MODS = {"delete-gleba", "FarmingInAnotherWorld"}
+constants.BIOFUSION_BLOCKING_MODS = {"delete-gleba", "FarmingInAnotherWorld", "cheaper-delete-gleba"}
 
 --[[string[] of items that are necessary to obtain by forage. Some are not available normally,
 --and only come in from compat calls from other mods. When they are in forage, they are crucial!

@@ -42,12 +42,25 @@ data:extend {{
         init = [[
             game.simulation.camera_position = {0, 1.5}
 
+            --"highland-yellow-rock"
             for x = -12, 12, 1 do
                 for y = -6, 6 do
-                    game.surfaces[1].set_tiles{{position = {x, y}, name = "highland-yellow-rock"}}
+                    game.surfaces[1].set_tiles{{position = {x, y}, name = "midland-cracked-lichen-dark"}}
                 end
             end
 
+            for _, coord in pairs({
+                {5,4},{5,3},{5,2},{5,1},
+                {6,5},{6,4},{6,3},{6,2},{6,1},
+                {7,6},{7,5},{7,4},{7,3},{7,2},
+                {8,5},{8,4},{8,3},    
+                {9,5},{9,4},{9,3},{9,2},
+                {10,6},{10,5},{10,4},{10,3},{10,2},{10,1},
+                {11,5},{11,4},{11,3},{11,2},{11,1},
+                {12,5},{12,4},{12,3},{12,2},{12,1}}) do
+                game.surfaces[1].set_tiles{{position = coord, name = "midland-cracked-lichen-dull"}}
+                game.surfaces[1].set_tiles{{position = {-coord[1], -coord[2]}, name = "midland-cracked-lichen-dull"}}
+            end
 
             game.surfaces[1].create_entity {
                 name = "rubia-spidertron-remnants",
@@ -89,6 +102,11 @@ data:extend {{
                 end
             end
             game.surfaces[1].create_decoratives{decoratives = create_list}
+
+            local player = game.simulation.create_test_player{name="test"}
+            local character = player.character
+            player.set_controller{type=defines.controllers.ghost}
+            character.destroy()
         ]],
         checkboard = false,
         mute_wind_sounds = false,
