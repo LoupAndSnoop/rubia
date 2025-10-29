@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.121
-Date: ????
+Date: 2025-10-29
   Changes:
     - Carbon steel compatibility.
     - Rebalanced utility sci and promethium sci recipes for when K2SO are installed.
