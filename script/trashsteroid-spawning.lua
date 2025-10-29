@@ -211,6 +211,14 @@ local update_difficulty_scaling = function()
   storage.impact_damage_special["character"] = settings.character_damage
 end
 
+--Trashsteroid cooldown edits
+if settings.startup["gtts-Adjust-GameSpeed"] and settings.startup["gtts-Adjust-GameSpeed"].value then
+  local new_rate = settings.startup["gtts-Target-FrameRate"].value / 60
+  trashsteroid_cooldown_min = math.max(1, math.floor(new_rate * trashsteroid_cooldown_min))
+  trashsteroid_cooldown_max = math.max(trashsteroid_cooldown_min, math.floor(new_rate * trashsteroid_cooldown_max))
+end
+
+
 ---Make trashsteroid in that chunk. Assume everything is initialized.
 ---@param trashsteroid_name string Name of trashsteroid prototype
 ---@param chunk ChunkPositionAndArea

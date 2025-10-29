@@ -364,8 +364,9 @@ event_lib.on_event({defines.events.on_player_changed_surface,
     "chunk-checker-player-pos",
     function(event)
         local surface = game.get_surface("rubia")
+        if not event.player_index then return end
         local player = game.get_player(event.player_index)
-        if surface then chunk_checker.try_update_player_pos(player, surface) end
+        if surface and player then chunk_checker.try_update_player_pos(player, surface) end
     end)
 
 event_lib.on_event(defines.events.on_object_destroyed, "chunk-checker-delist",

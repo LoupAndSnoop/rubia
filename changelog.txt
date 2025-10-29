@@ -2,6 +2,10 @@
 Version: 0.69.121
 Date: ????
   Changes:
+    - Carbon steel compatibility.
+    - Rebalanced utility sci and promethium sci recipes for when K2SO are installed.
+    - Quick fix to try to give compat for Global Tick Time Scale landing cutscene crash. Also tried to fix balance so you wouldn't get totally screwed (probably). I would still not consider this mod to be fully compatible with GTTS, and it will very likely crash later on. However, I will continue monitoring the situation. If I get another crash report related to GTTS, I'm going to mark it as incompatible. I'm putting this in writing so people can't get mad later.
+    - Fixed crash in multiplayer when banning someone who is not in the game.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.120
 Date: 2025-10-21

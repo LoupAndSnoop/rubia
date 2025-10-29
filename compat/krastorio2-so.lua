@@ -184,4 +184,25 @@ if settings.startup["kr-realistic-weapons"].value then
 
 end
 
---data.raw.technology["promethium-science-pack"].unit.count_formula = nil --Testing
+--Fixing science recipes, because K2SO makes them worse.
+local function update_science_packs()
+    local utility_sci_bio = data.raw.recipe["rubia-bio-utility-science-pack"]
+    local utility_sci_old = data.raw.recipe["utility-science-pack"]
+    if utility_sci_old and utility_sci_bio then
+        utility_sci_bio.ingredients = util.table.deepcopy(utility_sci_old.ingredients)
+        utility_sci_bio.results = util.table.deepcopy(utility_sci_old.results)
+        utility_sci_bio.results[1].amount = utility_sci_bio.results[1].amount + 1
+        utility_sci_bio.energy_required = utility_sci_old.energy_required
+    end
+
+    local promethium_recipe_bio = data.raw.recipe["rubia-biofusion-promethium-science-pack"]
+    if data.raw.item["kr-promethium-research-data"] then
+        promethium_recipe_bio.results = { {type = "item", name = "kr-promethium-research-data", amount = 10} }
+        promethium_recipe_bio.ingredients = {
+            {type = "item", name = "promethium-asteroid-chunk", amount = 10},--25
+            {type = "item", name = "quantum-processor", amount = 1},
+            {type = "item", name = "rubia-biofusion-science-pack", amount = 5}--8
+        }
+    end
+end
+table.insert(rubia_lib.compat.to_call_on_data_updates, update_science_packs)

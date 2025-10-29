@@ -430,8 +430,10 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
 
     character.surface.create_entity({name = "nuclear-reactor-explosion", position = {x=0,y=0}})
 
-    cargo_pod.force_finish_descending()
-    cargo_pod.destroy()
+    if cargo_pod and cargo_pod.valid then
+        cargo_pod.force_finish_descending()
+        cargo_pod.destroy()
+    end
     --if player and player.cargo_pod and player.cargo_pod.valid then player.cargo_pod.destroy() end
 
     --If player has no shields, amplify the amount of damage they need to survive.
