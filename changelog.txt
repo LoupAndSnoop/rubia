@@ -2,6 +2,7 @@
 Version: 0.69.122
 Date: ????
   Changes:
+    - Trashsteroid shields now spoil in 2 ticks. This blocks weird mods that let you collect trashsteroid remains from giving you free, useless shields. This fixes an issue right now for Schall Remains, but is future proof.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.121
 Date: 2025-10-29

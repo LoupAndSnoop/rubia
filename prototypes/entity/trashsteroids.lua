@@ -134,10 +134,12 @@ local function make_shield(shield_id, shield_value)
     type = "item",
     name = "trashsteroid-shield-" .. tostring(shield_id),
     icon = "__base__/graphics/icons/energy-shield-equipment.png",
+    flags = {"ignore-spoil-time-modifier"},
     place_as_equipment_result = "trashsteroid-shield-" .. tostring(shield_id),
     order = "zzzzzz[hidden]-ra",--"a[shield]-a[energy-shield-equipment]",
     hidden = true, hidden_in_factoriopedia = true,
     stack_size = 1,
+    spoil_ticks = 1,
   },
   })
 end
