@@ -2,6 +2,7 @@
 Version: 0.69.124
 Date: ????
   Changes:
+    - Compatibility with a space age overhaul called "Space Age Overhaul." Added compat recipe for steel.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.123
 Date: 2025-11-09
