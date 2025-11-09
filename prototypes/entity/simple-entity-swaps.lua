@@ -100,11 +100,22 @@ local function make_car_prototypes()
     log("Rubia is auto-making a custom car-variant of: " .. i .. " - " .. tostring(prototype.name))
     local new_prototype = make_rubia_variant(prototype)
     new_prototype.trash_inventory_size = 0
+
+    --Smaller hitbox to block cheese. Be mindful of fucktards with strange collision box formatting.
+    local inset = 0.16
+    local collision_box = new_prototype.collision_box
+    if collision_box and collision_box[1] and collision_box[1][1] and collision_box[1][2]
+      and collision_box[2] and collision_box[2][1] and collision_box[2][2] then
+      collision_box[1][1] = collision_box[1][1] + inset
+      collision_box[1][2] = collision_box[1][2] + inset
+      collision_box[2][1] = collision_box[2][1] - inset
+      collision_box[2][2] = collision_box[2][2] - inset
+      log("Rubia is adjusting the hitbox on its surface for: " .. (new_prototype.name or "UNKNOWN"))
+    end
+
     data:extend({new_prototype})
   end
 end
-
-
 
 ------
 function entity_swaps.make_auto_generated_prototypes()

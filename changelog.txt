@@ -2,6 +2,7 @@
 Version: 0.69.123
 Date: ????
   Changes:
+    - Slightly reduced hitboxes of car-like vehicles on Rubia. I tested this with a variety of vehicles for stability, but please report if anything breaks, and I'll have a quick hotfix up.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.122
 Date: 2025-11-05
