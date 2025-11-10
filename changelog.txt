@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.125
-Date: ????
+Date: 2025-11-10
   Changes:
     - Rubia now filters vehicle hitbox adjustment a little more stringently.
     - Banned some belt balancer mods from Rubia, because they allow leftward item teleportation.
