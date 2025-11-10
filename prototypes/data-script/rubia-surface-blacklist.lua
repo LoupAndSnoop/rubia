@@ -89,6 +89,10 @@ local mod_item_blacklist = {
     {mod="pneumatic-transport-redux", type = "inserter", name = "pneumatic-hidden-outtake"},
     {mod="pneumatic-transport-redux", type = "inserter", name = "pneumatic-hidden-intake"},
     {mod="pneumatic-transport-redux", type = "pipe-to-ground", name = "rocket-silo-fluid-input"},
+
+    --Magical belt balancers move items left
+    {mod="belt-balancer-3", type = "simple-entity-with-force", name = "balancer-part"},
+    {mod="belt-balancer-2", type = "simple-entity-with-force", name = "balancer-part"},
 }
 
 --Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.

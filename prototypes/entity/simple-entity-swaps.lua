@@ -103,13 +103,18 @@ local function make_car_prototypes()
 
     --Smaller hitbox to block cheese. Be mindful of fucktards with strange collision box formatting.
     local inset = 0.16
+    local min_dimension = 0.3 + inset * 2
     local collision_box = new_prototype.collision_box
     if collision_box and collision_box[1] and collision_box[1][1] and collision_box[1][2]
       and collision_box[2] and collision_box[2][1] and collision_box[2][2] then
-      collision_box[1][1] = collision_box[1][1] + inset
-      collision_box[1][2] = collision_box[1][2] + inset
-      collision_box[2][1] = collision_box[2][1] - inset
-      collision_box[2][2] = collision_box[2][2] - inset
+      if math.abs(collision_box[1][1] - collision_box[2][1]) > min_dimension then
+        collision_box[1][1] = collision_box[1][1] + inset
+        collision_box[2][1] = collision_box[2][1] - inset
+      end
+      if math.abs(collision_box[1][2] - collision_box[2][2]) > min_dimension then
+        collision_box[1][2] = collision_box[1][2] + inset
+        collision_box[2][2] = collision_box[2][2] - inset
+      end
       log("Rubia is adjusting the hitbox on its surface for: " .. (new_prototype.name or "UNKNOWN"))
     end
 
