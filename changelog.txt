@@ -2,7 +2,7 @@
 Version: 0.69.126
 Date: ????
   Changes:
-    - Added the long-awaited eyedrop upgrade.
+    - Added the long-awaited eyedrop upgrade. I blacklisted 7 of the really popular zoom mods that this change will break, but let me know if you experience your zoom mods not working as intended. A new Rubia mod setting can be toggled off to disable this behavior, which other mods can also disable if needed.
     - Science packs now have proper descriptions.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.125

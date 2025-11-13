@@ -2,6 +2,10 @@
 
 if rubia.HAS_ZOOM_ALTERING_MOD then return end
 
+--NOTE TO OTHER MODDERS!!!! If you are changing zoom extents, and 
+--Rubia is interfering with your mod, please force a value on the "rubia-zoom-change" setting,
+--to tell Rubia to fuck off.
+
 local function set_zoom(player)
     --Default zoom in factorio: closest = {zoom = 3}, furthest = {zoom = 0.15625 = 1/64}, furthest_game_view = {distance = 200, max_distance = 500} 
 	local min = 3 --In scale
