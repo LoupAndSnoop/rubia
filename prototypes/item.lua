@@ -15,7 +15,7 @@ data:extend(
     {
       type = "tool",
       name = "biorecycling-science-pack",
-      localised_description = {"item-description.science-pack"},
+      --localised_description = {"item-description.science-pack"},
       icon = "__rubia-assets__/graphics/icons/science/sphere_spiked_clear_brown.png",
       subgroup = "science-pack",
       color_hint = { text = "Y" },
@@ -35,7 +35,6 @@ data:extend(
     {
       type = "item",
       name = "makeshift-biorecycling-science-pack",
-      localised_description = {"item-description.science-pack"},
       icon = "__rubia-assets__/graphics/icons/science/torus_clear_brown.png",
       subgroup = "science-pack",
       color_hint = { text = "Y" },
@@ -57,7 +56,6 @@ data:extend(
   {
     type = "item",
     name = "ghetto-biorecycling-science-pack",
-    localised_description = {"item-description.science-pack"},
     icon = "__rubia-assets__/graphics/icons/science/sphere_tubed_clear_brown.png",
     subgroup = "science-pack",
     color_hint = { text = "Y" },
@@ -80,7 +78,7 @@ data:extend(
 {
   type = "tool",
   name = "rubia-biofusion-science-pack",
-  localised_description = {"item-description.science-pack"},
+  --localised_description = {"item-description.science-pack"},
   icon = "__rubia-assets__/graphics/icons/science/biofusion-science-pack.png",
   subgroup = "science-pack",
   color_hint = { text = "Y" },

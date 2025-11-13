@@ -16,6 +16,7 @@ local init_functions = require("__rubia__.script.init")
 require("__rubia__.script.lore-mining")
 require("__rubia__.script.entity-swap")
 require("__rubia__.script.technology-scripts")
+require("__rubia__.script.eyedrops")
 require("__rubia__.script.emergency-failsafes")
 require("__rubia__.script.version-change-warnings")
 

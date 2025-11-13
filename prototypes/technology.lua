@@ -814,6 +814,27 @@ if data.raw.planet["aquilo"] then
             research_trigger = {type = "craft-item", item="yeet-cryogenic-science-pack", count=1000},
         },
     })
+
+    if not rubia.HAS_ZOOM_ALTERING_MOD then
+        data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-eyedrop",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-eyedropper.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "nothing", icon_size = 64,
+                    icon = "__rubia-assets__/graphics/technology/craptonite-tools/eye-icon.png",
+                    effect_description = {"modifier-description.rubia-zoom-modifier", tostring(rubia.ZOOM_ALTERATION_PERCENT)}},
+                {type = "character-health-bonus", modifier = -25,
+                    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
+            },
+            prerequisites = {"rubia-craptonite-cannister"},
+            research_trigger = {type = "craft-item", item="yeet-raw-fish", count=5000},
+        },
+    })
+    end
 end
 
 --External mods

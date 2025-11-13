@@ -32,4 +32,16 @@ constants.NECESSARY_FORAGE = {"gun-turret",
     "kr-mineral-water-pumpjack",
 }]]
 
+--Mods known to change zoom extents.
+constants.ZOOM_ALTERING_MODS = {"ExtraZoom", "Infinizoom", "Zoom-reset", 
+    "FarZoom_Cybin", "Zooom", "Kux-ZoomRunning", "Autozoom"}
+--Is TRUE if we know there is a mod present that alters zooom.
+constants.HAS_ZOOM_ALTERING_MOD = false
+local mod_dir = script and script.active_mods or mods
+for _, entry in pairs(constants.ZOOM_ALTERING_MODS) do
+    constants.HAS_ZOOM_ALTERING_MOD = constants.HAS_ZOOM_ALTERING_MOD or 
+        (mod_dir and not not mod_dir[entry])
+end
+constants.ZOOM_ALTERATION_PERCENT = 20
+
 return constants

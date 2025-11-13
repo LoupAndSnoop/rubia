@@ -27,12 +27,11 @@ local hiding_parent_list = rubia_lib.array_to_hashset({
     "planetslib-rubia-cargo-drops",
     "rubia-nutrients-from-sludge",
     "rubia-bio-utility-science-pack",
+    "rubia-craptonite-cannister",
 })
 
 --Mostly disable the tech hiding feature.
 if rubia.DISABLE_TECH_HIDING then
-    --hiding_parent_list = {}
-    --hiding_base_list = {}
     log("WARNING: Rubia Tech hiding feature currently disabled for techs in the middle of the tree.")
     for _, tech in pairs(data.raw["technology"]) do
         if #rubia_lib.get_child_technologies(tech.name) > 0 then hiding_blacklist[tech.name] = true end

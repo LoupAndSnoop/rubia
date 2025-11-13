@@ -2,6 +2,8 @@
 Version: 0.69.126
 Date: ????
   Changes:
+    - Added the long-awaited eyedrop upgrade.
+    - Science packs now have proper descriptions.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.125
 Date: 2025-11-10

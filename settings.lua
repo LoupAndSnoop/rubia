@@ -1,3 +1,4 @@
+rubia = require("__rubia__.lib.constants")
 
 data:extend({
     {
@@ -63,6 +64,13 @@ data:extend({
         default_value = "normal",
         allowed_values = {"easy","normal","hard","very-hard","very-very-hard"},
         --hidden = true,
+    },
+    {
+        type = "bool-setting",
+        name = "rubia-zoom-change",
+        setting_type = "runtime-per-user",
+        default_value = true,
+        hidden = rubia.HAS_ZOOM_ALTERING_MOD,
     },
 
     {
