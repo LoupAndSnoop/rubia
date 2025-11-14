@@ -7,6 +7,8 @@ if rubia.HAS_ZOOM_ALTERING_MOD then return end
 --to tell Rubia to fuck off.
 
 local function set_zoom(player)
+    if not player then return end
+
     --Default zoom in factorio: closest = {zoom = 3}, furthest = {zoom = 0.15625 = 1/64}, furthest_game_view = {distance = 200, max_distance = 500} 
 	local min = 3 --In scale
 	local max = 200 --In tiles
