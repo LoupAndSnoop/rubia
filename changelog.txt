@@ -2,6 +2,7 @@
 Version: 0.69.127
 Date: ????
   Changes:
+    - Fixed reversing speed for armored locomotives. Due to a mathermatical error, they reversed much slower than intended (during manual drive). Thanks to woolworm2's report.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.126
 Date: 2025-11-14
