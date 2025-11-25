@@ -815,26 +815,32 @@ if data.raw.planet["aquilo"] then
         },
     })
 
-    if not rubia.HAS_ZOOM_ALTERING_MOD then
-        data:extend({
-        {
-            type = "technology",
-            name = "rubia-craptonite-eyedrop",
-            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-eyedropper.png",
-            icon_size = 256,
-            essential = false,
-            effects = {
-                {type = "nothing", icon_size = 64,
-                    icon = "__rubia-assets__/graphics/technology/craptonite-tools/eye-icon.png",
-                    effect_description = {"modifier-description.rubia-zoom-modifier", tostring(rubia.ZOOM_ALTERATION_PERCENT)}},
-                {type = "character-health-bonus", modifier = -25,
-                    icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
-            },
-            prerequisites = {"rubia-craptonite-cannister"},
-            research_trigger = {type = "craft-item", item="yeet-raw-fish", count=5000},
+    local eyedrop_reach_modifier = 0.5
+    local eyedrop_tech = {
+        type = "technology",
+        name = "rubia-craptonite-eyedrop",
+        icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-eyedropper.png",
+        icon_size = 256,
+        essential = false,
+        effects = {
+            {type = "character-health-bonus", modifier = -25,
+                icon="__rubia-assets__/graphics/technology/craptonite-tools/character-health-down.png", icon_size=64},
+            {type = 'character-build-distance', modifier = eyedrop_reach_modifier, hidden=true},
+            {type = 'character-item-drop-distance', modifier = eyedrop_reach_modifier, hidden=true},
+            {type = 'character-resource-reach-distance', modifier = eyedrop_reach_modifier, hidden=true},
+            {type = 'character-reach-distance', modifier = eyedrop_reach_modifier},
         },
-    })
+        prerequisites = {"rubia-craptonite-cannister"},
+        research_trigger = {type = "craft-item", item="yeet-raw-fish", count=5000},
+    }
+    --Zoom effect ONLY if another mod won't cancel it.
+    if not rubia.HAS_ZOOM_ALTERING_MOD then
+        table.insert(eyedrop_tech.effects, 1,
+            {type = "nothing", icon_size = 64,
+                icon = "__rubia-assets__/graphics/technology/craptonite-tools/eye-icon.png",
+                effect_description = {"modifier-description.rubia-zoom-modifier", tostring(rubia.ZOOM_ALTERATION_PERCENT)}})
     end
+    data:extend({eyedrop_tech})
 end
 
 --External mods
@@ -1046,6 +1052,44 @@ if mods["Factorio-Tiberium"] and mods["machine-upgrades"] then
     },
     })
 end
+
+
+if mods["Arcanyx"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-rainbow-brooch",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-rainbow-brooch.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "nothing", icon_size = 64,
+                icon = "__rubia-assets__/graphics/technology/craptonite-tools/lightbulb-icon.png",
+                effect_description = {"modifier-description.rubia-craptonite-lamp"}},
+            },
+            prerequisites = {"craptonite-axe", "s6x-iridescent-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-iridescent-science-pack", count=1000}, --"yeet-hydraulic-science-pack"
+        },
+    })
+end
+
+if mods["planet-rabbasca"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-carrot",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-carrot.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+                {type = "character-running-speed", modifier = 0.25},
+            },
+            prerequisites = {"craptonite-axe", "athletic-science-pack"},
+            research_trigger = {type = "craft-item", item="yeet-athletic-science-pack", count=1000}, --"yeet-hydraulic-science-pack"
+        },
+    })
+end
+
 
 --[[
 ----TODO: When Jahtra launches

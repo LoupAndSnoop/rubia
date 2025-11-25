@@ -9,7 +9,7 @@ local function initialize_storage()
     storage.wind_turbine_renders = storage.wind_turbine_renders or {}
 end
 
----Fake quality scaling onto the wind turbine.
+---Fake quality scaling onto the wind turbine for EEI mode.
 ---Assume this is a valid wind turbine
 local function quality_correct_wind_turbine(entity)
     --For some reason, 5000 = 300 kW
