@@ -8,6 +8,7 @@ Date: ????
     - Eyedropper tech now gives a tiny bit of additional reach as a small bonus. So people with zoom-altering mods don't get absolutely nothing.
     - Rubia mod name in library now just says ○🌐Rubia
     - Forcing people to up versions of their dependencies for various upgrades, as I need some upgrades, and I'm not going to handle bug reports/testing on older versions of dependencies.
+    - Cheat mode no longer causes a bunch of unknown tech placeholders to stay visible.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.126
 Date: 2025-11-14

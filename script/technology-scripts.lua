@@ -1,5 +1,4 @@
 --This file focuses on control-stage scripts to do various things in response to technologies.
-
 local tech_lib = require("__rubia__.lib.technology-lib")
 
 
@@ -61,6 +60,15 @@ end
 
 -----@param recursive_sync boolean True => do search recursively to sync
 
+--[[All techs created by Rubia, excluding unknown placeholders.
+local rubia_tech_list = {}
+for tech_name in pairs(prototypes.technology) do
+    if not tech_lib.is_unknown_tech_placeholder(tech_name) --unk techs, do not include
+        and prototypes.get_history("technology", tech_name).created == "rubia" then --created by Rubia
+        rubia_tech_list[tech_name] = true
+    end
+end]]
+
 ---Make the researched state of the given tech match its actual researched state for that force.
 ---Tech can be named by known or unknown version
 ---@param tech_name string
@@ -84,7 +92,6 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
     --local orig_tech = force.technologies[tech_lib.get_known_tech_name(tech_name)]
     local unknown_tech = force.technologies[tech_lib.get_unknown_tech_name(tech_name)]
 
-
     unknown_tech.researched = orig_tech.researched --This needs to be done because disabled techs are still enforced prereqs.
 
     orig_tech.visible_when_disabled = false
@@ -99,14 +106,13 @@ local function sync_unknown_tech(tech_name, force, force_sync_children)
             if not prereq.researched 
                 and not tech_lib.is_unknown_tech_placeholder(prereq.name) --unk do not block
                 and prototypes.get_history("technology", prereq.name).created == "rubia" --Only rubia techs can hide things
-                --and tech_lib.has_rubia_tech_cost(prototypes.technology[prereq.name]) --Only Rubia techs can hide things
                 then should_hide = true; break; end
         end
     end
 
     --Apply the hiding to this tech
     orig_tech.enabled = not should_hide
-    unknown_tech.enabled = should_hide --TODO: This should be uncommented after a bugfix
+    unknown_tech.enabled = should_hide
     
     --log("do sync of: " .. tech_name .. ". Should hide = " .. tostring(should_hide))
 
@@ -129,6 +135,15 @@ local function enable_all_rubia_techs()
     end
 end
 
+--Array of all unknown tech placeholders
+local unknown_tech_list = {}
+for tech_name in pairs(prototypes.technology) do
+    if tech_lib.is_unknown_tech_placeholder(tech_name) then
+        table.insert(unknown_tech_list, tech_name)
+    end
+end
+--log("PING! Unknown techs currently: " .. serpent.block(unknown_techs))
+
 --Go sync ALL unknown techs for all forces
 local function sync_all_unknown_techs()
     if game.simulation then return end --We don't do this for sims.
@@ -136,19 +151,9 @@ local function sync_all_unknown_techs()
     --For the case of tech hiding, just enable all the techs in case of migrations
     enable_all_rubia_techs();
 
-    --Array of all unknown tech placeholders
-    local unknown_techs = {}
-    for tech_name in pairs(prototypes.technology) do
-        if tech_lib.is_unknown_tech_placeholder(tech_name) then
-            table.insert(unknown_techs, tech_name)
-        --else log("Not syncing: " .. tech_name)
-        end
-    end
-    --log("PING! Unknown techs currently: " .. serpent.block(unknown_techs))
-
     --Now sync them
     for _, force in pairs(game.forces) do
-        for _, tech_name in pairs(unknown_techs) do
+        for _, tech_name in pairs(unknown_tech_list) do
             sync_unknown_tech(tech_name, force, true)
         end
     end
@@ -156,14 +161,42 @@ end
 
 --#endregion
 
-
 --Putting everything together
+
+rubia.timing_manager.register("delayed-tech-sync", function()
+    technology_scripts.on_startup()
+    --Timing manager event id for the next time we will do a delayed technology sync, if it is upcoming.
+    storage.delayed_tech_sync_event_id = nil
+    --game.print("Rubia testing: Delayed tech update")
+end)
+--Sync all techs once, on the next frame.
+local function delayed_sync_all()
+    --Dequeue and requeue to avoid jank from permanent locks, while avoiding duplicate unneeded calls.
+    if storage.delayed_tech_sync_event_id then 
+        rubia.timing_manager.dequeue_events({storage.delayed_tech_sync_event_id})
+    end
+    storage.delayed_tech_sync_event_id = rubia.timing_manager.wait_then_do(
+        1, "delayed-tech-sync", {})
+end
 
 ---Take care of all technology updates that have to happen when something is researched.
 ---@param technology LuaTechnology
 technology_scripts.on_research_update = function(technology)
     sync_unknown_tech(technology.name, technology.force, true)
     execute_on_research_scripts(technology)
+
+    --Amount of research updates within the past tick
+    if not storage.research_completed_past_tick 
+        or storage.research_completed_past_tick.tick ~= game.tick then
+        --Shows what tick we last had a new research event call, and how many calls we got that tick.
+        storage.research_completed_past_tick = {tick = game.tick, count = 1}
+    else
+        storage.research_completed_past_tick.count = 1 + storage.research_completed_past_tick.count
+    end
+
+    --If we just did many researches in the same tick, then we probably did some sort of
+    --big tech enabling that requires a big sync.
+    if storage.research_completed_past_tick.count > 10 then delayed_sync_all() end
 end
 
 ---Run tech-related scripts that should happen whenever booting up the game from a new state.
@@ -175,16 +208,20 @@ end
 --Testing tech hiding sync
 _G.rubia.testing = rubia.testing or {}
 rubia.testing.test_sync_tech_hiding = sync_all_unknown_techs
+-- /c __rubia__ rubia.testing.test_sync_tech_hiding()
 
 --#region Events
 local event_lib = require("__rubia__.lib.event-lib")
 
 event_lib.on_event(defines.events.on_technology_effects_reset, 
   "tech-startup", technology_scripts.on_startup)
-event_lib.on_event(defines.events.on_research_finished, "tech-updates", function(event)
+event_lib.on_event({defines.events.on_research_finished,
+    defines.events.on_research_reversed}, "tech-updates", function(event)
   technology_scripts.on_research_update(event.research) end)
 event_lib.on_init("technology-start", technology_scripts.on_startup)
 event_lib.on_configuration_changed("technology-start", technology_scripts.on_startup)
+event_lib.on_event({defines.events.on_player_cheat_mode_enabled,
+    defines.events.on_technology_effects_reset}, "delayed-tech-sync", delayed_sync_all)
 
 --#endregion
 

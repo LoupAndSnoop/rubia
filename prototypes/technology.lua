@@ -1053,7 +1053,7 @@ if mods["Factorio-Tiberium"] and mods["machine-upgrades"] then
     })
 end
 
-
+--[[
 if mods["Arcanyx"] then 
     data:extend({
         {
@@ -1089,7 +1089,7 @@ if mods["planet-rabbasca"] then
         },
     })
 end
-
+]]
 
 --[[
 ----TODO: When Jahtra launches
