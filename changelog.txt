@@ -3,12 +3,12 @@ Version: 0.69.127
 Date: ????
   Changes:
     - Fixed reversing speed for armored locomotives. Due to a mathermatical error, they reversed much slower than intended (during manual drive). Thanks to woolworm2's report.
-    - New Arcanyx cross tech.
-    - New Rabbasca cross tech.
     - Eyedropper tech now gives a tiny bit of additional reach as a small bonus. So people with zoom-altering mods don't get absolutely nothing.
     - Rubia mod name in library now just says ○🌐Rubia
     - Forcing people to up versions of their dependencies for various upgrades, as I need some upgrades, and I'm not going to handle bug reports/testing on older versions of dependencies.
     - Cheat mode no longer causes a bunch of unknown tech placeholders to stay visible.
+    - Fixed incompatibility with Alloy smelting when specific mod settings are enabled.
+    - Fixed incompatibility with crushing industry making concrete not work in crapapult.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.126
 Date: 2025-11-14

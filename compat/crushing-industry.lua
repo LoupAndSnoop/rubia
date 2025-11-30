@@ -80,6 +80,7 @@ if settings.startup["crushing-industry-concrete-mix"].value then
         CrushingIndustry = CrushingIndustry or {}
         CrushingIndustry.concrete_recipes = CrushingIndustry.concrete_recipes or {}
         CrushingIndustry.concrete_recipes["craptonite-casting"] = {ignore=true}
+        CrushingIndustry.concrete_recipes["yeet-item-concrete"] = {ignore=true}
         CrushingIndustry.concrete_recipes["rubia-compat-crushing-concrete-mix"] = {ignore=true}
         if data.raw.recipe["rubia-compat-crushing-sand-crushing"] then --Also don't mess with the other compat recipe
             CrushingIndustry.concrete_recipes["rubia-compat-crushing-sand-crushing"] = {ignore=true}

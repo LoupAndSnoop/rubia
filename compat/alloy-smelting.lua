@@ -3,13 +3,16 @@ if not mods["alloy-smelting"] then return end
 
 --Main issue is when coke is needed for steel
 if settings.startup["alloy-smelting-coke"].value then
-    local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
-    local _, entry = rubia_lib.compat.find_item_in_list(minable, "electric-furnace")
-    entry.name = "electric-kiln"
 
-    local scrapapalooza = data.raw["recipe"]["biorecycle-scrapapalooza"].results
-    local _, entry = rubia_lib.compat.find_item_in_list(scrapapalooza, "electric-furnace")
-    entry.name = "electric-kiln"
+    if settings.startup["alloy-smelting-create-kilns"].value then
+        local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
+        local _, entry = rubia_lib.compat.find_item_in_list(minable, "electric-furnace")
+        entry.name = "electric-kiln"
+
+        local scrapapalooza = data.raw["recipe"]["biorecycle-scrapapalooza"].results
+        local _, entry = rubia_lib.compat.find_item_in_list(scrapapalooza, "electric-furnace")
+        entry.name = "electric-kiln"
+    end
 
     --Need a recipe to make coke.
     data:extend({
