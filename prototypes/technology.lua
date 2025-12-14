@@ -1002,8 +1002,9 @@ if mods["janus"] and mods["machine-upgrades"] then
 end
 
 if (mods["lignumis"] or mods["wood-universe-modpack"]) and mods["machine-upgrades"] then
-    --Lignumis/Wood universe use same internal names for stuff, and similar balance. The difference is the tech.
-    local wooden_prerequisite = mods["lignumis"] and "lumber-mill" or "advanced-carpentry"
+    --Lignumis/Wood universe internal names match except for the tech. Balance matches as well.
+    --local wooden_prerequisite = mods["lignumis"] and "lumber-mill" or "advanced-carpentry"
+    local wooden_prerequisite = mods["wood-universe-modpack"] and "advanced-carpentry" or "lumber-mill"
     data:extend({
     {
         type = "technology",

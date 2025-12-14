@@ -2,6 +2,7 @@
 Version: 0.69.128
 Date: ????
   Changes:
+    - Futureproofed compat with Lignumis + Wooden Universe at the same time.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.127
 Date: 2025-11-30
