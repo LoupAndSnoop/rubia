@@ -1004,7 +1004,7 @@ end
 if (mods["lignumis"] or mods["wood-universe-modpack"]) and mods["machine-upgrades"] then
     --Lignumis/Wood universe internal names match except for the tech. Balance matches as well.
     --local wooden_prerequisite = mods["lignumis"] and "lumber-mill" or "advanced-carpentry"
-    local wooden_prerequisite = mods["wood-universe-modpack"] and "advanced-carpentry" or "lumber-mill"
+    local wooden_prerequisite = mods["wood-logistics"] and "advanced-carpentry" or "lumber-mill"
     data:extend({
     {
         type = "technology",

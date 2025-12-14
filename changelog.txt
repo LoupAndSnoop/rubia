@@ -2,6 +2,7 @@
 Version: 0.69.129
 Date: ????
   Changes:
+    - Actually futureproofed for Lignumis + Wooden Logistics (not wooden universe) at the same time.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.128
 Date: 2025-12-14
