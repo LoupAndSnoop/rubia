@@ -2,6 +2,7 @@
 Version: 0.69.130
 Date: ????
   Changes:
+    - Cargo bay inserter blacklist robustness. If will now only blacklist Rubia if planet cargo bays allow automated item insertion.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.129
 Date: 2025-12-14

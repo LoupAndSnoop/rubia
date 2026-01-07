@@ -8,6 +8,7 @@ local entity_swaps = require("__rubia__.prototypes.entity.simple-entity-swaps")
 entity_swaps.make_auto_generated_prototypes()
 require("__rubia__.prototypes.faux-quality-tooltips")
 require("__rubia__.compat.bacteria-updates")
+require("__rubia__.compat.cargo-bay-inserters")
 
 --Generic compat calls
 for _, entry in pairs(rubia_lib.compat.to_call_on_data_updates) do entry() end
