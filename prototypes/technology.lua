@@ -1073,6 +1073,7 @@ if mods["Arcanyx"] then
         },
     })
 end
+--]]
 
 if mods["planet-rabbasca"] then 
     data:extend({
@@ -1083,14 +1084,25 @@ if mods["planet-rabbasca"] then
             icon_size = 256,
             essential = false,
             effects = {
-                {type = "character-running-speed", modifier = 0.25},
+                {type = "character-running-speed", modifier = 0.2},
             },
             prerequisites = {"craptonite-axe", "athletic-science-pack"},
-            research_trigger = {type = "craft-item", item="yeet-athletic-science-pack", count=1000}, --"yeet-hydraulic-science-pack"
+            research_trigger = {type = "craft-item", item="yeet-harene-ears-core", count=100},
         },
     })
+
+    local function add_rabbasca_tech_effect()
+        Rabbasca = Rabbasca or {} --So VSCode get's off my dick about Rabbasca's global variable being undefined.
+        if not Rabbasca or not Rabbasca.bunnyhop then return end
+        if Rabbasca.bunnyhop.add_range_bonus then
+            Rabbasca.bunnyhop.add_range_bonus("rubia-craptonite-carrot", 2000)
+        end
+        if Rabbasca.bunnyhop.add_weight_bonus then
+            Rabbasca.bunnyhop.add_weight_bonus("rubia-craptonite-carrot", 500)
+        end
+    end
+    table.insert(rubia_lib.compat.to_call_on_data_updates, add_rabbasca_tech_effect)
 end
-]]
 
 --[[
 ----TODO: When Jahtra launches

@@ -17,8 +17,9 @@ if settings.startup["rubia-rocketizer-early-unlock"].value then
         end
     end
     table.insert(trashdragon_effects,{type = "unlock-recipe", recipe = "rci-rocketizer"})
+    data.raw["recipe"]["rubia-rci-rocketizer"] = nil
 
-else --We DON'T want to auto-unlock it
+else --We DON'T want to unlock it early.
     local silo_effects = data.raw.technology["rocket-silo"].effects
     for index, effect in pairs(silo_effects) do
         if (effect.type == "unlock-recipe" and effect.recipe == original_rocketizer_recipe.name) then 
@@ -27,5 +28,8 @@ else --We DON'T want to auto-unlock it
         end
     end
 
+    --Hide it, but leave the recipe so people can see that their old machines are no longer functional.
     original_rocketizer_recipe.auto_recycle = false
+    --data.raw["recipe"]["rci-rocketizer"] = nil
+    data.raw["recipe"]["rci-rocketizer"].hidden_in_factoriopedia = true
 end

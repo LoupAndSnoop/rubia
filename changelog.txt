@@ -2,11 +2,13 @@
 Version: 0.69.131
 Date: ????
   Changes:
+    - There was a bug for the longest time where old RCI rocketizer recipes clogged factoriopedia.
+    - New Rabbasca cross tech.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.130
 Date: 2026-01-07
   Changes:
-    - Cargo bay inserter blacklist robustness. If will now only blacklist Rubia if planet cargo bays allow automated item insertion.
+    - Cargo bay inserter blacklist robustness. It will now only blacklist Rubia if planet cargo bays allow automated item insertion.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.129
 Date: 2025-12-14
