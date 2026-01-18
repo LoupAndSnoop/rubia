@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.131
-Date: ????
+Date: 2026-01-18
   Changes:
     - There was a bug for the longest time where old RCI rocketizer recipes clogged factoriopedia.
     - New Rabbasca cross tech.
