@@ -1087,7 +1087,7 @@ if mods["planet-rabbasca"] then
                 {type = "character-running-speed", modifier = 0.2},
             },
             prerequisites = {"craptonite-axe", "athletic-science-pack"},
-            research_trigger = {type = "craft-item", item="yeet-harene-ears-core", count=100},
+            research_trigger = {type = "craft-item", item="yeet-rabbasca-energetic-concrete", count=100},
         },
     })
 
