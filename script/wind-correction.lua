@@ -270,7 +270,9 @@ end
 --Parse wind behavior table to code in a specific function.
 local function wind_behavior_to_function(wind_behavior)
     --Free = null function
-    if wind_behavior.wind_type == "free" then return nil end
+    if wind_behavior.wind_type == "free" then 
+        return function(x,y,z) return end
+    end
     if wind_behavior.wind_type == "custom" then return wind_behavior.custom end
 
     if wind_behavior.wind_type == "force-to" then 

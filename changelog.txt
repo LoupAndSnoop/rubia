@@ -2,6 +2,7 @@
 Version: 0.69.132
 Date: ????
   Changes:
+    - Fixed a long-standing bug where pumpjacks were affected by wind. Oops lol.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.131
 Date: 2026-01-18
