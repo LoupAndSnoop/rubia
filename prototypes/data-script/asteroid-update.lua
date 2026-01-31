@@ -22,28 +22,71 @@ if phys_type then
     end
 end]]
 
---local HEALTH_MULTIPLIER = 10
+--Some mods add other railgun ammo categories
+local railgun_ammo_categories = rubia_lib.array_to_hashset({
+    "railgun", "kr-railgun-shell"
+})
+
 --Scale the damage of each relevant ammunition
 local function try_scale_ammo_damage(ammo_prototype)
-    local delivery
-    if ammo_prototype.ammo_category == "railgun"
-        and ammo_prototype.ammo_type
-        and ammo_prototype.ammo_type.action
-        and ammo_prototype.ammo_type.action.action_delivery then
-        delivery = ammo_prototype.ammo_type.action.action_delivery
-    else return
+    if not (ammo_prototype.ammo_category
+        and railgun_ammo_categories[ammo_prototype.ammo_category] 
+        and ammo_prototype.ammo_type) then return end
+        
+    local actions = {}    
+    --Ammo type could be an AmmoType OR an array of ammo types!
+    if ammo_prototype.ammo_type.action then
+        actions = {ammo_prototype.ammo_type.action}
+    elseif type(ammo_prototype.ammo_type) == "table" then
+        for _, ammo_type in pairs(ammo_prototype.ammo_type) do
+            if ammo_type and ammo_type.action then
+                table.insert(actions, ammo_type.action)
+            end
+        end 
     end
 
-    if delivery.target_effects
-    and delivery.target_effects.type == "damage"
-    and delivery.target_effects.damage then
-        delivery.target_effects.damage.type = "rubia-kinetic"
+    --For an action try to change its damage type, if it is such a type of action.
+    local function try_change_action_damage(action, prototype_name)
+        local fail_message = "(KINETIC) Rubia failed to changed the damage type for: " .. prototype_name
+
+        local target_eff = action and action.action_delivery and action.action_delivery.target_effects
+        if not target_eff then log(fail_message); return end
+
+        --Could be an array or single. Make it an array.
+        local target_effects = target_eff.type and {target_eff} or target_eff
+        for _, effect in pairs(target_effects) do
+            if effect and effect.type == "damage"
+                and effect.damage
+                and effect.damage.type == "physical" then
+                effect.damage.type = "rubia-kinetic"
+                log("(KINETIC) Rubia changed the damage type for: " .. prototype_name)
+                return
+            end
+        end
+
+        log(fail_message)
     end
-    --This version changes the damage of the ammo, while keeping it physical
-    --[[and delivery.target_effects.damage.amount then
-        delivery.target_effects.damage.amount =
-        delivery.target_effects.damage.amount * HEALTH_MULTIPLIER
-    end]]
+
+    --Now the actions are in an array, regardless of initial format.
+    local projectiles = {}
+    for _, action in pairs(actions) do
+        local delivery = action and action.action_delivery
+        try_change_action_damage(action, ammo_prototype.name or "UNTITLED_AMMO")
+
+        --It spawns a projectile, instead of direct damage.
+        if delivery and delivery.type == "projectile"
+            and delivery.projectile then
+            table.insert(projectiles, delivery.projectile)
+        end
+    end
+
+    --Now we search for any projectiles it would make instead -.-
+    for _, proj_name in pairs(projectiles) do
+        local projectile = data.raw["projectile"][proj_name or ""]
+        if projectile and projectile.action then
+            try_change_action_damage(projectile.action, projectile.name or "UNTITLED_PROJECTILE")
+        end
+    end
 end
 
 for _, prototype in pairs(data.raw.ammo) do

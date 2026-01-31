@@ -2,6 +2,7 @@
 Version: 0.69.133
 Date: ????
   Changes:
+    - Fixed a long-standing bug where Krastorio 2 railguns were not given kinetic type damage. This bugfix is a buff.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.132
 Date: 2026-01-29
