@@ -1,39 +1,13 @@
-GPL3 License, Modified for Rubia
+This is a previous version of the license provided with Rubia.
+
+GPL3 License
 
 Copyright (c) 2025 Loup&Snoop
 
-TL;DR: Censored copies of Rubia can only be distributed if an original is available on the same Factorio version. Don't copy my thumbnail. Yuoki and glassware assets have strings attached. Otherwise, GPL3 rules apply. This license outlines this in proper detail.
+--Exception 1: Wagon sprites are derived from Yuoki railways are distributed under a creative commons license, and are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/yi_railway
+--Exception 2: Science pack sprites are derived from Hornwitser's Quality Glassware mod, and are distributed under a CC-BY-SA license. They are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/quality_glassware
+--Exception 3: Loup&Snoop retains moral rights over Rubia. Full reproductions of Rubia are explicitly allowed, as are modifications necessary to ensure compatibility (especially with later versions of Factorio). However, the spirit of the original script/names/etc contained within the locale files (eg those contained in .cfg files) must be preserved. The following derivatives of Rubia are not permitted: 1) altering the spirit of the locale files, 2) re-routing localization strings to achieve a similar effect, or 3) forcing a dependency that overwrites localization text. Making separate mods to achieve a similar effect is expressly allowed (as long as they are not forced dependencies).
 
--------
-
-LOUP&SNOOP'S MODIFICATIONS ON THE GPL3 LICENSE
-
-0. DEFINITIONS:    
-
-A derivative/redistribution "retains the spirit" of Rubia when the meaning, humor, and tone of the English text and original assets match that of the version of Loup&Snoop's Rubia from which it is derived. A derivative that "retains the spirit" of the original Rubia cannot do any of the following: 1) altering the spirit of the locale files, 2) re-routing localization strings to achieve a similar effect, 3) forcing a dependency or default setting to overwrite localization text or assets, or 4) any measure that would prevent a user from seeing uncensored text ingame by default. Any ambiguity is judged at the discretion of the current rightsholder to the original Rubia.
-
-A "Full Redistribution" of Rubia is a distribution or derivative of Rubia that either: 1) uses or adapts a majority of Rubia's code, 2) uses or adapts a majority of Rubia's assets, or 3) create a planet of substantial similarity to Rubia ingame using material from Rubia. Redistributions that are not Full Redistributions are not subject to the below terms, and are fully allowed with no restrictions beyond a normal GPL3 license.
-
-A "Preserved Distribution" refers to a Full Redistribution of Rubia that retains the spirit of Rubia and is broadly available on Factorio's mod portal.
-
-A "Non-preserved Distribution" refers to a Full Redistribution of Rubia that is not a Preserved Distribution.
-
-1. EXCEPTIONS TO THE GPL3 LICENSE
-
---Exception 1: Loup&Snoop retains moral rights over Rubia. Preserved Distributions of Rubia are explicitly allowed, as are modifications necessary to ensure compatibility (especially with later versions of Factorio).
-
---Exception 2: Non-preserved Distributions of Rubia may be distributed only if a Preserved Distribution is currently available and functional for the same or newer versions of Factorio. Furthermore, Non-preserved Distributions of Rubia must contain this license. 
-
---Exception 3: A Factorio mod may not use this mod’s uneditted thumbnail for its thumbnail. This mod’s thumbnail may be used to create a new thumbnail ONLY if the other mod's final thumbnail is very clearly distinguishable from the original mod’s thumbnail. The intent is to prevent users confusing the original and its forks.
-
---Exception 4: Wagon sprites are derived from Yuoki railways are distributed under a creative commons license, and are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/yi_railway
-
---Exception 5: Science pack sprites are derived from Hornwitser's Quality Glassware mod, and are distributed under a CC-BY-SA license. They are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/quality_glassware
-
-The following GPL3 license conditions can only grant rights to works that are not expressly forbidden by the above exceptions.
-
----------
-BASE GPL3 LICENSE CONDITIONS.
 
 TERMS AND CONDITIONS
 0. Definitions.

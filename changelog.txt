@@ -2,6 +2,7 @@
 Version: 0.69.134
 Date: ????
   Changes:
+    - License update. The new license is more permissive than the old one.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.133
 Date: 2026-01-31
