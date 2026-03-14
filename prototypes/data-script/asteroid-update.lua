@@ -125,6 +125,9 @@ for _, prototype in pairs(data.raw.asteroid or {}) do
 end
 
 -----------
+--Spawner HP increases with evo, so we need the mult
+local util_const = data.raw["utility-constants"]["default"]
+local spawner_HP_mult = (util_const and util_const.spawner_evolution_factor_health_modifier) or 10
 
 --Now add kinetic type resistance to everything to match the physical resistance
 local function add_matched_kinetic_resistance(prototype)
@@ -148,8 +151,10 @@ local function add_matched_kinetic_resistance(prototype)
             --Omit adding resistance if it would get OHKO'd anyway. => low max HP.
             --Railgun ammo does 10k base dmg. Flat res is calculated before % res.
             local expected_dmg = (10000 - decrease) * (100 - percent)/100
-            if (percent < 89) --Transfer immunities or massive resistances regardless
-                and prototype.max_health and (prototype.max_health < expected_dmg) then return end
+            local max_HP = prototype.max_health or (10^10)
+            if prototype.type == "unit-spawner" then max_HP = max_HP * spawner_HP_mult end
+            if (percent < 85) --Don't skip if it has a (near-)immunity
+                and (max_HP * 1.5 < expected_dmg) then return end --Add an extra buffer
 
             --Transfer only if it actually has some resistance to impart.
             if (percent > 0.001) or (decrease > 0.001) then

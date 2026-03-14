@@ -5,7 +5,7 @@ Date: ????
     - [!! MAJOR FEATURE !!] Rubia now has full buttplug.io integration. Rubia now has mod settings to interface with and trigger your buttplug (or related machines) in response to various events, cutscenes, and activities on Rubia. It is our hope that this will empower you to have a more immersive experience. Full instructions are provided in the mod settiing menu. Thanks to ashkitten, whose work made this possible.
     - Biofusion packs now explicitly mention that they are always made fresh.
     - Readme now has more details on compat.
-    - Fixed a long-standing bug where Rubia kinetic dmg resistance did not get inheritted by entities with >89% physical resistance. I also made this calculation smarter to properly avoid porting resistances for things that get OHKO'd anyway.
+    - Fixed a long-standing bug where Rubia kinetic dmg resistance did not get inheritted by entities with >89% physical resistance. The logic overall is substantially smarter.
     - Fixed sorting of craptonite walls in various menus.
     - I tried to fix a bug where craptonite walls cannot be upgraded via upgrade planner, but this is apparently not possible in the current factorio engine. Sorry.
     - [PENDING] Better compat with cargo bay inserters. This change is pending a pull request being accepted by Quezler, so you will not feel any changes until a later update. It's substantially more advanced now. The only difference with standard Cargo Bay Inserter behavior on Rubia now is in input/output mode, where cargo bays will only allow output.

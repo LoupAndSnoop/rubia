@@ -15,10 +15,11 @@ for name, _ in pairs(prototypes.entity) do
     end
 end
 
+--[[ TODO!!!! CARGO BAY INSERTERS. This swap needs to be put in whenever quezler accepts my PR.
 --Other mods
 if script.active_mods["cargo-bay-inserters"] and prototypes.entity[rubia.RUBIA_PROXY_CARGOBAY_NAME] then
     swap_target_rubia["cargo-bay-inserters--planet-cargo-bay-proxy"] = rubia.RUBIA_PROXY_CARGOBAY_NAME
-end
+end]]
 
 
 --Reverse dictionary
