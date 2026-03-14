@@ -139,12 +139,14 @@ local function add_matched_kinetic_resistance(prototype)
     for _, entry in pairs(prototype.resistances or {}) do
         if entry.type == "physical" and (entry.decrease or entry.percent) then
             --Omit adding resistance if it would get OHKO'd anyway. => low max HP.
-            if not (entry.percent and entry.percent < 89) --Do transfer immunities or massive resistances
-                or (prototype.max_health and (prototype.max_health < 1001)) then return end
+            --Railgun ammo does 10k base dmg. Flat res is calculated before % res.
+            local expected_dmg = (10000 - (entry.decrease or 0)) * (100 - (entry.percent or 0))/100
+            if not (entry.percent and entry.percent > 89) --Do transfer immunities or massive resistances
+                or (prototype.max_health and (prototype.max_health <= expected_dmg)) then return end
 
             --Small flat/% resistances => 0
             local decrease = entry.decrease or 0
-            if decrease < 100 then decrease = 0 end 
+            if decrease < 100 then decrease = 0 end
             local percent = entry.percent or 0
             if percent < 15 then percent = 0 end
 

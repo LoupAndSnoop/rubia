@@ -1,4 +1,3 @@
-
 --Based on work by ashkitten for Cubutt
 local buttplug = {}
 
