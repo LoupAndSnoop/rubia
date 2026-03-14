@@ -155,8 +155,8 @@ local function add_matched_kinetic_resistance(prototype)
             local expected_dmg = (RAILGUN_BASE_DAMAGE - decrease) * (100 - percent)/100
             local max_HP = prototype.max_health or (10^10)
             if prototype.type == "unit-spawner" then max_HP = max_HP * spawner_HP_mult end
-            if (percent < 85) --Don't skip if it has a (near-)immunity
-                and (max_HP * 1.5 < expected_dmg) then return end --Add an extra buffer
+             --Don't skip (near-)immunities, and add some extra buffer
+            if (percent < 85) and (max_HP * 1.5 < expected_dmg) then return end
 
             --Transfer only if it actually has some resistance to impart.
             if (percent > 0.001) or (decrease > 0.001) then
@@ -165,6 +165,8 @@ local function add_matched_kinetic_resistance(prototype)
                     decrease = decrease,
                     percent = percent
                 })
+                --log(string.format("(KINETIC) Rubia ADDED kinetic resistance: " ..
+                --    "max HP=%i, expected_dmg = %i, prototype = %s", max_HP, expected_dmg, prototype.name))
             end
             return
         end
