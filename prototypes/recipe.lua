@@ -911,7 +911,7 @@ data:extend({
     type = "recipe",
     name = "craptonite-wall",
     category ="advanced-crafting",
-    order = "z-a-a",
+    order = "a[wall]-a[wall]-b[crap]",
     enabled = false,
     --surface_conditions = rubia.surface_conditions(),
     energy_required = 5,

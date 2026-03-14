@@ -21,6 +21,8 @@ data:extend({
     type = "wall",
     name = "craptonite-wall",
     icon = "__rubia-assets__/graphics/icons/crap-wall.png",
+
+    --order = "z-a[stone-wall]-a[stone-wall]-b[crap]",    
     flags = {"placeable-neutral", "player-creation"},
     collision_box = {{-0.29, -0.29}, {0.29, 0.29}},
     selection_box = {{-0.5, -0.5}, {0.5, 0.5}},

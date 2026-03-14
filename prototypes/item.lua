@@ -374,9 +374,8 @@ data:extend(
   type = "item",
   name = "craptonite-wall",
   icon = "__rubia-assets__/graphics/icons/crap-wall.png",
-  --order = "z-a-a",
   subgroup = "defensive-structure",
-  order = "a[stone-wall]-a[stone-wall]",
+  order = "a[stone-wall]-a[stone-wall]-b[crap]",
   color_hint = { text = "T" },
 
   inventory_move_sound = item_sounds.resource_inventory_move,
