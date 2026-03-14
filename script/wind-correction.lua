@@ -105,6 +105,10 @@ local wind_prototype_dic = {
     ["loader-1x1"] = {wind_type = "splitter-like-to", orient=defines.direction.east},
 }
 
+--Hashset of prototype types that should keep requester points enabled.
+local maintain_requester_types = rubia_lib.array_to_hashset(
+    {"character", "spider-vehicle", "cargo-landing-pad"})
+
 --Merge blacklist with the surface ban blacklist
 --local prototype_blacklist = prototypes.mod_data["rubia-surface-blacklist"].data
 --assert(prototype_blacklist and table_size(prototype_blacklist) > 5, "Another mod chose to delete Rubia's internal blacklist data, and caused a crash.")
@@ -339,6 +343,12 @@ function rubia_wind.wind_correction(entity, player_index, skip_recheck)
     --Put a lock on responding to repeat rotation event callbacks.
     if storage.rubia_wind_callback_lock then return 
     else storage.rubia_wind_callback_lock = true
+    end
+
+    --Loginet check
+    local req_point = entity.get_requester_point()
+    if req_point and not maintain_requester_types[entity_type] then
+        req_point.enabled = false
     end
 
     --Check wind behaviors. Prioritize specific entity, then prototype if relevant
