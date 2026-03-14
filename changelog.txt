@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.135
-Date: ????
+Date: 2026-03-14
   Changes:
     - [!! MAJOR FEATURE !!] Rubia now has full buttplug.io integration. Rubia now has mod settings to interface with and trigger your buttplug (or related machines) in response to various events, cutscenes, and activities on Rubia. It is our hope that this will empower you to have a more immersive experience. Full instructions are provided in the mod settiing menu. Thanks to ashkitten, whose work made this possible. Looking for testers.
     - Biofusion packs now explicitly mention that they are always made fresh.
