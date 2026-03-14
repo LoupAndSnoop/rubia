@@ -1,3 +1,4 @@
 #ignore working files to not be included with the mod
 *.xcf
 *.mp3
+deprecated/*

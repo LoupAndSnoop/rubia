@@ -2,6 +2,8 @@
 Version: 0.69.135
 Date: ????
   Changes:
+    - Better compat with cargo bay inserters. It's substantially more advanced now. The only difference with standard Cargo Bay Inserter behavior on Rubia now is in input/output mode, where cargo bays will only allow output.
+    - Biofusion packs now explicitly mention that they are always made fresh.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.134
 Date: 2026-02-11

@@ -15,6 +15,13 @@ for name, _ in pairs(prototypes.entity) do
     end
 end
 
+--Other mods
+if script.active_mods["cargo-bay-inserters"] and prototypes.entity[rubia.RUBIA_PROXY_CARGOBAY_NAME] then
+    swap_target_rubia["cargo-bay-inserters--planet-cargo-bay-proxy"] = rubia.RUBIA_PROXY_CARGOBAY_NAME
+end
+
+
+--Reverse dictionary
 local swap_target_outside_rubia={}
 for key, value in pairs(swap_target_rubia) do
     swap_target_outside_rubia[value] = key

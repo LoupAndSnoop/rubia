@@ -2,45 +2,59 @@ rubia = require("__rubia__.lib.constants")
 
 data:extend({
     {
-        type = "bool-setting",
-        name = "disable-lyrical-music",
-        setting_type = "startup",
-        default_value = false
-    },
-    {
-        type = "bool-setting",
-        name = "require-rubia-for-endgame-planets",
-        setting_type = "startup",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "remove-rubia-from-promethium_sci",
-        setting_type = "startup",
-        default_value = false
-    },
-    {
-        type = "bool-setting",
-        name = "rubia-rocketizer-early-unlock",
-        setting_type = "startup",
-        default_value = false
-    },
-    {
-        type = "bool-setting",
-        name = "rubia-megabase-mode",
-        setting_type = "runtime-global",
-        default_value = false,
-        --hidden = true,
-    },
-
-    {
         type = "int-setting",
         name = "rubia-tech-cost-multiplier",
         setting_type = "startup",
         default_value = 1,
         minimum_value = 1,
         maximum_value = 69420,
+        order = "a[core]-a"
     },
+
+    {
+        type = "bool-setting",
+        name = "require-rubia-for-endgame-planets",
+        setting_type = "startup",
+        default_value = true,
+        order = "b[nerfs]-a"
+    },
+    {
+        type = "bool-setting",
+        name = "remove-rubia-from-promethium_sci",
+        setting_type = "startup",
+        default_value = false,
+        order = "b[nerfs]-b"
+    },
+    {
+        type = "bool-setting",
+        name = "rubia-rocketizer-early-unlock",
+        setting_type = "startup",
+        default_value = false,
+        order = "b[nerfs]-c"
+    },
+
+    {
+        type = "bool-setting",
+        name = "disable-lyrical-music",
+        setting_type = "startup",
+        default_value = false,
+        order = "c[taste]-a"
+    },
+    {
+        type = "bool-setting",
+        name = "rubia-buttplug-integration",
+        setting_type = "startup",
+        default_value = false,
+        order = "c[taste]-d"
+    },
+
+    {
+        type = "bool-setting",
+        name = "rubia-megabase-mode",
+        setting_type = "runtime-global",
+        default_value = false,    
+    },
+
 
     {
         type = "bool-setting",

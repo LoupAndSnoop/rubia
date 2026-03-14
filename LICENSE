@@ -2,7 +2,7 @@ GPL3 License, Modified for Rubia
 
 Copyright (c) 2025 Loup&Snoop
 
-TL;DR: Censored copies of Rubia can only be distributed if an original is available on the same Factorio version. Don't copy my thumbnail. Yuoki and glassware assets have strings attached. Otherwise, GPL3 rules apply. This license outlines this in proper detail.
+TL;DR: Censored copies of Rubia can only be distributed if an original is available on the same Factorio version. Don't copy my thumbnail/title. Yuoki and glassware assets have strings attached. Otherwise, GPL3 rules apply. This license outlines this in proper detail.
 
 -------
 
@@ -26,9 +26,11 @@ A "Non-preserved Distribution" refers to a Full Redistribution of Rubia that is 
 
 --Exception 3: A Factorio mod may not use this mod’s uneditted thumbnail for its thumbnail. This mod’s thumbnail may be used to create a new thumbnail ONLY if the other mod's final thumbnail is very clearly distinguishable from the original mod’s thumbnail. The intent is to prevent users confusing the original and its forks.
 
---Exception 4: Wagon sprites are derived from Yuoki railways are distributed under a creative commons license, and are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/yi_railway
+--Exception 4: A derivative of Rubia must have a title that is very clearly and easily distinguishable from the original Planet Rubia mod, as to avoid confusion.
 
---Exception 5: Science pack sprites are derived from Hornwitser's Quality Glassware mod, and are distributed under a CC-BY-SA license. They are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/quality_glassware
+--Exception 5: Wagon sprites are derived from Yuoki railways are distributed under a creative commons license, and are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/yi_railway
+
+--Exception 6: Science pack sprites are derived from Hornwitser's Quality Glassware mod, and are distributed under a CC-BY-SA license. They are not subject to the below license. For more details, see his mod: https://mods.factorio.com/mod/quality_glassware
 
 The following GPL3 license conditions can only grant rights to works that are not expressly forbidden by the above exceptions.
 

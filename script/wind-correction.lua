@@ -2,6 +2,7 @@
 --Thanks CodeGreen for help sorting out horizontal splitters
 
 local rubia_wind = {}
+local buttplug = require("__rubia__.compat.buttplug")
 
 --#region Notifications
 
@@ -13,6 +14,7 @@ local function wind_correction_notification(entity, player_index)
     player.create_local_flying_text({text = {"alert.wind_correction_notification"}, position= entity.position, surface=player.surface})
     player.play_sound{path="utility/rotated_large", position=player.position, volume_modifier=1}
     player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
+    buttplug.TryEnqueueButtplug(1.0, 60 * 2.5)
 end
 
 --Give notice that the wind blocked the placement of an entity. Input the player index
@@ -26,6 +28,7 @@ local function wind_block_notification(entity, player_index, message)
     player.create_local_flying_text({text = {message}, position= entity.position, surface=player.surface})
     player.play_sound{path="utility/cannot_build", position=player.position, volume_modifier=1}
     player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
+    buttplug.TryEnqueueButtplug(1.0, 60 * 2.5)
 end
 --#endregion
 

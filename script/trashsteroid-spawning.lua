@@ -2,6 +2,7 @@
 
 local difficulty_scaling = require("__rubia__.script.trashsteroid-difficulty-scaling")
 local chunk_checker = require("__rubia__.script.chunk-checker")
+local buttplug = require("__rubia__.compat.buttplug")
 
 --Functions will be stored onto this global variable:
 _G.trashsteroid_lib = _G.trashsteroid_lib or {}
@@ -40,22 +41,12 @@ local trashsteroid_max_opacity = 0.8 --As opaque as it will get.
 local trashsteroid_shadow_max_opacity = 0.9 --As opaque as it will get.
 
 --Trashsteroid ranges, damages, etc
---local impact_base_damage = 75 --Raw damage done
---local impact_crit_damage = 300
---local impact_crit_chance = 10 --As a %
---local trashsteroid_impact_radius = 4
 local trashsteroid_chunk_reach = prototypes.entity["garbo-grabber"].radius_visualisation_specification.distance --Max collector-chunk distance to allow starting collection
 local trashsteroid_chunk_reach_quit = 100 -- Max range chunk projectile will go before giving up
 local trashsteroid_chunk_speed = 0.01 -- Initial speed of the trash chunk (avg)
---local impact_damage_special = {--Dictionary of entity=>impact damage for special cases
---  ["character"] = 280
---}
 
 --Try to initialize RNG if it isn't already. Very important random seed. Do NOT change!
 local function try_initialize_RNG() if not storage.rubia_asteroid_rng then storage.rubia_asteroid_rng = game.create_random_generator(42069) end end
---local chunk_key_scale = 2^24
---Take in the x and Y coord of a chunk, and output a key for tables
---local function chunk_position_to_key(x, y) return x * chunk_key_scale + y end
 
 ------ Impact Logic
 ---
@@ -526,6 +517,7 @@ trashsteroid_lib.trashsteroid_impact_update = function()
           --  damage = (storage.rubia_asteroid_rng(0,100) <= impact_crit_chance) and impact_crit_damage or impact_base_damage
           --end
           hit_entity.damage(damage, game.forces["enemy"])
+          buttplug.TryEnqueueButtplug(0.5, 60)
         end
       end
 

@@ -44,4 +44,8 @@ for _, entry in pairs(constants.ZOOM_ALTERING_MODS) do
 end
 constants.ZOOM_ALTERATION_PERCENT = 20
 
+--Const for other mods
+constants.RUBIA_PROXY_CARGOBAY_NAME = "rubia-planet-cargo-bay-proxy" --Cargo bay inserters
+
+
 return constants

@@ -1,5 +1,5 @@
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/CaDJzEj557)[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LoupAndSnoop/rubia)
-Reach me fastest on Discord.
+If you have issues, *I respond fastest on Discord*.
 Languages: 🇬🇧 🇨🇳 🇷🇺 🇪🇸
 ---
 
@@ -15,13 +15,16 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 
 ## Features
 
-- Unique Mechanics:
+- Unique Wind Mechanics:
     - New wind mechanics *completely* change base-building. Belts and inserters cannot move items against the permanent eastward flow of Rubia's hurricane-force winds. Everything about Rubia is designed to push you to make unique wind-proof designs that you will not find anywhere else in factorio.
     - Trashsteroids will bombard your base. Plunder them with new machines to gain access to Rubia's most precious resource.
     - Wind power, building materials, and voiding are free to let you focus on the above.
-- Rubian crafting is themed around recycling junk with bacteria using the new Biorecycling Plant. Recyclers are banned on Rubia to make way for totally different recycling chains focusing on highly customizable base designs.
-- Custom music and a cutscene.
-- Rewards are balanced for a standard Space Age playthrough. Rewards include special inserters and trains, and several handy upgrades that make the planet worth clearing. Several mod planets will cause new optional rewards to appear.
+    - Research on Rubia uses a new mechanic of shooting items into the wind instead of labs.
+- Rubia's crafting chains are themed around recycling junk with bacteria using the new Biorecycling Plant. Recyclers are banned on Rubia to make way for recipes that can't exist on other planets for balance reasons. *Rubia does NOT play like Fulgora.*
+- Custom music, cutscene, and lore. Animated tutorials and menu simulations.
+- Rewards are balanced for normal Space Age. Rewards include: 10 items/buildings (including special inserters and trains), 3 infinite technologies, 4+ character upgrades, 5 alternate recipes (beyond Rubia's core recipes), uniquely-coded [machine upgrade](https://mods.factorio.com/mod/machine-upgrades) technologies, bonus landing pad, and more.
+- Installing other mod planets or overhauls cause additional technologies/content to appear.
+- Rubia's postgame provides fully developed challenges and rewards.
 
 ---
 
@@ -36,11 +39,21 @@ Rubia as viewed with the [Small Space Age mod](https://mods.factorio.com/mod/Sma
 
 ## Notes
 
-- **Can be added to existing Space Age saves.**
+- **Can be added to existing Space Age saves at any time.**
 - Rubia science being added to infinite research productivity research can be toggled.
-- Despite the junk theme, this mod does NOT play like Fulgora at all.
-- Rubia is explicitly compatible with several adjustasble inserter mods: Bob's inserters, JanSharp's quick adjustable inserters, Renai Transportation, Smart inserters, Therenas' simple adjustable inserters, Diagonal inserters.
-- Rubia has special cameo technologies that appear when certain other planet mods are installed (a-z): [Cerys](https://mods.factorio.com/mod/Cerys-Moon-of-Fulgora), [Corrundum](https://mods.factorio.com/mod/corrundum), [Cubium](https://mods.factorio.com/mod/cubium), Jahtra, [Janus](https://mods.factorio.com/mod/janus), [Lignumis](https://mods.factorio.com/mod/lignumis)/[Wooden Universe](https://mods.factorio.com/mod/wood-universe-modpack), [Maraxsis](https://mods.factorio.com/mod/maraxsis), [Moshine](https://mods.factorio.com/mod/Moshine), [Muluna](https://mods.factorio.com/mod/planet-muluna), [Paracelsin](https://mods.factorio.com/mod/Paracelsin), [Secretas&Frozeta](https://mods.factorio.com/mod/secretas), [Shattered Planet](https://mods.factorio.com/mod/skewer_shattered_planet), [Tiber](https://mods.factorio.com/mod/Factorio-Tiberium). Vanilla planets are included.
+- Despite the junk theme, *Rubia does NOT play like Fulgora.*
+- Rubia is compatible with a broad range of mods (overhauls, planets, adjustable inserters, etc).
+- Rubia has special cameo technologies that appear when certain other planet mods are installed (a-z): [Cerys](https://mods.factorio.com/mod/Cerys-Moon-of-Fulgora), [Corrundum](https://mods.factorio.com/mod/corrundum), [Cubium](https://mods.factorio.com/mod/cubium), Jahtra, [Janus](https://mods.factorio.com/mod/janus), [Lignumis](https://mods.factorio.com/mod/lignumis)/[Wooden Universe](https://mods.factorio.com/mod/wood-universe-modpack), [Maraxsis](https://mods.factorio.com/mod/maraxsis), [Moshine](https://mods.factorio.com/mod/Moshine), [Muluna](https://mods.factorio.com/mod/planet-muluna), [Paracelsin](https://mods.factorio.com/mod/Paracelsin), [Rabbasca](https://mods.factorio.com/mod/planet-rabbasca),
+[Secretas&Frozeta](https://mods.factorio.com/mod/secretas), [Shattered Planet](https://mods.factorio.com/mod/skewer_shattered_planet), [Tiber](https://mods.factorio.com/mod/Factorio-Tiberium). Vanilla planets are included.
+- For upgrading to Rubia's trains, see [this companion mod](https://mods.factorio.com/mod/rubia-train-upgrader).
+
+## Compatibility
+
+Rubia has had tons of work for mod compatibility and mod integration. Rubia has custom compat with the following mods (alphabetical, † = compatible, but some features are absent on Rubia):
+
+- AAI Industry, AAI Loaders, AAI Programmable Vehicles†, Alloy smelting, Autozoom, Belt Balancers 2/3†, Blueprint shotgun, Bob’s Adjustable Inserters, Bob’s mods, Bz-mod suite (Bz-carbon, Bz-Silicon, Bz-lead, Bz-tin), Carbon steel, Cargo bay inserters, Crushing industry, Delete Gleba†, Diagonal Inserters†, Discovery tree, Distant misfires, Editor Extensions, Even pickier dollies, Exotic space industries, Extra zoom, Factorissimo 2/3†, Far Zoom, Farming in Another World†, Interplanetary Krastorio†, Krastorio 2 Spaced Out, Lane splitters, Lane filtered loaders, Lignumis (Director’s Cut), Loaders Modernized, Miniloader Redux*, No Crafting Surface Restrictions, No Placement Restrictions, No Surface conditions, Ownly’s Tracers, Planet Hoppers, Planet Portal†, Pneumatic Transport (and Redux)†, Quantum Fabricator†, Quick adjustable inserters, Renai transportation, Resourse spawner overhaul, Simple Adjustable Inserters, Smart Inserters, Spidertron Patrols†, Stacking Loaders, Surface Conditions? Never heard of them, Teleporters†, Teleporters Space Age†, Teleportation-Redux†, Telogistics†, Wooden logistics, Wooden Universe, Zooom, Zoom Reset, Zoom Running.
+
+Furthermore, Rubia has automated compatibility with: Adjustable inserter mods, Loader mods, Logistic network mods†, Surface restriction mods, and Vehicle mods.
 
 ---
 
@@ -51,7 +64,6 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Thanks for help with modding questions: thesixthroc, CodeGreen, Powerscooter, exfret, Frontrider, allison, Saf, justarandomgeek, PennyJim, boskid, bilka, Therenas, Osmo
 - Rubia planet sprite made in collaboration with nullevoy in Blender.
 - raiguard, Krastor, and Linver: Krastorio2 assets are borrowed and derrived from their work. [Link](https://mods.factorio.com/mod/Krastorio2Assets)
-- Several functions come from Raiguard's [factorio library](https://github.com/factoriolib/flib/tree/2dcdb8f4b97e026f7f21f2f023613b64cc7dbcc8). Praise Raiguard.
 -  Lesbian Mami, lord thy god: Code used from BPlib to patch (temporarily?) an issue with super force building. [Link](https://github.com/project-cybersyn/bplib/tree/7151f7ae752fc63418186c31e63903b294fb889a)
 - ZarSasha: Wind turbine forked. [Link](https://mods.factorio.com/mod/k2-wind-turbine-zars-fork)
 - Varaxia: Code and particles for wind particles. [Link](https://mods.factorio.com/mod/celestial-weather)
@@ -68,4 +80,4 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Localization:
      - Thanks to rlcyyg1108 for generously providing a Chinese localization!
      - Thanks to MagistrDjo for generously providing a Russian localization! Thanks to Пружинка for updating it.
-     - Thanks to AnthonyDPS for generously providing a Spanish localization, for me to then taint with my terrible taste.
+     - Thanks to AnthonyDPS for generously providing a Spanish localization, which I then tainted.

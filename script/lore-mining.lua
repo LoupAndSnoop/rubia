@@ -2,6 +2,7 @@
 local lore_mining = {}
 local lore_color = {r=0.2,g=0.9,b=0.9,a=1} --Color of lore text
 local LORE_MINING_COOLDOWN = 60 * 15 --Cooldown before we replay something
+local buttplug = require("__rubia__.compat.buttplug")
 
 --#region Custom executables on mining
 --If we mined a lot of spidertron remnants, do this to ensure player gets what they need.
@@ -59,6 +60,7 @@ local function grenade_trap(entity)
 
     --SFX
     for i = 1, 6, 1 do entity.surface.play_sound{path="rubia-grenade-throw"} end
+    buttplug.TryEnqueueButtplug(0.8,60 * 2)
 end
 
 local function destroyer_trap(entity)
@@ -70,6 +72,7 @@ local function destroyer_trap(entity)
 
     --SFX
     for i = 1, 4, 1 do entity.surface.play_sound{path="rubia-grenade-throw"} end
+    buttplug.TryEnqueueButtplug(0.8,60 * 2)
 end
 
 local function gun_turret_trap(entity)
@@ -99,6 +102,7 @@ local function gun_turret_trap(entity)
 
     --SFX
     entity.surface.play_sound{path="rubia-gun-turret-trap-armed"}
+    buttplug.TryEnqueueButtplug(0.8,60 * 2)
 end
 
 --#endregion
