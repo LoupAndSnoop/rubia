@@ -2,6 +2,8 @@
 --so that sniper turrets cannot harm them.
 --Current iteration makes a whole new damage type for it.
 
+local RAILGUN_BASE_DAMAGE = 10000 --vanilla railgun ammo shell
+
 
 --Make a new railgun ammo type
 data:extend({
@@ -150,7 +152,7 @@ local function add_matched_kinetic_resistance(prototype)
 
             --Omit adding resistance if it would get OHKO'd anyway. => low max HP.
             --Railgun ammo does 10k base dmg. Flat res is calculated before % res.
-            local expected_dmg = (10000 - decrease) * (100 - percent)/100
+            local expected_dmg = (RAILGUN_BASE_DAMAGE - decrease) * (100 - percent)/100
             local max_HP = prototype.max_health or (10^10)
             if prototype.type == "unit-spawner" then max_HP = max_HP * spawner_HP_mult end
             if (percent < 85) --Don't skip if it has a (near-)immunity
