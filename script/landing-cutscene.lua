@@ -357,7 +357,7 @@ local first_blast_off_cutscene = function(player)
     end
 
     rubia.timing_manager.wait_then_do(15 * 60, "unlock-rubia-difficulty-achievement", {player})
-    buttplug.TryEnqueueButtplug(0.5,60 * 10)
+    buttplug.TryEnqueueButtplug(0.5, 60 * 10, player)
 end
 
 
@@ -368,7 +368,7 @@ end)
 
 --Whatever we do at the very start of the cutscene
 rubia.timing_manager.register("cutscene-part1", function(player, cargo_pod, character)
-    buttplug.TryEnqueueButtplug(0.5,60 * 13)
+    buttplug.TryEnqueueButtplug(0.5,60 * 13, player)
 end)
 
 --Note: Realistically, a player might have 4-10 shields when coming to Rubia. => 500-800 total health. 
@@ -432,7 +432,7 @@ rubia.timing_manager.register("cutscene-end", function(player, cargo_pod, charac
     player.play_sound{ path="rubia-cutscene-crash", volume = 1 }
 
     character.surface.create_entity({name = "nuclear-reactor-explosion", position = {x=0,y=0}})
-    buttplug.TryEnqueueButtplug(1.0, 60 * 4)
+    buttplug.TryEnqueueButtplug(1.0, 60 * 4, player)
 
     if cargo_pod and cargo_pod.valid then
         cargo_pod.force_finish_descending()

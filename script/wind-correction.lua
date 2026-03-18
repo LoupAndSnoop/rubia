@@ -14,7 +14,7 @@ local function wind_correction_notification(entity, player_index)
     player.create_local_flying_text({text = {"alert.wind_correction_notification"}, position= entity.position, surface=player.surface})
     player.play_sound{path="utility/rotated_large", position=player.position, volume_modifier=1}
     player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
-    buttplug.TryEnqueueButtplug(1.0, 60 * 2.5)
+    buttplug.TryEnqueueButtplug(1.0, 60 * 2.5, player)
 end
 
 --Give notice that the wind blocked the placement of an entity. Input the player index
@@ -28,7 +28,7 @@ local function wind_block_notification(entity, player_index, message)
     player.create_local_flying_text({text = {message}, position= entity.position, surface=player.surface})
     player.play_sound{path="utility/cannot_build", position=player.position, volume_modifier=1}
     player.play_sound{path="rubia-wind-short1", position=player.position, volume_modifier=1}
-    buttplug.TryEnqueueButtplug(1.0, 60 * 2.5)
+    buttplug.TryEnqueueButtplug(1.0, 60 * 2.5, player)
 end
 --#endregion
 
@@ -345,7 +345,7 @@ function rubia_wind.wind_correction(entity, player_index, skip_recheck)
     else storage.rubia_wind_callback_lock = true
     end
 
-    --Loginet check
+    --Requester check
     local req_point = entity.get_requester_point()
     if req_point and not maintain_requester_types[entity_type] then
         req_point.enabled = false
