@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.136
-Date: ????
+Date: 2026-03-19
   Changes:
     - Buttplug integration has been greatly upgraded to mesh better with multiplayer. Now separate players will have their anal haptics trigger depending on their own actions. Some buttplug activations are stil globally applied to all players. Special thanks to RSeding and PennyJim for helping me better understand the prerequisite functionality to avoid desyncs. 
 ---------------------------------------------------------------------------------------------------
