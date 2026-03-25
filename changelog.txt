@@ -2,6 +2,7 @@
 Version: 0.69.137
 Date: ????
   Changes:
+    - Whitelisted Muria's oxygenated iron bacteria cultivation recipe.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.136
 Date: 2026-03-19

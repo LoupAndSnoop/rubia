@@ -5,11 +5,15 @@
 local bacteria_recipe = data.raw.recipe["iron-bacteria-cultivation"]
 if bacteria_recipe then bacteria_recipe.surface_conditions = nil end
 
+--Bacteria recipes to not blacklist from Rubia.
+local whitelisted_recipes = rubia_lib.array_to_hashset({
+    "iron-bacteria-cultivation", "oxygenated-iron-bacteria-cultivation"})
+
 --Go ban any recipe that makes iron bacteria from Rubia, except for the desired one recipe.
 for name, recipe in pairs(data.raw["recipe"]) do
     local results = recipe.results
     if results and type(results) == "table" --In case someone pulls another RJdunlap on us
-        and name ~= "iron-bacteria-cultivation" then
+        and not whitelisted_recipes[name] then
 
         --Check if any result is iron bacteria. If so, ban it
         for _, entry in pairs(results or {}) do
