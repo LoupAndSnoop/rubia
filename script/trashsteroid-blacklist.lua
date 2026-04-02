@@ -53,7 +53,7 @@ end
 local mod_item_blacklist = {
     {mod = "RenaiTransportation", name = "RTImpactWagon"},
     {mod = "MultipleUnitTrainControl", name ="rubia-armored-locomotive-mu"},
-    
+    {mod = "belt-foot", name ="belt-foot-permanent-belt"},
 }
 for _, entry in pairs(mod_item_blacklist) do
    if script.active_mods[entry.mod] then table.insert(internal_blacklist, entry.name) end

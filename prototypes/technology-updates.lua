@@ -243,14 +243,40 @@ if (settings.startup["require-rubia-for-endgame-planets"].value) then
 
     --All the mod planets that get locked behind rubia
     local locked_mod_planets = {
+        {mod = "maraxsis", tech = "planet-discovery-maraxsis"},
+        {mod = "Paracelsin", tech = "planet-discovery-paracelsin"},
+        {mod = "tenebris-prime", tech = "planet-discovery-tenebris"},
+        {mod = "tenebris", tech = "planet-discovery-tenebris"},
+        {mod = "secretas", tech = "planet-discovery-secretas"},
+        --{mod = "cubium", tech = "planet-discovery-cubium"},
+        {mod = "Factorio-Tiberium", tech = "planet-discovery-tiber"},
+        {mod = "skewer_planet_vesta", tech = "planet-discovery-vesta"},
+        {mod = "skewer_shattered_planet", tech = "planet-discovery-skewer-shattered"},
+        {mod = "metal-and-stars", tech = "planet-discovery-nix"},
+        {mod = "metal-and-stars", tech = "planet-discovery-mirandus"},
+    }
+    for _, entry in pairs(locked_mod_planets) do
+        if mods[entry.mod] then require_rubia_clear_for_tech(entry.tech, true) end
+    end
+
+
+    --[[ TODO REMOVE
+    local locked_mod_planets = {
         ["maraxsis"] = "planet-discovery-maraxsis",
         ["Paracelsin"] = "planet-discovery-paracelsin",
         ["tenebris-prime"] = "planet-discovery-tenebris",
         ["tenebris"] = "planet-discovery-tenebris",
+        ["secretas"] = "planet-discovery-secretas",
+        --["cubium"] = "planet-discovery-cubium",
+        ["Factorio-Tiberium"] = "planet-discovery-tiber",
+        ["skewer_planet_vesta"] = "planet-discovery-vesta",
+        ["skewer_shattered_planet"] = "planet-discovery-skewer-shattered",
+        ["metal-and-stars"] = "planet-discovery-nix",
+        --["metal-and-stars"] = "planet-discovery-mirandus", --Duplicate index needing a refactor
     }
     for mod_name, planet_tech in pairs(locked_mod_planets) do
         if mods[mod_name] then require_rubia_clear_for_tech(planet_tech, true) end
-    end
+    end]]
 end
 
 

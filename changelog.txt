@@ -2,6 +2,9 @@
 Version: 0.69.138
 Date: ????
   Changes:
+    - Fixed a long standing incredibly rare bug that caused crashing if you placed an invalid item on Rubia while dead/respawning. I'm shocked no one has ever reported it, but it's fixed now!
+    - Several modded outer planets are now properly added to the "Rubia before endgame planets" setting. Some changes are redundant with the already existing tech tree, so you may not notice tech tree changes without other mods, but you will notice Rubia science costs being added to planet discoveries. Affected planets are: Tiber, Secretas, Vesta, Shattered Planet, Mirandus, Nix. If you don't like it, change the setting.
+    - Beltfoot compatibility, making beltfoot belts immune to trashsteroids.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.137
 Date: 2026-03-25

@@ -218,7 +218,8 @@ end]]
 local function try_mine(entity, player_index)
     if entity.type == "entity-ghost" then entity.mine()
     else --Must mine real entity
-        if player_index then game.get_player(player_index).mine_entity(entity, true) 
+        local player = player_index and game.get_player(player_index)
+        if player and player.character then player.mine_entity(entity, true)
         else --Not placed by a player, so try to spill on the floor.
             local item = entity.prototype.items_to_place_this and entity.prototype.items_to_place_this[1]
             if item then --Only spill if something actually places this item.
