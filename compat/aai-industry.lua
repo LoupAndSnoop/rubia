@@ -13,3 +13,15 @@ local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.r
 table.insert(minable, 
     rubia_lib.tech_cost_scale(
         {type = "item", name = "chemical-plant", probability = 0.4, amount_min = 1, amount_max = 3}))
+
+
+--Make repair packs not need stone
+local repair = data.raw["recipe"]["repair-pack"]
+rubia_lib.compat.set_recipe_input_count("repair-pack", "stone", 0, false)
+if repair and repair.ingredients then 
+    for _, entry in pairs(repair.ingredients) do
+        if entry.amount then
+            entry.amount = entry.amount * 2
+        end
+    end
+end
