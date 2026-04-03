@@ -1054,6 +1054,22 @@ if mods["Factorio-Tiberium"] and mods["machine-upgrades"] then
     })
 end
 
+if mods["pelagos"] then 
+    data:extend({
+        {
+            type = "technology",
+            name = "rubia-craptonite-sunglasses",
+            icon = "__rubia-assets__/graphics/technology/craptonite-tools/craptonite-sunglasses.png",
+            icon_size = 256,
+            essential = false,
+            effects = {
+            },
+            prerequisites = {"craptonite-axe", "project-diesel-dragon"},
+            research_trigger = {type = "craft-item", item="yeet-biodiesel-barrel", count=10000},
+        },
+    })
+end
+
 --[[
 if mods["Arcanyx"] then 
     data:extend({

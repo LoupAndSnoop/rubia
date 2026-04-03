@@ -116,6 +116,18 @@ if mods["Factorio-Tiberium"] then
     })
 end
 
+if mods["pelagos"] then
+    local diesel = data.raw["assembling-machine"]["diesel-assembling-machine"]
+    table.insert(upgrade_data, {
+        handler = "rubia-pelagos-sunglasses",
+        technology_name = "rubia-craptonite-sunglasses",
+        modifier_icon = {icon=diesel.icon, icon_size = diesel.icon_size},
+        entity_names = {"diesel-assembling-machine", "diesel-mining-drill"},
+        module_effects = {speed = 0.3, consumption = 0.2},
+        effect_name = {"entity-name.diesel-assembling-machine"},
+    })
+end
+
 
 if table_size(upgrade_data) > 0 then
     mupgrades.handle_modifier_data(upgrade_data)
