@@ -2,6 +2,7 @@
 Version: 0.69.140
 Date: ????
   Changes:
+    - Users have found a workaround to the softlock, and so XYRC's K2SO Enhancements is no longer marked incompatible.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.139
 Date: 2026-04-03
