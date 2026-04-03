@@ -2,6 +2,7 @@
 Version: 0.69.139
 Date: ????
   Changes:
+    - Marked incompatible with XYRC's K2SO enhancements. This mod adds a softlock to Rubia with K2SO by changing Rubia's tech cards to make them uncraftable on Rubia. This has been known for months, and is still not resolved (https://mods.factorio.com/mod/xy-k2so-enhancements/discussion/697cafd9540dd3cfcb7cbd83).
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.138
 Date: 2026-04-02
