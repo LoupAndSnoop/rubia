@@ -350,6 +350,13 @@ function rubia_wind.wind_correction(entity, player_index, skip_recheck)
     local req_point = entity.get_requester_point()
     if req_point and not maintain_requester_types[entity_type] then
         req_point.enabled = false
+        local sections = entity.get_logistic_sections()
+        if sections then
+            for i = 1, sections.sections_count do
+                local success = sections.remove_section(i)
+                if success then game.print("removed section") end
+            end
+        end
     end
 
     --Check wind behaviors. Prioritize specific entity, then prototype if relevant
