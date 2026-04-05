@@ -107,7 +107,9 @@ local wind_prototype_dic = {
 
 --Hashset of prototype types that should keep requester points enabled.
 local maintain_requester_types = rubia_lib.array_to_hashset(
-    {"character", "spider-vehicle", "cargo-landing-pad"})
+    {"character", "spider-vehicle", "cargo-landing-pad", "space-platform-hub"})
+--Hashset of prototypes to additionally ensure that their logistic sections get removed
+local remove_logi_section_types = rubia_lib.array_to_hashset({"car", })
 
 --Merge blacklist with the surface ban blacklist
 --local prototype_blacklist = prototypes.mod_data["rubia-surface-blacklist"].data
@@ -351,7 +353,7 @@ function rubia_wind.wind_correction(entity, player_index, skip_recheck)
     if req_point and not maintain_requester_types[entity_type] then
         req_point.enabled = false
         local sections = entity.get_logistic_sections()
-        if sections then
+        if remove_logi_section_types[entity_type] and sections then
             for i = 1, sections.sections_count do
                 sections.remove_section(i)
             end
