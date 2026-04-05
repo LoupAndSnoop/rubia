@@ -353,8 +353,7 @@ function rubia_wind.wind_correction(entity, player_index, skip_recheck)
         local sections = entity.get_logistic_sections()
         if sections then
             for i = 1, sections.sections_count do
-                local success = sections.remove_section(i)
-                if success then game.print("removed section") end
+                sections.remove_section(i)
             end
         end
     end
