@@ -1054,7 +1054,10 @@ if mods["Factorio-Tiberium"] and mods["machine-upgrades"] then
     })
 end
 
-if mods["pelagos"] then 
+if mods["planetaris-arig"] then
+    --Previously pelagos: --research_trigger = {type = "craft-item", item="yeet-biodiesel-barrel", count=10000},
+    --"project-diesel-dragon", mods["pelagos"]
+
     data:extend({
         {
             type = "technology",
@@ -1064,8 +1067,9 @@ if mods["pelagos"] then
             essential = false,
             effects = {
             },
-            prerequisites = {"craptonite-axe", "project-diesel-dragon"},
-            research_trigger = {type = "craft-item", item="yeet-biodiesel-barrel", count=10000},
+            prerequisites = {"craptonite-axe", "planetslib-arig-cargo-drops"},
+            research_trigger = {type = "craft-item", item="yeet-planetaris-raw-diamond", count=2000},
+            
         },
     })
 end

@@ -116,7 +116,7 @@ if mods["Factorio-Tiberium"] then
     })
 end
 
-if mods["pelagos"] then
+--[[if mods["pelagos"] then
     local diesel = data.raw["assembling-machine"]["diesel-assembling-machine"]
     table.insert(upgrade_data, {
         handler = "rubia-pelagos-sunglasses",
@@ -125,6 +125,18 @@ if mods["pelagos"] then
         entity_names = {"diesel-assembling-machine", "diesel-mining-drill"},
         module_effects = {speed = 0.3, consumption = 0.2},
         effect_name = {"entity-name.diesel-assembling-machine"},
+    })
+end]]
+
+if mods["planetaris-arig"] then
+    local press = data.raw["assembling-machine"]["planetaris-press"]
+    table.insert(upgrade_data, {
+        handler = "rubia-pelagos-sunglasses",
+        technology_name = "rubia-craptonite-sunglasses",
+        modifier_icon = {icon=press.icon, icon_size = press.icon_size},
+        entity_names = {"planetaris-press"},
+        module_effects = {productivity = 0.1},
+        effect_name = {"entity-name.planetaris-press"},
     })
 end
 

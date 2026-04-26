@@ -2,7 +2,8 @@
 Version: 0.69.141
 Date: ????
   Changes:
-    - New Pelagos cross tech.
+    - Grappling hook renamed to crappling hook, following mod forum suggestion.
+    - New Arig cross tech.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.140
 Date: 2026-04-03
