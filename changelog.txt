@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.141
-Date: ????
+Date: 2026-04-26
   Changes:
     - Grappling hook renamed to crappling hook, following mod forum suggestion.
     - New Arig cross tech.
