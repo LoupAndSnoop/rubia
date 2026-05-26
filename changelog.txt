@@ -2,6 +2,7 @@
 Version: 0.69.142
 Date: ????
   Changes:
+    - Fixed crash for when Planetaris:Arig has its option to enable its own cargo drops.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.141
 Date: 2026-04-26

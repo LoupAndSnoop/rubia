@@ -1058,6 +1058,12 @@ if mods["planetaris-arig"] then
     --Previously pelagos: --research_trigger = {type = "craft-item", item="yeet-biodiesel-barrel", count=10000},
     --"project-diesel-dragon", mods["pelagos"]
 
+    --Arig has a setting that deletes its own tech.
+    local arig_tech = "planetslib-arig-cargo-drops"
+    if settings.startup["enable-arig-cargo-drops"] and settings.startup["enable-arig-cargo-drops"].value then
+        arig_tech = "planetaris-compression-science"
+    end
+
     data:extend({
         {
             type = "technology",
@@ -1067,9 +1073,8 @@ if mods["planetaris-arig"] then
             essential = false,
             effects = {
             },
-            prerequisites = {"craptonite-axe", "planetslib-arig-cargo-drops"},
+            prerequisites = {"craptonite-axe", arig_tech},
             research_trigger = {type = "craft-item", item="yeet-planetaris-raw-diamond", count=2000},
-            
         },
     })
 end
