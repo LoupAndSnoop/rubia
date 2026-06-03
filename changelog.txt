@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.143
-Date: ????
+Date: 2026-06-03
   Changes:
     - Fixed crash with Age of production lumber mill when Lignumis was installed with wood-logistics. Those mods have been having a back and forth about their lumber mills, and this should make everything stable.
 ---------------------------------------------------------------------------------------------------
