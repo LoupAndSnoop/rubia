@@ -81,7 +81,8 @@ end
 if (mods["lignumis"] or mods["wood-universe-modpack"]) then
     local lumber_mill = data.raw["assembling-machine"]["lumber-mill"]
     local lumber_mill_list = {"lumber-mill"}
-    if mods["Age-of-Production"] then table.insert(lumber_mill_list, "aop-lumber-mill") end
+    if mods["Age-of-Production"] and not mods["lignumis"] then --Lignumis merges aop-lumber-mill now
+        table.insert(lumber_mill_list, "aop-lumber-mill") end
     table.insert(upgrade_data, {
         handler = "rubia-lignumis-mill-productivity",
         technology_name = "rubia-craptonite-wood-charm",
