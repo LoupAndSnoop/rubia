@@ -167,6 +167,23 @@ if rubia.stage == "data" then --Only block recyclers in data stage. Allow surfac
 end
 
 
+--Blocking cars if they have both variants as allowing logi requests
+if rubia.stage == "control" then
+    --Find auto-generated prototypes
+    local prefix = rubia.RUBIA_AUTO_ENTITY_PREFIX
+    for name, proto in pairs(prototypes.entity) do
+        --If it is a car that is a rubia auto-entity, but it has trash slots, ban both.
+        if proto.type == "car" and string.sub(name, 1, string.len(prefix)) == prefix
+            and (proto.get_inventory_size(defines.inventory.car_trash) or 0) > 0 then
+            local orig_name = string.sub(name, string.len(prefix) + 1, -1)
+            table.insert(internal_blacklist, {type="car", name=orig_name})
+            table.insert(internal_blacklist, {type="car", name=name})
+        end
+    end
+end
+
+
+
 --Banning logistic containers EXCEPT storage and passive providers. If not defined, ban it
 local allowed_modes = rubia_lib.array_to_hashset({ --Both string and enum forms
     "none", "passive-provider", "storage",

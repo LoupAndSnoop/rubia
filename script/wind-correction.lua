@@ -541,3 +541,9 @@ rubia_wind.wind_rotation = function(entity, player_index)
         end
     end
 end]]
+
+
+--storage.rubia_surface.set_tiles({{position=entity.position, name="out-of-map"}},false, false)
+--try_mine(entity, player_index)
+--storage.rubia_wind_callback_lock = false
+--return
