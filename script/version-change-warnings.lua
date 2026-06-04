@@ -77,6 +77,14 @@ local function tech_cost_multiplier_warning()
     end
 end
 
+--Warning that buttplug functionality has been removed by another mod.
+local function buttplug_integration_removal_warning()
+    local setting = prototypes.mod_setting["rubia-buttplug-integration"]
+    if setting.hidden then
+        game.print("Warning: Rubia buttplug integration has been removed, and no buttplug detected. Searching for valid buttplug...",
+            rubia.WARNING_PRINT_SETTINGS)
+    end
+end
 
 local event_lib = require("__rubia__.lib.event-lib")
 event_lib.on_configuration_changed(
@@ -93,3 +101,5 @@ event_lib.on_configuration_changed("mod-warning-tangible-projectiles", tangible_
 
 event_lib.on_init("version-change-warning-tech-cost-multiplier", tech_cost_multiplier_warning)
 event_lib.on_configuration_changed("version-change-warning-tech-cost-multiplier", tech_cost_multiplier_warning)
+
+event_lib.on_nth_tick(300 * 60, "buttplug-removal-warning", buttplug_integration_removal_warning)

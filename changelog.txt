@@ -2,6 +2,7 @@
 Version: 0.69.144
 Date: ????
   Changes:
+    - Anal haptics upgrade: If a mod hides the anal haptics settings, Rubia will now repeatedly search for valid peripherals in your network, until it finds one.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.143
 Date: 2026-06-03
