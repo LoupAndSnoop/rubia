@@ -1,6 +1,6 @@
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/CaDJzEj557)[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/LoupAndSnoop/rubia)
 If you have issues, *I respond fastest on Discord*.
-Languages: 🇬🇧 🇨🇳 🇷🇺 🇪🇸
+Languages: 🇬🇧 🇨🇳 🇷🇺 🇪🇸 🇵🇱
 ---
 
 # Rubia
@@ -81,3 +81,4 @@ Special thanks to everyone who helped, or from whom I got assets or code:
      - Thanks to rlcyyg1108 for generously providing a Chinese localization!
      - Thanks to MagistrDjo for generously providing a Russian localization! Thanks to Пружинка for updating it.
      - Thanks to AnthonyDPS for generously providing a Spanish localization, which I then tainted.
+     - Thanks to Hacai666 for generously providing a Polish localization.
