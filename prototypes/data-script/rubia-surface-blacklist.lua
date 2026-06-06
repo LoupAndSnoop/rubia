@@ -31,15 +31,14 @@ local internal_blacklist = {
     {type="cargo-wagon", name ="cargo-wagon"},
     {type="fluid-wagon", name ="fluid-wagon"},
     {type="artillery-wagon", name ="artillery-wagon"},
-
-    --Logistic cheese
-    --{type="car", name ="tank"},
 }
 --Specific mods blacklisting
 local mod_item_blacklist = {
+    --Misc
     {mod="SpidertronPatrols", type="proxy-container", name ="sp-spidertron-dock"},
     {mod="RenaiTransportation", type="constant-combinator", name ="DirectorBouncePlate"},
     {mod="RenaiTransportation", type="electric-energy-interface", name ="RTDivergingChute"},
+    {mod="Land-Pump", type="offshore-pump", name="offshore-pump"},
 
     --Power
     {mod="Krastorio2-spaced-out", type = "electric-energy-interface", name = "kr-wind-turbine"},
@@ -95,6 +94,12 @@ local mod_item_blacklist = {
     {mod="belt-balancer-2", type = "simple-entity-with-force", name = "balancer-part"},
 }
 
+--For control stage, don't be banning recipes because we only work on entities
+if rubia.stage == "control" then
+    rubia_lib.array_remove_if(internal_blacklist, function(x) return x.type == "recipe" end)
+    rubia_lib.array_remove_if(mod_item_blacklist, function(x) return x.type == "recipe" end)
+end
+
 --Miniloader-redux needs to have everything banned, because it keeps fighting back at control stage.
 if mods_list["miniloader-redux"] then
     local function is_miniloader(name)
@@ -115,6 +120,7 @@ end
 
 for _, entry in pairs(mod_item_blacklist) do
     if mods_list[entry.mod] then table.insert(internal_blacklist, entry) end
+        --and not (rubia.stage == "control" and entry.type == "recipe") then --Don't ban recipes in control stage.
 end
 
 

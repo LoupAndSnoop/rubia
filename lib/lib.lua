@@ -102,6 +102,24 @@ rubia_lib.array_to_hashset = function(array)
   return hashset
 end
 
+---Remove all entries of an array where that condition maps to true.
+---@param array any[]
+---@param condition function Entry of array goes in. If true, we will delete that entry.
+rubia_lib.array_remove_if = function(array, condition)
+  local to_delete = {}
+  for index, entry in pairs(array or {}) do
+      if condition(entry) then
+          table.insert(to_delete, index)
+      end
+  end
+  if #to_delete > 0 then
+      for i = #to_delete, 1, -1 do
+          table.remove(array, to_delete[i])
+      end
+  end
+end
+
+
 --[[Array goes in, out comes a dictionary where [array_entry.key_index] is the key, The other
 --parts of the sub table become part of an array of the given value.
 --Example {{key=a,val=1},{key=a,val=3},{key=b,val=1}},"key" => [a] = {{val=1},{val=3}}, [b]={{val=1}}

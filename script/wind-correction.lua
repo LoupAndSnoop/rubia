@@ -116,6 +116,7 @@ local remove_logi_section_types = rubia_lib.array_to_hashset({"car", })
 --assert(prototype_blacklist and table_size(prototype_blacklist) > 5, "Another mod chose to delete Rubia's internal blacklist data, and caused a crash.")
 local rubia_surface_blacklist = require("__rubia__.prototypes.data-script.rubia-surface-blacklist")
 local prototype_blacklist = rubia_surface_blacklist.copy_blacklist_array()
+log("Runtime: these entities were auto-blocked on Rubia: " .. serpent.block(prototype_blacklist))
 for _, name in pairs(prototype_blacklist) do
     wind_entity_dic[name] =  {wind_type = "block"}
 end
