@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.145
-Date: ????
+Date: 2026-06-06
   Changes:
     - Fixed a longstanding bug that banned teleporter entities where only their recipes were supposed to be banned.
     - Land pump mod pumps are now banned on Rubia. There is no lava inside Rubia, so it breaks immersion.
