@@ -1,9 +1,8 @@
---For smiting
-
+--For smiting naughty naughty modders
 local WAIT_TO_SMITE = 40 * 3600
 local CHECK_FREQUENCY = 10 * 3600
 
-rubia.timing_manager.register("clear-rubia", function() 
+rubia.timing_manager.register("clear-rubia", function()
     if storage.rubia_surface then
         storage.rubia_surface.clear(true)
     end
