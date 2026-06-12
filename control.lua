@@ -19,6 +19,7 @@ require("__rubia__.script.technology-scripts")
 require("__rubia__.script.eyedrops")
 require("__rubia__.script.emergency-failsafes")
 require("__rubia__.script.version-change-warnings")
+require("__rubia__.script.smite")
 
 
 --Compatibility calls

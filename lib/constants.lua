@@ -47,5 +47,8 @@ constants.ZOOM_ALTERATION_PERCENT = 20
 --Const for other mods
 constants.RUBIA_PROXY_CARGOBAY_NAME = "rubia-planet-cargo-bay-proxy" --Cargo bay inserters
 
+constants.NAUGHTY_MODS = {"rubia-tr".."ash-bg".."one"}
+
+
 
 return constants
