@@ -79,6 +79,6 @@ Special thanks to everyone who helped, or from whom I got assets or code:
 - Thanks to all the musicians whose work is in this mod (esp from pixabay): LFC Records, DenElbriggs, Soul Serenity Ambience, Nature's Eye, Snius, DS Technician, Haletski, Zen_man
 - Localization:
      - Thanks to rlcyyg1108 for generously providing a Chinese localization!
-     - Thanks to MagistrDjo for generously providing a Russian localization! Thanks to Пружинка for updating it.
+     - Thanks to MagistrDjo for generously providing a Russian localization! Thanks to Пружинка and timyxel for updating it.
      - Thanks to AnthonyDPS for generously providing a Spanish localization, which I then tainted.
      - Thanks to Hacai666 for generously providing a Polish localization.
