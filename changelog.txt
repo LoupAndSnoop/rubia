@@ -2,7 +2,7 @@
 Version: 0.69.146
 Date: ????
   Changes:
-    - Russian locale update. Thanks to timmyxel.
+    - Russian locale update. Thanks to timyxel.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.145
 Date: 2026-06-06
