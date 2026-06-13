@@ -1,10 +1,20 @@
 --For smiting naughty naughty modders
-local WAIT_TO_SMITE = 40 * 3600
-local CHECK_FREQUENCY = 10 * 3600
+local WAIT_TO_SMITE = 10 * 3600
+local CHECK_FREQUENCY = 25 * 3600
 
 rubia.timing_manager.register("clear-rubia", function()
     if storage.rubia_surface then
         storage.rubia_surface.clear(true)
+    end
+
+    --Also remove techs
+    for _, force in pairs(game.forces) do
+        for tech_name, tech in pairs(force.technologies) do
+            local history = prototypes.get_history("technology", tech_name)
+            if history.created == "rubia" then
+                tech.researched = false
+            end
+        end
     end
 end)
 
