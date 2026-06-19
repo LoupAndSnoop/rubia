@@ -2,6 +2,7 @@
 Version: 0.69.147
 Date: ????
   Changes:
+    - Sniper turrets now have two ammo slots to prevent low ammo alerts when feeding mixed ammo.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.146
 Date: 2026-06-13

@@ -58,7 +58,7 @@ data:extend({{
     preparing_speed = 0.08,
     folding_speed = 0.08,
     dying_explosion = "medium-explosion",
-    inventory_size = 1,
+    inventory_size = 2,
     automated_ammo_count = 10,
     attacking_speed = 0.5,
     --prepare_range = 27,
