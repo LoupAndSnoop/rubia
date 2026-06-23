@@ -61,7 +61,7 @@ local function generate_crapapult_recipe_icons_from_item(item)
       {
         icon = item.icon,
         icon_size = item.icon_size,
-        scale = (0.5 * defines.default_icon_size / (item.icon_size or defines.default_icon_size)) * subicon_scale,
+        scale = (0.5 * defines.constant.default_icon_size / (item.icon_size or defines.constant.default_icon_size)) * subicon_scale,
         shift = {x=base_icon_size * subicon_scale/4, y =-base_icon_size * subicon_scale/4},
       },
       {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"},--"__quality__/graphics/icons/recycling-top.png"},
@@ -70,7 +70,7 @@ local function generate_crapapult_recipe_icons_from_item(item)
     icons = {{icon = "__rubia-assets__/graphics/icons/yeet-base.png",}}--"__quality__/graphics/icons/recycling.png"}}
     for i = 1, #item.icons do
       local icon = table.deepcopy(item.icons[i]) -- we are gonna change the scale, so must copy the table
-      icon.scale = ((icon.scale == nil) and (0.5 * defines.default_icon_size / (icon.icon_size or defines.default_icon_size)) or icon.scale) * subicon_scale
+      icon.scale = ((icon.scale == nil) and (0.5 * defines.constant.default_icon_size / (icon.icon_size or defines.constant.default_icon_size)) or icon.scale) * subicon_scale
       icon.shift = util.mul_shift(icon.shift, subicon_scale) or {0,0}
       icon.shift = {(icon.shift[1] or 0) + base_icon_size * subicon_scale/4,
                     (icon.shift[2] or 0) - base_icon_size * subicon_scale/4}
@@ -105,7 +105,7 @@ local function yeet_recipe(item, category, craft_category)
       localised_name = {"rubia-crapapult.yeet-recipe", local_item_name},
       localised_description = {"rubia-crapapult.yeet-recipe-description", local_item_name},
 
-      category = craft_category,
+      categories = {craft_category},
       enabled = true,
       hidden_in_factoriopedia = true,
       hide_from_player_crafting = true,
@@ -195,7 +195,7 @@ local function special_yeet_recipe(item_name, icon, icon_size)
     --icon = icon,    
     icons = icons,
     icon_size = icon_size,
-    category = "crapapult",
+    categories = {"crapapult"},
     enabled = true,
     surface_conditions = rubia.surface_conditions(), --True research-based recipes cannot be done outside Rubia.
 

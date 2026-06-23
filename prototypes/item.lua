@@ -13,7 +13,7 @@ data:extend(
 {
   --#region Science
     {
-      type = "tool",
+      type = "item",
       name = "biorecycling-science-pack",
       --localised_description = {"item-description.science-pack"},
       icon = "__rubia-assets__/graphics/icons/science/sphere_spiked_clear_brown.png",
@@ -76,7 +76,7 @@ data:extend(
 },
 
 {
-  type = "tool",
+  type = "item",
   name = "rubia-biofusion-science-pack",
   --localised_description = {"item-description.science-pack"},
   icon = "__rubia-assets__/graphics/icons/science/biofusion-science-pack.png",

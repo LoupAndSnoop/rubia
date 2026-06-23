@@ -189,10 +189,11 @@ data:extend({
     collision_mask= {layers={trashsteroid=true}, not_colliding_with_itself = true},--{layers={}},
     damaged_trigger_effect = hit_effects.entity(),
     effectivity = 0,--0.6,
-    braking_power = "200kW",
+    --braking_power = "200kW",
+    braking_force = (200 * 1000) / 60,
     energy_source = {type = "void"},
     consumption = "150kW",
-    friction = 4.3e-3,--1e-4,--Old one
+    friction_force = 4.3e-3,--1e-4,--Old one
     has_belt_immunity = true,
     render_layer = "air-object",
     created_smoke = {

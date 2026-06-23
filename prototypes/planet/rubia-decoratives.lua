@@ -433,20 +433,20 @@ data:extend
         --Important drops
         {type = "item", name = "construction-robot", amount_min = 1, amount_max = 4},
         {type = "item", name = "steel-plate", amount_min = 3, amount_max = 7},
-        {type = "item", name = "advanced-circuit", probability = 0.3, amount_min = 8, amount_max = 15},
-        rubia_lib.tech_cost_scale({type = "item", name = "gun-turret", probability=0.5, amount_min = 5, amount_max = 7}),
-        rubia_lib.tech_cost_scale({type = "item", name = "electric-furnace", probability=0.4, amount_min = 1, amount_max = 3}),
+        {type = "item", name = "advanced-circuit", independent_probability = 0.3, amount_min = 8, amount_max = 15},
+        rubia_lib.tech_cost_scale({type = "item", name = "gun-turret", independent_probability=0.5, amount_min = 5, amount_max = 7}),
+        rubia_lib.tech_cost_scale({type = "item", name = "electric-furnace", independent_probability=0.4, amount_min = 1, amount_max = 3}),
         --Fun/helpful drops
-        {type = "item", name = "fast-inserter", probability = 0.1, amount_min = 20, amount_max = 40},
-        rubia_lib.tech_cost_scale({type = "item", name = "fast-transport-belt", probability = 0.25, amount_min = 45, amount_max = 75}, true),
-        {type = "item", name = "underground-belt", probability = 0.12, amount_min = 20, amount_max = 30},
-        {type = "item", name = "express-splitter", probability = 0.2, amount_min = 8, amount_max = 12},
-        {type = "item", name = "pipe-to-ground", probability = 0.1, amount_min = 16, amount_max = 32},
-        {type = "item", name = "assembling-machine-2", probability = 0.1, amount_min = 7, amount_max = 14},
-        {type = "item", name = "electric-mining-drill", probability = 0.07, amount_min = 10, amount_max = 20},
-        rubia_lib.tech_cost_scale({type = "item", name = "efficiency-module", probability = 0.1, amount_min = 15, amount_max = 30}, true),
-        rubia_lib.tech_cost_scale({type = "item", name = "speed-module-2", probability = 0.1, amount_min = 15, amount_max = 25}, true),
-        {type = "item", name = "spoilage", probability = 0.03, amount_min = 1, amount_max = 1}
+        {type = "item", name = "fast-inserter", independent_probability = 0.1, amount_min = 20, amount_max = 40},
+        rubia_lib.tech_cost_scale({type = "item", name = "fast-transport-belt", independent_probability = 0.25, amount_min = 45, amount_max = 75}, true),
+        {type = "item", name = "underground-belt", independent_probability = 0.12, amount_min = 20, amount_max = 30},
+        {type = "item", name = "express-splitter", independent_probability = 0.2, amount_min = 8, amount_max = 12},
+        {type = "item", name = "pipe-to-ground", independent_probability = 0.1, amount_min = 16, amount_max = 32},
+        {type = "item", name = "assembling-machine-2", independent_probability = 0.1, amount_min = 7, amount_max = 14},
+        {type = "item", name = "electric-mining-drill", independent_probability = 0.07, amount_min = 10, amount_max = 20},
+        rubia_lib.tech_cost_scale({type = "item", name = "efficiency-module", independent_probability = 0.1, amount_min = 15, amount_max = 30}, true),
+        rubia_lib.tech_cost_scale({type = "item", name = "speed-module-2", independent_probability = 0.1, amount_min = 15, amount_max = 25}, true),
+        {type = "item", name = "spoilage", independent_probability = 0.03, amount_min = 1, amount_max = 1}
       },
     },
     
@@ -527,10 +527,10 @@ data:extend
       results =
       {
         {type = "item", name = "iron-stick", amount_min = 4, amount_max = 8},
-        {type = "item", name = "iron-plate", probability=0.7, amount_min = 5, amount_max = 10},
-        {type = "item", name = "steel-plate", probability=0.5, amount_min = 4, amount_max = 8},
-        {type = "item", name = "copper-cable", probability=0.5, amount_min = 8, amount_max = 12},
-        {type = "item", name = "electronic-circuit", probability=0.5, amount_min = 4, amount_max = 8}
+        {type = "item", name = "iron-plate", independent_probability=0.7, amount_min = 5, amount_max = 10},
+        {type = "item", name = "steel-plate", independent_probability=0.5, amount_min = 4, amount_max = 8},
+        {type = "item", name = "copper-cable", independent_probability=0.5, amount_min = 8, amount_max = 12},
+        {type = "item", name = "electronic-circuit", independent_probability=0.5, amount_min = 4, amount_max = 8}
       },
     },
     
@@ -639,11 +639,11 @@ data:extend
       results =
       {
         {type = "item", name = "iron-gear-wheel", amount_min = 2, amount_max = 4},
-        {type = "item", name = "iron-gear-wheel", probability=0.2, amount_min = 35, amount_max = 50},
-        {type = "item", name = "iron-plate", probability=0.4, amount_min = 30, amount_max = 50},
-        {type = "item", name = "firearm-magazine", probability=0.5, amount_min = 20, amount_max = 40},
-        {type = "item", name = "copper-cable", probability=0.7, amount_min = 20, amount_max = 40},
-        {type = "item", name = "steel-plate", probability=0.15, amount_min = 30, amount_max = 40},
+        {type = "item", name = "iron-gear-wheel", independent_probability=0.2, amount_min = 35, amount_max = 50},
+        {type = "item", name = "iron-plate", independent_probability=0.4, amount_min = 30, amount_max = 50},
+        {type = "item", name = "firearm-magazine", independent_probability=0.5, amount_min = 20, amount_max = 40},
+        {type = "item", name = "copper-cable", independent_probability=0.7, amount_min = 20, amount_max = 40},
+        {type = "item", name = "steel-plate", independent_probability=0.15, amount_min = 30, amount_max = 40},
         --{type = "item", name = "pipe", probability=0.1, amount_min = 30, amount_max = 40},
         --{type = "item", name = "stone-brick", probability=0.3, amount_min = 20, amount_max = 40},
       }

@@ -110,7 +110,7 @@ data:extend({
             {type = "unlock-recipe", recipe = "biorecycle-bacteria-A-ferric-scrap"},
         },
         prerequisites = { "planet-discovery-rubia"},
-        research_trigger = {type = "mine-entity", entity="rubia-spidertron-remnants"},  --"rubia-junk-pile"
+        research_trigger = {type = "mine-entity", entities={"rubia-spidertron-remnants"}},  --"rubia-junk-pile"
     },
         {
         type = "technology",

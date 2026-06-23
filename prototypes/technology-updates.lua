@@ -6,7 +6,7 @@
 --Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
 local function remove_science_pack_from_tech(science_pack_name, technology_name)
     local tech = data.raw["technology"][technology_name]
-    assert(data.raw.tool[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
+    assert(data.raw.item[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
     --assert(tech, "Technology not found: " .. technology_name)
     if (not tech) then return end --Tech not found
 
@@ -20,7 +20,7 @@ end
 --Remove that science pack from the cost of the given technology (if the tech exists, and if it is there.
 local function try_add_science_pack_to_tech(science_pack_name, technology_name)
     local tech = data.raw["technology"][technology_name]
-    assert(data.raw.tool[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
+    assert(data.raw.item[science_pack_name],"No valid science pack found with the name: " .. science_pack_name)
     --assert(tech and tech.unit, "Technology not found: " .. technology_name)
     if (not tech or not tech.unit) then return end --Tech not found
 

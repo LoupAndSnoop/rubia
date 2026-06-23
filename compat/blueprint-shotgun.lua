@@ -8,7 +8,7 @@ data:extend({
     name = "rubia-item-canister",
     localised_name = {"",{"item-name.item-canister"}," (",{"space-location-name.rubia"},")"},
     localised_description = {"recipe-description.item-canister"},
-    category = "advanced-crafting",
+    categories = {"advanced-crafting"},
     results = {{type = "item", name = "item-canister", amount = 1}},
     ingredients = {
         {type = "item", name = "iron-plate", amount = 1},
@@ -31,7 +31,7 @@ data:extend{{
         {type = "unlock-recipe", recipe = "blueprint-shotgun",},
         {type = "unlock-recipe", recipe = "rubia-item-canister",
     },},
-    research_trigger = {type = "mine-entity", entity="rubia-junk-pile"},
+    research_trigger = {type = "mine-entity", entities={"rubia-junk-pile"}},
     prerequisites = {"rubia-progression-stage1"},
 }} --[[@as data.TechnologyPrototype[] ]]
 

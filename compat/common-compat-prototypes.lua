@@ -10,13 +10,13 @@ common_compat_prototypes["electronic-circuit-recipe"] = {
         type = "recipe",
         name = "rubia-compat-electronic-circuit",
         localised_name = {"", {"item-name.electronic-circuit"}, " (", {"space-location-name.rubia"}, ")"},
-        category = "electronics",
+        categories = {"electronics"},
         icons = {
             {icon = "__base__/graphics/icons/electronic-circuit.png",},
             {
                 icon = "__rubia-assets__/graphics/planet/rubia-icon.png",
                 icon_size = 64,
-                scale = (0.5 * defines.default_icon_size / (64 or defines.default_icon_size)) * subicon_scale,
+                scale = (0.5 * defines.constant.default_icon_size / (64 or defines.constant.default_icon_size)) * subicon_scale,
                 shift = {x=base_icon_size * subicon_scale/4, y =-base_icon_size * subicon_scale/4},
             },
         },
@@ -39,7 +39,7 @@ common_compat_prototypes["steel-plate-recipe"] = {
     icons = rubia_lib.compat.make_rubia_superscripted_icon({
             icon = "__base__/graphics/icons/steel-plate.png",
         }),
-    category = "smelting",
+    categories = {"smelting"},
     enabled = false,
     surface_conditions = rubia.surface_conditions(),
     energy_required = 16,
@@ -58,7 +58,7 @@ common_compat_prototypes["rocket-silo-recipe"] = {
         icon = "__base__/graphics/icons/rocket-silo.png",
     }),
     enabled = false,
-    category = "crafting",
+    categories = {"crafting"},
     surface_conditions = rubia.surface_conditions(),
     ingredients =
     {

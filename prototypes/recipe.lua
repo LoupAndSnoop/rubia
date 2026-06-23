@@ -64,7 +64,7 @@ data:extend({
   {
     type ="recipe",
     name ="makeshift-biorecycling-science-pack",
-    category ="biorecycling",
+    categories = {"biorecycling"},
     enabled = false,
 
     ingredients = 
@@ -87,7 +87,7 @@ data:extend({
   {
     type ="recipe",
     name ="ghetto-biorecycling-science-pack",
-    category ="biorecycling",
+    categories = {"biorecycling"},
     enabled = false,
     ingredients = 
     {
@@ -108,7 +108,7 @@ data:extend({
   {
     type ="recipe",
     name ="biorecycling-science-pack",
-    category ="biorecycling",
+    categories = {"biorecycling"},
     enabled = false,
     ingredients = 
     {
@@ -131,7 +131,7 @@ data:extend({
   {
     type ="recipe",
     name ="rubia-biofusion-science-pack",
-    category ="organic",
+    categories = {"organic"},
     enabled = false,
     ingredients = 
     {
@@ -143,11 +143,10 @@ data:extend({
     energy_required = 15,
     results =
     {
-      {type ="item", name ="rubia-biofusion-science-pack", amount = 1},
+      {type ="item", name ="rubia-biofusion-science-pack", amount = 1, always_fresh=true},
     },
     allow_productivity = true,
     main_product ="rubia-biofusion-science-pack",
-    result_is_always_fresh = true,
     crafting_machine_tint = crafting_machine_tint_brown,
   },
 
@@ -162,7 +161,7 @@ data:extend({
     },
     enabled = false,
     allow_productivity = true,
-    category = "organic",
+    categories = {"organic"},
     ingredients =
     {
       {type = "item", name = "promethium-asteroid-chunk", amount = 10}, --25
@@ -184,7 +183,7 @@ data:extend({
   {
     type = "recipe",
     name = "yeet-makeshift-biorecycling-science-pack",
-    category = "crapapult",
+    categories = {"crapapult",
     enabled = true,
     hidden_in_factoriopedia = true,
     hide_from_player_crafting = true,
@@ -205,7 +204,7 @@ data:extend({
     name = "yeet-ghetto-biorecycling-science-pack",
     icon = "__rubia-assets__/graphics/icons/science/yeet_sphere_tubed_clear_brown.png",
     icon_size = 64,
-    category = "crapapult",
+    categories = {"crapapult",
     enabled = true,
     hidden_in_factoriopedia = true,
     hide_from_player_crafting = true,
@@ -224,7 +223,7 @@ data:extend({
     name = "yeet-biorecycling-science-pack",
     icon = "__rubia-assets__/graphics/icons/science/yeet_sphere_spiked_clear_brown.png",
     icon_size = 64,
-    category = "crapapult",
+    categories = {"crapapult",
     enabled = true,
     hidden_in_factoriopedia = true,
     hide_from_player_crafting = true,
@@ -243,7 +242,7 @@ data:extend({
     name = "yeet-spoilage",
     icon = "__rubia-assets__/graphics/icons/science/yeet-spoilage.png",
     icon_size = 64,
-    category = "crapapult",
+    categories = {"crapapult",
     enabled = true,
     hidden_in_factoriopedia = true,
     hide_from_player_crafting = true,
@@ -262,7 +261,7 @@ data:extend({
     name = "yeet-gun-turret",
     icon = "__rubia-assets__/graphics/icons/science/yeet-gun-turret.png",
     icon_size = 64,
-    category = "crapapult",
+    categories = {"crapapult",
     enabled = true,
     hidden_in_factoriopedia = true,
     hide_from_player_crafting = true,
@@ -284,8 +283,7 @@ data:extend({
   {
     type ="recipe",
     name ="rubia-bacteria-A",
-    category = "chemical-plant-only",
-    additional_categories = {"cryogenics"},
+    categories = {"chemical-plant-only", "cryogenics"},
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-a",
     enabled = false,
     ingredients = {
@@ -304,7 +302,7 @@ data:extend({
     type ="recipe",
     name ="biorecycle-bacteria-A-ferric-scrap",
     icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-yellow-ammo+copper-cable.png",--bacteria-A+firearm-magazine.png",--"scrap-blue+bacteria-A.png",
-    category ="biorecycling",
+    categories = {"biorecycling"},
     enabled = false,
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-b",
 
@@ -325,7 +323,7 @@ data:extend({
     type ="recipe",
     name ="biorecycle-bacteria-A-firearm-magazine",
     icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-iron-plate+bacteriaA.png",--"bacteria-A+firearm-magazine.png",
-    category ="biorecycling",
+    categories = {"biorecycling"},
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-c",
     enabled = false,
     ingredients = {
@@ -347,8 +345,7 @@ data:extend({
 {
   type ="recipe",
   name ="rubia-bacteria-B",
-  category = "chemical-plant-only",
-  additional_categories = {"cryogenics"},
+  categories = {"chemical-plant-only", "cryogenics"},
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-a",
   enabled = false,
   ingredients = {
@@ -368,7 +365,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-B-cupric-scrap",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-red-ammo+rail.png",--"scrap-red+bacteria-B.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-b",
   enabled = false,
   ingredients = {
@@ -390,7 +387,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-A-cupric-scrap",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-processing-unit+engine.png",--"scrap-red+bacteria-A.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
   ingredients = {
@@ -411,7 +408,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-A-engine",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-engine+gear.png",--"bacteria-A+engine.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-c",
   enabled = false,
   ingredients = {
@@ -431,7 +428,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-B-processing-unit",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-advanced-circuit+light-oil.png",--"bacteria-B+blue-circ.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-d",
   enabled = false,
   ingredients = {
@@ -454,7 +451,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-AB-ferric-scrap",
   icon = "__rubia-assets__/graphics/icons/recipes/scrap-blue+bacteria-both.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-c",
   enabled = false,
   ingredients = {
@@ -476,7 +473,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-B-rail",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-steel+concrete.png",--"bacteria-B+rail.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-d",
   enabled = false,
   ingredients = {
@@ -498,8 +495,7 @@ data:extend({
 {
   type ="recipe",
   name ="assisted-frothing",
-  category = "biorecycling",
-  additional_categories = {"organic"},
+  categories = {"biorecycling","organic"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-k",
   enabled = false,
   ingredients = {
@@ -518,8 +514,7 @@ data:extend({
 {
   type ="recipe",
   name ="craptonite-casting",
-  category = "organic",
-  additional_categories = {"crafting-with-fluid"},
+  categories = {"organic", "crafting-with-fluid"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-l",
   enabled = false,
   ingredients = {
@@ -541,7 +536,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-AB-elec-engine",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-elec-engine+copper.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "e[rubia stage3]-e",
   enabled = false,
   ingredients = {
@@ -568,7 +563,7 @@ data:extend({
   enabled = false,
   hide_from_player_crafting = true,
   auto_recycle = false,
-  category = "rocket-building",
+  categories = {"rocket-building"},
   ingredients =
   {
     {type = "item", name = "advanced-circuit", amount = 1},
@@ -588,7 +583,7 @@ data:extend({
   icon_size = 64,
   subgroup = "agriculture-processes",
   order = "c[nutrients]-a[nutrients-from-spoilage]-b",
-  category = "organic",
+  categories = {"organic"},
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
   energy_required = 1,
@@ -611,7 +606,7 @@ data:extend({
     icon_size = 64,
     --subgroup = "production-machine",
     --order = "c[assembling-machine-3]-ag[rubia]-a",
-    category = "crafting",
+    categories = {"crafting"},
     enabled = false,
     surface_conditions = rubia.surface_conditions(),
     energy_required = 6,
@@ -633,7 +628,7 @@ data:extend({
   --subgroup = "production-machine",
   --order = "c[assembling-machine-3]-ag[rubia]-c",
   localised_description = {"item-description.garbo-grabber"},
-  category = "crafting",
+  categories = {"crafting"},
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
@@ -655,7 +650,7 @@ data:extend({
   icon_size = 64,
   --subgroup = "production-machine",
   --order = "c[assembling-machine-3]-ag[rubia]-b",
-  category = "crafting",
+  categories = {"crafting"},
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
   energy_required = 7,
@@ -675,7 +670,7 @@ data:extend({
   icon = "__rubia-assets__/graphics/icons/sniper-turret-icon.png",
   icon_size = 64,
   subgroup = "defensive-structure",
-  --order = "b[turret]-a[gun-turret]-b",
+  categories = {"crafting"},
   enabled = false,
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
@@ -704,7 +699,7 @@ data:extend({
   },
 
   main_product = "rubia-wind-turbine",
-  category ="crafting",
+  categories = {"crafting"},
   allow_productivity = false,
   allow_quality = true,
   enabled = false,
@@ -726,7 +721,7 @@ data:extend({
   },
 
   main_product = "rubia-armored-locomotive",
-  category ="advanced-crafting",
+  categories = {"advanced-crafting"},
   allow_productivity = false,
   allow_quality = true,
   enabled = false,
@@ -735,7 +730,7 @@ data:extend({
 {
   type = "recipe",
   name = "rubia-armored-cargo-wagon",
-  category ="advanced-crafting",
+  categories = {"advanced-crafting"},
   energy_required = 10,
   ingredients = {
       {type = "item", name = "craptonite-frame", amount = 10},
@@ -755,7 +750,7 @@ data:extend({
 {
   type = "recipe",
   name = "rubia-armored-fluid-wagon",
-  category ="advanced-crafting",
+  categories = {"advanced-crafting"},
   energy_required = 10,
   ingredients = {
       {type = "item", name = "craptonite-frame", amount = 10},
@@ -775,7 +770,7 @@ data:extend({
 {
 	type = "recipe",
 	name = "rubia-rci-rocketizer",
-  category = "crafting",
+  categories = {"crafting"},
   localised_description = {"entity-description.rci-rocketizer"},
 	enabled = false,
   energy_required = 2,
@@ -796,7 +791,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-scrapapalooza",
   icon = "__rubia-assets__/graphics/icons/scrapapalooza.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "d[rubia stage2]-e",
   enabled = false,
   ingredients = {
@@ -808,15 +803,15 @@ data:extend({
   surface_conditions = rubia.surface_conditions(),
   energy_required = 10,
   results = {
-    {type = "item", name = "gun-turret", probability=0.5, amount = 2},
-    {type = "item", name = "electric-furnace", probability=0.1, amount = 1},
-    {type = "item", name = "fast-inserter", probability = 0.1, amount = 1},
-    {type = "item", name = "fast-transport-belt", probability = 0.15, amount = 8},
-    {type = "item", name = "underground-belt", probability = 0.1, amount = 2},
-    {type = "item", name = "express-splitter", probability = 0.1, amount = 1},
-    {type = "item", name = "pipe-to-ground", probability = 0.1, amount = 2},
-    {type = "item", name = "assembling-machine-2", probability = 0.1, amount = 1},
-    {type = "item", name = "chemical-plant", probability = 0.2, amount = 1},
+    {type = "item", name = "gun-turret", independent_probability=0.5, amount = 2},
+    {type = "item", name = "electric-furnace", independent_probability=0.1, amount = 1},
+    {type = "item", name = "fast-inserter", independent_probability = 0.1, amount = 1},
+    {type = "item", name = "fast-transport-belt", independent_probability = 0.15, amount = 8},
+    {type = "item", name = "underground-belt", independent_probability = 0.1, amount = 2},
+    {type = "item", name = "express-splitter", independent_probability = 0.1, amount = 1},
+    {type = "item", name = "pipe-to-ground", independent_probability = 0.1, amount = 2},
+    {type = "item", name = "assembling-machine-2", independent_probability = 0.1, amount = 1},
+    {type = "item", name = "chemical-plant", independent_probability = 0.2, amount = 1},
   },
   allow_productivity = false,
   --allow_quality = false,
@@ -827,7 +822,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-bacteria-B-ferric-scrap",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-battery+lube.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "f[rubia stage4]-e",
   enabled = false,
   ingredients = {
@@ -850,7 +845,7 @@ data:extend({
   type ="recipe",
   name ="biorecycle-XXXXX",
   icon = "__rubia-assets__/graphics/icons/recipes/biorecycling-iron-plate-to-green-circuit.png",
-  category ="biorecycling",
+  categories = {"biorecycling"},
   subgroup = "rubia-biorecycling", order = "f[rubia stage4]-e",--XXXXXX
   enabled = false,
   ingredients = {
@@ -874,7 +869,7 @@ data:extend({
   {
     type = "recipe",
     name = "rubia-long-bulk-inserter",
-    category ="advanced-crafting",
+    categories = {"advanced-crafting"},
     enabled = false,
     --surface_conditions = rubia.surface_conditions(),
     energy_required = 5,
@@ -892,7 +887,7 @@ data:extend({
   {
     type = "recipe",
     name = "rubia-long-stack-inserter",
-    category ="advanced-crafting",
+    categories = {"advanced-crafting"},
     enabled = false,
     --surface_conditions = rubia.surface_conditions(),
     energy_required = 5,
@@ -910,7 +905,7 @@ data:extend({
   {
     type = "recipe",
     name = "craptonite-wall",
-    category ="advanced-crafting",
+    categories = {"advanced-crafting"},
     order = "a[wall]-a[wall]-b[crap]",
     enabled = false,
     --surface_conditions = rubia.surface_conditions(),
@@ -932,7 +927,7 @@ data:extend({
     name = "rubia-refined-concrete",
     energy_required = 15 * 2,
     enabled = false,
-    category = "biorecycling",
+    categories = {"biorecycling",
     subgroup = "rubia-biorecycling", order = "f[rubia-stage4]-f",
     icons = rubia_lib.compat.make_rubia_superscripted_icon(
       {icon= "__base__/graphics/icons/refined-concrete.png"}),
@@ -952,7 +947,7 @@ data:extend({
     type = "recipe",
     name = "rubia-efficiency-module4",
     enabled = false,
-    category ="electronics",
+    categories = {"electronics"},
     ingredients =
     {
       {type = "item", name = "efficiency-module-3", amount = 4},
@@ -972,8 +967,7 @@ data:extend({
     localised_description = {"technology-description.rubia-holmium-craptalysis"},
 
     enabled = false,
-    category ="chemical-plant-only",
-    additional_categories = {"organic"},
+    categories = {"chemical-plant-only", "organic"},
     ingredients =
     {
       {type = "item", name = "holmium-ore", amount = 2},
@@ -984,7 +978,7 @@ data:extend({
     energy_required = 10,
     results = {{type="fluid", name="holmium-solution", amount=250},
               {type = "item", name = "craptonite-frame", amount = 3,
-                probability = 0.95, ignored_by_productivity=4}},
+                independent_probability = 0.95, ignored_by_productivity=4}},
     allow_productivity = true,
     auto_recycle=false,
   },
@@ -995,7 +989,7 @@ data:extend({
     name = "rubia-bio-flying-robot-frame",
     icons = rubia_lib.compat.make_rubia_superscripted_icon(
       {icon ="__base__/graphics/icons/flying-robot-frame.png", icon_size = 64}),
-    category = "biorecycling",
+    categories = {"biorecycling"},
     subgroup = "intermediate-product", order = "c[advanced-intermediates]-c[flying-robot-frame]-b",
     surface_conditions = rubia.surface_conditions(),
     energy_required = 15,
@@ -1021,7 +1015,7 @@ data:extend({
     subgroup = "science-pack", order = "f[utility-science-pack]-b",
     --localised_name = {"item-name.utility-science-pack"},
     localised_description = {"item-description.utility-science-pack"},
-    category = "organic",
+    categories = {"organic"},
     enabled = false,
     energy_required = 21,
     ingredients =
@@ -1043,11 +1037,3 @@ data:extend({
 
 --#endregion
 })
-
---[[Add categories to vanilla recipes
-local robo_frame = data.raw.recipe["flying-robot-frame"]
-if robo_frame then
-    if robo_frame.additional_categories then table.insert(robo_frame.additional_categories, "biorecycling")
-    else robo_frame.additional_categories = {"biorecycling"} end
-end
-robo_frame.category = "biorecycling"]]

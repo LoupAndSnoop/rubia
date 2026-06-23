@@ -339,7 +339,7 @@ function rubia_lib.compat.make_rubia_superscripted_icon(icondata_source)
     local rubia_subicon = {
         icon = "__rubia-assets__/graphics/planet/rubia-icon.png",
         icon_size = 64,
-        scale = (0.5 * defines.default_icon_size / (64 or defines.default_icon_size)) * subicon_scale,
+        scale = (0.5 * defines.constant.default_icon_size / (64 or defines.constant.default_icon_size)) * subicon_scale,
         shift = {x=base_icon_size * subicon_scale/4, y =-base_icon_size * subicon_scale/4},
     }
 

@@ -19,7 +19,7 @@ if settings.startup["alloy-smelting-coke"].value then
         {
         type ="recipe",
         name ="rubia-compat-alloy-smelting-coke",
-        category = "biorecycling",
+        categories = {"biorecycling"},
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-a[alloy-smelt]",
         enabled = false,
         ingredients = {
