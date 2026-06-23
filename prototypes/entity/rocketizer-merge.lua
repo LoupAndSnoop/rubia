@@ -1,5 +1,7 @@
 --This file focuses on merging the rocketizer's needs between this mod and RocketCargoInsertion.
 
+if not mods["RocketCargoInsertion"] then return end
+
 local rubia_rocketizer_recipe = data.raw.recipe["rubia-rci-rocketizer"]
 local original_rocketizer_recipe = data.raw.recipe["rci-rocketizer"]
 local rocketizer_description = rubia_rocketizer_recipe.localised_description

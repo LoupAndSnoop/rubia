@@ -2,6 +2,7 @@
 Version: 0.69.149
 Date: ????
   Changes:
+    - Rubia can now load without RocketCargoInsertion.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.148
 Date: 2026-06-23

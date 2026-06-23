@@ -214,7 +214,7 @@ data:extend({
                 effect_description = {"modifier-description.rubia-project-trashdragon"}
             },
             {type = "unlock-recipe", recipe = "rocket-part-rubia"},
-            {type = "unlock-recipe", recipe = "rubia-rci-rocketizer"},
+            mods["RocketCargoInsertion"] and {type = "unlock-recipe", recipe = "rubia-rci-rocketizer"},
         },
         prerequisites = {"craptonite-processing"},
         research_trigger = {type = "craft-item", item="yeet-biorecycling-science-pack", count=1000},

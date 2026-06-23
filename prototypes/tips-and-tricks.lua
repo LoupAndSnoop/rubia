@@ -171,57 +171,62 @@ data:extend {{
         ]]
     },
 },
+}
 
-{
-    type = "tips-and-tricks-item",
-    name = "rubia-rocketizer-tips",
-    category = "space-age",
-    tag = "[entity=rci-rocketizer]",
-    indent = 1,
-    order = "g-a-g",
-    trigger = {
-      type = "research",
-      technology = "rubia-project-trashdragon",
-    },
-    localised_description = {"entity-description.rci-rocketizer"},
-    simulation =
-    {
-        init_update_count = 100,
-        mods = {"RocketCargoInsertion"},
-        init =
-        [[
-            game.simulation.camera_position = {0, 0.5}
-
-            for _, force in pairs(game.forces) do
-                force.inserter_stack_size_bonus = 7
-                force.bulk_inserter_capacity_bonus = 7
-            end
-
-            --game.surfaces[1].create_entity{ name = "rci-rocketizer", position = {1,1}, raise_built = true, }
-            --Need to make a demo sprite on top of an infinity chest, because the scripts won't work in a sim.
-            rendering.draw_sprite{
-                sprite="rubia-rocketizer-demo-sprite",
-                target={1.5,1.4},
-                surface=game.surfaces[1],
-                render_layer = "cargo-hatch",
-                x_scale = 1, y_scale = 1,
-            } 
-
-            game.surfaces[1].create_entities_from_blueprint_string
+if mods["RocketCargoInsertion"] then
+    data:extend({
+        {
+            type = "tips-and-tricks-item",
+            name = "rubia-rocketizer-tips",
+            category = "space-age",
+            tag = "[entity=rci-rocketizer]",
+            indent = 1,
+            order = "g-a-g",
+            trigger = {
+            type = "research",
+            technology = "rubia-project-trashdragon",
+            },
+            localised_description = {"entity-description.rci-rocketizer"},
+            simulation =
             {
-            string = "0eNrNWdty2yAQ/ReepYxuSODnfkFfOx2PLK9TJjJSAaV1M/73IiuxHAc8yJvONG9BcM6eXZZd8AvZtAP0SkhDVi9ENJ3UZPXthWjxKOt2HJP1HsiKqEbEqmuewIg/oMgxIkJu4TdZpcfvEQFphBEwrT39c1jLYb+xM1dp9IYh5E5I+ylufoA2JCJ9p+2yTo48Fiqm1QONyMGuyar0gZ5IpiVrDcYI+ajHqQr23TOsB/utNaBguxYG9vbTrm41RGQanox5pW67X/EWpB7ZtVFDYwYF1oKmG0bpNInIvtuOM2sTt1CfzJsVHo/RB13ZWdfOTo/brt7aYYeo8r2krVDQTBOKiJhDP0J0g+kHQxw0+Xsao2qp+06ZeAOt04fFtQ8vCR0ExZnA+mTTBTDkNxiYg4EulZDdIEgzB0MZGov0Bm5AMKrwvVzwf7WXpzSMdwO08w7O7tjBbGlcLgKfhwSeIwIfRJAmV5tX960wxh37/A06C4Kezy09bLSpT1MdcWZnWJeP0/mYgNbyKdHEIEE9HmJ76ILa1Q24UMsZNSKbYbcDtdb26B01n/9cfDkiqEWQYwoEAw1iwBwYYRpKBEOYhgrhpTKIAZO+VRADJn+DNGQJgiFIQzan8WZon2zSaVCeA+KicvKQyplliAiwIOtzhH/CGAoEAw9ioAgvhTGU4TFOb2A7W4tsTuTXwqtF27mg54LPpgpjgUV/sbCv1ah3Gl7/HGpbq+x8Iju1t822i5yFK5vjwvIwZfz+wJwoXN1qsqDbT68tXtYh2TYenDakgRErys+PWJ7dc94wGnLe5IjazgpPwBD5f7LahYnIeC/mXTn+0a/OTMgRxZpVHoMZwrE+TERBZqUbs0gQ2n2YKQKTezARxZYxDyaivHoxMQnl045oiHniwUS0wDz1YCLyyGsnos312skXVKm5SPD8U+/xvS0yoLVFiAeLN9/l7Q1v+WWeJqFvIFdyFr5H0RSxbzJ3PCgit72YiNzmnu6GIq6+Xkwa9s5wfrrizncGWt71zkDfXi94seydgVb3pVDxP6cQW5xCxV0phCjj3NPHlYgy7lAxPuqP3h/brfMvBBFpa4tmx76efwn4YoNmPzzbwJxW0tLCcU6rJKPVuFX/Ap1g86w=",
-            position = {0, 1}
-            }
-        ]]
-    },
-},
-{
-    type = "sprite",
-    name = "rubia-rocketizer-demo-sprite",
-    layers = util.table.deepcopy(data.raw["proxy-container"]["rci-rocketizer"].picture.layers),
-},
+                init_update_count = 100,
+                mods = {"RocketCargoInsertion"},
+                init =
+                [[
+                    game.simulation.camera_position = {0, 0.5}
 
+                    for _, force in pairs(game.forces) do
+                        force.inserter_stack_size_bonus = 7
+                        force.bulk_inserter_capacity_bonus = 7
+                    end
 
+                    --game.surfaces[1].create_entity{ name = "rci-rocketizer", position = {1,1}, raise_built = true, }
+                    --Need to make a demo sprite on top of an infinity chest, because the scripts won't work in a sim.
+                    rendering.draw_sprite{
+                        sprite="rubia-rocketizer-demo-sprite",
+                        target={1.5,1.4},
+                        surface=game.surfaces[1],
+                        render_layer = "cargo-hatch",
+                        x_scale = 1, y_scale = 1,
+                    } 
+
+                    game.surfaces[1].create_entities_from_blueprint_string
+                    {
+                    string = "0eNrNWdty2yAQ/ReepYxuSODnfkFfOx2PLK9TJjJSAaV1M/73IiuxHAc8yJvONG9BcM6eXZZd8AvZtAP0SkhDVi9ENJ3UZPXthWjxKOt2HJP1HsiKqEbEqmuewIg/oMgxIkJu4TdZpcfvEQFphBEwrT39c1jLYb+xM1dp9IYh5E5I+ylufoA2JCJ9p+2yTo48Fiqm1QONyMGuyar0gZ5IpiVrDcYI+ajHqQr23TOsB/utNaBguxYG9vbTrm41RGQanox5pW67X/EWpB7ZtVFDYwYF1oKmG0bpNInIvtuOM2sTt1CfzJsVHo/RB13ZWdfOTo/brt7aYYeo8r2krVDQTBOKiJhDP0J0g+kHQxw0+Xsao2qp+06ZeAOt04fFtQ8vCR0ExZnA+mTTBTDkNxiYg4EulZDdIEgzB0MZGov0Bm5AMKrwvVzwf7WXpzSMdwO08w7O7tjBbGlcLgKfhwSeIwIfRJAmV5tX960wxh37/A06C4Kezy09bLSpT1MdcWZnWJeP0/mYgNbyKdHEIEE9HmJ76ILa1Q24UMsZNSKbYbcDtdb26B01n/9cfDkiqEWQYwoEAw1iwBwYYRpKBEOYhgrhpTKIAZO+VRADJn+DNGQJgiFIQzan8WZon2zSaVCeA+KicvKQyplliAiwIOtzhH/CGAoEAw9ioAgvhTGU4TFOb2A7W4tsTuTXwqtF27mg54LPpgpjgUV/sbCv1ah3Gl7/HGpbq+x8Iju1t822i5yFK5vjwvIwZfz+wJwoXN1qsqDbT68tXtYh2TYenDakgRErys+PWJ7dc94wGnLe5IjazgpPwBD5f7LahYnIeC/mXTn+0a/OTMgRxZpVHoMZwrE+TERBZqUbs0gQ2n2YKQKTezARxZYxDyaivHoxMQnl045oiHniwUS0wDz1YCLyyGsnos312skXVKm5SPD8U+/xvS0yoLVFiAeLN9/l7Q1v+WWeJqFvIFdyFr5H0RSxbzJ3PCgit72YiNzmnu6GIq6+Xkwa9s5wfrrizncGWt71zkDfXi94seydgVb3pVDxP6cQW5xCxV0phCjj3NPHlYgy7lAxPuqP3h/brfMvBBFpa4tmx76efwn4YoNmPzzbwJxW0tLCcU6rJKPVuFX/Ap1g86w=",
+                    position = {0, 1}
+                    }
+                ]]
+            },
+        },
+        {
+            type = "sprite",
+            name = "rubia-rocketizer-demo-sprite",
+            layers = util.table.deepcopy(data.raw["proxy-container"]["rci-rocketizer"].picture.layers),
+        },
+        })
+end
+
+data:extend{
 {
     type = "tips-and-tricks-item",
     name = "rubia-garbo-grabber-tips",
@@ -383,5 +388,6 @@ data:extend {{
 },
 
 }
+
 
 --string = "0eNqd0kEOgyAQBdC7zBqNRVHhKk3TqCUNiQ4GsK0x3L1oF12UbljOZP6bzd+gHxc5G4UOxAZq0GhBnDew6o7duO+wmyQIGEw3O43KyezZjSN4Agpv8gXi5C8EJDrllPyEj2G94jL10oQD8g8hMGsbchr3T8HKipwRWEHQMmfekx+Lplg0bpUpFotbVYpVxS2WYjVxq06x6rjVpFg8brUpVrtboWzhdgrJb3UJPKSxR4TVlFecs6agrOHU+zc36PGk",

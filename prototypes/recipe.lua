@@ -767,21 +767,8 @@ data:extend({
   enabled = false,
   surface_conditions = rubia.surface_conditions()
 },
-{
-	type = "recipe",
-	name = "rubia-rci-rocketizer",
-  categories = {"crafting"},
-  localised_description = {"entity-description.rci-rocketizer"},
-	enabled = false,
-  energy_required = 2,
-	ingredients = {
-    {type = "item", name = "steel-chest", amount = 1},
-    {type = "item", name = "advanced-circuit", amount = 1},
-    {type = "item", name = "craptonite-frame", amount = 1},
-  },
-	results = {{type="item", name="rci-rocketizer", amount=1}},
-  auto_recycle = false,
-},
+
+
 
 
 --#endregion
@@ -1037,3 +1024,24 @@ data:extend({
 
 --#endregion
 })
+
+
+if mods["RocketCargoInsertion"] then
+  data:extend{
+    {
+      type = "recipe",
+      name = "rubia-rci-rocketizer",
+      categories = {"crafting"},
+      localised_description = {"entity-description.rci-rocketizer"},
+      enabled = false,
+      energy_required = 2,
+      ingredients = {
+        {type = "item", name = "steel-chest", amount = 1},
+        {type = "item", name = "advanced-circuit", amount = 1},
+        {type = "item", name = "craptonite-frame", amount = 1},
+      },
+      results = {{type="item", name="rci-rocketizer", amount=1}},
+      auto_recycle = false,
+    },
+      }
+end
