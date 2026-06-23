@@ -4,7 +4,7 @@ local common_compat_prototypes = require("__rubia__.compat.common-compat-prototy
 if mods["bztin"] then
     local minable = data.raw["simple-entity"]["rubia-junk-pile"].minable.results
     table.insert(minable, rubia_lib.tech_cost_scale(
-        {type = "item", name = "tin-plate", probability = 0.4, amount_min = 5, amount_max = 20}))
+        {type = "item", name = "tin-plate", independent_probability = 0.4, amount_min = 5, amount_max = 20}))
 end
 
 --Bz Lead makes pipes unobtainable
@@ -14,7 +14,7 @@ if mods["bzlead"] then
         type = "recipe",
         name = "rubia-compat-pipe",
         localised_name = {"entity-name.pipe"},
-        category = "crafting",
+        categories = {"crafting"},
         --subgroup = "rubia-compat-recipes", order = "g[rubia compat]-bz[bz mods]-a",
         surface_conditions = rubia.surface_conditions(),
         ingredients = {{type = "item", name = "iron-plate", amount = 1}},
@@ -64,7 +64,7 @@ if mods["bztin"] then --or mods["bzlead"] then
     --These mods make chem plants uncraftable
     local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
     table.insert(minable, rubia_lib.tech_cost_scale({type = "item", name = "chemical-plant", 
-        probability = 0.4, amount_min = 3, amount_max = 6}))
+        independent_probability = 0.4, amount_min = 3, amount_max = 6}))
 
     --Bztin makes rocket silos uncraftable
     local silo_recipe = common_compat_prototypes["rocket-silo-recipe"]

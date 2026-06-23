@@ -2,7 +2,8 @@
 Version: 0.69.148
 Date: ????
   Changes:
-    - Factorio 2.1 compatibility.
+    - Factorio 2.1 compatibility. This is EXPERIMENTAL. It looks good from a first pass, but I expect bugs to appear especially with mod compatibility and interoperability. This mod should become playable as soon as PlanetsLib is updated to 2.1.
+    - Set the dependency of rocket cargo insertion to "recommended optional" while the lovely S6X updates it for 2.1. 
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.147
 Date: 2026-06-19

@@ -266,7 +266,7 @@ local function generate_trashsteroid(trashsteroid_name, chunk)
   --Set it up
   resulting_entity.speed = trashsteroid_speed * (1 + storage.rubia_asteroid_rng(-trashsteroid_speed_var,trashsteroid_speed_var)/100)
   resulting_entity.orientation = storage.rubia_asteroid_rng(20,30) / 100
-  resulting_entity.active = storage.trash_megabase_enabled
+  resulting_entity.disabled_by_script = not storage.trash_megabase_enabled
 
   --Log its status
   --Next tick where this chunk is going to expect a trashsteroid.

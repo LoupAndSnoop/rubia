@@ -9,7 +9,7 @@ ei-copper-mechanical-parts
 --Need ei-copper-mechanical-parts early, for electric poles and misc
 local junk = data.raw["simple-entity"]["rubia-junk-pile"].minable.results
 table.insert(junk, {type = "item", name = "ei-copper-mechanical-parts", 
-    probability = 0.4, amount_min = 5, amount_max = 20})
+    independent_probability = 0.4, amount_min = 5, amount_max = 20})
 
 --Add an early recipe to make the parts.
 data:extend({
@@ -19,7 +19,7 @@ data:extend({
     icons = rubia_lib.compat.make_rubia_superscripted_icon(
         {icon ="__exotic-space-industries-graphics-1__/graphics/items/copper-mechanical-parts.png",
         icon_size = 64}),
-    category ="biorecycling",
+    categories = {"biorecycling"},
     enabled = false,
     subgroup = "rubia-biorecycling", order = "c[rubia stage1]-b-b",
 

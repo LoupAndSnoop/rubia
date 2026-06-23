@@ -18,7 +18,7 @@ if settings.startup["crushing-industry-glass"].value then
         localised_name = {"", {"item-name.sand"}, " (", {"space-location-name.rubia"},")"},
         localised_description = {"recipe-description.sand"},
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-ci[crushing-industry]-b",
-        category = "basic-crushing",
+        categories = {"basic-crushing"},
         enabled = false,
         surface_conditions = rubia.surface_conditions(),
         energy_required = 1.25,
@@ -34,7 +34,7 @@ if settings.startup["crushing-industry-glass"].value then
 
     --We need electric crushers to be automated.
     local scrapapalooza = data.raw["recipe"]["biorecycle-scrapapalooza"].results
-    table.insert(scrapapalooza, {type = "item", name = "electric-crusher", amount = 1, probability = 0.05})
+    table.insert(scrapapalooza, {type = "item", name = "electric-crusher", amount = 1, independent_probability = 0.05})
 end
 
 
@@ -49,7 +49,7 @@ if settings.startup["crushing-industry-concrete-mix"].value then
         localised_name = {"", {"recipe-name.reconstituted-concrete-mix"}, " (", {"space-location-name.rubia"},")"},
         localised_description = {"recipe-description.reconstituted-concrete-mix"},
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-ci[crushing-industry]-a",
-        category = "biorecycling",
+        categories = {"biorecycling"},
         enabled = false,
         surface_conditions = rubia.surface_conditions(),
         energy_required = 5,

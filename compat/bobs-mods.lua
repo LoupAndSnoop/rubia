@@ -4,7 +4,7 @@ local common_compat_prototypes = require("__rubia__.compat.common-compat-prototy
 if mods["bobplates"] then
     local spidertron = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
     table.insert(spidertron, rubia_lib.tech_cost_scale({type = "item", name = "bob-air-pump", 
-        probability = 0.3, amount_min = 1, amount_max = 3}))
+        independent_probability = 0.3, amount_min = 1, amount_max = 3}))
 
     --We don't need furnaces, but electric chemical furnaces
     local _, entry = rubia_lib.compat.find_item_in_list(spidertron, "electric-furnace")
@@ -21,7 +21,7 @@ if mods["bobplates"] then
             name = "rubia-compat-bob-compressed-gas",
             icons = rubia_lib.compat.make_rubia_superscripted_icon(
                 {icon ="__bobplates__/graphics/icons/liquid-air.png", icon_size = 32}),
-            category = "chemical-plant-only",--"bob-air-pump",
+            categories = {"chemical-plant-only"},--"bob-air-pump",
             subgroup = "fluid-recipes", order = "r[rubia]-a",
             surface_conditions = rubia.surface_conditions(),
             energy_required = 2,
@@ -47,7 +47,7 @@ if mods["bobplates"] then
             name = "rubia-compat-bob-sludge-fermentation",
             icons = rubia_lib.compat.make_rubia_superscripted_icon(
                 {icon ="__rubia-assets__/graphics/icons/bacterial-sludge.png", icon_size = 64}),
-            category = "chemical-plant-only",--"bob-air-pump",
+            categories = {"chemical-plant-only"},--"bob-air-pump",
             subgroup = "fluid-recipes", order = "r[rubia]-b",
             surface_conditions = rubia.surface_conditions(),
             energy_required = 2,
@@ -80,7 +80,7 @@ end
 if mods["bobassembly"] and mods["bobplates"] then
     local spidertron = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
     table.insert(spidertron, rubia_lib.tech_cost_scale({type = "item", name = "chemical-plant", 
-        probability = 0.4, amount_min = 3, amount_max = 6}))
+        independent_probability = 0.4, amount_min = 3, amount_max = 6}))
 end
 
 --Silos are super uncraftable in bob's revamp

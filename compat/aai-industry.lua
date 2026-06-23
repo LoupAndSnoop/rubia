@@ -12,7 +12,7 @@ rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1", green_circ
 local minable = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
 table.insert(minable, 
     rubia_lib.tech_cost_scale(
-        {type = "item", name = "chemical-plant", probability = 0.4, amount_min = 1, amount_max = 3}))
+        {type = "item", name = "chemical-plant", independent_probability = 0.4, amount_min = 1, amount_max = 3}))
 
 
 --Make repair packs not need stone

@@ -9,7 +9,7 @@ data:extend({
         type = "recipe",
         name = "kr-rubia-repair-pack",
         localised_name = {"item-name.repair-pack"},
-        category = "biorecycling",
+        categories = {"biorecycling"},
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-b",
         icons = rubia_lib.compat.make_rubia_superscripted_icon({
             icon = "__base__/graphics/icons/repair-pack.png",
@@ -29,7 +29,7 @@ data:extend({
         type = "recipe",
         name = "kr-rubia-automation-core",
         localised_name = {"item-name.kr-automation-core"},
-        category = "biorecycling",
+        categories = {"biorecycling"},
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-c",
         icons = rubia_lib.compat.make_rubia_superscripted_icon({
             icon = "__Krastorio2Assets__/icons/items/automation-core.png",
@@ -50,7 +50,7 @@ data:extend({
         type = "recipe",
         name = "kr-rubia-oxygen",
         localised_name = {"fluid-name.kr-oxygen"},
-        category = "biorecycling",
+        categories = {"biorecycling"},
         subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-d",
         icons = rubia_lib.compat.make_rubia_superscripted_icon({
             icon = "__Krastorio2Assets__/icons/fluids/oxygen.png",
@@ -82,7 +82,7 @@ end
 --BZ Tin adds solder to fuel refineries.
 if mods["bztin"] then 
     local scrapapalooza = data.raw["recipe"]["biorecycle-scrapapalooza"].results
-    table.insert(scrapapalooza, {type = "item", name = "kr-fuel-refinery", amount = 1, probability = 0.05})
+    table.insert(scrapapalooza, {type = "item", name = "kr-fuel-refinery", amount = 1, independent_probability = 0.05})
     rubia_lib.compat.try_add_prerequisite("craptonite-processing","rubia-scrapapalooza")
 end
 
@@ -94,7 +94,7 @@ data:extend({
     name ="rubia-compat-k2so-coke",
     localised_name = {"recipe-name.rubia-compat-alloy-smelting-coke"},
     localised_description = {"recipe-description.rubia-compat-alloy-smelting-coke"},
-    category = "biorecycling",
+    categories = {"biorecycling"},
     subgroup = "rubia-compat-recipes", order = "g[rubia compat]-b[k2so]-a",
     icons = rubia_lib.compat.make_rubia_superscripted_icon({
         icon = "__Krastorio2Assets__/icons/items/coke.png",

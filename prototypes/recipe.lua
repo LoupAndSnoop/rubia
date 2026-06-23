@@ -947,7 +947,7 @@ data:extend({
     type = "recipe",
     name = "rubia-efficiency-module4",
     enabled = false,
-    categories = {"electronics"},
+    categories = {"crafting", "electromagnetics"},
     ingredients =
     {
       {type = "item", name = "efficiency-module-3", amount = 4},

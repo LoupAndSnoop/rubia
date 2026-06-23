@@ -10,7 +10,7 @@ return
       width = 960,
       height = 960,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
   {
@@ -21,7 +21,7 @@ return
       width = 960,
       height = 960,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
 
@@ -33,7 +33,7 @@ return
       width = 2000,
       height = 1500,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
   {
@@ -44,7 +44,7 @@ return
       width = 2000,
       height = 1500,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
 
@@ -56,7 +56,7 @@ return
       width = 1600,
       height = 1200,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
   {
@@ -67,7 +67,7 @@ return
       width = 1600,
       height = 1200,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
 
@@ -80,7 +80,7 @@ return
       width = 1400,
       height = 1050,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
   {
@@ -91,7 +91,7 @@ return
       width = 1400,
       height = 1050,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
 
@@ -103,7 +103,7 @@ return
       width = 1200,
       height = 900,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
   {
@@ -114,7 +114,7 @@ return
       width = 1200,
       height = 900,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
 
@@ -127,7 +127,7 @@ return
       width = 1024,
       height = 1024,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
   {
@@ -138,7 +138,7 @@ return
       width = 16,
       height = 16,
       priority = "no-atlas",
-      flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
+      flags = {"procession-cover"},--flags = { "group=effect-texture", "linear-minification", "linear-magnification" },
     }
   },
 

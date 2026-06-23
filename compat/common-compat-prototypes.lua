@@ -10,7 +10,7 @@ common_compat_prototypes["electronic-circuit-recipe"] = {
         type = "recipe",
         name = "rubia-compat-electronic-circuit",
         localised_name = {"", {"item-name.electronic-circuit"}, " (", {"space-location-name.rubia"}, ")"},
-        categories = {"electronics"},
+        categories = {"crafting", "electromagnetics"},
         icons = {
             {icon = "__base__/graphics/icons/electronic-circuit.png",},
             {
