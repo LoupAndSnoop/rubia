@@ -44,7 +44,7 @@ tech_lib.has_rubia_tech_cost = function(technology_prototype)
 
     --Mining a rubia-specific entity
     if technology_prototype.research_trigger and technology_prototype.research_trigger.type == "mine-entity" then
-        local entity = technology_prototype.research_trigger.entity
+        local entity = technology_prototype.research_trigger.entities[1]
         entity = entity.name or entity
         if rubia_minables[entity] then return true end
     end
