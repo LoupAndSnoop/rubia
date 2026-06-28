@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.152
-Date: ????
+Date: 2026-06-28
   Changes:
     - RocketCargoInsertion is back to a mandatory dependency. I also fixed some crashes that could occur without it, for the scenario where 2.1 adds a feature that makes it unnecessary.
 ---------------------------------------------------------------------------------------------------
