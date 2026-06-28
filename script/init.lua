@@ -52,6 +52,8 @@ rubia.timing_manager.register("rubia-rocketizer-warning", function(player)
 end)
 
 local function rocketizer_warning()
+    if not script.active_mods["RocketCargoInsertion"] then return end
+
     local player = game.forces["player"]
 
     --Check for the relevant entity on all surfaces:
