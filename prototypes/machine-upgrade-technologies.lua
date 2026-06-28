@@ -37,7 +37,7 @@ if mods["secretas"] and table_size(recyclers) > 0 then
     table.insert(upgrade_data, {
         handler = "rubia-secretas-recycler-speed-bonus",
         technology_name = "rubia-craptonite-codpiece",
-        modifier_icon = {icon="__quality__/graphics/icons/recycler.png"},
+        modifier_icon = {icon="__recycler__/graphics/icons/recycler.png"},
         entity_names = recyclers,
         module_effects = {speed = 0.2},
         effect_name = {"entity-name.recycler"},

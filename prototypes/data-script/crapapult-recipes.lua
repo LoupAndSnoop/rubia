@@ -57,17 +57,17 @@ local function generate_crapapult_recipe_icons_from_item(item)
   local icons = {}
   if item.icons == nil then
     icons = {
-      {icon = "__rubia-assets__/graphics/icons/yeet-base.png"},--"__quality__/graphics/icons/recycling.png"},
+      {icon = "__rubia-assets__/graphics/icons/yeet-base.png"},--"__recycler__/graphics/icons/recycling.png"},
       {
         icon = item.icon,
         icon_size = item.icon_size,
         scale = (0.5 * defines.constant.default_icon_size / (item.icon_size or defines.constant.default_icon_size)) * subicon_scale,
         shift = {x=base_icon_size * subicon_scale/4, y =-base_icon_size * subicon_scale/4},
       },
-      {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"},--"__quality__/graphics/icons/recycling-top.png"},
+      {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"},--"__recycler__/graphics/icons/recycling-top.png"},
     }
   else
-    icons = {{icon = "__rubia-assets__/graphics/icons/yeet-base.png",}}--"__quality__/graphics/icons/recycling.png"}}
+    icons = {{icon = "__rubia-assets__/graphics/icons/yeet-base.png",}}--"__recycler__/graphics/icons/recycling.png"}}
     for i = 1, #item.icons do
       local icon = table.deepcopy(item.icons[i]) -- we are gonna change the scale, so must copy the table
       icon.scale = ((icon.scale == nil) and (0.5 * defines.constant.default_icon_size / (icon.icon_size or defines.constant.default_icon_size)) or icon.scale) * subicon_scale
@@ -77,7 +77,7 @@ local function generate_crapapult_recipe_icons_from_item(item)
       --icon = scale_icon(icon)
       icons[#icons + 1] = icon
     end
-    icons[#icons + 1] = {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"}--"__quality__/graphics/icons/recycling-top.png"
+    icons[#icons + 1] = {icon = "__rubia-assets__/graphics/icons/yeet-base-foreground.png"}--"__recycler__/graphics/icons/recycling-top.png"
   end
   return icons
 end

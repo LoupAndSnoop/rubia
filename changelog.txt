@@ -2,6 +2,7 @@
 Version: 0.69.151
 Date: ????
   Changes:
+    - Fixed crashes from missing recycler icon sprites.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.150
 Date: 2026-06-24

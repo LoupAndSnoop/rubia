@@ -98,7 +98,7 @@ data:extend({
         forced_symmetry = "diagonal-pos",--"horizontal",
         perceived_performance = {minimum = 0.25, maximum = 10},
 
-        graphics_set          = require("__rubia-assets__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set,--"__quality__.prototypes.entity.recycler-pictures").graphics_set,
+        graphics_set          = require("__rubia-assets__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set,
         graphics_set_flipped  = require("__rubia-assets__/graphics/entity/biorecycling-plant/biorecycler-pictures").graphics_set_flipped,
 
         --require("__space-age__.prototypes.entity.electromagnetic-plant-pictures").graphics_set,
