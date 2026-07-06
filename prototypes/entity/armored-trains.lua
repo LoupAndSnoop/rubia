@@ -141,10 +141,10 @@ simulations.factoriopedia_fluid_wagon =
     game.surfaces[1].create_entities_from_blueprint_string
     {
       string = "0eNqV1c2OgjAQAOB3mTOatlAQXmWzIVUrThYKaUHXGN59i6zrQXS6R6DzQen8XGFbD7qzaHooroC71jgoPq7gsDKqnu4Z1WgowCqsYYwAzV5/Q8HHzwi06bFHPUfcLi6lGZqttn5BdI/ssNMQQdc6v7g1kzkBci0juEAh4rUcx+gJEBSQEUBMASkBJBSQE4CkgA0BpAQgGAFkD2BounensBi++Qt3vU+A6tivbnnw5OQzkvkE2aPVu/lRskDmoSTnwSZnwWgcjj4y2A5bVCtlm9bq/epQD7hfnVXlI5d+KIu5kI/XaKO2tS7rtkLX486V5yP666Y9oamgOKja6Qhai/79apbY2h/HwheJ4G3K8G3GwWgWjibBaHjmcBmKin+kTkpViLhXSL5UIZyssOx9/IYo8XuPidlyhfOcajKMEASjBE4JZLOPKYHs9oISyHafUEISOrJeCjJ05LwU0tCpNwt+CLu+3X2VfnCbOc9/5/d0dzq6aQn2uvHiY9RHcNLW3VSZijzJc5lKxiVLxvEHQLWYGg==",
-      position = {5, 0}
+      position = {0, 0}
     }
   ]]
-}
+}--position = {5, 0}
 --#endregion
 
 

@@ -3,6 +3,7 @@ Version: 0.69.153
 Date: ????
   Changes:
     - Quality now affects armored trains and wagons in Factorio 2.1.
+    - Fixed armored wagon simulation in factoriopedia.
     - Rubia now gives an alert recommending a particular planet difficulty (if you research the planet discovery with a different difficulty set than recommended).
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.152
