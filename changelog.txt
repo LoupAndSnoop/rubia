@@ -2,6 +2,7 @@
 Version: 0.69.154
 Date: ????
   Changes:
+    - Fixed some recipes being unintentionally recyclable, messing with Fulgora.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.153
 Date: 2026-07-06

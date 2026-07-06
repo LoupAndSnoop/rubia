@@ -81,6 +81,7 @@ data:extend({
       {type ="item", name ="makeshift-biorecycling-science-pack", amount = 2}
     },
     allow_productivity = true,
+    auto_recycle = false,
     main_product ="makeshift-biorecycling-science-pack",
     crafting_machine_tint = crafting_machine_tint_brown,
   },
@@ -102,6 +103,7 @@ data:extend({
       {type ="item", name ="ghetto-biorecycling-science-pack", amount = 4}
     },
     allow_productivity = true,
+    auto_recycle = false,
     main_product ="ghetto-biorecycling-science-pack",
     crafting_machine_tint = crafting_machine_tint_brown,
   },
@@ -146,6 +148,7 @@ data:extend({
       {type ="item", name ="rubia-biofusion-science-pack", amount = 1, always_fresh=true},
     },
     allow_productivity = true,
+    auto_recycle = false,
     main_product ="rubia-biofusion-science-pack",
     crafting_machine_tint = crafting_machine_tint_brown,
   },
@@ -317,6 +320,7 @@ data:extend({
       {type ="item", name ="copper-cable", amount = 3},
     },
     allow_productivity = true,
+    auto_recycle = false,
     crafting_machine_tint = crafting_machine_tint_red,
   },
   {
@@ -336,6 +340,7 @@ data:extend({
       {type ="item", name ="iron-plate", amount = 2},
     },
     allow_productivity = true,
+    auto_recycle = false,
     crafting_machine_tint = crafting_machine_tint_red,
   },
 
@@ -357,6 +362,7 @@ data:extend({
     {type ="item", name ="rubia-bacteria-B", amount = 3},
   },
   allow_productivity = true,
+  auto_recycle = false,
   main_product ="rubia-bacteria-B",
   crafting_machine_tint = crafting_machine_tint_blue,
 },
@@ -380,6 +386,7 @@ data:extend({
     {type ="item", name ="piercing-rounds-magazine", amount = 2},
   },
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_blue,
 },
 
@@ -401,6 +408,7 @@ data:extend({
     {type ="item", name ="processing-unit", amount = 5},
   },
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_red,
 },
 
@@ -422,6 +430,7 @@ data:extend({
     {type ="item", name ="iron-gear-wheel", amount = 1},
   },
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_red,
 },
 {
@@ -442,6 +451,7 @@ data:extend({
     {type ="fluid", name ="light-oil", amount = 25},
   },
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_blue,
 },
 
@@ -487,6 +497,7 @@ data:extend({
     {type ="item", name ="steel-plate", amount = 1},
   },
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_purple,
 },
 
@@ -529,6 +540,7 @@ data:extend({
   },
   main_product = "craptonite-frame",
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_brown,
 },
 
@@ -553,6 +565,7 @@ data:extend({
     {type ="item", name ="copper-plate", amount = 4},
   },
   allow_productivity = true,
+  auto_recycle = false,
   crafting_machine_tint = crafting_machine_tint_purple,
 },
 {
@@ -592,6 +605,7 @@ data:extend({
   },
   results = {{type = "item", name = "nutrients", amount = 1, percent_spoiled=0.5}},
   allow_productivity = true,
+  auto_recycle = false,
 },
 
 
