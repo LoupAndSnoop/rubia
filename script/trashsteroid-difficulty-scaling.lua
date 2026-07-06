@@ -10,6 +10,7 @@ local difficulty_scaling = {}
 --Phys6, shooting6 (needs yellow sci) = 19.6
 --Phys18, shooting6 (postgame) = 44.1
 local DIFFICULTY_EXPONENT = 0.69 + 0.02 --Bigger exponent = techs give less benefit
+local DIFFICULTY_REC_COOLDOWN = 10 * 60
 
 --Difficulty settings
 --Notes:
@@ -18,19 +19,20 @@ local DIFFICULTY_EXPONENT = 0.69 + 0.02 --Bigger exponent = techs give less bene
 ---Tune trashsteroid HP based on my original testing, which was done with no gun tech.
 ---General formula is: health_multiplier = (DPS ratio of a given tech level) ^ (1 - difficulty exponent) 
 ---makes difficulty at that tech level match.
+---recommended_min_DPS_mult = minimum multiplier to your DPS based on tech level to recommend that difficulty. nil = don't recommend
 local difficulty_settings = {
-    ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 5,
+    ["easy"] = {impact_base_damage = 30, impact_crit_damage = 300, impact_crit_chance = 5, recommended_min_DPS_mult = nil,
         trashsteroid_impact_radius = 3.5, character_damage = 150, health_multiplier = 0.5, order = 1},
-    ["normal"] = {impact_base_damage = 75, impact_crit_damage = 300, impact_crit_chance = 10,
+    ["normal"] = {impact_base_damage = 75, impact_crit_damage = 300, impact_crit_chance = 10, recommended_min_DPS_mult = 0,
         trashsteroid_impact_radius = 4, character_damage = 300, health_multiplier = 1, order = 2},
-    ["hard"] = {impact_base_damage = 150, impact_crit_damage = 400, impact_crit_chance = 10,
+    ["hard"] = {impact_base_damage = 150, impact_crit_damage = 400, impact_crit_chance = 10, recommended_min_DPS_mult =6.5,
         trashsteroid_impact_radius = 4, character_damage = 600, health_multiplier = 6.8^(1-DIFFICULTY_EXPONENT), order = 3},
-    ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10,
+    ["very-hard"] = {impact_base_damage = 300, impact_crit_damage = 500, impact_crit_chance = 10, recommended_min_DPS_mult = 19,
         trashsteroid_impact_radius = 4.5, character_damage = 2000, health_multiplier = 1.25 * 19.6^(1-DIFFICULTY_EXPONENT), order = 4},
-    ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20,
+    ["very-very-hard"] = {impact_base_damage = 500, impact_crit_damage = 2000, impact_crit_chance = 20, recommended_min_DPS_mult = nil,--250,
         trashsteroid_impact_radius = 5, character_damage = 5000, health_multiplier = 1.75 * 44^(1-DIFFICULTY_EXPONENT), order = 5},
 
-    ["disabled"] = {impact_base_damage = 0, impact_crit_damage = 0, impact_crit_chance = 0,
+    ["disabled"] = {impact_base_damage = 0, impact_crit_damage = 0, impact_crit_chance = 0, recommended_min_DPS_mult = nil,
         trashsteroid_impact_radius = 4, character_damage = 0, health_multiplier = 1, order = 0},
 }
 difficulty_scaling.settings = function() 
@@ -49,7 +51,6 @@ local function damage_multiplier()
         * (1 + force.get_ammo_damage_modifier("bullet"))
         * (1 + force.get_turret_attack_modifier("gun-turret"))
 end
-
 
 
 local shield_prototypes
@@ -119,6 +120,7 @@ difficulty_scaling.update_difficulty_scaling = function ()
 
 end
 
+
 --Difficulty achievements
 rubia.timing_manager.register("unlock-rubia-easy-mode-achievement", function()
     --Check again to make sure it was not changed back.
@@ -134,7 +136,35 @@ rubia.timing_manager.register("unlock-rubia-difficulty-achievement", function(pl
     end
 end)
 
+--Output a string for the current recommended difficulty level.
+local function get_recommended_difficulty()
+    local current_DPS_mult = damage_multiplier()
+    local recommended_diffulty = "normal"
+    local last_rec_DPS_mult = -1
 
+    for difficulty, entry in pairs(difficulty_settings) do
+        if entry.recommended_min_DPS_mult and entry.recommended_min_DPS_mult > last_rec_DPS_mult
+            and current_DPS_mult >= entry.recommended_min_DPS_mult then
+            recommended_diffulty = difficulty
+            last_rec_DPS_mult = entry.recommended_min_DPS_mult
+        end
+    end
+    return recommended_diffulty
+end
+
+rubia.timing_manager.register("show-recommended-difficulty", function()
+    if (storage.last_difficulty_recommendation_tick or game.tick) 
+        + DIFFICULTY_REC_COOLDOWN < game.tick then return end
+    local rec_difficulty = get_recommended_difficulty()
+
+    --Only give recommendation if it does not match the current
+    if settings.global["rubia-difficulty-setting"].value == rec_difficulty then return end
+    
+    game.print({"alert.pre-rubia-recommended-difficulty",
+        {"string-mod-setting.rubia-difficulty-setting-" .. rec_difficulty}},
+        rubia.WARNING_PRINT_SETTINGS)
+    storage.last_difficulty_recommendation_tick = game.tick
+end)
 
 --[[Fetch the amount we expect to shield, and the relevant shield prototype
 difficulty_scaling.get_current_shield = function()

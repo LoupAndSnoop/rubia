@@ -1,12 +1,23 @@
 --This file focuses on control-stage scripts to do various things in response to technologies.
 local tech_lib = require("__rubia__.lib.technology-lib")
 
-
 local technology_scripts = {}
 
 --Map the name of a tech to the behavior we want to do whenever something is researched.
 --on_startup = run the script if the tech is researched on init/config changed/load
 local technology_dic = {
+    --Give planet difficulty recommendation.
+    ["planet-discovery-rubia"] = {
+        on_startup = true,
+        execute = function(force) 
+            for _, player in pairs(force.players) do --Skip if cheat mode.
+                if player.cheat_mode then return end
+            end
+            if force.technologies["rubia-progression-stage1"].researched then return end --Don't need recommendation if already did things on Rubia
+            rubia.timing_manager.wait_then_do(30 * 60, "show-recommended-difficulty", {})
+        end
+    },
+
 
     --Disable makeshift/ghetto sci if the progression techs for which they are required are done.
     ["rubia-progression-stage2"] = {

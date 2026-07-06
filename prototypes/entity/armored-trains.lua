@@ -199,6 +199,7 @@ data:extend({
     alert_icon_shift = util.by_pixel(0, -24),
     weight = 2000 * weight_mult,
     max_speed = 1.2 * max_speed_mult,
+    quality_affects_max_speed = true,
     max_power = "12MW",--"600kW",
     reversing_power_modifier = 0.6 * weight_mult / 20,--0.6, --*weight/20 to give comparable accel (= power/weight?) vs vanilla.
     braking_force = 10 * braking_force_mult,
@@ -545,6 +546,7 @@ data:extend({
     corpse = "cargo-wagon-remnants",
     dying_explosion = "cargo-wagon-explosion",
     factoriopedia_simulation = simulations.factoriopedia_cargo_wagon,
+    quality_affects_inventory_size = true,
     --Collision hitbox is slightly smaller to prevent cheese.
     --Original: {{-0.6, -2.4}, {0.6, 2.4}},
     --Biggest with no width changes: {{-0.6, -2.3}, {0.6, 2.3}}, --Note 2.305 is too big!
@@ -715,6 +717,7 @@ data:extend({
     surface_conditions = surface_conditions(),
     max_health = 600 * health_mult,
     capacity = 50000 * 4,
+    quality_affects_capacity = true,
     deliver_category = "vehicle",
     corpse = "fluid-wagon-remnants",
     dying_explosion = "fluid-wagon-explosion",
