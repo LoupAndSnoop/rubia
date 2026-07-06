@@ -13,6 +13,8 @@ local technology_dic = {
             for _, player in pairs(force.players) do --Skip if cheat mode.
                 if player.cheat_mode then return end
             end
+            if game.simulation then return end --Don't in a sim
+            if game.tick < 30 * 60 * 60 then return end --Don't if we only could have gotten this via editor.
             if force.technologies["rubia-progression-stage1"].researched then return end --Don't need recommendation if already did things on Rubia
             rubia.timing_manager.wait_then_do(30 * 60, "show-recommended-difficulty", {})
         end
