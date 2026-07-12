@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.155
-Date: ????
+Date: 2026-07-12
   Changes:
     - Fixed breaking compat with Krastorio 2 spaced out by adding automation cores to the junk pile drop table.
 ---------------------------------------------------------------------------------------------------
