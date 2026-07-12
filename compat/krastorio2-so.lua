@@ -76,7 +76,14 @@ data_util.add_recipe_unlock("rubia-progression-stage2", "kr-rubia-oxygen")
 if helpers.compare_versions(mods["Krastorio2-spaced-out"], "1.4.31") == -1 then
     local spider = data.raw["simple-entity"]["rubia-spidertron-remnants"].minable.results
     table.insert(spider, 5, rubia_lib.tech_cost_scale(
-        {type = "item", name = "kr-mineral-water-pumpjack", probability=0.4, amount_min = 1, amount_max = 3}))
+        {type = "item", name = "kr-mineral-water-pumpjack", independent_probability=0.4, amount_min = 1, amount_max = 3}))
+end
+
+--Updated chem plant needs automation cores to craft.
+if mods["Krastorio2"] and helpers.compare_versions(mods["Krastorio2"], "2.0.6") > -1 then
+    local junk = data.raw["simple-entity"]["rubia-junk-pile"].minable.results
+    table.insert(junk, 5, rubia_lib.tech_cost_scale(
+        {type = "item", name = "kr-automation-core", independent_probability=0.4, amount_min = 3, amount_max = 6}))
 end
 
 --BZ Tin adds solder to fuel refineries.
