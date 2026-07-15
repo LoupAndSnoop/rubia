@@ -2,6 +2,7 @@
 Version: 0.69.156
 Date: ????
   Changes:
+    - Fixed robot power consumption on Rubia to match 2.1's new format.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.155
 Date: 2026-07-12

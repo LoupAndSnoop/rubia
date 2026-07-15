@@ -44,6 +44,7 @@ local planet = {
           ["solar-power"] = 25,
           pressure = 80,--50,
           gravity = 2.4, --2,
+          ["robot-energy-usage"] = 3.0,
           --["rubia-wind-speed"] = 300,
           --["rubia-asteroid-density"] = 30,
         },
