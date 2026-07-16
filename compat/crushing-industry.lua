@@ -5,7 +5,7 @@ if not mods["crushing-industry"] then return end
 if settings.startup["crushing-industry-glass"].value then
     local train_pole = data.raw["simple-entity"]["rubia-pole-remnants"].minable.results
     table.insert(train_pole, rubia_lib.tech_cost_scale(
-        {type = "item", name = "glass", probability=0.4, amount_min = 5, amount_max = 10}))
+        {type = "item", name = "glass", independent_probability=0.4, amount_min = 5, amount_max = 10}))
 
     --To automate, allow crushers to make automated sand for glass
     data:extend({

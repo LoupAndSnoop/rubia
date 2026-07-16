@@ -2,6 +2,7 @@
 Version: 0.69.157
 Date: ????
   Changes:
+    - Fixed startup crash with crushing industry, when glass mode is enabled.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.156
 Date: 2026-07-15
