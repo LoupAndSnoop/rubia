@@ -2,6 +2,7 @@
 Version: 0.69.158
 Date: ????
   Changes:
+    - Fixed crash from abient sound set to planet vs planets.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.157
 Date: 2026-07-16
