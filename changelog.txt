@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.159
-Date: ????
+Date: 2026-09-01
   Changes:
     - Quantum logistics compat.
     - Fixed crash for when entity placement gets blocked by wind.
