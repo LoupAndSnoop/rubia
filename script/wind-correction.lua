@@ -263,12 +263,12 @@ rubia.timing_manager.register("try-mine-entity", function(entity, player_index)
         wind_block_notification(entity, player_index, "alert.wind_full_block_notification")
         try_mine(entity, player_index)
     end
-    if entity and entity.valid then entity.active = false end --Just in case
+    if entity and entity.valid then entity.disabled_by_script = true end --Just in case
 end)
 --An entity is being placed on Rubia that should not be placed. Block it.
 local function block_entity_placement(entity, player_index)
     rubia.timing_manager.wait_then_do(1, "try-mine-entity", {entity, player_index})
-    if entity and entity.valid then entity.active = false end --Just in case
+    if entity and entity.valid then entity.disabled_by_script = true end --Just in case
 end
 
 

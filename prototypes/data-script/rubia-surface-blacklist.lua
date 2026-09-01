@@ -52,7 +52,12 @@ local mod_item_blacklist = {
     {mod="Telogistics", type = "container", name = "s6x-logistic-teleporter"},
     --Transport rings require non-rubia parts, and are fully manual, so I will allow.
     {mod="quantum-fabricator", type = "reactor", name = "dedigitizer-reactor"}, --Lets you teleport items in
-    
+    {mod="Quantum-Logistics", type = "radar", name = "ql-radar"},
+    {mod="Quantum-Logistics", type = "electric-energy-interface", name = "ql-controler"},
+    {mod="Quantum-Logistics", type = "inserter", name = "ql-import-connector"},
+    {mod="Quantum-Logistics", type = "inserter", name = "ql-export-connector"},
+    {mod="Quantum-Logistics", type = "container", name = "ql-diskhub"},
+
     --AAI programmable vehicles
     {mod="aai-programmable-vehicles", type = "constant-combinator", name = "position-beacon"},
     {mod="aai-programmable-vehicles", type = "container", name = "vehicle-deployer"},
