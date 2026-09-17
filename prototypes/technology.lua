@@ -864,6 +864,10 @@ if mods["Moshine"] then
         table.insert(moshine_tech.effects,
         {type = "change-recipe-productivity", recipe = "quality-module", change = moshine_module_multiplier})
     end
+    if mods["rigor-module"] then
+        table.insert(moshine_tech.effects,
+        {type = "change-recipe-productivity", recipe = "rigor-module", change = moshine_module_multiplier})
+    end
 
     --Vanila galore continued adds modules
     if mods["vanilla_galore_continued"] then
