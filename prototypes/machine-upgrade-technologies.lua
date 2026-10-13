@@ -9,11 +9,16 @@ local recyclers = mupgrades.find_machines_with_crafting_category("recycling")
 local crushers = mupgrades.find_machines_with_crafting_category("crushing")
 
 
+
+local biochambers = {"biochamber"}
+--if mods["carna"] then
+--    table.insert(biochambers, "feron-biochamber")
+--end
 table.insert(upgrade_data, {
         handler = "rubia-biochamber-productivity-bonus",
         technology_name = "rubia-biochamber-productivity-bonus",
         modifier_icon = {icon="__space-age__/graphics/icons/biochamber.png"},
-        entity_names = {"biochamber"},
+        entity_names = biochambers,
         module_effects = {productivity = 0.05},
         effect_name = {"entity-name.biochamber"},
     })

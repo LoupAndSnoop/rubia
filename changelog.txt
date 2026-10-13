@@ -2,6 +2,7 @@
 Version: 0.69.161
 Date: ????
   Changes:
+    - Carna compat: Carna-only Feron biochamber is now banned from Rubia, for the fringe case of using it in combination with other mods to do biofusion science, a recipe that it inheritted automatically
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.160
 Date: 2026-09-24

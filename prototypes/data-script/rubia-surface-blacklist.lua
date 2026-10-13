@@ -39,6 +39,7 @@ local mod_item_blacklist = {
     {mod="RenaiTransportation", type="constant-combinator", name ="DirectorBouncePlate"},
     {mod="RenaiTransportation", type="electric-energy-interface", name ="RTDivergingChute"},
     {mod="Land-Pump", type="offshore-pump", name="offshore-pump"},
+    {mod="carna", type="assembling-machine", name="feron-biochamber"},
 
     --Power
     {mod="Krastorio2-spaced-out", type = "electric-energy-interface", name = "kr-wind-turbine"},
