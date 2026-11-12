@@ -16,4 +16,4 @@ data:extend({steel_plate})
 rubia_lib.compat.add_recipe_to_technology("rubia-progression-stage1B", steel_plate.name)
 
 --Overhauls with weird furnace recipe-category nonsense.
-if mods["SpaceAgeOverhaul"] then steel_plate.additional_categories = {"advanced-smelting"} end
+if mods["SpaceAgeOverhaul"] then table.insert(steel_plate.categories, "advanced-smelting") end

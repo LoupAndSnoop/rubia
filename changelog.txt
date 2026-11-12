@@ -2,6 +2,7 @@
 Version: 0.69.162
 Date: ????
   Changes:
+    - Fixed incompatibility with Space Age Overhaul.
 ---------------------------------------------------------------------------------------------------
 Version: 0.69.161
 Date: 2026-10-13
