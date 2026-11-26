@@ -460,6 +460,20 @@ if script.active_mods["quick-adjustable-inserters"] then
   end)
 end
 
+--Smart Inserters events. The event id comes from script.generate_event_name,
+--so it is read through the remote interface. The event has no player_index.
+if script.active_mods["Smart_Inserters"] then
+  local function register_smart_inserters()
+    if not remote.interfaces["Smart_Inserters"] then return end
+    local event_id = remote.call("Smart_Inserters", "on_inserter_arm_changed")
+    event_lib.on_event(event_id, "wind-correction-smart-inserters", function(event)
+      rubia_wind.wind_correction(event.entity, nil)
+    end)
+  end
+  event_lib.on_init("wind-correction-smart-inserters", register_smart_inserters)
+  event_lib.on_load("wind-correction-smart-inserters", register_smart_inserters)
+end
+
 --#endregion
 
 
